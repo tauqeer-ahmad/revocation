@@ -15,8 +15,10 @@ module ApplicationHelper
         destroy_teacher_session_path
       when 'Student'
         destroy_student_session_path
-      when 'Parent'
-        destroy_parent_session_path
+      when 'Guardian'
+        destroy_guardian_session_path
+      when 'Supervisor'
+        destroy_supervisor_session_path
       end
     end
 end

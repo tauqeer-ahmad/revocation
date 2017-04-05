@@ -1,5 +1,12 @@
 Revocation::Application.routes.draw do
 
+
+  scope :admin do
+    devise_for :supervisors, :controllers => {
+      :sessions => 'sessions'
+    }
+    root to: 'home#index'
+  end
   devise_for :administrators, :controllers => {
     :sessions => 'sessions'
   }
