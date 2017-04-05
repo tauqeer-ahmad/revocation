@@ -1,7 +1,39 @@
 Revocation::Application.routes.draw do
 
-  # You can have the root of your site routed with "root"
+  devise_for :administrators, :controllers => {
+    :sessions => 'sessions'
+  }
+
+  devise_for :teachers, :controllers => {
+    :sessions => 'sessions'
+  }
+  
+  devise_for :students, :controllers => {
+    :sessions => 'sessions'
+  }
+  
+  devise_for :guardians, :controllers => {
+    :sessions => 'sessions'
+  }
+
+  authenticated :administrator do
+    root to: 'home#index'
+  end
+  
+  authenticated :teacher do
+    root to: 'home#index'
+  end
+
+  authenticated :student do
+    root to: 'home#index'
+  end
+
+  authenticated :parent do
+    root to: 'home#index'
+  end
   root to: 'dashboards#dashboard_1'
+
+  # You can have the root of your site routed with "root"
 
   # All routes
   get "dashboards/dashboard_1"

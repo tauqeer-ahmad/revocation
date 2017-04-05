@@ -1,0 +1,2 @@
+class Guardian < User
+end

@@ -110,9 +110,11 @@
 
 
             <li>
-                <a href="<%= url_for :controller => 'pages', :action => 'login_2' %>">
-                <i class="fa fa-sign-out"></i> Log out
-            </a>
+              <% if user_signed_in? %>
+                <%= link_to(get_logout_path(current_user), :method => :delete) do %>
+                  <i class="fa fa-sign-out"></i> Logs out
+                <% end %>
+              <% end %>
         </li>
 
             <li>
