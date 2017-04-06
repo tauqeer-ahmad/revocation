@@ -1,0 +1,84 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-4">
+    <h2>Project list</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="#">Home</a>
+      </li>
+      <li class="active">
+        <strong>Registered Institutions</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>All registered institutions</h5>
+          <div class="ibox-tools">
+            <%= link_to "Create new project", new_admin_institution_path, class:"btn btn-primary btn-xs" %>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="row m-b-sm m-t-sm">
+            <div class="col-md-1">
+              <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
+            </div>
+            <div class="col-md-11">
+              <div class="input-group">
+                <input type="text" placeholder="Search" class="input-sm form-control">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-list">
+            <table class="table table-hover">
+              <tbody>
+                <% @institutions.each do |institution| %>
+                  <tr>
+                    <td class="project-status">
+                      <span class="label label-primary">Active</span>
+                    </td>
+                    <td class="project-title">
+                      <a href="#"><%= institution.name %></a>
+                      <br />
+                      <small>Created: <%= institution.display_created_at %></small>
+                    </td>
+                    <td class="project-completion">
+                      <strong><%= institution.city %></strong>
+                      <br />
+                      <small><%= institution.country %></small>
+                    </td>
+                    <td class="project-people">
+                      <% if institution.sector.downcase == 'public' %>
+                        <span class="label label-info"><%= institution.sector %></span>
+                      <% else %>
+                        <span class="label label-warning"><%= institution.sector %></span>
+                      <% end %>
+                    </td>
+                    <td class="project-actions">
+                      <%= link_to admin_institution_path(institution), class: "btn btn-white btn-sm" do %>
+                        <i class="fa fa-folder"></i> View 
+                      <% end %>
+                      <%= link_to edit_admin_institution_path(institution), class: "btn btn-white btn-sm" do %>
+                        <i class="fa fa-pencil"></i> Edit
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

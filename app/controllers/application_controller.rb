@@ -15,13 +15,13 @@ class ApplicationController < ActionController::Base
       @current_user ||= current_student
     elsif current_guardian.present?
       @current_user ||= current_guardian
-    elsif current_supervisor.present?
-      @current_user ||= current_supervisor
+    elsif current_admin_supervisor.present?
+      @current_user ||= current_admin_supervisor
     end
   end
   
   def user_signed_in?
-    current_teacher.present? || current_administrator.present? || current_student.present? || current_guardian.present? || current_supervisor.present?
+    current_teacher.present? || current_administrator.present? || current_student.present? || current_guardian.present? || current_admin_supervisor.present?
   end
   
   private

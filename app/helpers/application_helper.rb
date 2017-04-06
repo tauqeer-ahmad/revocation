@@ -18,7 +18,7 @@ module ApplicationHelper
       when 'Guardian'
         destroy_guardian_session_path
       when 'Supervisor'
-        destroy_supervisor_session_path
+        destroy_admin_supervisor_session_path
       end
     end
 end

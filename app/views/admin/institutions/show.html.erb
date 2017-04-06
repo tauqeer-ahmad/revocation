@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @institution.name %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @institution.location %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @institution.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @institution.longitude %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @institution.city %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @institution.country %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @institution.description %>
+</p>
+
+<p>
+  <strong>Sector:</strong>
+  <%= @institution.sector %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @institution.level %>
+</p>
+
+<%= link_to 'Edit', edit_admin_institution_path(@institution) %> |
+<%= link_to 'Back', admin_institutions_path %>
