@@ -3,6 +3,8 @@ class Institution < ApplicationRecord
   LEVELS = %w(high middle primary olevel alevel)
   include AASM
 
+  has_many :administrators
+
   aasm :requires_lock => true, :column => 'status' do
     state :pending, :initial => true
     state :active, :locked

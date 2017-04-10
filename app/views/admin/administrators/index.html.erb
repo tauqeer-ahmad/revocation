@@ -1,0 +1,81 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-6">
+    <h2>Administrator list for <%= link_to @institution.name, admin_institutions_path %></h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li>
+        <%= link_to "Institutions", admin_institutions_path %>
+      </li>
+      <li class="active">
+        <strong>Institution Administrators</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>All administrators for institution <span class="text-navy"><%= @institution.name %></span></h5>
+
+          <div class="ibox-tools">
+            <%= link_to "Add new administrator", new_admin_institution_administrator_path(@institution), class:"btn btn-primary btn-xs" %>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="row m-b-sm m-t-sm">
+            <div class="col-md-1">
+              <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
+            </div>
+            <div class="col-md-11">
+              <div class="input-group">
+                <input type="text" placeholder="Search" class="input-sm form-control">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-sm btn-primary"> Go!</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @administrators.each do |administrator| %>
+                <tr>
+                  <td><%= administrator.id %></td>
+                  <td><%= administrator.first_name %></td>
+                  <td><%= administrator.last_name %></td>
+                  <td><%= administrator.email %></td>
+                  <td>
+                    <%= link_to admin_institution_administrator_path(@institution, administrator), class: "btn btn-white btn-sm" do %>
+                        <i class="fa fa-folder"></i> View
+                    <% end %>
+                    <%= link_to edit_admin_institution_administrator_path(@institution, administrator), class: "btn btn-white btn-sm" do %>
+                      <i class="fa fa-pencil"></i> Edit
+                    <% end %>
+                    <%= link_to admin_institution_administrator_path(@institution, administrator), class: "btn btn-white btn-sm", method: :delete, confirm: 'Are you sure?' do %>
+                      <i class="fa fa-trash-o"></i> Destroy
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
