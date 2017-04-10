@@ -12,4 +12,8 @@ class User < ApplicationRecord
   def name
     [first_name, last_name].join(' ')
   end
+
+  def category
+    self.type_of.downcase
+  end
 end
