@@ -4,6 +4,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+  validates :first_name, presence: { message: "First name field is required" }
+  validates :last_name, presence: { message: "Last name field is required" }
+  validates :email, presence: { message: "First name field is required" }
 
   def self.type_ofs
     %w(Administrator Teacher Student Parent Supervisor)

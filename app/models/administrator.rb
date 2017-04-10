@@ -1,3 +1,3 @@
 class Administrator < User
-   belongs_to :institution
+  belongs_to :institution
 end
