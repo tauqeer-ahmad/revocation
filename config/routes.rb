@@ -7,8 +7,8 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :admin_supervisor do
+    root to: 'admin/home#index'
     namespace :admin do
-      root to: 'home#index'
       resources :institutions do
         resources :administrators
       end
