@@ -8,4 +8,8 @@ class User < ApplicationRecord
   def self.type_ofs
     %w(Administrator Teacher Student Parent Supervisor)
   end
+
+  def name
+    [first_name, last_name].join(' ')
+  end
 end

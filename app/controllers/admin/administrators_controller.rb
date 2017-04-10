@@ -18,9 +18,11 @@ class Admin::AdministratorsController < ApplicationController
 
   def create
     @administrator = @institution.administrators.new(administrator_params)
-
+    password = SecureRandom.hex(8)
+    @administrator.password = password
     respond_to do |format|
       if @administrator.save
+        AdministratorMailer.send_password(@administrator, @institution, password).deliver!
         format.html { redirect_to [:admin, @institution, @administrator], notice: 'Administrator was successfully created.' }
         format.json { render :show, status: :created, location: @administrator }
       else
@@ -62,6 +64,6 @@ class Admin::AdministratorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def administrator_params
-      params.require(:administrator).permit(:first_name, :last_name, :email, :password)
+      params.require(:administrator).permit(:first_name, :last_name, :email)
     end
 end
