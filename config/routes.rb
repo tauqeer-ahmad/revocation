@@ -1,9 +1,6 @@
 Revocation::Application.routes.draw do
 
   namespace :admin do
-    resources :institutions
-  end
-  namespace :admin do
     devise_for :supervisors, :controllers => {
       :sessions => 'sessions'
     }
@@ -12,6 +9,7 @@ Revocation::Application.routes.draw do
   authenticated :admin_supervisor do
     scope module: :admin do
       root to: 'home#index'
+      resources :institutions
     end
   end
 

@@ -23,56 +23,56 @@
           <h5>Register an institution<small> Please fill the details correctly</small></h5>
         </div>
         <div class="ibox-content">
-          <%= form_for([:admin, @institution], html: {class: "form-horizontal"}) do |f| %>
+          <%=  simple_form_for([:admin, @institution], validate: true, html: {class: "form-horizontal"}) do |f| %>
             <div class="form-group">
               <label class="col-sm-2 control-label">Institution Name</label>
               <div class="col-sm-10">
-                <%= f.text_field :name, class: "form-control" %>
+                <%= f.input :name, label: false, validate: {presence: true}, input_html: { class: "form-control"} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Institute Location</label>
               <div class="col-sm-10">
-                <%= f.text_field :location, class: "form-control" %>
+                <%= f.input :location, label: false, input_html: { class: "form-control"}, validate: {presence: true} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">City</label>
               <div class="col-sm-10">
-                <%= f.text_field :city, class: "form-control" %>
+                <%= f.input :city, label: false, input_html: { class: "form-control"}, validate: {presence: true} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Country</label>
               <div class="col-sm-10">
-                <%= f.text_field :country, class: "form-control" %>
+                <%= f.country_select :country, { priority_countries: ["Pk", "IN", "SA", "KE"], selected: "PK" },  label: false, input_html: { class: "form-control"}, as: :select, validate: {presence: true} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Sector</label>
               <div class="col-sm-10">
-                <%= f.text_field :sector, class: "form-control" %>
+                <%= f.input :sector, label: false, collection: Institution::SECTORS, input_html: { class: "form-control"}, prompt: "Select Sector", validate: {presence: true} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Level</label>
               <div class="col-sm-10">
-                <%= f.text_field :level, class: "form-control" %>
+                <%= f.input :level, label: false, collection: Institution::LEVELS, input_html: { class: "form-control"}, prompt: "Select School Level", validate: {presence: true} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Description</label>
               <div class="col-sm-10">
-                <%= f.text_area :description, class: "form-control" %>
+                <%= f.input :description, label: false, input_html: { class: "form-control"} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Latitude and Longitude</label>
               <div class="col-sm-5">
-                <%= f.text_field :latitude, class: "form-control" %>
+                <%= f.input :latitude, label: false, input_html: { class: "form-control"} %>
               </div>
               <div class="col-sm-5">
-                <%= f.text_field :longitude, class: "form-control" %>
+                <%= f.input :longitude, label: false, input_html: { class: "form-control"} %>
               </div>
             </div>
             <div class="form-group">
