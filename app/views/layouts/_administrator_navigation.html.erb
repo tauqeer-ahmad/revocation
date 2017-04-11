@@ -44,6 +44,11 @@
           <i class="fa fa-diamond"></i> <span class="nav-label">Classes</span>
         <% end %>
       </li>
+      <li class="<%= is_active_controller('administrator/subjects') %>">
+        <%= link_to administrator_subjects_path do %>
+          <i class="fa fa-diamond"></i> <span class="nav-label">Subjects</span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </nav>

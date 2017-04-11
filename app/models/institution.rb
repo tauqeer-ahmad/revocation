@@ -6,6 +6,7 @@ class Institution < ApplicationRecord
   has_many :administrators
   has_many :teachers
   has_many :klasses
+  has_many :subjects
 
   aasm :requires_lock => true, :column => 'status' do
     state :pending, :initial => true

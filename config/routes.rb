@@ -36,6 +36,7 @@ Revocation::Application.routes.draw do
       root to: 'home#index'
       resources :teachers
       resources :klasses, path: :classes
+      resources :subjects
     end
   end
   
