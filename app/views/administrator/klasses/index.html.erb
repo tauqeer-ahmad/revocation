@@ -1,0 +1,60 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Classes</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li class="active">
+        <strong>Classes</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="ibox">
+    <div class="ibox-title">
+      <h5>All classes for institution <span class="text-navy"><%= current_institute.name %></span></h5>
+
+      <div class="ibox-tools">
+        <%= link_to "Add new class", new_administrator_klass_path, class:"btn btn-primary btn-xs" %>
+      </div>
+    </div>
+  </div>
+
+    <div class="ibox-content">
+      <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Class Name</th>
+                <th>Class code</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @klasses.each_with_index do |klass, index| %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= klass.name %></td>
+                  <td><%= klass.code %></td>
+                  <td>
+                    <%= link_to [:administrator, klass], class: "btn btn-white btn-sm" do %>
+                        <i class="fa fa-folder"></i> View
+                    <% end %>
+                    <%= link_to edit_administrator_klass_path(klass), class: "btn btn-white btn-sm" do %>
+                      <i class="fa fa-pencil"></i> Edit
+                    <% end %>
+                    <%= link_to administrator_klass_path(klass), class: "btn btn-white btn-sm", method: :delete, confirm: 'Are you sure?' do %>
+                      <i class="fa fa-trash-o"></i> Destroy
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+</div>
+

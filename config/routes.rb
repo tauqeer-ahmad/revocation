@@ -35,6 +35,7 @@ Revocation::Application.routes.draw do
     namespace :administrator do
       root to: 'home#index'
       resources :teachers
+      resources :klasses, path: :classes
     end
   end
   

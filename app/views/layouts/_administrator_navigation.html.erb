@@ -34,9 +34,14 @@
           <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
         <% end %>
       </li>
-      <li class="<%= is_active_controller('layoutsoptions') %>">
-        <%= link_to '' do %>
-          <i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span> <span class="label label-primary pull-right">NEW</span>
+      <li class="<%= is_active_controller('administrator/teachers') %>">
+        <%= link_to administrator_teachers_path do %>
+          <i class="fa fa-diamond"></i> <span class="nav-label">Teachers</span>
+        <% end %>
+      </li>
+      <li class="<%= is_active_controller('administrator/klasses') %>">
+        <%= link_to administrator_klasses_path do %>
+          <i class="fa fa-diamond"></i> <span class="nav-label">Classes</span>
         <% end %>
       </li>
     </ul>
