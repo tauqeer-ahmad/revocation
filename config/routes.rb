@@ -15,7 +15,7 @@ Revocation::Application.routes.draw do
     end
   end
 
-  devise_for :administrators, :controllers => {
+  devise_for :administrator, :controllers => {
     :sessions => 'sessions'
   }
 
@@ -32,8 +32,9 @@ Revocation::Application.routes.draw do
   }
 
   authenticated :administrator do
-    scope module: :administrator do
+    namespace :administrator do
       root to: 'home#index'
+      resources :teachers
     end
   end
   

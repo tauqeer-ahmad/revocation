@@ -58,3 +58,4 @@ gem 'aasm'
 gem 'simple_form'
 gem 'country_select'
 gem 'client_side_validations'
+gem "paperclip"

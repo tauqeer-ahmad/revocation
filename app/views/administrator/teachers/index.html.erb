@@ -1,0 +1,69 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Teachers</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li class="active">
+        <strong>Teachers</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="ibox">
+    <div class="ibox-title">
+      <h5>All teachers for institution <span class="text-navy"><%= current_institute.name %></span></h5>
+
+      <div class="ibox-tools">
+        <%= link_to "Register new teacher", new_administrator_teacher_path, class:"btn btn-primary btn-xs" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <% @teachers.each do |teacher| %>
+      <div class="col-lg-4">
+        <div class="contact-box">
+          <%= link_to [:administrator, teacher] do %>
+            <div class="col-sm-4">
+              <div class="text-center">
+                <%= image_tag teacher.avatar.url(:medium), class: "img-circle m-t-xs img-responsive", alt: "image"%>
+                <div class="m-t-xs font-bold">Graphics designer</div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <h3><strong><%= teacher.name %></strong></h3>
+              <p><i class="fa fa-envelope"></i> <%= teacher.email %></p>
+              <address>
+                <strong>Twitter, Inc.</strong><br>
+                795 Folsom Ave, Suite 600<br>
+                San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+            </div>
+            <div class="clearfix"></div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+$(function () {
+
+    $('.contact-box').each(function () {
+        animationHover(this, 'pulse');
+    });
+
+});
+
+</script>
+
+<% end %>
+

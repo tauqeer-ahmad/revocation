@@ -4,6 +4,15 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_attached_file :avatar, 
+                    styles: { 
+                      medium: "300x300!",
+                      thumb: "100x100>"
+                    },
+                    default_url: "/assets/users/:style/missing.jpeg"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
+
   validates :first_name, presence: { message: "First name field is required" }
   validates :last_name, presence: { message: "Last name field is required" }
   validates :email, presence: { message: "First name field is required" }
