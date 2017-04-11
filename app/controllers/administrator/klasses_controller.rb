@@ -31,7 +31,7 @@ class Administrator::KlassesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @klass.update(class_params)
+      if @klass.update(klass_params)
         format.html { redirect_to [:administrator, @klass], notice: 'Class was successfully updated.' }
         format.json { render :show, status: :ok, location: @klass }
       else
