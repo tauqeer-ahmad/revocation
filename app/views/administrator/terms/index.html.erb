@@ -1,0 +1,59 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Terms</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li class="active">
+        <strong>Terms</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="ibox">
+    <div class="ibox-title">
+      <h5>All terms for institution <span class="text-navy"><%= current_institute.name %></span></h5>
+
+      <div class="ibox-tools">
+        <%= link_to "Start a new term", new_administrator_term_path, class:"btn btn-primary btn-xs" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <% @terms.each do |term| %>
+      <div class="col-lg-4">
+        <div class="contact-box">
+          <%= link_to [:administrator, term] do %>
+            <div class="col-sm-12">
+              <div class="text-center">
+                <div class="m-t-xs font-bold"><%= term.name %></div>
+                 <div class="m-t-xs"><%= term.display_term_duration %></div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+$(function () {
+
+    $('.contact-box').each(function () {
+        animationHover(this, 'pulse');
+    });
+
+});
+
+</script>
+
+<% end %>
+

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @term.name %>
+</p>
+
+<p>
+  <strong>Strat date:</strong>
+  <%= @term.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @term.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_administrator_term_path(@term) %> |
+<%= link_to 'Back', administrator_terms_path %>

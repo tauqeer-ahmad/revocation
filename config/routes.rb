@@ -37,6 +37,7 @@ Revocation::Application.routes.draw do
       resources :teachers
       resources :klasses, path: :classes
       resources :subjects
+      resources :terms
     end
   end
   
