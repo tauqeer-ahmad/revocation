@@ -1,6 +1,7 @@
 class Term < ApplicationRecord
   belongs_to :institution
-  
+  has_many :sections, dependent: :destroy
+
   validates :name, presence: {message: "Term name is required"}
   validates :start_date, presence: {message: "Term start date is required"}
   validates :end_date, presence: {message: "Term end date is required"}

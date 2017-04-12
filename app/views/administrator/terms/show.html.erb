@@ -1,19 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @term.name %>
-</p>
-
-<p>
-  <strong>Strat date:</strong>
-  <%= @term.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @term.end_date %>
-</p>
-
-<%= link_to 'Edit', edit_administrator_term_path(@term) %> |
-<%= link_to 'Back', administrator_terms_path %>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Manage Classes for Term <%= @term.name %></h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li>
+        <%= link_to "Terms", administrator_terms_path %>
+      </li>
+      <li class="active">
+        <strong>Term Record</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+  </div>
+</div>

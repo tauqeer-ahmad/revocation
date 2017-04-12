@@ -1,0 +1,52 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-12">
+    <h2>Sections of class <strong><%= @klass.name %></strong> for term <strong><%= current_term.name %> <%= current_term.display_term_duration %><strong></h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>Sections</h5>
+          <div class="ibox-tools">
+              <%= link_to "Add a new section", new_administrator_klass_section_path(@klass), class: "btn btn-primary btn-xs" %>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="project-list">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Nickname</th>
+                    <th>Incharge Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <% @sections.each_with_index do |section, index| %>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= section.name %></td>
+                    <td><%= section.nickname %></td>
+                    <td><%= section.incharge_name %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+

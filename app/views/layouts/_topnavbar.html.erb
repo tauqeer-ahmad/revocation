@@ -9,9 +9,11 @@
             </form>
         </div>
         <ul class="nav navbar-top-links navbar-right">
-            <li>
-                <span class="m-r-sm text-muted welcome-message">Welcome to INSPINIA+ Admin Theme.</span>
-            </li>
+            <% if current_term.present? %>
+                <li>
+                  <span class="m-r-sm text-muted welcome-message">Running Term is <%= current_term.name %> <%= current_term.display_term_duration %> </span>
+                </li>
+            <% end %>
             <li class="dropdown">
                 <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>

@@ -6,10 +6,11 @@ class Administrator::TermsController < ApplicationController
   end
 
   def show
+    @klasses = current_institute.klasses
   end
 
   def new
-    @term = current_institute.terms.new
+    @term = Term.new
   end
 
   def edit

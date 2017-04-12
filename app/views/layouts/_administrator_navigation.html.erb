@@ -34,7 +34,7 @@
           <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
         <% end %>
       </li>
-       <li class="<%= is_active_controller('administrator/klasses') %>">
+       <li class="<%= is_active_controller('administrator/terms') %>">
         <%= link_to administrator_terms_path do %>
           <i class="fa fa-graduation-cap"></i> <span class="nav-label">Terms</span>
         <% end %>
@@ -52,6 +52,12 @@
       <li class="<%= is_active_controller('administrator/subjects') %>">
         <%= link_to administrator_subjects_path do %>
           <i class="fa fa-book"></i> <span class="nav-label">Subjects</span>
+        <% end %>
+      </li>
+      
+      <li class="<%= is_active_controller('administrator/sections') %>">
+        <%= link_to administrator_sections_path do %>
+          <i class="fa fa-table"></i> <span class="nav-label">Manage Sections</span>
         <% end %>
       </li>
     </ul>

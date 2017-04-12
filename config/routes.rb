@@ -1,5 +1,4 @@
 Revocation::Application.routes.draw do
-
   namespace :admin do
     devise_for :supervisors, :controllers => {
       :sessions => 'sessions'
@@ -35,9 +34,16 @@ Revocation::Application.routes.draw do
     namespace :administrator do
       root to: 'home#index'
       resources :teachers
-      resources :klasses, path: :classes
+      resources :klasses, path: :classes do
+        resources :sections, only: [:new, :edit, :show, :update, :create] do
+          collection do
+            get :fetch
+          end
+        end
+      end
       resources :subjects
       resources :terms
+      resources :sections, only: [:index]
     end
   end
   

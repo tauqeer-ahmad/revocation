@@ -8,6 +8,7 @@ class Institution < ApplicationRecord
   has_many :klasses
   has_many :subjects
   has_many :terms
+  has_many :sections
 
   aasm :requires_lock => true, :column => 'status' do
     state :pending, :initial => true

@@ -1,0 +1,40 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Manage class sections for Term <%= current_term.name %></h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li>
+        <%= link_to "Terms", administrator_terms_path %>
+      </li>
+      <li class="active">
+        <strong>Term Classes</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="ibox">
+        <div class="ibox-content">
+          <div class="project-list">
+            <div id="tabs">
+              <ul>
+                  <% @klasses.each_with_index do |klass, index| %>
+                    <li><%= link_to klass.name, fetch_administrator_klass_sections_path(klass) %></li>
+                  <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+

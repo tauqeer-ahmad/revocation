@@ -21,4 +21,11 @@ module ApplicationHelper
         destroy_admin_supervisor_session_path
       end
     end
+    
+  def tab_item(name, url)
+    opts = {}
+    content_tag :li, opts do
+      link_to name, url
+    end
+  end
 end
