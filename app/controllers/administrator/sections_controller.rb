@@ -15,7 +15,9 @@ class Administrator::SectionsController < ApplicationController
   end
 
   def new
-    @section = @klass.sections.new
+    @section = Section.new
+    @teachers = current_institute.teachers
+    @subjects = current_institute.subjects
     @institute_teachers = current_institute.teachers
   end
 
@@ -66,7 +68,7 @@ class Administrator::SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:name, :nickname, :incharge_id)
+      params.require(:section).permit(:name, :nickname, :incharge_id, section_subject_teachers_attributes: [:id, :subject_id, :teacher_id, :klass_id, :term_id, :institution_id, :_destroy])
     end
 
     def set_klass

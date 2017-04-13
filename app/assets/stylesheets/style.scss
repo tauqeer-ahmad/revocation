@@ -95,6 +95,8 @@
     margin-bottom: 0.2em;
     padding-bottom: 0;
     background: #1ab394;
+    background: #1ab394;
+    border: 1px solid #1ab394 !important;
 }
 .ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
     margin-bottom: 10px;
@@ -110,5 +112,9 @@
 
 .tab-loader {
   text-align: center
+}
+
+.fields {
+  padding: 0px 50px 0px 50px;
 }
 

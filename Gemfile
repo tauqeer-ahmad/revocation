@@ -61,4 +61,4 @@ gem 'simple_form'
 gem 'country_select'
 gem 'client_side_validations'
 gem "paperclip"
-gem "tabs_on_rails"
+gem "nested_form"

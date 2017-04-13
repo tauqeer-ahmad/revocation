@@ -17,24 +17,26 @@
         <div class="ibox-content">
           <div class="project-list">
             <table class="table table-bordered">
-                <thead>
+              <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Nickname</th>
-                    <th>Incharge Details</th>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Nickname</th>
+                  <th>Incharge</th>
+                  <th>Subjects</th>
                 </tr>
-                </thead>
-                <tbody>
-                  <% @sections.each_with_index do |section, index| %>
-                  <tr>
-                    <td><%= index + 1 %></td>
-                    <td><%= section.name %></td>
-                    <td><%= section.nickname %></td>
-                    <td><%= section.incharge_name %></td>
-                  </tr>
-                  <% end %>
-                </tbody>
+              </thead>
+              <tbody>
+                <% @sections.each_with_index do |section, index| %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= section.name %></td>
+                  <td><%= section.nickname %></td>
+                  <td><%= section.incharge_name %></td>
+                  <td><%= section.display_subjects_count %></td>
+                </tr>
+                <% end %>
+              </tbody>
             </table>
           </div>
         </div>
