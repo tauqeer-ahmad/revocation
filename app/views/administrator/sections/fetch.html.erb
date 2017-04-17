@@ -24,6 +24,7 @@
                   <th>Nickname</th>
                   <th>Incharge</th>
                   <th>Subjects</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,6 +35,11 @@
                   <td><%= section.nickname %></td>
                   <td><%= section.incharge_name %></td>
                   <td><%= section.display_subjects_count %></td>
+                  <td>
+                    <%= link_to administrator_section_students_path(section), class: "btn btn-white btn-sm" do %>
+                      <i class="fa fa-users"></i> Manage Students
+                    <% end %>
+                  </td>
                 </tr>
                 <% end %>
               </tbody>

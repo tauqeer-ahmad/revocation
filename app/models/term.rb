@@ -1,5 +1,8 @@
 class Term < ApplicationRecord
   belongs_to :institution
+  has_many :enrolled_students, :class_name => "Student", :foreign_key => "enrollment_term_id" 
+  has_many :section_students
+  has_many :students, through: :section_students
   has_many :sections, dependent: :destroy
 
   validates :name, presence: {message: "Term name is required"}
