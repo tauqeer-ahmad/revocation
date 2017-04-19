@@ -1,0 +1,98 @@
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="ibox">
+        <div class="ibox-content">
+          <span class="text-muted small pull-right">
+            last modification: aasdad
+          </span>
+          <h2>Guardians</h2>
+          <p>
+            All guardians <%= current_institute.name %>.
+          </p>
+          <div class="clients-list">
+            <ul class="nav nav-tabs">
+              <span class="pull-right small text-muted">1406 Elements</span>
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Guardian</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Register New</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Register in Bulk</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <div class="input-group">
+                  <input type="text" placeholder="Search guardian " class="input form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+                  </span>
+                </div>
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th>Avatar</th>
+                          <th>Name</th>
+                          <th>CNIC</th>
+                          <th>Email</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @guardians.each do |guardian| %>
+                          <tr>
+                            <td class="client-avatar">
+                              <%= link_to "#guardian-#{guardian.id}", "data-toggle" => "tab", class: "client-link" do %>
+                                <%=image_tag guardian.avatar.url(:thumb), alt: "Image" %>
+                              <% end %>
+                            </td>
+                            <td>
+                              <%= link_to "#guardian-#{guardian.id}", "data-toggle" => "tab", class: "client-link" do %>
+                                <%= guardian.name %>
+                              <% end %>
+                            </td>
+                            <td> <span class="contact-type"><i class="fa fa-id-card"> </i></span> <%= guardian.cnic %>
+                            </td>
+                            <td> <span class="contact-type"><i class="fa fa-envelope"> </i></span> <%= guardian.email %>
+                            </td>
+                            <td>
+                              <%= link_to administrator_guardian_path(guardian), class:"btn btn-success dim btn-xs" do %>
+                                <i class="fa fa-eye"></i>
+                              <% end %>
+                              <%= link_to edit_administrator_guardian_path(guardian), class:"btn btn-info dim btn-xs" do %>
+                                <i class="fa fa-pencil-square-o"></i>
+                              <% end %>
+                               <%= link_to administrator_guardian_path(guardian), class:"btn btn-danger dim btn-xs", method: :delete, confirm: 'Are you sure?' do %>
+                                <i class="fa fa-trash-o"></i>
+                              <% end %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="tab-2" class="tab-pane">
+                <div class="full-height-scroll">
+                  <%= render 'form', guardian: @new_guardian %>
+                </div>
+              </div>
+              <div id="tab-3" class="tab-pane">
+                biuld
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="ibox ">
+        <div class="ibox-content">
+          <div class="tab-content">
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

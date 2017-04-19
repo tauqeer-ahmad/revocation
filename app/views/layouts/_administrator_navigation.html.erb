@@ -54,7 +54,11 @@
           <i class="fa fa-book"></i> <span class="nav-label">Subjects</span>
         <% end %>
       </li>
-      
+      <li class="<%= is_active_controller('administrator/guardians') %>">
+        <%= link_to administrator_guardians_path do %>
+          <i class="fa fa-user"></i> <span class="nav-label">Guardians</span>
+        <% end %>
+      </li>
       <li class="<%= is_active_controller('administrator/sections') %>">
         <%= link_to administrator_sections_path do %>
           <i class="fa fa-table"></i> <span class="nav-label">Manage Sections</span>

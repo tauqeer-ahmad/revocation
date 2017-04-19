@@ -17,7 +17,7 @@ class Administrator::TeachersController < ApplicationController
 
   def create
     @teacher = current_institute.teachers.new(teacher_params)
-    password = SecureRandom.hex(8)
+    password = SecureRandom.hex(10)
     @teacher.password = password
     respond_to do |format|
       if @teacher.save

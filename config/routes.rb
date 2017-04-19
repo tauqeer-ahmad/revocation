@@ -34,6 +34,7 @@ Revocation::Application.routes.draw do
     namespace :administrator do
       root to: 'home#index'
       resources :teachers
+      resources :guardians
       resources :klasses, path: :classes do
         resources :sections, only: [:new, :edit, :show, :update, :create] do
           collection do
