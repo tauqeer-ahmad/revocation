@@ -11,50 +11,82 @@
     </ol>
   </div>
 </div>
-
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div class="ibox">
-    <div class="ibox-title">
-      <h5>All Subjects for institution <span class="text-navy"><%= current_institute.name %></span></h5>
-
-      <div class="ibox-tools">
-        <%= link_to "Add new subject", new_administrator_subject_path, class:"btn btn-primary btn-xs" %>
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <span class="text-muted small pull-right">
+            last modification: aasdad
+          </span>
+          <h2>Subjects</h2>
+          <p>
+            All Subjects for institution <span class="text-navy"><%= current_institute.name %>.
+          </p>
+          <div class="clients-list">
+            <ul class="nav nav-tabs">
+              <span class="pull-right small text-muted">1406 Elements</span>
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Subjects</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add new subject</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <div class="input-group">
+                  <input type="text" placeholder="Search subject " class="input form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+                  </span>
+                </div>
+                <div class="full-height-scroll">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>Description</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @subjects.each_with_index do |subject, index| %>
+                          <tr>
+                            <td><%= index + 1 %></td>
+                            <td>
+                              <%= subject.name %>
+                            </td>
+                            <td>
+                              <%= subject.description %>
+                            </td>
+                            <td>
+                              <%= link_to [:administrator, subject], class:"btn btn-success dim btn-xs" do %>
+                                <i class="fa fa-eye"></i>
+                              <% end %>
+                              <%= link_to edit_administrator_subject_path(subject), class:"btn btn-info dim btn-xs" do %>
+                                <i class="fa fa-pencil-square-o"></i>
+                              <% end %>
+                               <%= link_to administrator_subject_path(subject), class:"btn btn-danger dim btn-xs", method: :delete, confirm: 'Are you sure?' do %>
+                                <i class="fa fa-trash-o"></i>
+                              <% end %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="tab-2" class="tab-pane">
+                <div class="full-height-scroll">
+                  <%= render 'form', subject: @new_subject %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-    <div class="ibox-content">
-      <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Subject Name</th>
-                <th>Description</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @subjects.each_with_index do |subject, index| %>
-                <tr>
-                  <td><%= index + 1 %></td>
-                  <td><%= subject.name %></td>
-                  <td><%= subject.description %></td>
-                  <td>
-                    <%= link_to [:administrator, subject], class: "btn btn-white btn-sm" do %>
-                        <i class="fa fa-folder"></i> View
-                    <% end %>
-                    <%= link_to edit_administrator_subject_path(subject), class: "btn btn-white btn-sm" do %>
-                      <i class="fa fa-pencil"></i> Edit
-                    <% end %>
-                    <%= link_to administrator_subject_path(subject), class: "btn btn-white btn-sm", method: :delete, confirm: 'Are you sure?' do %>
-                      <i class="fa fa-trash-o"></i> Destroy
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-
 </div>
+
 

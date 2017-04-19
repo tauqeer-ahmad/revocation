@@ -6,4 +6,5 @@ class SectionSubjectTeacher < ApplicationRecord
 
   validates :subject_id, presence: {message: "Selection of subject is required"}
   validates :teacher_id, presence: {message: "Selection of teacher is required"}
+  validates :section_id, uniqueness: {scope: [:teacher_id, :subject_id, :klass_id , :term_id, :institution_id]}
 end
