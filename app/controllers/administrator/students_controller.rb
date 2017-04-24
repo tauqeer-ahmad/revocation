@@ -5,6 +5,7 @@ class Administrator::StudentsController < ApplicationController
   def index
     @students = @section.students
     @new_student = Student.new
+    @guardians = Guardian.all
   end
 
   def show
@@ -72,6 +73,6 @@ class Administrator::StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number)
+      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id)
     end
 end
