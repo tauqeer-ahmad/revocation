@@ -24,7 +24,7 @@
           <h5>Add a class <small> Please fill the details correctly</small></h5>
         </div>
         <div class="ibox-content">
-          <%= simple_form_for([:administrator, @klass], validate: true, html: {class: "form-horizontal"}) do |f| %>
+          <%= simple_form_for([:administrator, klass], validate: true, html: {class: "form-horizontal"}) do |f| %>
             <%= f.error_notification %>
 
             <div class="form-inputs">

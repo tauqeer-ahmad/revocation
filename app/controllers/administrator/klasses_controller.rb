@@ -3,6 +3,7 @@ class Administrator::KlassesController < ApplicationController
 
   def index
     @klasses = Klass.all
+    @new_klass = Klass.new
   end
 
   def show
@@ -20,7 +21,7 @@ class Administrator::KlassesController < ApplicationController
 
     respond_to do |format|
       if @klass.save
-        format.html { redirect_to [:administrator, @klass], notice: 'Class was successfully created.' }
+        format.html { redirect_to administrator_klasses_url, notice: 'Class was successfully created.' }
         format.json { render :show, status: :created, location: @klass }
       else
         format.html { render :new }
@@ -32,7 +33,7 @@ class Administrator::KlassesController < ApplicationController
   def update
     respond_to do |format|
       if @klass.update(klass_params)
-        format.html { redirect_to [:administrator, @klass], notice: 'Class was successfully updated.' }
+        format.html { redirect_to administrator_klasses_url, notice: 'Class was successfully updated.' }
         format.json { render :show, status: :ok, location: @klass }
       else
         format.html { render :edit }

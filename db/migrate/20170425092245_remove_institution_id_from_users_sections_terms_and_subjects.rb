@@ -6,6 +6,5 @@ class RemoveInstitutionIdFromUsersSectionsTermsAndSubjects < ActiveRecord::Migra
     remove_column :subjects, :institution_id
     remove_column :klasses, :institution_id
     remove_column :users, :institution_id
-    
   end
 end
