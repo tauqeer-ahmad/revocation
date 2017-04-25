@@ -3,6 +3,7 @@ class Administrator::TeachersController < ApplicationController
 
   def index
     @teachers = Teacher.all
+    @new_teacher = Teacher.new
   end
 
   def show
@@ -22,7 +23,7 @@ class Administrator::TeachersController < ApplicationController
     respond_to do |format|
       if @teacher.save
         TeacherMailer.send_password(@teacher, Institution.current, password).deliver!
-        format.html { redirect_to [:administrator, @teacher], notice: 'Teacher was successfully created.' }
+        format.html { redirect_to administrator_teachers_url, notice: 'Teacher was successfully created.' }
         format.json { render :show, status: :created, location: @teacher }
       else
         format.html { render :new }
@@ -34,7 +35,7 @@ class Administrator::TeachersController < ApplicationController
   def update
     respond_to do |format|
       if @teacher.update(teacher_params)
-        format.html { redirect_to [:administrator, @teacher], notice: 'Teacher was successfully updated.' }
+        format.html { redirect_to administrator_teachers_url, notice: 'Teacher was successfully updated.' }
         format.json { render :show, status: :ok, location: @teacher }
       else
         format.html { render :edit }

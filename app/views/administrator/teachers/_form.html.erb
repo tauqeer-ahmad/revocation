@@ -23,7 +23,7 @@
           <h5>Register a Teacher <small> Please fill the details correctly</small></h5>
         </div>
         <div class="ibox-content">
-          <%= simple_form_for([:administrator, @teacher], validate: true, html: {class: "form-horizontal"}) do |f| %>
+          <%= simple_form_for([:administrator, teacher], validate: true, html: {class: "form-horizontal"}) do |f| %>
             <%= f.error_notification %>
 
             <div class="form-inputs">
