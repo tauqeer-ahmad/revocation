@@ -2,11 +2,11 @@ class Administrator::TermsController < ApplicationController
   before_action :set_term, only: [:show, :edit, :update, :destroy]
 
   def index
-    @terms = current_institute.terms
+    @terms = Term.all
   end
 
   def show
-    @klasses = current_institute.klasses
+    @klasses = Klass.all
   end
 
   def new
@@ -17,7 +17,7 @@ class Administrator::TermsController < ApplicationController
   end
 
   def create
-    @term = current_institute.terms.new(term_params)
+    @term = Term.new(term_params)
 
     respond_to do |format|
       if @term.save
@@ -53,7 +53,7 @@ class Administrator::TermsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_term
-      @term = current_institute.terms.find(params[:id])
+      @term = Term.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -15,7 +15,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="ibox">
     <div class="ibox-title">
-      <h5>All terms for institution <span class="text-navy"><%= current_institute.name %></span></h5>
+      <h5>All terms for institution <span class="text-navy"><%= Institution.current.name %></span></h5>
 
       <div class="ibox-tools">
         <%= link_to "Start a new term", new_administrator_term_path, class:"btn btn-primary btn-xs" %>

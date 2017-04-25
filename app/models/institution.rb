@@ -1,14 +1,9 @@
 class Institution < ApplicationRecord
+  after_create :add_tenant_to_apartment
+
   SECTORS = %w(public private)
   LEVELS = %w(high middle primary olevel alevel)
   include AASM
-
-  has_many :administrators
-  has_many :teachers
-  has_many :klasses
-  has_many :subjects
-  has_many :terms
-  has_many :sections
 
   aasm :requires_lock => true, :column => 'status' do
     state :pending, :initial => true
@@ -32,6 +27,7 @@ class Institution < ApplicationRecord
   validates :city, presence: { message: "City must be selected" }
   validates :country, presence: { message: "Country must be selected" }
   validates :sector, presence: { message: "Sector must be selected" }
+  validates :subdomain, presence: { message: "Sector must be selected" }, uniqueness: true
 
   def display_created_at
     created_at.strftime("%d, %B %Y %H:%M %p")
@@ -45,4 +41,23 @@ class Institution < ApplicationRecord
     country_code = ISO3166::Country[country]
     country_code.translations[I18n.locale.to_s] || country_code.name
   end
+
+  def self.current
+    tenant = Institution.find_by subdomain:Apartment::Tenant.current
+    raise ::Apartment::TenantNotFound, "Unable to find tenant" unless tenant
+    tenant
+  end
+ 
+  def switch!
+    Apartment::Tenant.switch! subdomain
+  end
+ 
+  private
+    def add_tenant_to_apartment
+      Apartment::Tenant.create(subdomain)
+    end
+ 
+    def drop_tenant_from_apartment
+      Apartment::Tenant.drop(subdomain)
+    end
 end

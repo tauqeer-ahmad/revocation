@@ -4,7 +4,7 @@ class Administrator::SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
   layout "empty", only: [:fetch]
   def index
-    @klasses = current_institute.klasses
+    @klasses = Klass.all
   end
   
   def fetch
@@ -16,9 +16,8 @@ class Administrator::SectionsController < ApplicationController
 
   def new
     @section = Section.new
-    @teachers = current_institute.teachers
-    @subjects = current_institute.subjects
-    @institute_teachers = current_institute.teachers
+    @teachers = Teacher.all.to_a
+    @subjects = Subject.all.to_a
   end
 
   def edit
@@ -26,7 +25,6 @@ class Administrator::SectionsController < ApplicationController
 
   def create
     @section = @klass.sections.new(section_params)
-    @section.institution = current_institute
     @section.term = current_term
 
     respond_to do |format|

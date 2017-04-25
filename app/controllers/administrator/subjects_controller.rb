@@ -2,7 +2,7 @@ class Administrator::SubjectsController < ApplicationController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   def index
-    @subjects = current_institute.subjects
+    @subjects = Subject.all
     @new_subject = Subject.new
   end
 
@@ -17,7 +17,7 @@ class Administrator::SubjectsController < ApplicationController
   end
 
   def create
-    @subject = current_institute.subjects.new(subject_params)
+    @subject = Subject.new(subject_params)
 
     respond_to do |format|
       if @subject.save
@@ -53,7 +53,7 @@ class Administrator::SubjectsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subject
-      @subject = current_institute.subjects.find(params[:id])
+      @subject = Subject.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -2,7 +2,7 @@ class Administrator::KlassesController < ApplicationController
   before_action :set_klass, only: [:show, :edit, :update, :destroy]
 
   def index
-    @klasses = current_institute.klasses
+    @klasses = Klass.all
   end
 
   def show
@@ -16,7 +16,7 @@ class Administrator::KlassesController < ApplicationController
   end
 
   def create
-    @klass = current_institute.klasses.new(klass_params)
+    @klass = Klass.new(klass_params)
 
     respond_to do |format|
       if @klass.save
@@ -52,7 +52,7 @@ class Administrator::KlassesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_klass
-      @klass = current_institute.klasses.find(params[:id])
+      @klass = Klass.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -22,13 +22,12 @@ class Administrator::StudentsController < ApplicationController
     @student = Student.new(student_params)
     password = SecureRandom.hex(8)
     @student.password = password
-    @student.institution_id = current_institute.id
     @student.enrollment_term_id = current_term.id
 
     respond_to do |format|
       if @student.save
         @section.section_students.create!(student_id: @student.id, klass_id: @section.klass_id, term_id: current_term.id, roll_number: params[:student][:roll_number])
-        StudentMailer.send_password(@student, current_institute, password).deliver!
+        StudentMailer.send_password(@student, Institution.current, password).deliver!
         format.html { redirect_to administrator_section_students_url(@section), notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else

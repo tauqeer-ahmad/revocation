@@ -1,5 +1,4 @@
 class Term < ApplicationRecord
-  belongs_to :institution
   has_many :enrolled_students, :class_name => "Student", :foreign_key => "enrollment_term_id" 
   has_many :section_students
   has_many :students, through: :section_students
@@ -8,8 +7,7 @@ class Term < ApplicationRecord
   validates :name, presence: {message: "Term name is required"}
   validates :start_date, presence: {message: "Term start date is required"}
   validates :end_date, presence: {message: "Term end date is required"}
-  validates :institution_id, presence: true
-  
+
   validates :name, :uniqueness => {:scope => :institution_id, message: "Term already exits for this name"}
   
   def display_term_duration

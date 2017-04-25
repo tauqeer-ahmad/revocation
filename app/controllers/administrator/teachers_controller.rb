@@ -2,7 +2,7 @@ class Administrator::TeachersController < ApplicationController
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
   def index
-    @teachers = current_institute.teachers
+    @teachers = Teacher.all
   end
 
   def show
@@ -16,12 +16,12 @@ class Administrator::TeachersController < ApplicationController
   end
 
   def create
-    @teacher = current_institute.teachers.new(teacher_params)
+    @teacher = Teacher.new(teacher_params)
     password = SecureRandom.hex(10)
     @teacher.password = password
     respond_to do |format|
       if @teacher.save
-        TeacherMailer.send_password(@teacher, current_institute, password).deliver!
+        TeacherMailer.send_password(@teacher, Institution.current, password).deliver!
         format.html { redirect_to [:administrator, @teacher], notice: 'Teacher was successfully created.' }
         format.json { render :show, status: :created, location: @teacher }
       else
@@ -54,7 +54,7 @@ class Administrator::TeachersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
-      @teacher = current_institute.teachers.find(params[:id])
+      @teacher = Teacher.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

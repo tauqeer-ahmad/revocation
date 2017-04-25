@@ -10,32 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170419195242) do
+ActiveRecord::Schema.define(version: 20170425092245) do
 
-  create_table "institutions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "institutions", force: :cascade do |t|
     t.string   "name"
-    t.text     "location",    limit: 65535
+    t.text     "location"
     t.integer  "latitude"
     t.integer  "longitude"
     t.string   "city",        limit: 20
     t.string   "country",     limit: 20
-    t.text     "description", limit: 65535
+    t.text     "description"
     t.string   "sector",      limit: 20
     t.string   "level",       limit: 20
     t.string   "status",      limit: 12
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "subdomain",   limit: 15
+    t.index ["subdomain"], name: "index_institutions_on_subdomain", using: :btree
   end
 
-  create_table "klasses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "klasses", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
-    t.integer  "institution_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "section_students", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "section_students", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "student_id"
     t.integer  "term_id"
@@ -45,46 +49,42 @@ ActiveRecord::Schema.define(version: 20170419195242) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "section_subject_teachers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "section_subject_teachers", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "subject_id"
     t.integer  "teacher_id"
     t.integer  "klass_id"
     t.integer  "term_id"
-    t.integer  "institution_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "sections", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "sections", force: :cascade do |t|
     t.string   "name"
     t.string   "nickname"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.integer  "institution_id"
     t.integer  "incharge_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "subjects", force: :cascade do |t|
     t.string   "name"
-    t.text     "description",    limit: 65535
-    t.integer  "institution_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "terms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "terms", force: :cascade do |t|
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "institution_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                             default: "", null: false
     t.string   "encrypted_password",                default: "", null: false
     t.string   "reset_password_token"
@@ -104,7 +104,6 @@ ActiveRecord::Schema.define(version: 20170419195242) do
     t.string   "role",                   limit: 12
     t.string   "roll_number",            limit: 12
     t.string   "qualification"
-    t.integer  "institution_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
