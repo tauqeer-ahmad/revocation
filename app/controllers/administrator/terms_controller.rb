@@ -3,6 +3,7 @@ class Administrator::TermsController < ApplicationController
 
   def index
     @terms = Term.all
+    @new_term = Term.new
   end
 
   def show
@@ -21,7 +22,7 @@ class Administrator::TermsController < ApplicationController
 
     respond_to do |format|
       if @term.save
-        format.html { redirect_to [:administrator, @term], notice: 'Term was successfully created.' }
+        format.html { redirect_to administrator_terms_url, notice: 'Term was successfully created.' }
         format.json { render :show, status: :created, location: @term }
       else
         format.html { render :new }
@@ -33,7 +34,7 @@ class Administrator::TermsController < ApplicationController
   def update
     respond_to do |format|
       if @term.update(term_params)
-        format.html { redirect_to [:administrator, @term], notice: 'Term was successfully updated.' }
+        format.html { redirect_to administrator_terms_url, notice: 'Term was successfully updated.' }
         format.json { render :show, status: :ok, location: @term }
       else
         format.html { render :edit }

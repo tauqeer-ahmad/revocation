@@ -18,7 +18,6 @@
 //= require peity/jquery.peity.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require inspinia.js
-//= require turbolinks
 //= require rails.validations
 //= require jquery_nested_form
 //= require_tree .

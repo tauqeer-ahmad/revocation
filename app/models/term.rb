@@ -8,7 +8,7 @@ class Term < ApplicationRecord
   validates :start_date, presence: {message: "Term start date is required"}
   validates :end_date, presence: {message: "Term end date is required"}
 
-  validates :name, :uniqueness => {:scope => :institution_id, message: "Term already exits for this name"}
+  validates :name, :uniqueness => {message: "Term already exits for this name"}
   
   def display_term_duration
     [start_date.strftime("%d, %B %Y"), 'to', end_date.strftime("%d, %B %Y")].join(' ')
