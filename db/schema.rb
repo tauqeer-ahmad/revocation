@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425092245) do
+ActiveRecord::Schema.define(version: 20170508160833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,9 +116,12 @@ ActiveRecord::Schema.define(version: 20170425092245) do
     t.string   "cnic",                   limit: 16
     t.string   "profession",             limit: 60
     t.integer  "guardian_id"
+    t.integer  "institution_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["guardian_id"], name: "index_users_on_guardian_id", using: :btree
+    t.index ["institution_id"], name: "index_users_on_institution_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "users", "institutions"
 end
