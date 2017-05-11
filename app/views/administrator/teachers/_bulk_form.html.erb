@@ -9,7 +9,7 @@
         <div class='clearfix'></div>
 
         <div class='ibox-content'>
-          <%= form_tag bulk_insert_administrator_teachers_path, class: 'form-horizontal', id: 'teachers-bulk-form', multipart: true do %>
+          <%= form_tag bulk_insert_administrator_teachers_path, class: 'form-horizontal', id: 'bulk-form', multipart: true do %>
             <div id='form-fields'>
               <% 5.times do %>
                 <div class='whole-form'>
@@ -94,6 +94,6 @@
 
 <% content_for :javascript do %>
   <script type='text/javascript'>
-    Teacher.init();
+    SingleModelBulkInsertion.init();
   </script>
 <% end %>

@@ -1,6 +1,6 @@
 bind_add_row_bulk_insert = ->
   $('#add-row-btn').on 'click', ->
-    form_row = $('#teachers-bulk-form #form-fields .whole-form').last().clone().appendTo('#teachers-bulk-form #form-fields')
+    form_row = $('#bulk-form #form-fields .whole-form').last().clone().appendTo('#bulk-form #form-fields')
     form_row.find('input').val('')
 
 bind_delete_row_bulk_insert = ->
@@ -12,9 +12,9 @@ bind_delete_row_bulk_insert = ->
       $(this).parents('.whole-form').remove()
 
 (($) ->
-  window.Teacher || (window.Teacher = {})
+  window.SingleModelBulkInsertion || (window.SingleModelBulkInsertion = {})
 
-  Teacher.init = ->
+  SingleModelBulkInsertion.init = ->
     init_controls()
 
   init_controls = ->
