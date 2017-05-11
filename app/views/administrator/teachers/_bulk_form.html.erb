@@ -16,19 +16,19 @@
                   <div class='form-group'>
                     <div class='row'>
                       <div class='col-sm-3'>
-                        <%= text_field_tag 'teachers[][first_name]', nil, required: true, placeholder: 'First Name', class: 'form-control' %>
+                        <%= text_field_tag 'teachers[][first_name]', nil, required: true, maxlength: 60, placeholder: 'First Name', class: 'form-control' %>
                       </div>
 
                       <div class='col-sm-3'>
-                        <%= text_field_tag 'teachers[][last_name]', nil, required: true, placeholder: 'Last Name', class: 'form-control' %>
+                        <%= text_field_tag 'teachers[][last_name]', nil, required: true, maxlength: 60, placeholder: 'Last Name', class: 'form-control' %>
                       </div>
 
                       <div class='col-sm-3'>
-                        <%= email_field_tag 'teachers[][email]', nil, required: true, placeholder: 'Email', class: 'form-control' %>
+                        <%= email_field_tag 'teachers[][email]', nil, required: true, maxlength: 60, placeholder: 'Email', class: 'form-control' %>
                       </div>
 
                       <div class='col-sm-3'>
-                        <%= text_field_tag 'teachers[][phone]', nil, required: true, placeholder: 'Phone', class: 'form-control' %>
+                        <%= text_field_tag 'teachers[][phone]', nil, required: true, maxlength: 60, placeholder: 'Phone', class: 'form-control' %>
                       </div>
                     </div>
                   </div>
@@ -36,15 +36,15 @@
                   <div class='form-group'>
                     <div class='row'>
                       <div class='col-sm-3'>
-                        <%= text_field_tag 'teachers[][qualification]', nil, placeholder: 'Qualification', class: 'form-control' %>
+                        <%= text_field_tag 'teachers[][qualification]', nil, maxlength: 60, placeholder: 'Qualification', class: 'form-control' %>
                       </div>
 
                       <div class='col-sm-3'>
-                        <%= text_field_tag 'teachers[][address]', nil, placeholder: 'Address', class: 'form-control' %>
+                        <%= text_field_tag 'teachers[][address]', nil, maxlength: 60, placeholder: 'Address', class: 'form-control' %>
                       </div>
 
                       <div class='col-sm-3'>
-                        <%= text_field_tag 'teachers[][profession]', nil, placeholder: 'Designation', class: 'form-control' %>
+                        <%= text_field_tag 'teachers[][profession]', nil, maxlength: 60, placeholder: 'Designation', class: 'form-control' %>
                       </div>
 
                       <div class='col-sm-2'>

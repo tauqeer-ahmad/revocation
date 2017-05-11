@@ -53,12 +53,7 @@ class Administrator::TeachersController < ApplicationController
   end
 
   def bulk_insert
-    Teacher.create(bulk_teacher_params).each do |teacher|
-      password = SecureRandom.hex(10)
-      teacher.password = password
-      teacher.save && TeacherMailer.send_password(teacher, Institution.current, password).deliver!
-    end
-
+    Teacher.create(bulk_teacher_params)
     redirect_to administrator_teachers_path
   end
 
