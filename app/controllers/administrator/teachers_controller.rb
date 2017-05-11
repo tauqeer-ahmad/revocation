@@ -52,6 +52,16 @@ class Administrator::TeachersController < ApplicationController
     end
   end
 
+  def bulk_insert
+    Teacher.create(bulk_teacher_params).each do |teacher|
+      password = SecureRandom.hex(10)
+      teacher.password = password
+      teacher.save && TeacherMailer.send_password(teacher, Institution.current, password).deliver!
+    end
+
+    redirect_to administrator_teachers_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
@@ -61,5 +71,9 @@ class Administrator::TeachersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
       params.require(:teacher).permit(:first_name, :last_name, :email, :avatar)
+    end
+
+    def bulk_teacher_params
+      params.permit(teachers: [:first_name, :last_name, :email, :avatar])[:teachers]
     end
 end
