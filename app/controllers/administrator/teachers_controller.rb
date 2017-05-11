@@ -74,6 +74,6 @@ class Administrator::TeachersController < ApplicationController
     end
 
     def bulk_teacher_params
-      params.permit(teachers: [:first_name, :last_name, :email, :avatar])[:teachers]
+      params.permit(teachers: [:first_name, :last_name, :email, :avatar, :phone, :qualification, :address, :profession])[:teachers]
     end
 end
