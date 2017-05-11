@@ -38,18 +38,39 @@ Revocation::Application.routes.draw do
           post :bulk_insert
         end
       end
-      resources :guardians
+
+      resources :guardians do
+        collection do
+          get :fetch
+        end
+      end
+
       resources :klasses, path: :classes do
+        collection do
+          post :bulk_insert
+        end
+
         resources :sections, only: [:new, :edit, :show, :update, :create] do
           collection do
             get :fetch
           end
         end
       end
-      resources :subjects
+
+      resources :subjects do
+        collection do
+          post :bulk_insert
+        end
+      end
+
       resources :terms
+
       resources :sections, only: [:index] do
-        resources :students
+        resources :students do
+          collection do
+            post :bulk_insert
+          end
+        end
       end
     end
   end

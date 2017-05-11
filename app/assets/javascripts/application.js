@@ -20,4 +20,5 @@
 //= require inspinia.js
 //= require rails.validations
 //= require jquery_nested_form
+//= require select2-full
 //= require_tree .

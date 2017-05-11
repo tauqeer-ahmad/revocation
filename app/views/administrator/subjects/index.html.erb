@@ -11,23 +11,22 @@
     </ol>
   </div>
 </div>
+
 <div class="wrapper wrapper-content  animated fadeInRight">
   <div class="row">
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <span class="text-muted small pull-right">
-            last modification: aasdad
-          </span>
           <h2>Subjects</h2>
           <p>
             All Subjects
           </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted">1406 Elements</span>
+              <span class="pull-right small text-muted"><%= "#{@subjects.count} Classes" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Subjects</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add new subject</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Add Bulk subjects</a></li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
@@ -76,9 +75,16 @@
                   </div>
                 </div>
               </div>
+
               <div id="tab-2" class="tab-pane">
                 <div class="full-height-scroll">
                   <%= render 'form', subject: @new_subject %>
+                </div>
+              </div>
+
+              <div id="tab-3" class="tab-pane">
+                <div class="full-height-scroll">
+                  <%= render 'bulk_form' %>
                 </div>
               </div>
             </div>

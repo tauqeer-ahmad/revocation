@@ -61,6 +61,12 @@ class Administrator::StudentsController < ApplicationController
     end
   end
 
+  def bulk_insert
+    Student.create(bulk_student_params)
+    redirect_to administrator_section_students_path(@section)
+  end
+
+
   private
     def set_section
       @section = current_term.sections.find(params[:section_id])
@@ -72,6 +78,10 @@ class Administrator::StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id)
+      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender)
+    end
+
+    def bulk_student_params
+      params.permit(students: [:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender])[:students]
     end
 end

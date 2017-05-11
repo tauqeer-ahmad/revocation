@@ -50,6 +50,11 @@ class Administrator::KlassesController < ApplicationController
     end
   end
 
+  def bulk_insert
+    Klass.create(bulk_klass_params)
+    redirect_to administrator_klasses_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_klass
@@ -59,5 +64,9 @@ class Administrator::KlassesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def klass_params
        params.require(:klass).permit(:name, :code)
+    end
+
+    def bulk_klass_params
+      params.permit(klasses: [:name, :code])[:klasses]
     end
 end

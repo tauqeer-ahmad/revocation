@@ -22,19 +22,16 @@
     <div class="col-sm-8">
       <div class="ibox">
         <div class="ibox-content">
-          <span class="text-muted small pull-right">
-            last modification: aasdad
-          </span>
           <h2>Students</h2>
           <p>
             All students enrolled in class <%= @section.klass_name %> section <%= @section.name %>.
           </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted">1406 Elements</span>
+              <span class="pull-right small text-muted"><%= "#{@students.count} Classes" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Students</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Admit Student</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Admint Bulk Students</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Admit Bulk Students</a></li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
@@ -74,7 +71,7 @@
                                 <%= student.roll_number %>
                               <% end %>
                             </td>
-      
+
                             <td> <span class="contact-type"><i class="fa fa-envelope"> </i></span> <%= student.email %></td>
                             <td>
                               <%= link_to administrator_section_student_path(@section, student), class:"btn btn-success dim btn-xs" do %>
@@ -100,13 +97,16 @@
                 </div>
               </div>
               <div id="tab-3" class="tab-pane">
-                biuld
+                <div class="full-height-scroll">
+                  <%= render 'bulk_form' %>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="col-sm-4">
       <div class="ibox ">
         <div class="ibox-content">

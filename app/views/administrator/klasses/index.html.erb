@@ -17,19 +17,16 @@
     <div class="col-sm-8">
       <div class="ibox">
         <div class="ibox-content">
-          <span class="text-muted small pull-right">
-            last modification: aasdad
-          </span>
           <h2>Classes</h2>
           <p>
             All classes
           </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted">1406 Elements</span>
+              <span class="pull-right small text-muted"><%= "#{@klasses.count} Classes" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Classes</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add new Class</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Admint Bulk classes</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Add Bulk classes</a></li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
@@ -82,19 +79,24 @@
                   </div>
                 </div>
               </div>
+
               <div id="tab-2" class="tab-pane">
                 <div class="full-height-scroll">
                   <%= render 'form', klass: @new_klass %>
                 </div>
               </div>
+
               <div id="tab-3" class="tab-pane">
-                biuld
+                <div class="full-height-scroll">
+                  <%= render 'bulk_form' %>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="col-sm-4">
       <div class="ibox ">
         <div class="ibox-content">
