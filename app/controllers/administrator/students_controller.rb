@@ -62,7 +62,10 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def bulk_insert
-    Student.create(bulk_student_params)
+    Student.create(bulk_student_params).each do |student|
+      @section.section_students.create!(student_id: student.id, klass_id: @section.klass_id, term_id: current_term.id, roll_number: student.roll_number)
+    end
+
     redirect_to administrator_section_students_path(@section)
   end
 
