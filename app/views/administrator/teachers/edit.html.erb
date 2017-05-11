@@ -1,6 +1,6 @@
 <h1>Editing Administrator Teacher</h1>
 
-<%= render 'form', teacher: 2teacher %>
+<%= render 'form', teacher: @teacher %>
 
-<%= link_to 'Show', @teacher %> |
+<%= link_to 'Show', [:administrator, @teacher] %> |
 <%= link_to 'Back', administrator_teachers_path %>
