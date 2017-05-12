@@ -36,8 +36,11 @@
                   <td><%= section.incharge_name %></td>
                   <td><%= section.display_subjects_count %></td>
                   <td>
-                    <%= link_to administrator_section_students_path(section), class: "btn btn-white btn-sm" do %>
+                    <%= link_to administrator_section_students_path(section), class: "btn btn-white btn-xs " do %>
                       <i class="fa fa-users"></i> Manage Students
+                    <% end %>
+                     <%= link_to administrator_section_timetables_path(section), class: "btn btn-white btn-xs" do %>
+                      <i class="fa fa-calendar"></i> Manage TimeTable
                     <% end %>
                   </td>
                 </tr>

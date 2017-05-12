@@ -46,6 +46,7 @@ Revocation::Application.routes.draw do
       resources :terms
       resources :sections, only: [:index] do
         resources :students
+        resources :timetables
       end
     end
   end

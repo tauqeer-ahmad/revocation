@@ -20,4 +20,6 @@
 //= require inspinia.js
 //= require rails.validations
 //= require jquery_nested_form
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .

@@ -83,7 +83,7 @@
                               <%= link_to edit_administrator_section_student_path(@section, student), class:"btn btn-info dim btn-xs" do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_section_student_path(@section, student), class:"btn btn-danger dim btn-xs", method: :delete, confirm: 'Are you sure?' do %>
+                               <%= link_to administrator_section_student_path(@section, student), class:"btn btn-danger dim btn-xs", method: :delete, data: {confirm: 'Are you sure?'} do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
                             </td>

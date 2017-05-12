@@ -8,6 +8,7 @@ class Section < ApplicationRecord
   has_many :teachers, through: :section_subject_teachers
   has_many :section_students
   has_many :students, through: :section_students
+  has_many :timetables
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
   
   validates :name, presence: {message: "Section name is required"}
