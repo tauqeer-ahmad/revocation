@@ -21,11 +21,11 @@ Revocation::Application.routes.draw do
   devise_for :teachers, :controllers => {
     :sessions => 'sessions'
   }
-  
+
   devise_for :students, :controllers => {
     :sessions => 'sessions'
   }
-  
+
   devise_for :guardians, :controllers => {
     :sessions => 'sessions'
   }
@@ -33,7 +33,11 @@ Revocation::Application.routes.draw do
   authenticated :administrator do
     namespace :administrator do
       root to: 'home#index'
-      resources :teachers
+      resources :teachers do
+        collection do
+          post :bulk_insert
+        end
+      end
       resources :guardians
       resources :klasses, path: :classes do
         resources :sections, only: [:new, :edit, :show, :update, :create] do
@@ -50,7 +54,7 @@ Revocation::Application.routes.draw do
       end
     end
   end
-  
+
   authenticated :teacher do
     scope module: :teacher do
       root to: 'home#index'

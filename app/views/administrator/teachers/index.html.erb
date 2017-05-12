@@ -17,20 +17,17 @@
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <span class="text-muted small pull-right">
-            last modification: aasdad
-          </span>
           <h2>Teachers</h2>
-          <p>
-            All Teachers
-          </p>
+          <p>All Teachers</p>
+
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted">1406 Elements</span>
+              <span class="pull-right small text-muted"><%= "#{@teachers.count} Teachers" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Teachers</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add New Teacher</a></li>
               <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Admint Bulk Teachers</a></li>
             </ul>
+
             <div class="tab-content full-height-scroll">
               <div id="tab-1" class="tab-pane active">
                 <div class="input-group">
@@ -39,7 +36,9 @@
                     <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
                   </span>
                 </div>
+
                 <div class="ibox"></div>
+
                 <div class="row">
                   <% @teachers.each do |teacher| %>
                     <div class="col-lg-4">
@@ -51,6 +50,7 @@
                               <div class="m-t-xs font-bold">Graphics designer</div>
                             </div>
                           </div>
+
                           <div class="col-sm-8">
                             <h3><strong><%= teacher.name %></strong></h3>
                             <p><i class="fa fa-envelope"></i> <%= teacher.email %></p>
@@ -68,13 +68,15 @@
                   <% end %>
                 </div>
               </div>
+
               <div id="tab-2" class="tab-pane">
                 <div class="full-height-scroll">
                   <%= render 'form', teacher: @new_teacher %>
                 </div>
               </div>
+
               <div id="tab-3" class="tab-pane">
-                biuld
+                <%= render 'bulk_form', teachers: @new_teachers %>
               </div>
             </div>
           </div>
@@ -85,18 +87,12 @@
 </div>
 
 <% content_for :javascript do %>
-
-<script type="text/javascript">
-
-$(function () {
-
-    $('.contact-box').each(function () {
+  <script type="text/javascript">
+    $(function () {
+      $('.contact-box').each(function () {
         animationHover(this, 'pulse');
+      });
     });
-
-});
-
-</script>
-
+  </script>
 <% end %>
 

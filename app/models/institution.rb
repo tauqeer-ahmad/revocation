@@ -1,11 +1,19 @@
 class Institution < ApplicationRecord
-  after_create :add_tenant_to_apartment
+  include AASM
 
   has_many :administrators
 
+  after_create :add_tenant_to_apartment
+
+  validates :name, presence: { message: "Name field is required" }
+  validates :location, presence: { message: "Location field is required" }
+  validates :city, presence: { message: "City must be selected" }
+  validates :country, presence: { message: "Country must be selected" }
+  validates :sector, presence: { message: "Sector must be selected" }
+  validates :subdomain, presence: { message: "Sector must be selected" }, uniqueness: true
+
   SECTORS = %w(public private)
   LEVELS = %w(high middle primary olevel alevel)
-  include AASM
 
   aasm :requires_lock => true, :column => 'status' do
     state :pending, :initial => true
@@ -23,13 +31,6 @@ class Institution < ApplicationRecord
       transitions :from => [:pending, :active], :to => :locked
     end
   end
-
-  validates :name, presence: { message: "Name field is required" }
-  validates :location, presence: { message: "Location field is required" }
-  validates :city, presence: { message: "City must be selected" }
-  validates :country, presence: { message: "Country must be selected" }
-  validates :sector, presence: { message: "Sector must be selected" }
-  validates :subdomain, presence: { message: "Sector must be selected" }, uniqueness: true
 
   def display_created_at
     created_at.strftime("%d, %B %Y %H:%M %p")
