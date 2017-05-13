@@ -31,8 +31,9 @@ Revocation::Application.routes.draw do
   }
 
   authenticated :administrator do
+    root to: 'administrator/home#index', as: :administrator_root
+
     namespace :administrator do
-      root to: 'home#index'
       resources :teachers do
         collection do
           post :bulk_insert
