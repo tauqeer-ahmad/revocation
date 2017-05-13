@@ -4,14 +4,15 @@ class Teacher < User
   has_many :section_subject_teachers
   has_many :sections, through: :section_subject_teachers
 
-  before_validation :set_password, if: Proc.new { self.password.blank? }
+  before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
 
   def set_password
-    self.password = SecureRandom.hex(10)
+    @password = SecureRandom.hex(10)
+    self.password = @password
   end
 
   def send_password
-    self.save && TeacherMailer.send_password(self, Institution.current, self.password).deliver!
+    TeacherMailer.send_password(self, Institution.current, @password).deliver!
   end
 end

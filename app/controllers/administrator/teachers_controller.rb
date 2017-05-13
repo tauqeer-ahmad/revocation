@@ -18,11 +18,8 @@ class Administrator::TeachersController < ApplicationController
 
   def create
     @teacher = Teacher.new(teacher_params)
-    password = SecureRandom.hex(10)
-    @teacher.password = password
     respond_to do |format|
       if @teacher.save
-        TeacherMailer.send_password(@teacher, Institution.current, password).deliver!
         format.html { redirect_to administrator_teachers_url, notice: 'Teacher was successfully created.' }
         format.json { render :show, status: :created, location: @teacher }
       else

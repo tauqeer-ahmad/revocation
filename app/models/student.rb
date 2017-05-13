@@ -10,14 +10,15 @@ class Student < User
   validates :roll_number, presence: { message: 'Roll number is required' }
   validates :roll_number, uniqueness: true
 
-  before_validation :set_password, if: Proc.new { self.password.blank? }
+  before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
 
   def set_password
-    self.password = SecureRandom.hex(10)
+    @password = SecureRandom.hex(10)
+    self.password = @password
   end
 
   def send_password
-    self.save && StudentMailer.send_password(self, Institution.current, self.password).deliver!
+    StudentMailer.send_password(self, Institution.current, @password).deliver!
   end
 end

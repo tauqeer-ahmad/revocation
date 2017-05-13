@@ -3,7 +3,7 @@
     <div class='col-lg-12'>
       <div class='ibox float-e-margins'>
         <div class='ibox-title'>
-          <h5>Register Teachers <small> Please fill the details correctly</small></h5>
+          <h5>Register Students <small> Please fill the details correctly</small></h5>
         </div>
 
         <div class='clearfix'></div>
@@ -40,7 +40,7 @@
                       </div>
 
                       <div class='col-sm-3'>
-                        <%= select_tag 'students[][guardian_id]', options_for_select(@guardians), prompt: 'Select Guardian', class: 'form-control select-guardians' %>
+                        <%= select_tag 'students[][guardian_id]', options_for_select([]), prompt: 'Select Guardian', class: 'form-control select-guardians' %>
                       </div>
 
                       <div class='col-sm-3'>
@@ -50,10 +50,36 @@
                         </label>
                       </div>
 
-                      <div class='col-sm-3'>
+                      <div class='col-sm-2'>
+                        <%= button_tag type: :button, class: 'btn btn-info show-guardian-form-btn' do %>
+                          <i class='fa fa-plus' aria-hidden='true'></i> New Guardian
+                        <% end %>
+                      </div>
+
+                      <div class='col-sm-1'>
                         <%= button_tag type: :button, class: 'btn btn-danger delete-row-btn' do %>
                           <i class='fa fa-trash' aria-hidden='true'></i>
                         <% end %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class='form-group guardian-form hide'>
+                    <div class='row'>
+                      <div class='col-sm-3'>
+                        <%= text_field_tag 'students[][guardian][first_name]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian First Name', class: 'form-control' %>
+                      </div>
+
+                      <div class='col-sm-3'>
+                        <%= text_field_tag 'students[][guardian][last_name]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Last Name', class: 'form-control' %>
+                      </div>
+
+                      <div class='col-sm-3'>
+                        <%= email_field_tag 'students[][guardian][email]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Email', class: 'form-control' %>
+                      </div>
+
+                      <div class='col-sm-3'>
+                        <%= text_field_tag 'students[][guardian][cnic]', nil, disabled: true, maxlength: 60, placeholder: 'Guardian CNIC', class: 'form-control' %>
                       </div>
                     </div>
                   </div>
@@ -77,7 +103,7 @@
             <div class='form-group text-center'>
               <div class='row'>
                 <div class='col-sm-12'>
-                  <%= submit_tag 'Insert All Teachers', class: 'btn btn-primary btn-lg' %>
+                  <%= submit_tag 'Insert All Students', class: 'btn btn-primary btn-lg' %>
                 </div>
               </div>
             </div>
@@ -90,7 +116,7 @@
 
 <% content_for :javascript do %>
   <script type='text/javascript'>
-    SingleModelBulkInsertion.init();
+    Student.init();
     Select2Trigger.init();
   </script>
 <% end %>

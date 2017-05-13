@@ -31,7 +31,11 @@
               <span class="pull-right small text-muted"><%= "#{@students.count} Classes" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Students</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Admit Student</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Admit Bulk Students</a></li>
+              <li class="">
+                <%= link_to bulk_view_administrator_section_students_path @section do %>
+                  <i class="fa fa-briefcase"></i> Admit Bulk Students
+                <% end %>
+              </li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">

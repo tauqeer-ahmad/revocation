@@ -15,7 +15,7 @@ init_select2 = ->
         keyword: term
       processResults: (data) ->
         results:  $.map(data, (item) ->
-                    text: [item.first_name, item.last_name].join(' ')
+                    text: [[item.first_name, item.last_name].join(' '), item.cnic].join(' - ')
                     id: item.id
                   )
 
