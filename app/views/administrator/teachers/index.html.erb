@@ -3,7 +3,7 @@
     <h2>Teachers</h2>
     <ol class="breadcrumb">
       <li>
-        <%= link_to "Home", root_path %>
+        <%= link_to 'Home', administrator_root_path %>
       </li>
       <li class="active">
         <strong>Teachers</strong>
@@ -25,7 +25,7 @@
               <span class="pull-right small text-muted"><%= "#{@teachers.count} Teachers" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Teachers</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add New Teacher</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Admint Bulk Teachers</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Add Bulk Teachers</a></li>
             </ul>
 
             <div class="tab-content full-height-scroll">
@@ -76,7 +76,9 @@
               </div>
 
               <div id="tab-3" class="tab-pane">
-                <%= render 'bulk_form', teachers: @new_teachers %>
+                <div class="full-height-scroll">
+                  <%= render 'bulk_form', teachers: @new_teachers %>
+                </div>
               </div>
             </div>
           </div>
