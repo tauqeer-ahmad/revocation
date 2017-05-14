@@ -19,12 +19,16 @@ class Section < ApplicationRecord
   def incharge_name
     incharge.name
   end
-  
+
   def display_subjects_count
     subjects.count
   end
-  
+
   def klass_name
     klass.name
+  end
+
+  def get_teacher_by_subject(subject_id)
+    section_subject_teachers.by_subject_id(subject_id).last.teacher_id if subject_id
   end
 end

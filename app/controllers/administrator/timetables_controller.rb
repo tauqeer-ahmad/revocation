@@ -4,7 +4,7 @@ class Administrator::TimetablesController < ApplicationController
   before_action :set_new_timetable_data, only: [:index, :edit, :new, :update]
 
   def index
-    @timetables = @section.timetables.order('day_of_week asc').group_by(&:day_of_week)
+    @timetables = @section.timetables.by_bay_of_week
     @new_timetable = Timetable.new
     @days_hash = Timetable::DAYS
   end
@@ -21,9 +21,6 @@ class Administrator::TimetablesController < ApplicationController
 
   def create
     @timetable = @section.timetables.new(timetable_params)
-    @timetable.klass_id = @section.klass_id
-    @timetable.term_id = @section.term_id
-    @timetable.teacher_id = @section.section_subject_teachers.where(subject_id: @timetable.subject_id).last.teacher_id if @timetable.subject_id
     respond_to do |format|
       if @timetable.save
         format.html { redirect_to administrator_section_timetables_url(@section), notice: 'Timetable was successfully created.' }
@@ -71,6 +68,10 @@ class Administrator::TimetablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timetable_params
-      params.require(:timetable).permit(:start_time, :end_time, :day_of_week, :subject_id)
+      params.require(:timetable).permit(:start_time, :end_time, :day_of_week, :subject_id).tap do |whitelisted|
+        whitelisted[:term_id] = current_term.id
+        whitelisted[:klass_id] = @section.klass_id
+        whitelisted[:teacher_id] = @section.get_teacher_by_subject(whitelisted[:subject_id])
+      end
     end
 end

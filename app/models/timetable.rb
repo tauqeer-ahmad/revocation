@@ -10,6 +10,8 @@ class Timetable < ApplicationRecord
   validates :end_time, presence: { message: "End time is required" }
   validates :subject_id, presence: { message: "Selection of a subject is required" }
 
+  scope :by_bay_of_week, -> {order(day_of_week: :asc).group_by(&:day_of_week)}
+
   DAYS = {
     1 => "Monday",
     2 => "Tuesday",
