@@ -7,6 +7,7 @@ class Administrator::TeachersController < ApplicationController
   end
 
   def show
+    @section_subjects = @teacher.section_subject_teachers.includes(:subject, section: :klass)
   end
 
   def new
