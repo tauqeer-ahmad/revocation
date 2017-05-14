@@ -1,5 +1,6 @@
 .btn-bs-file{
   position:relative;
+  width: 100%;
 
   input[type="file"] {
     position: absolute;
@@ -11,8 +12,4 @@
     outline: none;
     cursor: inherit;
   }
-}
-
-.wrapper.wrapper-content.animated.fadeInRight {
-  overflow: scroll;
 }

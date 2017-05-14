@@ -3,13 +3,15 @@
     <h2>Students</h2>
     <ol class="breadcrumb">
       <li>
-          <a href="index.html">Home</a>
+        <%= link_to 'Home', administrator_root_path %>
       </li>
       <li>
-          <a>App Views</a>
+        <%= link_to administrator_section_students_path(@section) do %>
+          Manage Sections
+        <% end %>
       </li>
       <li class="active">
-          <strong>Students</strong>
+        <strong>Students</strong>
       </li>
     </ol>
   </div>
@@ -22,19 +24,20 @@
     <div class="col-sm-8">
       <div class="ibox">
         <div class="ibox-content">
-          <span class="text-muted small pull-right">
-            last modification: aasdad
-          </span>
           <h2>Students</h2>
           <p>
             All students enrolled in class <%= @section.klass_name %> section <%= @section.name %>.
           </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted">1406 Elements</span>
+              <span class="pull-right small text-muted"><%= "#{@students.count} Classes" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Students</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Admit Student</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Admint Bulk Students</a></li>
+              <li class="">
+                <%= link_to bulk_view_administrator_section_students_path @section do %>
+                  <i class="fa fa-briefcase"></i> Admit Bulk Students
+                <% end %>
+              </li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
@@ -74,7 +77,7 @@
                                 <%= student.roll_number %>
                               <% end %>
                             </td>
-      
+
                             <td> <span class="contact-type"><i class="fa fa-envelope"> </i></span> <%= student.email %></td>
                             <td>
                               <%= link_to administrator_section_student_path(@section, student), class:"btn btn-success dim btn-xs" do %>
@@ -100,13 +103,16 @@
                 </div>
               </div>
               <div id="tab-3" class="tab-pane">
-                biuld
+                <div class="full-height-scroll">
+                  <%= render 'bulk_form' %>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="col-sm-4">
       <div class="ibox ">
         <div class="ibox-content">

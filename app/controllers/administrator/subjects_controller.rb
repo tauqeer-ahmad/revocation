@@ -50,6 +50,11 @@ class Administrator::SubjectsController < ApplicationController
     end
   end
 
+  def bulk_insert
+    Subject.create(bulk_subject_params)
+    redirect_to administrator_subjects_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subject
@@ -59,5 +64,9 @@ class Administrator::SubjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def subject_params
       params.require(:subject).permit(:name, :description)
+    end
+
+    def bulk_subject_params
+      params.permit(subjects: [:name, :description])[:subjects]
     end
 end
