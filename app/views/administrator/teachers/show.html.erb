@@ -40,7 +40,7 @@
               <%= @teacher.email %>
             </td>
             <td>
-              <strong><%= @teacher.section_subject_teachers.count %></strong> Subjects
+              <strong><%= @teacher.section_subject_teachers.length %></strong> Subjects
             </td>
           </tr>
 
@@ -49,7 +49,7 @@
               <%= @teacher.phone %>
             </td>
             <td>
-              <strong><%= @teacher.sections.count %></strong> Sections
+              <strong><%= @teacher.sections.length %></strong> Sections
             </td>
           </tr>
 
@@ -58,7 +58,7 @@
               <%= @teacher.qualification %>
             </td>
             <td>
-              <strong><%= @teacher.sections.collect(&:students).flatten.count %></strong> Students
+              <strong><%= @teacher.sections.collect(&:students).flatten.length %></strong> Students
             </td>
           </tr>
         </tbody>
@@ -101,7 +101,7 @@
                   <td><%= section_subject.section.klass.name %></td>
                   <td><%= section_subject.section.name %></td>
                   <td><%= section_subject.subject.name %></td>
-                  <td><%= section_subject.section.students.count %></td>
+                  <td><%= section_subject.section.students.length %></td>
                 </tr>
               <% end %>
             </tbody>
