@@ -2,7 +2,7 @@ class Administrator::TermsController < ApplicationController
   before_action :set_term, only: [:show, :edit, :update, :destroy]
 
   def index
-    @terms = Term.all
+    @terms = Term.lookup(params[:search])
     @new_term = Term.new
   end
 

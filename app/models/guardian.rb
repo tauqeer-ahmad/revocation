@@ -1,8 +1,22 @@
 class Guardian < User
+  include SearchWrapper
+
+  searchkick index_name: tenant_index_name
+
   has_many :children, class_name: 'Student', foreign_key: 'guardian_id'
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
+
+  def search_data
+    {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      profession: profession,
+      cnic: cnic,
+    }
+  end
 
   def set_password
     @password = SecureRandom.hex(10)

@@ -2,7 +2,7 @@ class Administrator::SubjectsController < ApplicationController
   before_action :set_subject, only: [:show, :edit, :update, :destroy]
 
   def index
-    @subjects = Subject.all
+    @subjects = Subject.lookup params[:search]
     @new_subject = Subject.new
   end
 

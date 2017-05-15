@@ -1,4 +1,8 @@
 class Student < User
+  include SearchWrapper
+
+  searchkick index_name: tenant_index_name
+
   belongs_to :enrollment_term, class_name: 'Term', foreign_key: 'enrollment_term_id'
   belongs_to :guardian
 
@@ -12,6 +16,18 @@ class Student < User
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
+
+  def search_data
+    {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      section_id: sections.pluck(:id),
+      roll_number: roll_number,
+      gender: gender,
+      guardian_id: guardian_id,
+    }
+  end
 
   def set_password
     @password = SecureRandom.hex(10)

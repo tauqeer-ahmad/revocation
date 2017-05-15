@@ -1,9 +1,12 @@
 class Institution < ApplicationRecord
+  searchkick
+
   include AASM
+  include SearchWrapper
 
   has_many :administrators
 
-  after_create :add_tenant_to_apartment
+  after_create :add_tenant_to_apartment, :add_indexes
 
   validates :name, presence: { message: "Name field is required" }
   validates :location, presence: { message: "Location field is required" }
@@ -30,6 +33,18 @@ class Institution < ApplicationRecord
     event :locked do
       transitions :from => [:pending, :active], :to => :locked
     end
+  end
+
+  def search_data
+    {
+      name: name,
+      location: location,
+      city: city,
+      country: country,
+      description: description,
+      sector: sector,
+      level: level,
+    }
   end
 
   def display_created_at
@@ -62,5 +77,16 @@ class Institution < ApplicationRecord
 
     def drop_tenant_from_apartment
       Apartment::Tenant.drop(subdomain)
+    end
+
+    def add_indexes
+      Apartment::Tenant.switch!(subdomain)
+
+      SEARCHKICK_MODELS.each do |model|
+        next if model.in? Apartment::excluded_models
+        model.constantize.reindex
+      end
+
+      Apartment::Tenant.switch!('public')
     end
 end

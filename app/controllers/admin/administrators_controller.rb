@@ -3,7 +3,7 @@ class Admin::AdministratorsController < ApplicationController
   before_action :set_administrator, only: [:show, :edit, :update, :destroy]
 
   def index
-    @administrators = @institution.administrators
+    @administrators = params[:search].present? ? Administrator.lookup(params[:search], {institution_id: @institution.id}) : @institution.administrators
   end
 
   def show

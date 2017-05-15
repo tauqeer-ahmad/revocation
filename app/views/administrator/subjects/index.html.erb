@@ -30,12 +30,7 @@
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
-                <div class="input-group">
-                  <input type="text" placeholder="Search subject " class="input form-control">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
-                  </span>
-                </div>
+                <%= render partial: 'shared/search_box', locals: {path: administrator_subjects_path} %>
                 <div class="full-height-scroll">
                   <div class="table-responsive">
                     <table class="table table-striped table-hover">

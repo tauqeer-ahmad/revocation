@@ -2,7 +2,7 @@ class Administrator::GuardiansController < ApplicationController
   before_action :set_guardian, only: [:show, :edit, :update, :destroy]
 
   def index
-    @guardians = Guardian.all
+    @guardians = Guardian.lookup params[:search]
     @new_guardian = Guardian.new
   end
 

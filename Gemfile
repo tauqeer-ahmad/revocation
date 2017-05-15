@@ -26,6 +26,8 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
@@ -44,3 +46,7 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'paperclip'
 gem 'select2-rails'
 gem 'simple_form'
+
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+gem 'searchkick'
