@@ -3,11 +3,13 @@ class Administrator::SectionsController < ApplicationController
   before_action :set_klass, except: [:index]
   before_action :set_section, only: [:show, :edit, :update, :destroy]
   before_action :set_form_data, only: [:new, :edit]
-  layout "empty", only: [:fetch]
+  layout 'empty', only: [:fetch]
+
   def index
     @klasses = Klass.all
+    @sections = Section.includes(:klass).where(term_id: current_term.id)
   end
-  
+
   def fetch
     @sections = @klass.sections.where(term_id: current_term.id)
   end
