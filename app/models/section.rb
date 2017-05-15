@@ -8,6 +8,7 @@ class Section < ApplicationRecord
   has_many :teachers, through: :section_subject_teachers
   has_many :section_students
   has_many :students, through: :section_students
+  has_many :timetables
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
   
   validates :name, presence: {message: "Section name is required"}
@@ -18,12 +19,16 @@ class Section < ApplicationRecord
   def incharge_name
     incharge.name
   end
-  
+
   def display_subjects_count
     subjects.count
   end
-  
+
   def klass_name
     klass.name
+  end
+
+  def get_teacher_by_subject(subject_id)
+    section_subject_teachers.by_subject_id(subject_id).last.teacher_id if subject_id
   end
 end
