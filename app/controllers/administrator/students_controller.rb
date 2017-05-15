@@ -3,7 +3,7 @@ class Administrator::StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   def index
-    @students = @section.students
+    @students = params[:search].present? ? Student.lookup(params[:search], {section_id: @section.id}) : @section.students
     @new_student = Student.new
     @guardians = Guardian.all
   end

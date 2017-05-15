@@ -2,7 +2,7 @@ class Administrator::TeachersController < ApplicationController
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
 
   def index
-    @teachers = Teacher.all
+    @teachers = Teacher.lookup params[:search]
     @new_teacher = Teacher.new
   end
 

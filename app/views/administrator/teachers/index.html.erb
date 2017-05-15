@@ -30,12 +30,7 @@
 
             <div class="tab-content full-height-scroll">
               <div id="tab-1" class="tab-pane active">
-                <div class="input-group">
-                  <input type="text" placeholder="Search teacher " class="input form-control">
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
-                  </span>
-                </div>
+                <%= render partial: 'shared/search_box', locals: {path: administrator_teachers_path} %>
 
                 <div class="ibox"></div>
 
