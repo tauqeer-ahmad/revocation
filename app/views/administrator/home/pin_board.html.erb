@@ -1,0 +1,27 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class='col-md-12'>
+      <%= form_tag administrator_create_note_path, remote: true, class: 'form-inline', id: 'create-note-form' do %>
+        <div class="input-group">
+          <div class='row'>
+            <div class='col-md-12'>
+              <div>
+                <%= text_field_tag :heading, nil, maxlength: 100, placeholder: 'Heading', class: 'input input-sm form-control' %>
+
+                <%= text_field_tag :description, nil, placeholder: 'Description', class: 'input input-sm form-control' %>
+
+                <span class="input-group-btn">
+                  <%= button_tag class: 'btn btn-sm btn-white' do %>
+                    <i class="fa fa-plus"></i> Add task
+                  <% end %>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render 'notes', notes: current_administrator.notes %>
+</div>

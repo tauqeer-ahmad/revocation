@@ -13,3 +13,17 @@
     cursor: inherit;
   }
 }
+
+#create-note-form {
+  .input-group {
+    width: 100%;
+
+    #heading {
+      width: 23%;
+    }
+
+    #description {
+      width: 44.4%;
+    }
+  }
+}
