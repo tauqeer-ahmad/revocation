@@ -74,6 +74,10 @@ Revocation::Application.routes.draw do
           end
         end
       end
+
+      get :pin_board, controller: :home
+      post :create_note, controller: :home
+      delete :delete_note, controller: :home
     end
   end
 

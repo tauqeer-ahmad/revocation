@@ -1,2 +1,82 @@
-<h1>Administrator::Homes#index</h1>
-<p>Find me in app/views/administrator/homes/index.html.erb</p>
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <span class="label label-primary pull-right"><i class='fa fa-pencil'></i></span>
+          <h5>Students</h5>
+        </div>
+        <div class="ibox-content">
+          <h1 class="no-margins"><%= @rolling[:students] %></h1>
+          <small>Total students</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <span class="label label-danger pull-right"><i class='fa fa-users'></i></span>
+          <h5>Teachers</h5>
+        </div>
+        <div class="ibox-content">
+          <h1 class="no-margins"><%= @rolling[:teachers] %></h1>
+          <small>Total teachers</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <span class="label label-success pull-right"><i class='fa fa-cubes'></i></span>
+          <h5>Classes</h5>
+        </div>
+        <div class="ibox-content">
+          <h1 class="no-margins"><%= @rolling[:klasses] %></h1>
+          <small>Total classes</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <span class="label label-info pull-right"><i class='fa fa-table'></i></span>
+          <h5>Sections</h5>
+        </div>
+        <div class="ibox-content">
+          <h1 class="no-margins"><%= @rolling[:sections] %></h1>
+          <small>Total sections</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class='col-md-12'>
+      <%= form_tag administrator_create_note_path, remote: true, class: 'form-inline', id: 'create-note-form' do %>
+        <div class="input-group">
+          <div class='row'>
+            <div class='col-md-12'>
+              <div>
+                <%= text_field_tag :heading, nil, maxlength: 100, placeholder: 'Heading', class: 'input input-sm form-control' %>
+
+                <%= text_field_tag :description, nil, placeholder: 'Description', class: 'input input-sm form-control' %>
+
+                <span class="input-group-btn">
+                  <%= button_tag class: 'btn btn-sm btn-white' do %>
+                    <i class="fa fa-plus"></i> Add task
+                  <% end %>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render 'notes', notes: current_administrator.notes %>
+</div>
+
