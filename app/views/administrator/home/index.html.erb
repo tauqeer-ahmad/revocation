@@ -55,7 +55,7 @@
 
   <div class="row">
     <div class='col-md-12'>
-      <%= form_tag administrator_create_note_path, remote: true, class: 'form-inline', id: 'create-note-form' do %>
+      <%= form_tag create_note_administrator_pin_board_path, remote: true, class: 'form-inline', id: 'create-note-form' do %>
         <div class="input-group">
           <div class='row'>
             <div class='col-md-12'>
@@ -77,6 +77,6 @@
     </div>
   </div>
 
-  <%= render 'notes', notes: current_administrator.notes %>
+  <%= render 'notes', notes: current_user.notes %>
 </div>
 
