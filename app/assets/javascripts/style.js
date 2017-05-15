@@ -3,6 +3,10 @@ $(document).on('ready', function() {
     dateFormat : "dd MM yy"
   });
 
+  $('input.timepicker').datetimepicker({
+    format: 'LT'
+  });
+
   $( "#tabs" ).tabs({
     beforeLoad: function(event, ui) {
       ui.panel.html('<div class="tab-loader"><img src="/assets/loading.gif" width="24" height="24" style="vertical-align:middle;"> Loading...</div>');

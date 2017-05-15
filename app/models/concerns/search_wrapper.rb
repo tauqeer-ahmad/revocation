@@ -7,7 +7,7 @@ module SearchWrapper
     end
 
     def lookup(keyword, clause = {})
-      return all if keyword.blank?
+      return all unless keyword
       self.search keyword, where: clause
     end
   end

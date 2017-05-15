@@ -67,6 +67,7 @@ Revocation::Application.routes.draw do
       resources :terms
 
       resources :sections, only: [:index] do
+        resources :timetables
         resources :students do
           collection do
             get :bulk_view

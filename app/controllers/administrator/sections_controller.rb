@@ -2,6 +2,7 @@ class Administrator::SectionsController < ApplicationController
   before_action :check_current_term
   before_action :set_klass, except: [:index]
   before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :set_form_data, only: [:new, :edit]
   layout "empty", only: [:fetch]
   def index
     @klasses = Klass.all
@@ -16,8 +17,6 @@ class Administrator::SectionsController < ApplicationController
 
   def new
     @section = Section.new
-    @teachers = Teacher.all.to_a
-    @subjects = Subject.all.to_a
   end
 
   def edit
@@ -72,7 +71,12 @@ class Administrator::SectionsController < ApplicationController
     def set_klass
       @klass = Klass.find(params[:klass_id])
     end
-    
+
+    def set_form_data
+      @teachers = Teacher.all.to_a
+      @subjects = Subject.all.to_a
+    end
+
     def check_current_term
       return redirect_to(administrator_terms_path) unless current_term.present?
     end

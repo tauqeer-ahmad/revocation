@@ -1,15 +1,15 @@
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
-    <h2>Subject registration</h2>
+    <h2>Add New Section</h2>
     <ol class="breadcrumb">
       <li>
         <%= link_to "Home", root_path %>
       </li>
       <li>
-        <%= link_to "Subjects", administrator_subjects_path %>
+        <%= link_to "Sections", administrator_sections_path %>
       </li>
       <li class="active">
-        <strong>New Subject Form</strong>
+        <strong>New Section Form</strong>
       </li>
     </ol>
   </div>
@@ -23,7 +23,7 @@
           <h5>Add a Section <small> Please fill the details correctly</small></h5>
         </div>
         <div class="ibox-content">
-          <%= render 'form', administrator_subject: @section %>
+          <%= render 'form', section: @section %>
         </div>
       </div>
     </div>

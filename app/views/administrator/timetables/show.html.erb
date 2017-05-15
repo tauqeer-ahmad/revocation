@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @timetable.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @timetable.end_time %>
+</p>
+
+<%= link_to 'Edit', edit_administrator_timetable_path(@timetable) %> |
+<%= link_to 'Back', administrator_timetables_path %>
