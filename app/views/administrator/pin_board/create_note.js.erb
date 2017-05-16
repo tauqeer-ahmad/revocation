@@ -1,0 +1,3 @@
+$('.notes').prepend("<%= escape_javascript(render 'note', note: @note) %>")
+$('#create-note-form input').val('');
+set_notes_colors();

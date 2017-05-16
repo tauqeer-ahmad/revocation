@@ -1,0 +1,11 @@
+<div class="row">
+  <div class='col-md-12'>
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <ul class="notes">
+        <% notes.each do |note| %>
+          <%= render 'note', note: note %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

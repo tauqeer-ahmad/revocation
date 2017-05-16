@@ -75,6 +75,14 @@ Revocation::Application.routes.draw do
           end
         end
       end
+
+      resource :pin_board, controller: :pin_board, only: [] do
+        collection do
+          get :landing
+          post :create_note
+          delete :delete_note
+        end
+      end
     end
   end
 

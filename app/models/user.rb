@@ -6,8 +6,10 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_attached_file :avatar, 
-                    styles: { 
+  has_many :notes
+
+  has_attached_file :avatar,
+                    styles: {
                       medium: "300x300!",
                       thumb: "100x100>"
                     },
