@@ -53,7 +53,11 @@
 
     <!-- Include javascript per-view -->
     <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
-    <%= yield :javascript %>
+    <script type="text/javascript">
+      $(function() {
+        <%= yield :javascript %>
+      });
+    </script>
 
 </body>
 </html>
