@@ -29,10 +29,6 @@ module ApplicationHelper
     end
   end
 
-  def devise_controller?(name)
-    name.in?(['sessions', 'registrations', 'passwords'])
-  end
-
   def flash_class(level)
     case level.to_sym
       when :notice then 'success'
