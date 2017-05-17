@@ -40,3 +40,27 @@
   padding: 0;
   text-align: right;
 }
+
+#toast-container > .toast {
+  background-image: none !important;
+}
+
+.toast {
+  background-color: #1ab394;
+}
+
+.toast-success {
+  background-color: #1ab394;
+}
+
+.toast-error {
+  background-color: #ed5565;
+}
+
+.toast-info {
+  background-color: #23c6c8;
+}
+
+.toast-warning {
+  background-color: #f8ac59;
+}
