@@ -13,11 +13,8 @@
  *= require style
  *= require font-awesome
  *= require jquery-ui
- *= require common
  *= require toastr/toastr.min.css
  *= require select2
  *= require select2-bootstrap
+ *= require common
  */
-@import 'bootstrap-sprockets';
-@import 'bootstrap';
-@import 'bootstrap-datetimepicker';

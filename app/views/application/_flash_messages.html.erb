@@ -1,0 +1,9 @@
+<div id='flash-message'>
+  <% unless flash.empty? %>
+    <script type='text/javascript'>
+      <% flash.each do |key, value| %>
+        toastr['<%= flash_class(key) %>']('<%= value %>');
+      <% end %>
+    </script>
+  <% end %>
+</div>

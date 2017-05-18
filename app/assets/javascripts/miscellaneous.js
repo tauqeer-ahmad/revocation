@@ -8,6 +8,5 @@
 //= require preetyTextDiff/jquery.pretty-text-diff.min.js
 //= require tinycon/tinycon.min.js
 //= require idle-timer/idle-timer.min.js
-//= require jquery-ui/jquery-ui.min.js
 //= require sweetalert/sweetalert.min.js
 //= require masonry/masonry.pkgd.min.js
