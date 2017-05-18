@@ -58,3 +58,40 @@
 .color-field {
   padding: 3px 5px;
 }
+
+#toast-container > .toast {
+  background-image: none !important;
+}
+
+.toast {
+  background-color: #1ab394;
+}
+
+.toast-success {
+  background-color: #1ab394;
+}
+
+.toast-error {
+  background-color: #ed5565;
+}
+
+.toast-info {
+  background-color: #23c6c8;
+}
+
+.toast-warning {
+  background-color: #f8ac59;
+
+.tab-content {
+  h2, h3, h4, h5 {
+    font-weight: normal;
+  }
+
+  .bg-info {
+    background: #23c6c8;
+  }
+
+  .color-white {
+    color: #fff;
+  }
+}
