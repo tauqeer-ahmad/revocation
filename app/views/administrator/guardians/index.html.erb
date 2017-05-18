@@ -114,7 +114,7 @@
 
                       <tbody>
                         <% guardian.children.each do |student| %>
-                          <% section = student.sections.where(term_id: current_term.id).first %>
+                          <% section = student.current_section(current_term.id) %>
                           <% if section.present? %>
                             <tr>
                               <td><%= link_to student.name, administrator_section_student_path(section, student), class: 'btn-link' %></td>
