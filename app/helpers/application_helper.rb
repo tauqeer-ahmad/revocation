@@ -29,6 +29,11 @@ module ApplicationHelper
     end
   end
 
+  def klass_submit_name(action_name)
+    keyword = action_name == 'index' && 'Create' || 'Update'
+    [keyword, 'Class'].join(' ')
+  end
+    
   def flash_class(level)
     case level.to_sym
       when :notice then 'success'

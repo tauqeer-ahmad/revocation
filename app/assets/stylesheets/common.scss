@@ -41,6 +41,24 @@
   text-align: right;
 }
 
+.notes {
+  li {
+    word-wrap: break-word;
+
+    > div {
+      overflow: scroll;
+
+      > a {
+        z-index: 10;
+      }
+    }
+  }
+}
+
+.color-field {
+  padding: 3px 5px;
+}
+
 #toast-container > .toast {
   background-image: none !important;
 }
