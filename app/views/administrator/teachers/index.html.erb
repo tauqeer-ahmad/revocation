@@ -84,12 +84,6 @@
 </div>
 
 <% content_for :javascript do %>
-  <script type="text/javascript">
-    $(function () {
-      $('.contact-box').each(function () {
-        animationHover(this, 'pulse');
-      });
-    });
-  </script>
+  animate_contact_box()
 <% end %>
 
