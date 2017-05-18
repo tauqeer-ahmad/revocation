@@ -36,13 +36,13 @@
                   <td><%= section.incharge_name %></td>
                   <td><%= section.display_subjects_count %></td>
                   <td>
-                    <%= link_to administrator_klass_section_path(@klass, section), class:"btn btn-success dim btn-xs" do %>
+                    <%= link_to administrator_klass_section_path(@klass, section), class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
                       <i class="fa fa-eye"></i>
                     <% end %>
-                     <%= link_to edit_administrator_klass_section_path(@klass, section), class:"btn btn-info dim btn-xs" do %>
+                     <%= link_to edit_administrator_klass_section_path(@klass, section), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                       <i class="fa fa-pencil-square-o"></i>
                     <% end %>
-                     <%= link_to administrator_klass_section_path(@klass, section), method: :delete, class:"btn btn-danger dim btn-xs" do %>
+                     <%= link_to administrator_klass_section_path(@klass, section), method: :delete, class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete' do %>
                       <i class="fa fa-trash-o"></i>
                     <% end %>
                     <%= link_to administrator_section_students_path(section), class: "btn btn-white btn-xs " do %>
