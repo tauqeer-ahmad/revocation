@@ -6,7 +6,7 @@ module ApplicationHelper
     def is_active_action(action_name)
         params[:action] == action_name ? "active" : nil
     end
-    
+
     def get_logout_path(user)
       case user.type_of
       when 'Administrator'
@@ -21,11 +21,16 @@ module ApplicationHelper
         destroy_admin_supervisor_session_path
       end
     end
-    
+
   def tab_item(name, url)
     opts = {}
     content_tag :li, opts do
       link_to name, url
     end
+  end
+
+  def klass_submit_name(action_name)
+    keyword = action_name == 'index' && 'Create' || 'Update'
+    [keyword, 'Class'].join(' ')
   end
 end
