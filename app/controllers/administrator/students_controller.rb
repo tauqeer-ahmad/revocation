@@ -5,10 +5,12 @@ class Administrator::StudentsController < ApplicationController
   def index
     @students = params[:search].present? ? Student.lookup(params[:search], {section_id: @section.id}) : @section.students
     @new_student = Student.new
-    @guardians = Guardian.all
   end
 
   def show
+    @klass = @section.klass
+    @incharge = @section.incharge
+    @guardian = @student.guardian
   end
 
   def new

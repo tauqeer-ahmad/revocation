@@ -39,6 +39,6 @@ class Student < User
   end
 
   def current_section(term_id)
-    sections.where(term_id: term_id).first
+    sections.of_current_term(term_id).first
   end
 end

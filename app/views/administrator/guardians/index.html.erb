@@ -46,13 +46,13 @@
                             <td> <span class="contact-type"><i class="fa fa-envelope"> </i></span> <%= guardian.email %>
                             </td>
                             <td>
-                              <%= link_to administrator_guardian_path(guardian), class:"btn btn-success dim btn-xs" do %>
+                              <%= link_to administrator_guardian_path(guardian), class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
                                 <i class="fa fa-eye"></i>
                               <% end %>
-                              <%= link_to edit_administrator_guardian_path(guardian), class:"btn btn-info dim btn-xs" do %>
+                              <%= link_to edit_administrator_guardian_path(guardian), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_guardian_path(guardian), class:"btn btn-danger dim btn-xs", method: :delete, confirm: 'Are you sure?' do %>
+                               <%= link_to administrator_guardian_path(guardian), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
                             </td>
