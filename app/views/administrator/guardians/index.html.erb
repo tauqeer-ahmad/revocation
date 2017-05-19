@@ -118,8 +118,8 @@
                           <% if section.present? %>
                             <tr>
                               <td><%= link_to student.name, administrator_section_student_path(section, student), class: 'btn-link' %></td>
-                              <td><%= link_to section.klass_name, administrator_klass_section_path(section.klass, section), class: 'btn-link' %></td>
-                              <td><%= link_to section.name, administrator_klass_path(section.klass), class: 'btn-link' %></td>
+                              <td><%= link_to section.klass_name, administrator_klass_path(section.klass), class: 'btn-link' %></td>
+                              <td><%= link_to section.name, administrator_klass_section_path(section.klass, section), class: 'btn-link' %></td>
                             </tr>
                           <% end %>
                         <% end %>
