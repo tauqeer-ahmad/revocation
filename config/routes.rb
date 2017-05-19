@@ -1,7 +1,4 @@
 Revocation::Application.routes.draw do
-  namespace :administrator do
-    resources :exams
-  end
   namespace :admin do
     devise_for :supervisors, :controllers => {
       :sessions => 'sessions'
@@ -86,6 +83,7 @@ Revocation::Application.routes.draw do
           delete :delete_note
         end
       end
+      resources :exams
     end
   end
 
