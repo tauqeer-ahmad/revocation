@@ -1,4 +1,7 @@
 Revocation::Application.routes.draw do
+  namespace :administrator do
+    resources :exams
+  end
   namespace :admin do
     devise_for :supervisors, :controllers => {
       :sessions => 'sessions'
