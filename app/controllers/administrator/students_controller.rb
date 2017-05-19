@@ -8,6 +8,9 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def show
+    @klass = @section.klass
+    @incharge = @section.incharge
+    @guardian = @student.guardian
   end
 
   def new

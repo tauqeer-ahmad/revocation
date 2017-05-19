@@ -94,5 +94,21 @@
 
   .color-white {
     color: #fff;
+
+    a {
+      color: #fff;
+    }
+  }
+}
+
+#class-wrapper, #section-wrapper {
+  .label {
+    font-size: 100%;
+  }
+}
+
+#guardian-wrapper {
+  h2, h3, h4, h5 {
+    font-weight: normal;
   }
 }

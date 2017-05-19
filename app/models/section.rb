@@ -10,7 +10,7 @@ class Section < ApplicationRecord
   has_many :students, through: :section_students
   has_many :timetables
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
-  
+
   validates :name, presence: {message: "Section name is required"}
   validates :nickname, presence: {message: "Nickname is required"}
   validates :incharge_id, presence: {message: "Selection of class incharge is required"}
@@ -22,6 +22,14 @@ class Section < ApplicationRecord
 
   def display_subjects_count
     subjects.count
+  end
+
+  def display_teachers_count
+    section_subject_teachers.map(&:teacher_id).uniq.count
+  end
+
+  def display_students_count
+    students.count
   end
 
   def klass_name

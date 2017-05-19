@@ -49,7 +49,7 @@
               <%= @teacher.phone %>
             </td>
             <td>
-              <strong><%= @teacher.sections.length %></strong> Sections
+              <strong><%= @teacher.sections.count %></strong> Sections
             </td>
           </tr>
 
@@ -58,7 +58,7 @@
               <%= @teacher.qualification %>
             </td>
             <td>
-              <strong><%= @teacher.uniq.sections.collect(&:students).flatten.length %></strong> Students
+              <strong><%= @teacher.sections.uniq.collect(&:students).flatten.count %></strong> Students
             </td>
           </tr>
         </tbody>
