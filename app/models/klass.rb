@@ -17,6 +17,6 @@ class Klass < ApplicationRecord
   end
 
   def current_sections(term_id)
-    sections.where(term_id: term_id)
+    sections.of_current_term(term_id)
   end
 end

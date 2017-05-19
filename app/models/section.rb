@@ -16,6 +16,8 @@ class Section < ApplicationRecord
   validates :incharge_id, presence: {message: "Selection of class incharge is required"}
   validates :klass_id, presence: {message: "Selection of class is required"}
 
+  scope :of_current_term, -> (term_id) { where(term_id: term_id) }
+
   def incharge_name
     incharge.name
   end
