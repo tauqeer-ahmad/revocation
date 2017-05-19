@@ -7,7 +7,7 @@ module SearchWrapper
     end
 
     def lookup(keyword, clause = {})
-      return all unless keyword.present?
+      return where(clause).all unless keyword.present?
       self.search keyword, where: clause
     end
   end

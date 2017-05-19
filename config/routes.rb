@@ -83,6 +83,7 @@ Revocation::Application.routes.draw do
           delete :delete_note
         end
       end
+      resources :exams
     end
   end
 
