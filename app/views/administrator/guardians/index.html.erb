@@ -9,7 +9,7 @@
           </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted"><%= "#{@guardians.count} Classes" %></span>
+              <span class="pull-right small text-muted"><%= "#{@guardians.count} Guardians" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Guardian</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Register New</a></li>
             </ul>
@@ -52,7 +52,7 @@
                               <%= link_to edit_administrator_guardian_path(guardian), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_guardian_path(guardian), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                               <%= link_to administrator_guardian_path(guardian), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: guardian.class.name }, title: 'Delete' do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
                             </td>
@@ -81,12 +81,12 @@
               <div id="guardian-<%= guardian.id %>" class="tab-pane <% if index == 0 %> active <% end %>">
                 <div class="widget-head-color-box bg-info p-lg text-center color-white">
                   <div class="m-b-md">
-                    <h2 class="font-bold"><%= guardian.name %></h2>
+                    <h2 class="font-bold"><%= link_to guardian.name, administrator_guardian_path(guardian) %></h2>
                     <h3 class="font-bold no-margins"><%= guardian.phone %></h3>
                     <small><%= guardian.email %></small>
                   </div>
 
-                  <%= image_tag guardian.avatar.url(:thumb), class: 'img-circle circle-border m-b-md' %>
+                  <%= link_to image_tag(guardian.avatar.url(:thumb), class: 'img-circle circle-border m-b-md'), administrator_guardian_path(guardian) %>
 
                   <div>
                     <span><%= guardian.cnic %></span>

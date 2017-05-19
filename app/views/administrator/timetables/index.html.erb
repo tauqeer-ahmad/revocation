@@ -61,7 +61,7 @@
                                             <% end %>
                                           </li>
                                           <li>
-                                            <%= link_to administrator_section_timetable_path(@section, timetable), method: :delete, data: {confirm: 'Are you sure?'} do %>
+                                            <%= link_to administrator_section_timetable_path(@section, timetable), data: { behavior: 'delete', object: timetable.class.name } do %>
                                               <i class="fa fa-trash-o"></i> Delete
                                             <% end %>
                                           </li>

@@ -59,7 +59,7 @@
                               <%= link_to edit_administrator_subject_path(subject), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_subject_path(subject), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                               <%= link_to administrator_subject_path(subject), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: subject.class.name }, title: 'Delete' do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
                             </td>

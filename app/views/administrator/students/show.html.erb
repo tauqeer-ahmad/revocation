@@ -15,7 +15,7 @@
           <i class='fa fa-pencil-square-o'></i> Edit
         <% end %>
 
-        <%= link_to administrator_section_student_path(@section, @student), method: :delete, class: 'btn btn-danger btn-outline btn-md' do %>
+        <%= link_to administrator_section_student_path(@section, @student), data: { behavior: 'delete', object: @student.class.name }, class: 'btn btn-danger btn-outline btn-md' do %>
           <i class='fa fa-trash-o'></i> Delete
         <% end %>
       </div>
@@ -39,7 +39,7 @@
 
       <div class='col-lg-3 text-center'>
         <h2><span class='label label-success'>Guardian</span></h2>
-        <h2><%= link_to @guardian.name, administrator_guardian_path(@guardian), class: 'btn-link' %></h2>
+        <h2><%= link_to @guardian.name, administrator_guardian_path(@guardian), class: 'btn-link' if @guardian.present? %></h2>
       </div>
     </div>
   </div>

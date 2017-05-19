@@ -30,7 +30,7 @@
           </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted"><%= "#{@students.count} Classes" %></span>
+              <span class="pull-right small text-muted"><%= "#{@students.count} Students" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Students</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Admit Student</a></li>
               <li class="">
@@ -81,7 +81,7 @@
                               <%= link_to edit_administrator_section_student_path(@section, student), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_section_student_path(@section, student), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                               <%= link_to administrator_section_student_path(@section, student), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: student.class.name }, title: 'Delete' do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
                             </td>

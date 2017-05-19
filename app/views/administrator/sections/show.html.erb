@@ -12,7 +12,7 @@
           <i class='fa fa-pencil-square-o'></i> Edit
         <% end %>
 
-        <%= link_to administrator_klass_section_path(@section.klass, @section), method: :delete, class: 'btn btn-danger btn-outline btn-md' do %>
+        <%= link_to administrator_klass_section_path(@section.klass, @section), data: { behavior: 'delete', object: @section.class.name }, class: 'btn btn-danger btn-outline btn-md' do %>
           <i class='fa fa-trash-o'></i> Delete
         <% end %>
       </div>
