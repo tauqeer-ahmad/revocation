@@ -113,7 +113,7 @@
         <div class="ibox-content">
           <div class="tab-content">
             <% @students.each_with_index do |student, index| %>
-              <% section = student.sections.where(term_id: current_term.id).first %>
+              <% section = student.current_section(current_term.id) %>
               <div id="student-<%= student.id %>" class="tab-pane <% if index == 0 %> active <% end %>">
                 <div class="widget-head-color-box bg-info p-lg text-center color-white">
                   <div class="m-b-md">
