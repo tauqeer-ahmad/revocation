@@ -94,6 +94,7 @@
         <div class="ibox-content">
           <div class="tab-content">
             <% @klasses.each_with_index do |klass, index| %>
+              <% sections = klass.current_sections(current_term.id) %>
               <div id="klass-<%= klass.id %>" class="tab-pane <% if index == 0 %> active <% end %>">
                 <div class="row m-b-lg">
                   <div class="col-lg-12 text-center">
@@ -102,13 +103,18 @@
                 </div>
 
                 <div class="row m-b-lg">
-                  <div class="col-lg-6 text-center">
-                    <h4><span class="badge badge-info"><%= klass.sections.collect(&:students).flatten.count %></span></h4>
+                  <div class="col-lg-4 text-center">
+                    <h4><span class="badge badge-info"><%= sections.collect(&:students).flatten.count %></span></h4>
                     <i>Students</i>
                   </div>
 
-                  <div class="col-lg-6 text-center">
-                    <h4><span class="badge badge-info"><%= klass.sections.collect(&:teachers).flatten.count %></span></h4>
+                  <div class="col-lg-4 text-center">
+                    <h4><span class="badge badge-warning"><%= sections.count %></span></h4>
+                    <i>Sections</i>
+                  </div>
+
+                  <div class="col-lg-4 text-center">
+                    <h4><span class="badge badge-danger"><%= sections.collect(&:teachers).flatten.count %></span></h4>
                     <i>Teachers</i>
                   </div>
                 </div>
