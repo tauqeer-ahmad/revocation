@@ -37,4 +37,8 @@ class Student < User
   def send_password
     StudentMailer.send_password(self, Institution.current, @password).deliver!
   end
+
+  def current_section(term_id)
+    sections.of_current_term(term_id).first
+  end
 end
