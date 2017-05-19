@@ -42,7 +42,7 @@
                      <%= link_to edit_administrator_klass_section_path(@klass, section), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                       <i class="fa fa-pencil-square-o"></i>
                     <% end %>
-                     <%= link_to administrator_klass_section_path(@klass, section), method: :delete, class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete' do %>
+                     <%= link_to administrator_klass_section_path(@klass, section), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: section.class.name }, title: 'Delete' do %>
                       <i class="fa fa-trash-o"></i>
                     <% end %>
                     <%= link_to administrator_section_students_path(section), class: "btn btn-white btn-xs " do %>

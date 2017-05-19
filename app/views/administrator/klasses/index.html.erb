@@ -60,7 +60,7 @@
                               <%= link_to edit_administrator_klass_path(klass), class: "btn btn-info btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_klass_path(klass), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                               <%= link_to administrator_klass_path(klass), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: klass.class.name }, title: 'Delete' do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
                             </td>

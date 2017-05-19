@@ -79,7 +79,7 @@
                                   <i class="fa fa-pencil-square-o"></i>
                                 <% end %>
 
-                                <%= link_to administrator_klass_section_path(klass, section), method: :delete, class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete' do %>
+                                <%= link_to administrator_klass_section_path(klass, section), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: section.class.name }, title: 'Delete' do %>
                                   <i class="fa fa-trash-o"></i>
                                 <% end %>
 

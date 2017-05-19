@@ -15,7 +15,7 @@
           <i class='fa fa-pencil-square-o'></i> Edit
         <% end %>
 
-        <%= link_to administrator_guardian_path(@guardian), method: :delete, class: 'btn btn-danger btn-outline btn-md' do %>
+        <%= link_to administrator_guardian_path(@guardian), data: { behavior: 'delete', object: @guardian.class.name }, class: 'btn btn-danger btn-outline btn-md' do %>
           <i class='fa fa-trash-o'></i> Delete
         <% end %>
       </div>
