@@ -22,7 +22,7 @@ class Administrator::StudentsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
-    @student.enrollment_term_id = current_term.id
+    @student.guardian_id ||= get_guardian_id
 
     respond_to do |format|
       if @student.save
@@ -74,6 +74,10 @@ class Administrator::StudentsController < ApplicationController
   end
 
   private
+    def get_guardian_id
+      Guardian.where(email: guardian_params[:email]).first.try(:id) || Guardian.create(guardian_params).id
+    end
+
     def set_section
       @section = current_term.sections.find(params[:section_id])
     end
@@ -84,11 +88,17 @@ class Administrator::StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender)
+      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender).tap do |whitelisted|
+        whitelisted[:enrollment_term_id] = current_term.id
+      end
+    end
+
+    def guardian_params
+      params.require(:guardian).permit(:first_name, :last_name, :email, :cnic, :phone)
     end
 
     def bulk_student_params
-      params.permit(students: [:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender, guardian: [:first_name, :last_name, :cnic, :email]]).tap do |custom_params|
+      params.permit(students: [:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender, guardian: [:first_name, :last_name, :cnic, :email, :phone]]).tap do |custom_params|
         custom_params[:students].each { |student| student[:enrollment_term_id] = current_term.id }
       end[:students]
     end
