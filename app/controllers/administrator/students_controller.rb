@@ -75,7 +75,7 @@ class Administrator::StudentsController < ApplicationController
 
   private
     def get_guardian_id
-      Guardian.where(email: guardian_params[:email]).first.try(:id) || Guardian.create(guardian_params).id
+      Guardian.where(email: guardian_params[:email]).first_or_create(guardian_params).id
     end
 
     def set_section
