@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510114847) do
+ActiveRecord::Schema.define(version: 20170516022401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attendance_sheets", force: :cascade do |t|
+    t.date     "name"
+    t.integer  "section_id"
+    t.integer  "entity",     default: 0
+    t.integer  "present"
+    t.integer  "absent"
+    t.integer  "leave"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["section_id"], name: "index_attendance_sheets_on_section_id", using: :btree
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.string   "attendee_type"
+    t.integer  "attendee_id"
+    t.integer  "attendance_sheet_id"
+    t.integer  "status",              default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["attendance_sheet_id"], name: "index_attendances_on_attendance_sheet_id", using: :btree
+    t.index ["attendee_type", "attendee_id"], name: "index_attendances_on_attendee_type_and_attendee_id", using: :btree
+  end
 
   create_table "institutions", force: :cascade do |t|
     t.string   "name"
@@ -37,6 +60,16 @@ ActiveRecord::Schema.define(version: 20170510114847) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.string   "heading",     limit: 100,                     null: false
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "color",       limit: 7,   default: "#ffffcc"
+    t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
   end
 
   create_table "section_students", force: :cascade do |t|
@@ -141,5 +174,7 @@ ActiveRecord::Schema.define(version: 20170510114847) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "attendances", "attendance_sheets"
+  add_foreign_key "notes", "users"
   add_foreign_key "users", "institutions"
 end
