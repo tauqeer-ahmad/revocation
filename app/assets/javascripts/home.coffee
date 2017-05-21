@@ -52,7 +52,6 @@ display_uploaded_image = ->
 
     reader.onload = (file) ->
       img = new Image
-      console.log file
       img.src = file.target.result
       $('#uploaded-image').html img
       $('#uploaded-image img').addClass('img-thumbnail')
