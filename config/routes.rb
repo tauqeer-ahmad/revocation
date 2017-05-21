@@ -99,10 +99,11 @@ Revocation::Application.routes.draw do
   authenticated :teacher do
     scope module: :teacher do
       root to: 'home#index'
-    end
-    resources :attendance_sheets, only: [:index, :update, :destroy] do
-      collection do
-        get :managing_students
+
+      resources :attendance_sheets, only: [:index, :update, :destroy] do
+        collection do
+          get :managing_students
+        end
       end
     end
   end

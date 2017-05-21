@@ -32,7 +32,7 @@ class Teacher < User
   end
 
   def incharged_sections_list
-    incharged_sections.collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
+    incharged_sections.includes(:klass).collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
   end
 
   def self.data_hash

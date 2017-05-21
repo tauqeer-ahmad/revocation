@@ -49,6 +49,6 @@ class Section < ApplicationRecord
   end
 
   def self.all_sections_list
-    all.collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
+    includes(:klass).collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
   end
 end
