@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20170516022401) do
     t.index ["attendee_type", "attendee_id"], name: "index_attendances_on_attendee_type_and_attendee_id", using: :btree
   end
 
+  create_table "exams", force: :cascade do |t|
+    t.string   "name"
+    t.date     "start_date"
+    t.text     "comment"
+    t.integer  "term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["term_id"], name: "index_exams_on_term_id", using: :btree
+  end
+
   create_table "institutions", force: :cascade do |t|
     t.string   "name"
     t.text     "location"

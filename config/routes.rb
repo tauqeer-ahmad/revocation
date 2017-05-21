@@ -51,7 +51,7 @@ Revocation::Application.routes.draw do
           post :bulk_insert
         end
 
-        resources :sections, only: [:new, :edit, :show, :update, :create] do
+        resources :sections, only: [:new, :edit, :show, :update, :create, :destroy] do
           collection do
             get :fetch
           end
@@ -91,6 +91,8 @@ Revocation::Application.routes.draw do
           get :managing_students
         end
       end
+
+      resources :exams
     end
   end
 

@@ -11,7 +11,7 @@ class Administrator::SectionsController < ApplicationController
   end
 
   def fetch
-    @sections = @klass.sections.where(term_id: current_term.id)
+    @sections = @klass.current_sections(current_term.id)
   end
 
   def show

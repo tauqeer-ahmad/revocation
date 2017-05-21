@@ -54,6 +54,8 @@
                             <th>Nickname</th>
                             <th>Incharge</th>
                             <th>Subjects</th>
+                            <th>Teachers</th>
+                            <th>Students</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
@@ -66,19 +68,25 @@
                               <td><%= section.nickname %></td>
                               <td><%= section.incharge_name %></td>
                               <td><%= section.display_subjects_count %></td>
+                              <td><%= section.display_teachers_count %></td>
+                              <td><%= section.display_students_count %></td>
                               <td>
                                 <%= link_to administrator_klass_section_path(klass, section), class: "btn btn-success dim btn-outline btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
                                   <i class="fa fa-eye"></i>
                                 <% end %>
-                                 <%= link_to edit_administrator_klass_section_path(klass, section), class: "btn btn-info btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
+
+                                <%= link_to edit_administrator_klass_section_path(klass, section), class: "btn btn-info btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                   <i class="fa fa-pencil-square-o"></i>
                                 <% end %>
-                                 <%= link_to administrator_klass_section_path(klass, section), method: :delete, class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete' do %>
+
+                                <%= link_to administrator_klass_section_path(klass, section), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: section.class.name }, title: 'Delete' do %>
                                   <i class="fa fa-trash-o"></i>
                                 <% end %>
+
                                 <%= link_to administrator_section_students_path(section), class: "btn btn-success btn-outline btn-xs m-l-lg" do %>
                                   <i class="fa fa-users"></i> Manage Students
                                 <% end %>
+
                                 <%= link_to administrator_section_timetables_path(section), class: "btn btn-info btn-outline btn-xs" do %>
                                   <i class="fa fa-calendar"></i> Manage TimeTable
                                 <% end %>

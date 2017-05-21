@@ -4,7 +4,7 @@
     <h4><%= note.heading %></h4>
     <p><%= note.description %></p>
 
-    <%= link_to delete_note_administrator_pin_board_path(note_id: note.id), method: :delete, data: { confirm: 'Are you sure?' }, remote: true do %>
+    <%= link_to delete_note_administrator_pin_board_path(note_id: note.id), data: { behavior: 'ajax-delete', object: 'Note' } do %>
       <i class="fa fa-trash-o "></i>
     <% end %>
   </div>

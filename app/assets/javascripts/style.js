@@ -1,10 +1,16 @@
 $(document).on('ready', function() {
-  $("input.datepicker").datepicker({
-    dateFormat : "dd MM yy"
-  });
-
   $('input.timepicker').datetimepicker({
     format: 'LT'
+  });
+
+  $('input.datepicker').datetimepicker({
+    format: 'DD/MM/YYYY',
+    showTodayButton: true,
+    sideBySide: true,
+    widgetPositioning: {
+        horizontal: 'left',
+        vertical: 'bottom'
+    }
   });
 
   $( "#tabs" ).tabs({
@@ -13,4 +19,4 @@ $(document).on('ready', function() {
     }
   }).addClass( "ui-tabs-vertical ui-helper-clearfix" );
   $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-}) 
+})

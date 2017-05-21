@@ -15,4 +15,8 @@ class Klass < ApplicationRecord
       code: code,
     }
   end
+
+  def current_sections(term_id)
+    sections.of_current_term(term_id)
+  end
 end
