@@ -1,4 +1,8 @@
-.btn-bs-file{
+textarea {
+  resize: none;
+}
+
+.btn-bs-file {
   position:relative;
   width: 100%;
 
@@ -115,4 +119,8 @@
 
 .attendance-list th.attendance-label {
   padding-left: 7%;
+ }
+ 
+.width-100-p {
+  width: 100%;
 }

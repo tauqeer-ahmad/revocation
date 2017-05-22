@@ -4,7 +4,7 @@
       <li class="nav-header">
         <div class="dropdown profile-element">
           <span>
-            <img alt="image" class="img-circle" src="<%= image_url 'profile_small.jpg' %>"/>
+            <%= image_tag current_user.avatar.url(:thumb), width: 70, height: 70, class: 'img-circle' %>
           </span>
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <span class="clear">
@@ -26,7 +26,7 @@
           </ul>
         </div>
         <div class="logo-element">
-          IN+
+          RC+
         </div>
       </li>
       <li class="<%= is_active_controller('administrator/home') %>">
