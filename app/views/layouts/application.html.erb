@@ -1,64 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INSPINIA | Responsive admin theme</title>
 
-    <!-- Include style per-controller - vendor plugins -->
-
-
-    <!-- Main css styles -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
-
-    <!-- Main javascript files -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
+  </head>
 
-
-
-</head>
-<body>
-
-<!-- Skin configuration box -->
-<%= render 'layouts/skinconfig' %>
-
-    <!-- Wrapper-->
+  <body>
+    <%= render 'layouts/skinconfig' %>
     <div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+      <%= render "layouts/#{current_user.category}_navigation" if current_user.present? %>
 
-        <!-- Navigation -->
-        <%= render "layouts/#{current_user.category}_navigation" %>
+      <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+        <%= render 'layouts/topnavbar' %>
+        <%= render 'flash_messages' %>
+        <%= yield %>
+        <%= render 'layouts/footer' %>
+      </div>
 
-        <!-- Page wraper -->
-        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
-
-            <!-- Page wrapper -->
-            <%= render 'layouts/topnavbar' %>
-            <!-- Main view  -->
-            <%= render 'flash_messages' %>
-            <%= yield %>
-
-            <!-- Footer -->
-            <%= render 'layouts/footer' %>
-
-        </div>
-        <!-- End page wrapper-->
-
-        <!-- Right sidebar -->
-        <%= render "layouts/rightsidebar" %>
-
+      <%= render "layouts/rightsidebar" %>
     </div>
-    <!-- End wrapper-->
 
-    <!-- Include javascript per-controller - vendor plugins -->
-
-    <!-- Include javascript per-view -->
-    <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
     <script type="text/javascript">
       $(function() {
         <%= yield :javascript %>
       });
     </script>
-
-</body>
+  </body>
 </html>

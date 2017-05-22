@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
-  layout 'empty'
+  layout 'splash'
+
   def index
+    @subdomain = request.subdomain
   end
 end

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>INSPINIA | Responsive admin theme</title>
+
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <script src='https://www.youtube.com/iframe_api'></script>
+  </head>
+
+  <body>
+    <div id='wrapper' class='<%= params[:controller] %>.<%= params[:action] %>'>
+      <%= yield %>
+    </div>
+
+    <script type='text/javascript'>
+      $(function() {
+        <%= yield :javascript %>
+      });
+    </script>
+  </body>
+</html>
