@@ -4,7 +4,7 @@ class Exam < ApplicationRecord
   searchkick index_name: tenant_index_name
 
   belongs_to :term
-
+  has_many :exam_timetables, dependent: :destroy
   validates :name, :start_date, presence: true
   validates :name, uniqueness: {scope: [:term_id]}
 

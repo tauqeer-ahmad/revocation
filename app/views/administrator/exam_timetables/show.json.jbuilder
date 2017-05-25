@@ -1,0 +1,1 @@
+json.partial! "administrator_exam_timetables/administrator_exam_timetable", administrator_exam_timetable: @administrator_exam_timetable

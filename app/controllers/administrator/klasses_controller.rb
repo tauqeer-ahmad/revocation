@@ -1,5 +1,5 @@
 class Administrator::KlassesController < ApplicationController
-  before_action :set_klass, only: [:show, :edit, :update, :destroy]
+  before_action :set_klass, only: [:show, :edit, :update, :destroy, :get_sections]
 
   def index
     @klasses = Klass.lookup params[:search]

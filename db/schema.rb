@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519092219) do
+ActiveRecord::Schema.define(version: 20170519131851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exam_timetables", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.date     "paper_date"
+    t.integer  "term_id"
+    t.integer  "subject_id"
+    t.integer  "klass_id"
+    t.integer  "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exam_timetables_on_exam_id", using: :btree
+    t.index ["klass_id"], name: "index_exam_timetables_on_klass_id", using: :btree
+    t.index ["subject_id"], name: "index_exam_timetables_on_subject_id", using: :btree
+    t.index ["term_id"], name: "index_exam_timetables_on_term_id", using: :btree
+  end
 
   create_table "exams", force: :cascade do |t|
     t.string   "name"
