@@ -1,0 +1,67 @@
+<div class="ibox float-e-margins">
+  <div class="ibox-title">
+    <h5>Attendance Sheets</h5>
+    <div class="ibox-tools">
+      <a class="collapse-link">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-wrench"></i>
+      </a>
+      <a class="close-link">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+  </div>
+  <div class="ibox-content">
+    <%= form_tag(managing_teachers_administrator_attendance_sheets_path, method: :get, class: 'form-inline') do %>
+      <div class="form-group">
+        <label class="control-label">Date</label>
+        <%= text_field_tag :date, '', class: 'form-control date-field', required: true %>
+      </div>
+      <%= submit_tag "Manage Attendance", class: "btn btn-md btn-primary m-l-md m-t-xs" %>
+    <% end %>
+
+    <div class="attendance-sheet-list m-t-lg">
+      <table class="table small">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>
+              <span class="badge badge-primary">Present</span>
+              <span class="badge badge-danger">Absent</span>
+              <span class="badge badge-warning">Leave</span>
+            </th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @attendance_sheets.each_with_index do |sheet, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= render_time(sheet.name, :date_only) %></td>
+            <td>
+              <span class="badge badge-primary"><%= sheet.present %></span>
+              <span class="badge badge-danger"><%= sheet.absent %></span>
+              <span class="badge badge-warning"><%= sheet.leave %></span>
+            </td>
+            <td>
+              <%= link_to managing_teachers_administrator_attendance_sheets_path(date: sheet.name, section_id: sheet.section_id), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+                <i class="fa fa-eye"></i>
+              <% end %>
+              <%= link_to administrator_attendance_sheet_path(sheet), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                <i class="fa fa-trash-o"></i>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  AttendanceSheet.init();
+<% end %>

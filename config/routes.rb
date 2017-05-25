@@ -83,6 +83,15 @@ Revocation::Application.routes.draw do
           delete :delete_note
         end
       end
+
+      resources :attendance_sheets, only: [:index, :update, :destroy] do
+        collection do
+          get :teachers
+          get :managing_teachers
+          get :managing_students
+        end
+      end
+
       resources :exams
     end
   end
@@ -90,6 +99,12 @@ Revocation::Application.routes.draw do
   authenticated :teacher do
     scope module: :teacher do
       root to: 'home#index'
+
+      resources :attendance_sheets, only: [:index, :update, :destroy] do
+        collection do
+          get :managing_students
+        end
+      end
     end
   end
 
@@ -100,5 +115,6 @@ Revocation::Application.routes.draw do
   authenticated :parent do
     root to: 'home#index'
   end
+
   root to: 'home#index'
 end

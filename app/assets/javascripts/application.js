@@ -21,8 +21,10 @@
 //= require rails.validations
 //= require jquery_nested_form
 //= require moment
+//= require datapicker/bootstrap-datepicker.js
 //= require bootstrap-datetimepicker
 //= require select2-full
+//= require iCheck/icheck.min.js
 //= require_tree .
 
 toastr.options = {
