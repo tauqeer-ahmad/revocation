@@ -42,4 +42,35 @@ module ApplicationHelper
       when :alert then 'error'
     end
   end
+
+  def render_time(t, format=nil)
+    if t
+      if format
+        case format
+        when :full
+          if t < Time.now.beginning_of_year
+            t.in_time_zone.strftime('%-d %b %Y %-I:%M %p')
+          else
+            t.in_time_zone.strftime('%-d %b %-I:%M %p')
+          end
+        when :long
+          t.in_time_zone.strftime('%-d %b %Y at %-I:%M.%S %p')
+        when :short
+          if t > Time.zone.today
+            t.in_time_zone.strftime('%-I:%M %p')
+          elsif t > 3.days.ago
+            t.in_time_zone.strftime('%a, %-I:%M %p')
+          else
+            t.in_time_zone.strftime('%-d %b %Y')
+          end
+        when :date_only
+          t.in_time_zone.strftime('%-d %B, %Y')
+        else
+          t.in_time_zone.strftime(format)
+        end
+      else
+        t.in_time_zone.strftime('%-d %b %Y %-I:%M %p')
+      end
+    end
+  end
 end
