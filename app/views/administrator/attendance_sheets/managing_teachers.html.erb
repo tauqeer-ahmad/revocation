@@ -35,7 +35,6 @@
                   <td><%= @teachers[attendance.object.attendee_id][2] %></td>
                   <td><%= @teachers[attendance.object.attendee_id][3] %></td>
                   <%= attendance.input :attendee_id, as: :hidden, input_html: { value: attendance.object.attendee_id } %>
-                  <%= attendance.input :attendee_type, as: :hidden, input_html: { value: attendance.object.attendee_type } %>
                   <td>
                     <%= attendance.input :status, collection: Attendance.statuses.keys.to_a, as: :radio_buttons, item_wrapper_class: 'inline i-checks', label: false %>
                   </td>

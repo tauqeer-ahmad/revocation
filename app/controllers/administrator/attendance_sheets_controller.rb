@@ -1,24 +1,25 @@
 class Administrator::AttendanceSheetsController < ApplicationController
   before_action :set_attendance_sheet, only: [:update, :destroy]
   before_action :set_section, only: :managing_students
+  before_action :update_params, only: :update
 
   def index
-    @attendance_sheets = AttendanceSheet.student.includes(:attendances, {section: :klass}).ordered
-    @sections =  section_list
+    @attendance_sheets = current_term.attendance_sheets.student.includes(:attendances, {section: :klass}).ordered
+    @sections = current_term.sections.all_sections_list
   end
 
   def managing_students
-    @attendance_sheet = AttendanceSheet.find_or_create_by(name: params[:date], section_id: params[:section_id], entity: 'student')
+    @attendance_sheet = current_term.attendance_sheets.find_or_create_by(name: params[:date], section_id: params[:section_id], entity: 'student')
     @attendance_sheet.create_or_build_records(@section) unless @attendance_sheet.attendances.exists?
     @students = @section.student_hash
   end
 
   def teachers
-    @attendance_sheets = AttendanceSheet.teacher.includes(:attendances).ordered
+    @attendance_sheets = current_term.attendance_sheets.teacher.includes(:attendances).ordered
   end
 
   def managing_teachers
-    @attendance_sheet = AttendanceSheet.find_or_create_by(name: params[:date], entity: 'teacher')
+    @attendance_sheet = current_term.attendance_sheets.find_or_create_by(name: params[:date], entity: 'teacher')
     @attendance_sheet.create_or_build_records unless @attendance_sheet.attendances.exists?
     @teachers = Teacher.data_hash
   end
@@ -38,15 +39,22 @@ class Administrator::AttendanceSheetsController < ApplicationController
 
   private
     def set_attendance_sheet
-      @attendance_sheet = AttendanceSheet.find(params[:id])
+      @attendance_sheet = current_term.attendance_sheets.find(params[:id])
     end
 
     def attendance_sheet_params
-      params.require(:attendance_sheet).permit(attendances_attributes: [:id, :attendee_id, :attendee_type, :status])
+      params.require(:attendance_sheet).permit(attendances_attributes: [:id, :attendee_id, :attendee_type, :status, :term_id])
+    end
+
+    def update_params
+      params[:attendance_sheet][:attendances_attributes].each do |key, attendance|
+        attendance[:term_id] = current_term.id
+        attendance[:attendee_type] = @attendance_sheet.entity.titleize
+      end
     end
 
     def set_section
-      @section = Section.find(params[:section_id])
+      @section = current_term.sections.find(params[:section_id])
       redirect_to attendance_sheet_path, error: 'Invalid Access' unless @section
     end
 
@@ -64,9 +72,5 @@ class Administrator::AttendanceSheetsController < ApplicationController
         @teachers = Teacher.data_hash
         managing_teachers_attendance_sheets_path
       end
-    end
-
-    def section_list
-      current_user.teacher? ? current_user.incharged_sections_list : Section.all_sections_list
     end
 end

@@ -31,8 +31,8 @@ class Teacher < User
     TeacherMailer.send_password(self, Institution.current, @password).deliver!
   end
 
-  def incharged_sections_list
-    incharged_sections.includes(:klass).collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
+  def incharged_sections_list(current_term_id)
+    incharged_sections.where(term_id: current_term_id).includes(:klass).collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
   end
 
   def self.data_hash

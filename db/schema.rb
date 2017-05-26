@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516022401) do
+ActiveRecord::Schema.define(version: 20170526020828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,9 @@ ActiveRecord::Schema.define(version: 20170516022401) do
     t.integer  "leave"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "term_id"
     t.index ["section_id"], name: "index_attendance_sheets_on_section_id", using: :btree
+    t.index ["term_id"], name: "index_attendance_sheets_on_term_id", using: :btree
   end
 
   create_table "attendances", force: :cascade do |t|
@@ -34,8 +36,10 @@ ActiveRecord::Schema.define(version: 20170516022401) do
     t.integer  "status",              default: 0
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "term_id"
     t.index ["attendance_sheet_id"], name: "index_attendances_on_attendance_sheet_id", using: :btree
     t.index ["attendee_type", "attendee_id"], name: "index_attendances_on_attendee_type_and_attendee_id", using: :btree
+    t.index ["term_id"], name: "index_attendances_on_term_id", using: :btree
   end
 
   create_table "exams", force: :cascade do |t|
@@ -184,7 +188,9 @@ ActiveRecord::Schema.define(version: 20170516022401) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "attendance_sheets", "terms"
   add_foreign_key "attendances", "attendance_sheets"
+  add_foreign_key "attendances", "terms"
   add_foreign_key "notes", "users"
   add_foreign_key "users", "institutions"
 end
