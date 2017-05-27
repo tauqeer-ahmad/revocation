@@ -72,6 +72,45 @@ ActiveRecord::Schema.define(version: 20170527015422) do
     t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
   end
 
+  create_table "exam_marks", force: :cascade do |t|
+    t.integer  "obtained"
+    t.integer  "total"
+    t.integer  "passing_marks"
+    t.text     "comment"
+    t.integer  "term_id"
+    t.integer  "subject_id"
+    t.integer  "klass_id"
+    t.integer  "exam_id"
+    t.integer  "section_id"
+    t.integer  "student_id"
+    t.integer  "marksheet_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["exam_id"], name: "index_exam_marks_on_exam_id", using: :btree
+    t.index ["klass_id"], name: "index_exam_marks_on_klass_id", using: :btree
+    t.index ["marksheet_id"], name: "index_exam_marks_on_marksheet_id", using: :btree
+    t.index ["section_id"], name: "index_exam_marks_on_section_id", using: :btree
+    t.index ["student_id"], name: "index_exam_marks_on_student_id", using: :btree
+    t.index ["subject_id"], name: "index_exam_marks_on_subject_id", using: :btree
+    t.index ["term_id"], name: "index_exam_marks_on_term_id", using: :btree
+  end
+
+  create_table "exam_timetables", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.date     "paper_date"
+    t.integer  "term_id"
+    t.integer  "subject_id"
+    t.integer  "klass_id"
+    t.integer  "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_exam_timetables_on_exam_id", using: :btree
+    t.index ["klass_id"], name: "index_exam_timetables_on_klass_id", using: :btree
+    t.index ["subject_id"], name: "index_exam_timetables_on_subject_id", using: :btree
+    t.index ["term_id"], name: "index_exam_timetables_on_term_id", using: :btree
+  end
+
   create_table "exams", force: :cascade do |t|
     t.string   "name"
     t.date     "start_date"
@@ -104,6 +143,22 @@ ActiveRecord::Schema.define(version: 20170527015422) do
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "marksheets", force: :cascade do |t|
+    t.integer  "term_id"
+    t.integer  "subject_id"
+    t.integer  "klass_id"
+    t.integer  "exam_id"
+    t.integer  "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_marksheets_on_exam_id", using: :btree
+    t.index ["klass_id"], name: "index_marksheets_on_klass_id", using: :btree
+    t.index ["section_id"], name: "index_marksheets_on_section_id", using: :btree
+    t.index ["subject_id"], name: "index_marksheets_on_subject_id", using: :btree
+    t.index ["term_id", "exam_id", "klass_id", "section_id", "subject_id"], name: "marksheet_combined_index", unique: true, using: :btree
+    t.index ["term_id"], name: "index_marksheets_on_term_id", using: :btree
   end
 
   create_table "notes", force: :cascade do |t|

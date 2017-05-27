@@ -62,8 +62,11 @@
                               <%= link_to edit_administrator_exam_path(exam), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_exam_path(exam), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                              <%= link_to administrator_exam_path(exam), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
                                 <i class="fa fa-trash-o"></i>
+                              <% end %>
+                              <%= link_to administrator_exam_exam_timetables_path(exam), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Manage Datesheet' do %>
+                                <i class="fa fa-clock"></i> Manage Datesheet
                               <% end %>
                             </td>
                           </tr>

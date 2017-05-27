@@ -1,7 +1,7 @@
 class Administrator::SectionsController < ApplicationController
   before_action :check_current_term
   before_action :set_klass, except: [:index]
-  before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :set_section, only: [:show, :edit, :update, :destroy, :update_subjects]
   before_action :set_form_data, only: [:new, :edit]
   layout 'empty', only: [:fetch]
 
@@ -57,6 +57,11 @@ class Administrator::SectionsController < ApplicationController
       format.html { redirect_to administrator_klass_sections_url(@klass), notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def update_subjects
+    @subjects  = @section.subjects
+    render json: @subjects.map { |subject| subject.as_json(:only => [:id, :name]) }
   end
 
   private

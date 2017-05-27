@@ -4,7 +4,6 @@ init_select2 = ->
     placeholder: 'Select Guardian'
     width: '100%'
     minimumInputLength: 2
-    tags: []
     ajax:
       url: '/administrator/guardians/fetch'
       cache: true

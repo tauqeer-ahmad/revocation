@@ -1,5 +1,5 @@
 class Administrator::KlassesController < ApplicationController
-  before_action :set_klass, only: [:show, :edit, :update, :destroy]
+  before_action :set_klass, only: [:show, :edit, :update, :destroy, :update_sections]
 
   def index
     @klasses = Klass.lookup params[:search]
@@ -57,6 +57,12 @@ class Administrator::KlassesController < ApplicationController
     Klass.create(bulk_klass_params)
     redirect_to administrator_klasses_path
   end
+
+  def update_sections
+    @sections  = @klass.sections.of_current_term(current_term.id)
+    render json: @sections.map { |section| section.as_json(:only => [:id, :name]) }
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
