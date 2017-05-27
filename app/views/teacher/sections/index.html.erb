@@ -1,0 +1,64 @@
+<div class="ibox float-e-margins">
+  <div class="ibox-title">
+    <h5>Sections</h5>
+    <div class="ibox-tools">
+      <a class="collapse-link">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-wrench"></i>
+      </a>
+      <a class="close-link">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+  </div>
+  <div class="ibox-content">
+    <div class='sections-table'>
+      <table class='table m-b-xs'>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Class</th>
+            <th>Section</th>
+            <th>Incharge</th>
+            <th>Your Subject</th>
+            <th>Students</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @section_subject_teachers.each_with_index do |section_subject_teachers, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= section_subject_teachers.klass.name %></td>
+              <td><%= section_subject_teachers.section.name %></td>
+              <td><%= section_subject_teachers.section.incharge_name %></td>
+              <td><%= section_subject_teachers.subject.name %></td>
+              <td><%= section_subject_teachers.section.display_students_count %></td>
+              <td>
+                <% if section_subject_teachers.section.incharge_id == current_user.id %>
+                  <%= link_to managing_students_attendance_sheets_path(date: Date.today.strftime('%d-%m-%Y'), section_id: section_subject_teachers.section.id), class: "btn btn-success btn-outline btn-xs" do %>
+                    <i class="fa fa-users"></i> Today's Attendance
+                  <% end %>
+                <% end %>
+                <button type="button" class="btn btn-info btn-outline btn-xs add-assignment-modal" data-toggle="modal" data-target="#assignment-modal" data-section= <%= section_subject_teachers.section_id %> data-subject= <%= section_subject_teachers.subject_id %>>
+                  Add Assignment
+                </button>
+                <%= link_to assignments_path(section_id: section_subject_teachers.section.id, subject_id: section_subject_teachers.subject_id), class: "btn btn-success btn-outline btn-xs" do %>
+                    <i class="fa fa-users"></i> Assignments
+                  <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%= render partial:  'assignments_modal' %>
+
+<% content_for :javascript do %>
+  Assignment.init();
+<% end %>

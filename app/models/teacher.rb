@@ -8,6 +8,7 @@ class Teacher < User
   has_many :section_subject_teachers
   has_many :sections, through: :section_subject_teachers
   has_many :attendances, as: :attendee
+  has_many :assignments
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
@@ -37,5 +38,9 @@ class Teacher < User
 
   def self.data_hash
     all.pluck(:id, :email, :first_name, :last_name, :profession).inject({}) { |memo, obj| memo[obj.first] = [obj[1] ,obj[2], obj[3]]; memo }
+  end
+
+  def validate_section_and_subject(selected_section, selected_subject)
+    [selected_section.id, selected_subject.id].in? section_subject_teachers.collect {|section_subject_teachers| [section_subject_teachers.section_id, section_subject_teachers.subject_id]}
   end
 end

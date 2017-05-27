@@ -10,6 +10,7 @@ class Term < ApplicationRecord
   has_many :exams, dependent: :destroy
   has_many :attendance_sheets
   has_many :attendances
+  has_many :assignments
 
   validates :name, presence: {message: "Term name is required"}
   validates :start_date, presence: {message: "Term start date is required"}

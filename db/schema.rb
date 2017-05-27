@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526020828) do
+ActiveRecord::Schema.define(version: 20170527015422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assignments", force: :cascade do |t|
+    t.datetime "assigned_at"
+    t.datetime "submission_deadline"
+    t.string   "heading"
+    t.text     "task"
+    t.integer  "teacher_id"
+    t.integer  "section_id"
+    t.integer  "subject_id"
+    t.integer  "term_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
+    t.index ["subject_id"], name: "index_assignments_on_subject_id", using: :btree
+    t.index ["teacher_id"], name: "index_assignments_on_teacher_id", using: :btree
+    t.index ["term_id"], name: "index_assignments_on_term_id", using: :btree
+  end
 
   create_table "attendance_sheets", force: :cascade do |t|
     t.date     "name"
@@ -40,6 +57,19 @@ ActiveRecord::Schema.define(version: 20170526020828) do
     t.index ["attendance_sheet_id"], name: "index_attendances_on_attendance_sheet_id", using: :btree
     t.index ["attendee_type", "attendee_id"], name: "index_attendances_on_attendee_type_and_attendee_id", using: :btree
     t.index ["term_id"], name: "index_attendances_on_term_id", using: :btree
+  end
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.string   "data_fingerprint"
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
   end
 
   create_table "exams", force: :cascade do |t|
@@ -188,6 +218,9 @@ ActiveRecord::Schema.define(version: 20170526020828) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "assignments", "sections"
+  add_foreign_key "assignments", "subjects"
+  add_foreign_key "assignments", "terms"
   add_foreign_key "attendance_sheets", "terms"
   add_foreign_key "attendances", "attendance_sheets"
   add_foreign_key "attendances", "terms"

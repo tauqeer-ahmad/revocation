@@ -73,4 +73,8 @@ module ApplicationHelper
       end
     end
   end
+
+  def datetimepicker_default_value(value)
+    value.strftime('%d/%m/%Y%l-%M %p') if value
+  end
 end

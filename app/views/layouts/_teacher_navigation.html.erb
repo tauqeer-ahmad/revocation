@@ -41,6 +41,13 @@
           <% end %>
         </li>
       <% end %>
+      <% if current_user.sections.exists? %>
+        <li class="<%= is_active_controller('sections') %>">
+          <%= link_to sections_path do %>
+            <i class="fa fa-group"></i> <span class="nav-label">Sections</span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>

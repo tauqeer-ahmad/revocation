@@ -11,6 +11,8 @@ class Section < ApplicationRecord
   has_many :timetables
   has_many :attendance_sheets
   has_many :attendances
+  has_many :assignments
+
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
 
   validates :name, presence: {message: "Section name is required"}
