@@ -48,7 +48,7 @@
                           <tr id="row-marksheet-<%= marksheet.id %>" class="selectable-row <% if index == 0 %> table-helighted-row <% end %>">
                             <td>
                               <%= link_to "#marksheet-#{marksheet.id}", "data-toggle" => "tab", marker: "marksheet-#{marksheet.id}", class: "client-link selected-data-row" do %>
-                                <%= index + 1 %>
+                                <%= index.succ %>
                               <% end %>
                             </td>
                             <td>

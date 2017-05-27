@@ -31,7 +31,7 @@
         <tbody>
           <% @section_subject_teachers.each_with_index do |section_subject_teachers, index| %>
             <tr>
-              <td><%= index + 1 %></td>
+              <td><%= index.succ %></td>
               <td><%= section_subject_teachers.klass.name %></td>
               <td><%= section_subject_teachers.section.name %></td>
               <td><%= section_subject_teachers.section.incharge_name %></td>
@@ -57,7 +57,7 @@
     </div>
   </div>
 </div>
-<%= render partial:  'assignments_modal' %>
+<%= render 'assignments_modal' %>
 
 <% content_for :javascript do %>
   Assignment.init();

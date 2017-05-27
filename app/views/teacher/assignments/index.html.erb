@@ -32,7 +32,7 @@
         <tbody>
           <% @assignments.each_with_index do |assignment, index| %>
             <tr>
-              <td><%= index + 1 %></td>
+              <td><%= index.succ %></td>
               <td><%= assignment.heading %></td>
               <td><%= render_time(assignment.assigned_at) %></td>
               <td><%= render_time(assignment.submission_deadline) %></td>
@@ -57,4 +57,4 @@
     </div>
   </div>
 </div>
-<%= render partial:  'teacher/sections/assignments_modal' %>
+<%= render 'teacher/sections/assignments_modal' %>

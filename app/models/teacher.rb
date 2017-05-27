@@ -43,4 +43,12 @@ class Teacher < User
   def validate_section_and_subject(selected_section, selected_subject)
     [selected_section.id, selected_subject.id].in? section_subject_teachers.collect {|section_subject_teachers| [section_subject_teachers.section_id, section_subject_teachers.subject_id]}
   end
+
+  def sections?
+    sections.exists?
+  end
+
+  def incharged_sections?
+    incharged_sections.exists?
+  end
 end

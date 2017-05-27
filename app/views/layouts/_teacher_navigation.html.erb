@@ -34,14 +34,14 @@
           <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
         <% end %>
       </li>
-      <% if current_user.incharged_sections.exists? %>
+      <% if current_user.incharged_sections? %>
         <li class="<%= is_active_controller('attendances') %>">
           <%= link_to attendance_sheets_path do %>
             <i class="fa fa-group"></i> <span class="nav-label">Attendance</span>
           <% end %>
         </li>
       <% end %>
-      <% if current_user.sections.exists? %>
+      <% if current_user.sections? %>
         <li class="<%= is_active_controller('sections') %>">
           <%= link_to sections_path do %>
             <i class="fa fa-group"></i> <span class="nav-label">Sections</span>

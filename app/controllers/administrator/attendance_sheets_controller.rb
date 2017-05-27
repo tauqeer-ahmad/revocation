@@ -1,7 +1,6 @@
 class Administrator::AttendanceSheetsController < ApplicationController
   before_action :set_attendance_sheet, only: [:update, :destroy]
   before_action :set_section, only: :managing_students
-  before_action :update_params, only: :update
 
   def index
     @attendance_sheets = current_term.attendance_sheets.student.includes(:attendances, {section: :klass}).ordered
@@ -43,13 +42,11 @@ class Administrator::AttendanceSheetsController < ApplicationController
     end
 
     def attendance_sheet_params
-      params.require(:attendance_sheet).permit(attendances_attributes: [:id, :attendee_id, :attendee_type, :status, :term_id])
-    end
-
-    def update_params
-      params[:attendance_sheet][:attendances_attributes].each do |key, attendance|
-        attendance[:term_id] = current_term.id
-        attendance[:attendee_type] = @attendance_sheet.entity.titleize
+      params.require(:attendance_sheet).permit(attendances_attributes: [:id, :attendee_id, :attendee_type, :status]).tap do |whitelisted|
+        whitelisted[:attendances_attributes].each do |key, value|
+          value[:term_id] = current_term.id
+          value[:attendee_type] = @attendance_sheet.entity.titleize
+        end
       end
     end
 
