@@ -14,7 +14,7 @@ jQuery ->
     section_id = $('#section_id :selected').val()
     if section_id.blank?
       return $('#subject_id').empty()
-ß
+
     $.ajax "classes/#{klass_id}/sections/#{section_id}/update_subjects",
       type: 'GET'
       dataType: 'json'
