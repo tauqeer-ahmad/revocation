@@ -11,6 +11,8 @@ class Section < ApplicationRecord
   has_many :timetables
   has_many :marksheets
   has_many :exam_marks
+  has_many :attendance_sheets
+  has_many :attendances
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
 
   validates :name, presence: {message: "Section name is required"}
@@ -42,5 +44,13 @@ class Section < ApplicationRecord
 
   def get_teacher_by_subject(subject_id)
     section_subject_teachers.by_subject_id(subject_id).last.teacher_id if subject_id
+  end
+
+  def student_hash
+    students.pluck(:id, :roll_number, :first_name, :last_name).inject({}) { |memo, obj| memo[obj.first] = [obj[1] ,obj[2], obj[3]]; memo }
+  end
+
+  def self.all_sections_list
+    includes(:klass).collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
   end
 end

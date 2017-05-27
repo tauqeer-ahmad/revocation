@@ -11,6 +11,7 @@ class Student < User
   has_many :terms, through: :section_students
   has_many :klasses, through: :section_students
   has_many :exam_marks
+  has_many :attendances, as: :attendee
 
   validates :roll_number, presence: { message: 'Roll number is required' }
   validates :roll_number, uniqueness: true

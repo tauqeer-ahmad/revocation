@@ -24,6 +24,12 @@ class User < ApplicationRecord
     %w(Administrator Teacher Student Parent Supervisor)
   end
 
+  self.type_ofs.each do |classification|
+    define_method "#{classification.downcase}?" do
+      self.type_of == classification
+    end
+  end
+
   def name
     [first_name, last_name].join(' ')
   end
