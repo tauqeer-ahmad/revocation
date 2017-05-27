@@ -50,10 +50,16 @@ Revocation::Application.routes.draw do
         collection do
           post :bulk_insert
         end
+        member do
+          get :update_sections
+        end
 
         resources :sections, only: [:new, :edit, :show, :update, :create, :destroy] do
           collection do
             get :fetch
+          end
+          member do
+            get :update_subjects
           end
         end
       end
@@ -85,6 +91,16 @@ Revocation::Application.routes.draw do
       end
       resources :exams do
         resources :exam_timetables
+      end
+      resources :marksheets, only: [:index, :edit, :destroy]do
+        collection do
+          get :existing
+          get :build_marksheet
+          post :create_marksheet
+        end
+        member do
+          put :update_marksheet
+        end
       end
     end
   end

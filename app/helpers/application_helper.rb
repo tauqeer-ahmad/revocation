@@ -3,8 +3,8 @@ module ApplicationHelper
       params[:controller] == controller_name ? 'active' : nil
     end
 
-    def is_active_action(action_name)
-      params[:action] == action_name ? 'active' : nil
+    def is_active_action(controller_name, action_name)
+      params[:action] == action_name && params[:controller] == controller_name ? 'active' : nil
     end
 
     def get_logout_path(user)
@@ -41,5 +41,9 @@ module ApplicationHelper
       when :error then 'error'
       when :alert then 'error'
     end
+  end
+
+  def format_date(date)
+    date.to_date.strftime("%d %B, %Y")
   end
 end

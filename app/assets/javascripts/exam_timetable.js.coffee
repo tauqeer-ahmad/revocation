@@ -12,7 +12,6 @@ jQuery ->
 update_subjects = (subjects) ->
   klass = $('#exam_timetable_klass_id :selected').text()
   return $('#exam_timetable_subject_id').empty() if klass == "Select Class"
-  console.log("asdadadad")
   options = $(subjects).filter("optgroup[label=#{klass}]").html()
 
   if options

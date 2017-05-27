@@ -9,6 +9,8 @@ class Term < ApplicationRecord
   has_many :sections, dependent: :destroy
   has_many :exams, dependent: :destroy
   has_many :exam_timetables, dependent: :destroy
+  has_many :marksheets, dependent: :destroy
+  has_many :exam_marks, dependent: :destroy
 
   validates :name, presence: {message: "Term name is required"}
   validates :start_date, presence: {message: "Term start date is required"}

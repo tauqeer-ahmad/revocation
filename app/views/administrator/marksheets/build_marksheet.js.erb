@@ -1,0 +1,5 @@
+<% if @marksheet.present? %>
+  $("#marksheet").replaceWith("<%= raw escape_javascript(render 'existing_marksheet') %>");
+<% else %>
+  $("#marksheet").replaceWith("<%= raw escape_javascript(render 'marksheet') %>");
+<% end %>

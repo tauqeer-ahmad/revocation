@@ -5,8 +5,12 @@ class Exam < ApplicationRecord
 
   belongs_to :term
   has_many :exam_timetables, dependent: :destroy
+  has_many :exam_marks
+  has_many :marksheets
   validates :name, :start_date, presence: true
   validates :name, uniqueness: {scope: [:term_id]}
+
+  scope :of_current_term, -> (term_id) { where(term_id: term_id) }
 
   def search_data
     {

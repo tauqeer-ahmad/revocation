@@ -6,6 +6,8 @@ class Klass < ApplicationRecord
   belongs_to :institution
   has_many :sections
   has_many :exam_timetables
+  has_many :marksheets
+  has_many :exam_marks
 
   validates :name, presence: { message: 'Class name is required' }
   validates :code, presence: { message: 'Class code is required' }
