@@ -9,6 +9,8 @@ class Section < ApplicationRecord
   has_many :section_students
   has_many :students, through: :section_students
   has_many :timetables
+  has_many :marksheets
+  has_many :exam_marks
   has_many :attendance_sheets
   has_many :attendances
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true

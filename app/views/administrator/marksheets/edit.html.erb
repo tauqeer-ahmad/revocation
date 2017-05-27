@@ -1,0 +1,18 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Marksheets</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+      <li>
+        <%= link_to 'Marksheets', existing_administrator_marksheets_path %>
+      </li>
+      <li class="active">
+        <strong>Edit Marksheet</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<%= render 'existing_marksheet' %>

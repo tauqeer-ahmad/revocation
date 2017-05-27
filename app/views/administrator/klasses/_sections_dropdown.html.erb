@@ -1,0 +1,1 @@
+<%= select_tag :section_id, options_for_select([@sections.collect {|e| [ e.name, e.id ] }]), prompt: "Select Section", class: "select2_dropdown", disabled: false, required: true %>

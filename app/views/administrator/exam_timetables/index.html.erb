@@ -1,0 +1,87 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Exams</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+      <li>
+        <%= link_to 'Exam List', administrator_exams_path %>
+      </li>
+      <li class="active">
+        <strong>Exam Schedule</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <h2>Exam Schedule For <strong><%= @exam.name %></strong></h2>
+          <div>
+            <ul class="nav nav-tabs">
+              <span class="pull-right small text-muted"><%= "#{@exam_timetables.count} Exams" %></span>
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-list"></i> Exam Schedule</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add Schedule</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="panel panel-default" data-collapsed="0">
+                      <div class="panel-body">
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
+                          <tbody>
+                            <% @exam_timetables.each do |date, timetables| %>
+                              <tr>
+                                <td width="100"><%= format_paper_date(date) %></td>
+                                <td>
+                                  <% timetables.each do |timetable| %>
+                                    <div class="btn-group">
+                                      <button class="btn btn-default dropdown-toggle timetable-btn" data-toggle="dropdown">
+                                        <%= timetable.klass_name %> - <%= timetable.subject_name %>
+                                        <%= timetable.timings %>
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu">
+                                        <li>
+                                         <%= link_to edit_administrator_exam_exam_timetable_path(@exam, timetable) do %>
+                                            <i class="fa fa-pencil-square-o"></i> Edit
+                                          <% end %>
+                                        </li>
+                                        <li>
+                                          <%= link_to administrator_exam_exam_timetable_path(@exam, timetable), data: { behavior: 'delete', object: timetable.class.name } do %>
+                                            <i class="fa fa-trash-o"></i> Delete
+                                          <% end %>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  <% end %>
+                                </td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="tab-2" class="tab-pane">
+                <div class="full-height-scroll">
+                  <%= render 'new_exam_timetable', exam_timetable: @new_exam_timetable %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
