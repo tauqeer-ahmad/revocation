@@ -88,10 +88,9 @@
           <li class="<%= is_active_action('administrator/marksheets', 'index') %>">
             <%= link_to "Manage Marks", administrator_marksheets_path %>
           </li>
-          <li class="<%= is_active_action('administrator/marksheets', 'existing') %>">
-            <%= link_to "Marksheets", existing_administrator_marksheets_path %>
+          <li class="<%= is_active_action('administrator/marksheets', 'generate_tabulation_sheet') %> <%= is_active_action('administrator/marksheets', 'tabulation_sheet') %>">
+            <%= link_to "Tabulation Sheet", generate_tabulation_sheet_administrator_marksheets_path %>
           </li>
-
         </ul>
       </li>
     </ul>

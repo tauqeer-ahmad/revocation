@@ -98,6 +98,8 @@ Revocation::Application.routes.draw do
           get :existing
           get :build_marksheet
           post :create_marksheet
+          get :generate_tabulation_sheet
+          get :tabulation_sheet
         end
         member do
           put :update_marksheet

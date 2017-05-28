@@ -15,7 +15,7 @@ jQuery ->
     if section_id.blank?
       return $('#subject_id').empty()
 
-    $.ajax "classes/#{klass_id}/sections/#{section_id}/update_subjects",
+    $.ajax "/administrator/classes/#{klass_id}/sections/#{section_id}/update_subjects",
       type: 'GET'
       dataType: 'json'
       data: []
@@ -33,7 +33,7 @@ jQuery ->
       $('#section_id').empty()
       return $('#subject_id').empty()
 
-    $.ajax "classes/#{klass_id}/update_sections",
+    $.ajax "/administrator/classes/#{klass_id}/update_sections",
       type: 'GET'
       dataType: 'json'
       data: []
