@@ -2,12 +2,18 @@
 <%= render 'home/slider' %>
 <%= render 'home/services' %>
 <%= render 'home/features' %>
-<%= render 'home/timeline' %>
+
+<% if @institution.present? %>
+  <%= render 'home/comments' %>
+<% else %>
+  <%= render 'home/timeline' %>
+<% end %>
+
 <%= render 'home/more_features' %>
 <%= render 'home/testimonials' %>
 <%= render 'home/extra_features' %>
-<%= render 'home/comments' %>
-<%= render 'home/pricing' %>
+<%= render 'home/comments' unless @institution.present? %>
+<%= render 'home/pricing' unless @institution.present? %>
 <%= render 'home/contact' %>
 
 <% content_for :javascript do %>

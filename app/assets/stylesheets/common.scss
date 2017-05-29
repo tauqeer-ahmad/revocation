@@ -120,7 +120,7 @@ textarea {
 .attendance-list th.attendance-label {
   padding-left: 7%;
  }
- 
+
 .width-100-p {
   width: 100%;
 }
@@ -132,4 +132,51 @@ textarea {
 .table-helighted-row {
   background-color: #eee !important;
   border-left: 5px solid #23c6c8;
+}
+
+#contact-modal {
+  .modal-footer {
+    text-align: center;
+  }
+}
+
+.navy-line {
+  width: 60px;
+  height: 1px;
+  margin: 20px auto 0;
+  border-bottom: 2px solid #23c6c8;
+}
+
+.social-icon {
+  a {
+    background: #23c6c8;
+    color: #fff;
+    padding: 4px 8px;
+    height: 28px;
+    width: 28px;
+    display: block;
+    border-radius: 50px;
+  }
+}
+
+.landing-page .navbar-default .navbar-brand {
+  background: none;
+}
+
+.landing-page .navbar-default .navbar-brand:hover, .landing-page .navbar-default .navbar-brand:focus {
+  background: none;
+  border: 1px solid #23c6c8;
+}
+
+#premium {
+  .no-bottom-border {
+    border-bottom: none;
+  }
+
+  li.coming-soon {
+    font-size: 35px;
+    color: #ed5565;
+    margin: 73px 0;
+    border-top: none;
+  }
 }
