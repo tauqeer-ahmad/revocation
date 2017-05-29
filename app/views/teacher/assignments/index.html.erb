@@ -2,9 +2,7 @@
   <div class="ibox-title">
     <h5><%= @klass.name %>-<%= @section.name %> assignment for <%= @subject.name %></h5>
     <div class="ibox-tools">
-      <button type="button" class="btn btn-info btn-outline btn-xs add-assignment-modal m-r-md" data-toggle="modal" data-target="#assignment-modal">
-        Add Assignment
-      </button>
+      <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal m-r-md', data: {toggle: "modal", target: "#assignment-modal"}{ "Add Assignment" } %>
       <a class="collapse-link">
         <i class="fa fa-chevron-up"></i>
       </a>
@@ -37,17 +35,11 @@
               <td><%= render_time(assignment.assigned_at) %></td>
               <td><%= render_time(assignment.submission_deadline) %></td>
               <td>
-                <button type="button" class="btn btn-info btn-outline btn-xs task-modal" data-toggle="modal" data-target="#task-modal-<%= assignment.id%>">
-                  <i class="fa fa-eye"></i>
-                </button>
+                <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs task-modal', data: {toggle: "modal", target: "#task-modal-#{assignment.id}"}{ icon_of('fa fa-eye') } %>
 
-                <%= link_to edit_assignment_path(assignment), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
-                  <i class="fa fa-edit"></i>
-                <% end %>
+                <%= link_to(edit_assignment_path(assignment), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit'){ icon_of('fa fa-edit') } %>
 
-                <%= link_to assignment_path(assignment), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
-                  <i class="fa fa-trash-o"></i>
-                <% end %>
+                <%= link_to(assignment_path(assignment), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?'){ icon_of('fa fa-trash-o') } %>
               </td>
             </tr>
             <%= render partial: 'task_modal', locals: {assignment: assignment} %>

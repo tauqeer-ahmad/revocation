@@ -43,12 +43,8 @@
                     <i class="fa fa-users"></i> Today's Attendance
                   <% end %>
                 <% end %>
-                <button type="button" class="btn btn-info btn-outline btn-xs add-assignment-modal" data-toggle="modal" data-target="#assignment-modal" data-section= <%= section_subject_teachers.section_id %> data-subject= <%= section_subject_teachers.subject_id %>>
-                  Add Assignment
-                </button>
-                <%= link_to assignments_path(section_id: section_subject_teachers.section.id, subject_id: section_subject_teachers.subject_id), class: "btn btn-success btn-outline btn-xs" do %>
-                    <i class="fa fa-users"></i> Assignments
-                  <% end %>
+                <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section_subject_teachers.section_id, subject: section_subject_teachers.subject_id}{ "Add Assignment" } %>
+                <%= link_to(assignments_path(section_id: section_subject_teachers.section.id, subject_id: section_subject_teachers.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
               </td>
             </tr>
           <% end %>
