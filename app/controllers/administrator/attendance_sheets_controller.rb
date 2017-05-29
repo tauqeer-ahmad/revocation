@@ -3,7 +3,7 @@ class Administrator::AttendanceSheetsController < ApplicationController
   before_action :set_section, only: :managing_students
 
   def index
-    @attendance_sheets = current_term.attendance_sheets.student.includes(:attendances, {section: :klass}).ordered
+    @attendance_sheets = current_term.attendance_sheets.student.includes(:attendances, section: :klass).ordered
     @sections = current_term.sections.all_sections_list
   end
 

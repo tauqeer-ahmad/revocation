@@ -2,7 +2,7 @@ class Teacher::SectionsController < ApplicationController
   before_action :check_current_term
 
   def index
-    @section_subject_teachers = current_user.section_subject_teachers.includes(:subject, {section: :klass}).where(term_id: current_term.id)
+    @section_subject_teachers = current_user.section_subject_teachers.of_term(current_term.id).includes(:subject, section: :klass)
     @assignment = current_term.assignments.build
   end
 
