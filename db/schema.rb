@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20170527015422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+
   create_table "assignments", force: :cascade do |t|
     t.datetime "assigned_at"
     t.datetime "submission_deadline"
@@ -41,9 +42,7 @@ ActiveRecord::Schema.define(version: 20170527015422) do
     t.integer  "leave"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "term_id"
     t.index ["section_id"], name: "index_attendance_sheets_on_section_id", using: :btree
-    t.index ["term_id"], name: "index_attendance_sheets_on_term_id", using: :btree
   end
 
   create_table "attendances", force: :cascade do |t|
@@ -53,10 +52,8 @@ ActiveRecord::Schema.define(version: 20170527015422) do
     t.integer  "status",              default: 0
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.integer  "term_id"
     t.index ["attendance_sheet_id"], name: "index_attendances_on_attendance_sheet_id", using: :btree
     t.index ["attendee_type", "attendee_id"], name: "index_attendances_on_attendee_type_and_attendee_id", using: :btree
-    t.index ["term_id"], name: "index_attendances_on_term_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
