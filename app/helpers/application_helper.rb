@@ -83,6 +83,6 @@ module ApplicationHelper
   end
 
   def icon_of(klass)
-    content_tag(:i,'',class: klass)
+    content_tag(:i, '', class: klass)
   end
 end
