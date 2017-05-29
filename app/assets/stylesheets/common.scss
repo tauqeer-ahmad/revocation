@@ -133,3 +133,11 @@ textarea {
   background-color: #eee !important;
   border-left: 5px solid #23c6c8;
 }
+
+.select2-close-mask{
+    z-index: 2099;
+}
+.select2-dropdown{
+    z-index: 3051;
+}
+
