@@ -13,6 +13,14 @@ $(document).on('ready', function() {
     }
   });
 
+  $('input.datetimepicker').datetimepicker({
+    format: 'DD/MM/YYYY LT',
+    widgetPositioning: {
+        horizontal: 'left',
+        vertical: 'bottom'
+    }
+  });
+
   $( "#tabs" ).tabs({
     beforeLoad: function(event, ui) {
       ui.panel.html('<div class="tab-loader"><img src="/assets/loading.gif" width="24" height="24" style="vertical-align:middle;"> Loading...</div>');
