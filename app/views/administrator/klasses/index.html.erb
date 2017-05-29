@@ -42,7 +42,7 @@
                       <tbody>
                         <% @klasses.each_with_index do |klass, index| %>
                           <tr>
-                            <td><%= index + 1 %></td>
+                            <td><%= index.succ %></td>
                             <td>
                               <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, class: "client-link" do %>
                                 <%= klass.name %>

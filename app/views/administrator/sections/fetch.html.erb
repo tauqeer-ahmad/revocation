@@ -30,7 +30,7 @@
               <tbody>
                 <% @sections.each_with_index do |section, index| %>
                 <tr>
-                  <td><%= index + 1 %></td>
+                  <td><%= index.succ %></td>
                   <td><%= section.name %></td>
                   <td><%= section.nickname %></td>
                   <td><%= section.incharge_name %></td>

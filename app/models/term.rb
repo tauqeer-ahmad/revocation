@@ -8,6 +8,9 @@ class Term < ApplicationRecord
   has_many :students, through: :section_students
   has_many :sections, dependent: :destroy
   has_many :exams, dependent: :destroy
+  has_many :attendance_sheets
+  has_many :attendances
+  has_many :assignments
   has_many :exam_timetables, dependent: :destroy
   has_many :marksheets, dependent: :destroy
   has_many :exam_marks, dependent: :destroy
