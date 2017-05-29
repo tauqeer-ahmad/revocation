@@ -52,7 +52,9 @@
                               <% end %>
                             </td>
                             <td>
-                              <%= marksheet.exam.name %>
+                              <%= link_to "#marksheet-#{marksheet.id}", "data-toggle" => "tab", marker: "marksheet-#{marksheet.id}", class: "client-link selected-data-row" do %>
+                                <%= marksheet.exam.name %>
+                              <% end %>
                             </td>
                             <td>
                               <%= marksheet.klass.name %>
