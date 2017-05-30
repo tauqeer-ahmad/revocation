@@ -34,6 +34,8 @@ Revocation::Application.routes.draw do
 
   authenticated :administrator do
     root to: 'administrator/home#index', as: :administrator_root
+    get :lock_account, to: 'administrator/home#lock_account'
+    post :unlock_account, to: 'administrator/home#unlock_account'
 
     namespace :administrator do
       resources :teachers do

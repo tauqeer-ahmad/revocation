@@ -1,7 +1,6 @@
 jQuery ->
 
   helight_selected_data_row = ->
-    console.log("asdadad")
     $('.selected-data-row').click ->
       console.log this
       $('.selectable-row').removeClass('table-helighted-row')
