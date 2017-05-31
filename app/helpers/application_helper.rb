@@ -82,6 +82,10 @@ module ApplicationHelper
     value.strftime('%d/%m/%Y%l-%M %p') if value
   end
 
+  def datepicker_default_value(value)
+    value.strftime('%d/%m/%Y') if value
+  end
+
   def icon_of(klass)
     content_tag(:i, '', class: klass)
   end

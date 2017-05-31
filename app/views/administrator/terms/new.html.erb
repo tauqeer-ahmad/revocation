@@ -14,18 +14,4 @@
     </ol>
   </div>
 </div>
-
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5>Start a new term <small> Please fill the details correctly</small></h5>
-        </div>
-        <div class="ibox-content">
-          <%= render 'form', term: 2term %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'form', term: @term %>

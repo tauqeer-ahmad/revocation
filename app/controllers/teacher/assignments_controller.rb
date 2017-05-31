@@ -20,7 +20,7 @@ class Teacher::AssignmentsController < ApplicationController
     if @assignment.save
       redirect_to sections_path, notice: 'Assignment was successfully updated.'
     else
-      redirect_to sections_path, error: @assignment.errors.to_sentence
+      redirect_to sections_path, error: @assignment.errors.full_messages.to_sentence
     end
   end
 
