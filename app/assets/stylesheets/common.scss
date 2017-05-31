@@ -105,7 +105,7 @@ textarea {
   }
 }
 
-#class-wrapper, #section-wrapper {
+#class-wrapper, #section-wrapper, #attendance-wrapper {
   .label {
     font-size: 100%;
   }
@@ -118,9 +118,11 @@ textarea {
 }
 
 .attendance-list th.attendance-label {
-  padding-left: 7%;
+  span {
+    margin-left: 25px;
+  }
  }
- 
+
 .width-100-p {
   width: 100%;
 }
@@ -141,3 +143,18 @@ textarea {
     z-index: 3051;
 }
 
+.form-inline {
+  input {
+    width: 100% !important;
+  }
+
+  select {
+    width: 100% !important;
+  }
+}
+
+#attendance-wrapper {
+  td {
+    vertical-align: middle;
+  }
+}
