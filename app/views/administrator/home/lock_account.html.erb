@@ -1,0 +1,23 @@
+<div class='lock-word animated fadeInDown'>
+  <span class='first-word'>LOCKED</span><span>SCREEN</span>
+</div>
+
+<div class='middle-box text-center lockscreen animated fadeInDown'>
+  <div>
+    <div class='m-b-md'>
+      <%= image_tag current_user.avatar.url(:medium), class: 'img-circle circle-border img-thumbnail' %>
+    </div>
+    <h3><%= current_user.name %></h3>
+    <p>Your are in lock screen. Main app was shut down and you need to enter your password to go back to app.</p>
+
+    <%= form_tag unlock_account_path, class: 'form-horizontal m-t' do %>
+      <div class='form-group'>
+        <%= password_field_tag :password, nil, required: true, placeholder: '******', class: 'form-control' %>
+      </div>
+
+      <%= button_tag 'Unlock', class: 'btn btn-primary block full-width' %>
+    <% end %>
+
+    <%= link_to 'Logout', get_logout_path(current_user), class: 'btn btn-link', method: :delete %>
+  </div>
+</div>

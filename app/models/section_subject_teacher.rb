@@ -9,4 +9,5 @@ class SectionSubjectTeacher < ApplicationRecord
   validates :section_id, uniqueness: {scope: [:teacher_id, :subject_id, :klass_id , :term_id]}
 
   scope :by_subject_id, -> (subject_id) { where(subject_id: subject_id) }
+  scope :of_term,       -> (term_id)    { where(term_id: term_id) }
 end

@@ -25,6 +25,7 @@
 //= require bootstrap-datetimepicker
 //= require select2-full
 //= require iCheck/icheck.min.js
+//= require ckeditor/init
 //= require_tree .
 
 toastr.options = {

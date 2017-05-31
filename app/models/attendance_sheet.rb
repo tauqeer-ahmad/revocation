@@ -1,6 +1,7 @@
 class AttendanceSheet < ApplicationRecord
   has_many :attendances, dependent: :destroy
   belongs_to :section
+  belongs_to :term
 
   after_update :update_counters
 
@@ -17,13 +18,13 @@ class AttendanceSheet < ApplicationRecord
 
   def build_students
     section.students.each do |student|
-      self.attendances.build(attendee_id: student.id, attendee_type: 'Student')
+      self.attendances.build(attendee_id: student.id)
     end
   end
 
   def build_teachers
     Teacher.all.each do |teacher|
-      self.attendances.build(attendee_id: teacher.id, attendee_type: 'Teacher')
+      self.attendances.build(attendee_id: teacher.id)
     end
   end
 

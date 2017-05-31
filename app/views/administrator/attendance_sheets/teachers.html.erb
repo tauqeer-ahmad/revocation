@@ -39,7 +39,7 @@
         <tbody>
           <% @attendance_sheets.each_with_index do |sheet, index| %>
           <tr>
-            <td><%= index + 1 %></td>
+            <td><%= index.succ %></td>
             <td><%= render_time(sheet.name, :date_only) %></td>
             <td>
               <span class="badge badge-primary"><%= sheet.present %></span>

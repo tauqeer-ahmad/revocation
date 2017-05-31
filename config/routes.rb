@@ -1,4 +1,6 @@
 Revocation::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+
   namespace :admin do
     devise_for :supervisors, :controllers => {
       :sessions => 'sessions'
@@ -32,6 +34,8 @@ Revocation::Application.routes.draw do
 
   authenticated :administrator do
     root to: 'administrator/home#index', as: :administrator_root
+    get :lock_account, to: 'administrator/home#lock_account'
+    post :unlock_account, to: 'administrator/home#unlock_account'
 
     namespace :administrator do
       resources :teachers do
@@ -128,6 +132,9 @@ Revocation::Application.routes.draw do
           get :managing_students
         end
       end
+
+      resources :sections, only: [:index]
+      resources :assignments
     end
   end
 
