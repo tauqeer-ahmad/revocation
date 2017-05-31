@@ -65,7 +65,7 @@ class Term < ApplicationRecord
   end
 
   def update_state(new_status)
-    return if self.status == new_status
+    return true if self.status == new_status
 
     return self.complete! if new_status == 'completed'
     return self.active! if new_status == 'active'
