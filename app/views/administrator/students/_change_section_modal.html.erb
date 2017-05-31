@@ -13,7 +13,7 @@
             <div class='form-group'>
               <div class='col-sm-6'>
                 <label class="control-label">Select Trasfer Section</label>
-                <%= select_tag :new_section_id, options_for_select(@valid_sections.collect {|e| [ e.name, e.id ] unless(e.name == @section.name) }), prompt: "Select Section", class: "select2_dropdown", disabled:false, required: true %>
+                <%= select_tag :new_section_id, options_for_select(@valid_sections.collect {|e| [ e.name, e.id ] unless (e.name == @section.name) }.compact), prompt: "Select Section", class: "select2_dropdown", disabled:false, required: true %>
               </div>
             </div>
           </div>
