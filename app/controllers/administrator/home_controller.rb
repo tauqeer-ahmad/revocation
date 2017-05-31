@@ -18,7 +18,7 @@ class Administrator::HomeController < ApplicationController
     if @institution.update(institution_params)
       redirect_to configuration_path, notice: 'Successfully updated Institution'
     else
-      redirect_to configuration_path, alert: 'Something went wrong.'
+      redirect_to configuration_path, alert: @institution.errors.to_sentence
     end
   end
 
