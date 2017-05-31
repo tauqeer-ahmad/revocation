@@ -1,5 +1,6 @@
 class Administrator::TermsController < ApplicationController
   before_action :set_term, only: [:show, :edit, :update, :destroy, :update_selected_term]
+  before_action :validate_status, only: :update
 
   def index
     @terms = Term.lookup(params[:search])
@@ -29,9 +30,10 @@ class Administrator::TermsController < ApplicationController
   end
 
   def update
-    if @term.update(term_params)
+    if (@term.attributes = term_params) && @term.update_state(params[:term][:status])
       redirect_to administrator_terms_url, notice: 'Term was successfully updated.'
     else
+      flash.now[:error] = @term.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -52,6 +54,10 @@ class Administrator::TermsController < ApplicationController
     end
 
     def term_params
-      params.require(:term).permit(:name, :start_date, :end_date, :status)
+      params.require(:term).permit(:name, :start_date, :end_date)
+    end
+
+    def validate_status
+      redirect_to administrator_terms_url, notice: 'Invalid Status.' unless params[:term][:status].in? Term.aasm.states.map(&:name).map(&:to_s)
     end
 end

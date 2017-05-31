@@ -35,8 +35,12 @@ class Term < ApplicationRecord
     state :active
     state :completed
 
+    event :reinitialize do
+      transitions from: [:active], to: :initialized
+    end
+
     event :active do
-      transitions from: [:initialized, :complete], to: :active
+      transitions from: [:initialized, :completed], to: :active
     end
 
     event :complete do
@@ -58,5 +62,15 @@ class Term < ApplicationRecord
 
   def self.active_term
     active.first
+  end
+
+  def update_state(new_status)
+    return self.complete! if new_status == 'completed'
+    return self.active! if new_status == 'active'
+    return self.reinitialize! if new_status == 'initialized'
+
+    rescue
+      errors.add(:status, "Invalid Transition.")
+      return false
   end
 end
