@@ -16,6 +16,7 @@ class Administrator::HomeController < ApplicationController
 
   def unlock_account
     if current_user.valid_password?(params[:password])
+      session[:lock_account] = false
       flash[:notice] = 'Successfully unlocked your account!'
     else
       flash[:alert] = 'You entered incorrect password!'
