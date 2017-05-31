@@ -1,0 +1,145 @@
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <div class='ibox'>
+        <div class='ibox-title'>
+          <h5>Settings of Institute</h5>
+        </div>
+
+        <div class='ibox-content'>
+          <%= form_tag save_configuration_path, class: 'form-horizontal m-t-lg text-center', multipart: true do %>
+            <div class="navy-line"></div>
+            <h2>Logo</h2>
+
+            <div class="form-group m-t-md">
+              <div class='col-sm-2 col-sm-offset-5'>
+                <label class='btn-bs-file btn btn-md btn-info'>
+                  Upload Logo
+                  <%= file_field_tag 'institution[logo]' %>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group m-t-md">
+              <div class='col-sm-2 col-sm-offset-5'>
+                <div id='uploaded-image'></div>
+                <%= image_tag(@institution.logo.url(:medium), class: 'img-thumbnail', id: 'previous-image') if @institution.logo.present? %>
+              </div>
+            </div>
+
+            <div class='hr-line-dashed'></div>
+
+            <div class="navy-line"></div>
+            <h2>Contact Information</h2>
+
+            <div class="form-group m-t-md">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_field_tag 'institution[email]', @institution.email, required: true, maxlength: 60, placeholder: 'Email Address', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_field_tag 'institution[phone_number]', @institution.phone_number, required: true, maxlength: 60, placeholder: 'Phone Number', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_field_tag 'institution[fax_number]', @institution.fax_number, required: true, maxlength: 60, placeholder: 'Fax Number', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_area_tag 'institution[address]', @institution.address, required: true, rows: 3, maxlength: 100, placeholder: 'Postal Address', class: 'form-control' %>
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_area_tag 'institution[contact_description]', @institution.contact_description, required: true, rows: 3, maxlength: 150, placeholder: 'Description', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= number_field_tag 'institution[latitude]', @institution.latitude, required: true, maxlength: 60, placeholder: 'Latitude', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= number_field_tag 'institution[longitude]', @institution.longitude, required: true, maxlength: 60, placeholder: 'Longitude', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='hr-line-dashed'></div>
+
+            <div class='m-t-lg'></div>
+            <div class="navy-line"></div>
+            <h2>Social Contact</h2>
+
+            <div class="form-group m-t-md">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_field_tag 'institution[facebook_url]', @institution.facebook_url, maxlength: 100, placeholder: 'Facebook URL', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group social-icon">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_field_tag 'institution[twitter_url]', @institution.twitter_url, maxlength: 100, placeholder: 'Twitter URL', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_field_tag 'institution[linkedin_url]', @institution.linkedin_url, maxlength: 100, placeholder: 'LinkedIn URL', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='hr-line-dashed'></div>
+
+            <div class='m-t-lg'></div>
+            <div class="navy-line"></div>
+            <h2>Video</h2>
+
+            <div class="form-group">
+              <div class="col-sm-6 col-sm-offset-3">
+                <%= text_field_tag 'institution[video_url]', @institution.video_url, maxlength: 100, placeholder: 'Youtube Video URL', class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class='hr-line-dashed'></div>
+
+            <div class='form-group'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <%= submit_tag 'Save & Preview', class: 'btn btn-info btn-lg' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='modal inmodal' id='preview-modal' tabindex='-1' role='dialog' aria-hidden='true' style='display: none;'>
+  <div class='modal-dialog'>
+    <div class='modal-content animated flipInY'>
+      <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal'>
+          <span aria-hidden='true'>×</span><span class='sr-only'>Close</span>
+        </button>
+
+        <h4 class='modal-title'>Preview Home Page</h4>
+      </div>
+
+      <div class='modal-body text-center'>
+      </div>
+    </div>
+  </div>
+</div>
