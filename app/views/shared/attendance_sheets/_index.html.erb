@@ -48,23 +48,23 @@
               </thead>
               <tbody>
                 <% @attendance_sheets.each_with_index do |sheet, index| %>
-                <tr>
-                  <td><%= index.succ %></td>
-                  <td><%= render_time(sheet.name, :date_only) %></td>
-                  <td><%= sheet.section.klass.name %></td>
-                  <td><%= sheet.section.name %></td>
-                  <td class='text-center'><span class='badge badge-primary'><%= sheet.present %></span></td>
-                  <td class='text-center'><span class='badge badge-danger'><%= sheet.absent %></span></td>
-                  <td class='text-center'><span class='badge badge-warning'><%= sheet.leave %></span></td>
-                  <td>
-                    <%= link_to edit_path(sheet), class: 'btn btn-success btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
-                      <i class='fa fa-eye'></i>
-                    <% end %>
-                    <%= link_to destroy_path(sheet), class: 'btn btn-danger btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
-                      <i class='fa fa-trash-o'></i>
-                    <% end %>
-                  </td>
-                </tr>
+                  <tr>
+                    <td><%= index.succ %></td>
+                    <td><%= render_time(sheet.name, :date_only) %></td>
+                    <td><%= sheet.section.klass.name %></td>
+                    <td><%= sheet.section.name %></td>
+                    <td class='text-center'><span class='badge badge-primary'><%= sheet.present %></span></td>
+                    <td class='text-center'><span class='badge badge-danger'><%= sheet.absent %></span></td>
+                    <td class='text-center'><span class='badge badge-warning'><%= sheet.leave %></span></td>
+                    <td>
+                      <%= link_to edit_path(sheet), class: 'btn btn-success btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+                        <i class='fa fa-eye'></i>
+                      <% end %>
+                      <%= link_to destroy_path(sheet), class: 'btn btn-danger btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                        <i class='fa fa-trash-o'></i>
+                      <% end %>
+                    </td>
+                  </tr>
                 <% end %>
               </tbody>
             </table>
