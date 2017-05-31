@@ -1,71 +1,76 @@
-<div class="ibox float-e-margins">
-  <div class="ibox-title">
-    <h5>Attendance Sheets</h5>
-    <div class="ibox-tools">
-      <a class="collapse-link">
-        <i class="fa fa-chevron-up"></i>
-      </a>
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="fa fa-wrench"></i>
-      </a>
-      <a class="close-link">
-        <i class="fa fa-times"></i>
-      </a>
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row m-b-md'>
+    <div class='col-sm-12'>
+      <%= form_tag(path, method: :get, class: 'form-inline') do %>
+        <div class='row'>
+          <div class='col-sm-3'>
+            <%= text_field_tag :date, nil, placeholder: 'Select Date', class: 'form-control date-field', required: true %>
+          </div>
+
+          <div class='col-sm-3'>
+            <%= select_tag(:section_id, options_from_collection_for_select(@sections, :first, :last, params[:section_id]), {class: 'form-control', prompt: 'Select Section', required: true}) %>
+          </div>
+
+          <div class='col-sm-3'>
+            <%= submit_tag 'Manage Attendance', class: 'btn btn-md btn-primary' %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
-  <div class="ibox-content">
-    <%= form_tag(path, method: :get, class: 'form-inline') do %>
-      <div class="form-group">
-        <label class="control-label">Date</label>
-        <%= text_field_tag :date, '', class: 'form-control date-field', required: true %>
-      </div>
-      <div class="form-group m-l-md">
-        <label class="control-label">Section</label>
-        <%= select_tag(:section_id, options_from_collection_for_select(@sections, :first, :last, params[:section_id]), {class: 'form-control', prompt: 'Please Select', required: true}) %>
-      </div>
-      <%= submit_tag "Manage Attendance", class: "btn btn-md btn-primary m-l-md m-t-xs" %>
-    <% end %>
 
-    <div class="attendance-sheet-list m-t-lg">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Date</th>
-            <th>Class</th>
-            <th>Section</th>
-            <th>
-              <span class="badge badge-primary">Present</span>
-              <span class="badge badge-danger">Absent</span>
-              <span class="badge badge-warning">Leave</span>
-            </th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @attendance_sheets.each_with_index do |sheet, index| %>
-          <tr>
-            <td><%= index.succ %></td>
-            <td><%= render_time(sheet.name, :date_only) %></td>
-            <td><%= sheet.section.klass.name %></td>
-            <td><%= sheet.section.name %></td>
-            <td>
-              <span class="badge badge-primary"><%= sheet.present %></span>
-              <span class="badge badge-danger"><%= sheet.absent %></span>
-              <span class="badge badge-warning"><%= sheet.leave %></span>
-            </td>
-            <td>
-              <%= link_to edit_path(sheet), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
-                <i class="fa fa-eye"></i>
-              <% end %>
-              <%= link_to destroy_path(sheet), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
-                <i class="fa fa-trash-o"></i>
-              <% end %>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='ibox float-e-margins'>
+        <div class='ibox-title'>
+          <h5>Attendance Sheets</h5>
+          <div class='ibox-tools'>
+            <a class='collapse-link'>
+              <i class='fa fa-chevron-up'></i>
+            </a>
+          </div>
+        </div>
+
+        <div class='ibox-content'>
+          <div class='attendance-sheet-list'>
+            <table class='table table-hover'>
+              <thead>
+                <tr>
+                  <th class='col-sm-1'>#</th>
+                  <th class='col-sm-2'>Date</th>
+                  <th class='col-sm-1'>Class</th>
+                  <th class='col-sm-1'>Section</th>
+                  <th class='col-sm-1 text-center'><span class='badge badge-primary'>Present</span></th>
+                  <th class='col-sm-1 text-center'><span class='badge badge-danger'>Absent</span></th>
+                  <th class='col-sm-1 text-center'><span class='badge badge-warning'>Leave</span></th>
+                  <th class='col-sm-1'>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @attendance_sheets.each_with_index do |sheet, index| %>
+                <tr>
+                  <td><%= index.succ %></td>
+                  <td><%= render_time(sheet.name, :date_only) %></td>
+                  <td><%= sheet.section.klass.name %></td>
+                  <td><%= sheet.section.name %></td>
+                  <td class='text-center'><span class='badge badge-primary'><%= sheet.present %></span></td>
+                  <td class='text-center'><span class='badge badge-danger'><%= sheet.absent %></span></td>
+                  <td class='text-center'><span class='badge badge-warning'><%= sheet.leave %></span></td>
+                  <td>
+                    <%= link_to edit_path(sheet), class: 'btn btn-success btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+                      <i class='fa fa-eye'></i>
+                    <% end %>
+                    <%= link_to destroy_path(sheet), class: 'btn btn-danger btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                      <i class='fa fa-trash-o'></i>
+                    <% end %>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
