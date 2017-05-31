@@ -16,12 +16,12 @@ class Term < ApplicationRecord
   has_many :marksheets, dependent: :destroy
   has_many :exam_marks, dependent: :destroy
 
-  validates :name, presence: {message: "Term name is required"}
-  validates :start_date, presence: {message: "Term start date is required"}
-  validates :end_date, presence: {message: "Term end date is required"}
+  validates :name, presence: {message: "is required"}
+  validates :start_date, presence: {message: "is required"}
+  validates :end_date, presence: {message: "is required"}
 
-  validates :name, :uniqueness => {message: "Term already exits for this name"}
-  validate :status_integrity
+  validates :name, :uniqueness => {message: "already exists"}
+  validate :status_integrity, if: :status_changed?
 
   def search_data
     {
@@ -65,12 +65,14 @@ class Term < ApplicationRecord
   end
 
   def update_state(new_status)
+    return if self.status == new_status
+
     return self.complete! if new_status == 'completed'
     return self.active! if new_status == 'active'
     return self.reinitialize! if new_status == 'initialized'
 
-    rescue
-      errors.add(:status, "Invalid Transition.")
+    rescue => e
+      errors.add(:status, e.message)
       return false
   end
 end

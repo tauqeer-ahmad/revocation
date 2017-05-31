@@ -30,7 +30,7 @@ class Administrator::TermsController < ApplicationController
   end
 
   def update
-    if (@term.attributes = term_params) && @term.update_state(params[:term][:status])
+    if @term.update(term_params) && @term.update_state(params[:term][:status])
       redirect_to administrator_terms_url, notice: 'Term was successfully updated.'
     else
       flash.now[:error] = @term.errors.full_messages.to_sentence
