@@ -3,8 +3,12 @@ module ApplicationHelper
       params[:controller] == controller_name ? 'active' : nil
     end
 
-    def is_active_action(controller_name, action_name)
-      params[:action] == action_name && params[:controller] == controller_name ? 'active' : nil
+    def is_active_action(action_name)
+      params[:action] == action_name ? 'active' : nil
+    end
+
+    def is_active_controller_action(controller_name, action_name)
+      is_active_controller(controller_name) && is_active_action(action_name)
     end
 
     def get_logout_path(user)
@@ -33,7 +37,7 @@ module ApplicationHelper
     keyword = action_name == 'index' && 'Create' || 'Update'
     [keyword, 'Class'].join(' ')
   end
-    
+
   def flash_class(level)
     case level.to_sym
       when :notice then 'success'

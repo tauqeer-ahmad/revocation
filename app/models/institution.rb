@@ -6,6 +6,13 @@ class Institution < ApplicationRecord
 
   has_many :administrators
 
+  has_attached_file :logo,
+                    styles: {
+                      medium: '300x300!',
+                      thumb: '100x100>'
+                    }
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
+
   after_create :add_tenant_to_apartment, :add_indexes
 
   validates :name, presence: { message: "Name field is required" }
