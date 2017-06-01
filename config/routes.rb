@@ -34,6 +34,10 @@ Revocation::Application.routes.draw do
 
   authenticated :administrator do
     root to: 'administrator/home#index', as: :administrator_root
+    get :configuration, to: 'administrator/home#configuration'
+    post :save_configuration, to: 'administrator/home#save_configuration'
+    get :lock_account, to: 'administrator/home#lock_account'
+    post :unlock_account, to: 'administrator/home#unlock_account'
 
     namespace :administrator do
       resources :teachers do
@@ -145,5 +149,6 @@ Revocation::Application.routes.draw do
     root to: 'home#index'
   end
 
+  post :contact_us, to: 'home#contact_us'
   root to: 'home#index'
 end
