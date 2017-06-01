@@ -21,8 +21,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def allocate_term
+    session[:selected_term] ? Term.find(session[:selected_term]) : Term.active_term
+  end
+
   def current_term
-    @current_term ||= Term.last
+    @current_term ||= allocate_term
   end
 
   def user_signed_in?

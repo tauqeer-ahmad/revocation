@@ -76,7 +76,11 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :terms
+      resources :terms do
+        member do
+          put :update_selected_term
+        end
+      end
 
       resources :sections, only: [:index] do
         resources :timetables
