@@ -74,7 +74,7 @@ Revocation::Application.routes.draw do
 
       resources :terms do
         member do
-          post :update_selected_term
+          put :update_selected_term
         end
       end
 

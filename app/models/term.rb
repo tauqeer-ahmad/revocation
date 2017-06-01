@@ -36,7 +36,7 @@ class Term < ApplicationRecord
     state :completed
 
     event :reinitialize do
-      transitions from: [:active], to: :initialized
+      transitions from: [:initialized, :active], to: :initialized
     end
 
     event :active do
@@ -65,14 +65,15 @@ class Term < ApplicationRecord
   end
 
   def update_state(new_status)
-    return true if self.status == new_status
+    return true if self.persisted? && self.status == new_status
 
     return self.complete! if new_status == 'completed'
     return self.active! if new_status == 'active'
     return self.reinitialize! if new_status == 'initialized'
 
     rescue => e
-      errors.add(:status, e.message)
+      message = self.persisted? ? e.message : 'Initialized Term Already exists.'
+      errors.add(:status, message)
       return false
   end
 end

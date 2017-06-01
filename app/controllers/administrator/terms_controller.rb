@@ -21,7 +21,7 @@ class Administrator::TermsController < ApplicationController
   def create
     @term = Term.new(term_params)
 
-    if @term.save
+    if @term.update_state('initialized')
       redirect_to administrator_terms_url, notice: 'Term was successfully created.'
     else
       flash.now[:error] = @term.errors.full_messages.to_sentence

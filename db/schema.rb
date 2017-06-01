@@ -212,9 +212,9 @@ ActiveRecord::Schema.define(version: 20170529205149) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "status"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "status",     limit: 16
   end
 
   create_table "timetables", force: :cascade do |t|

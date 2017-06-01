@@ -79,11 +79,11 @@ module ApplicationHelper
   end
 
   def datetimepicker_default_value(value)
-    value.strftime('%d/%m/%Y%l-%M %p') if value
+    value && value.strftime('%d/%m/%Y%l-%M %p')
   end
 
   def datepicker_default_value(value)
-    value.strftime('%d/%m/%Y') if value
+    value && value.strftime('%d/%m/%Y')
   end
 
   def icon_of(klass)
