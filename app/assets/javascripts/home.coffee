@@ -54,7 +54,7 @@ display_uploaded_image = ->
       img = new Image
       img.src = file.target.result
       $('#uploaded-image').html img
-      $('#uploaded-image img').addClass('img-thumbnail')
+      $('#uploaded-image img').addClass('img-thumbnail').css('width', '100%')
 
     reader.readAsDataURL image
 
