@@ -10,6 +10,20 @@ class Administrator::HomeController < ApplicationController
     }
   end
 
+  def configuration
+    @institution = Institution.current
+  end
+
+  def save_configuration
+    @institution = Institution.current
+
+    if @institution.update(institution_params)
+      redirect_to configuration_path, notice: 'Successfully updated Institution'
+    else
+      redirect_to configuration_path, alert: @institution.errors.to_sentence
+    end
+  end
+
   def lock_account
     session[:lock_account] = true
   end
@@ -26,6 +40,10 @@ class Administrator::HomeController < ApplicationController
   end
 
   private
+    def institution_params
+      params.require(:institution).permit(:logo, :email, :phone_number, :fax_number, :address, :contact_description, :facebook_url, :twitter_url, :linkedin_url, :video_url, :latitude, :longitude)
+    end
+
     def resolve_layout
       case action_name
         when 'lock_account'

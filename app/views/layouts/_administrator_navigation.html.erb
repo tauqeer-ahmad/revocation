@@ -29,7 +29,7 @@
           RC+
         </div>
       </li>
-      <li class="<%= is_active_controller('administrator/home') %>">
+      <li class="<%= is_active_controller_action('administrator/home', 'index') %>">
         <%= link_to root_path do %>
           <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
         <% end %>
@@ -85,16 +85,21 @@
           <li class="<%= is_active_controller('administrator/exams') %>">
             <%= link_to "Exam List", administrator_exams_path %>
           </li>
-          <li class="<%= is_active_action('administrator/marksheets', 'index') %>">
+          <li class="<%= is_active_controller_action('administrator/marksheets', 'index') %>">
             <%= link_to "Manage Marks", administrator_marksheets_path %>
           </li>
-          <li class="<%= is_active_action('administrator/marksheets', 'existing') %>">
+          <li class="<%= is_active_controller_action('administrator/marksheets', 'existing') %>">
             <%= link_to "Marksheets", existing_administrator_marksheets_path %>
           </li>
-          <li class="<%= is_active_action('administrator/marksheets', 'generate_tabulation_sheet') %> <%= is_active_action('administrator/marksheets', 'tabulation_sheet') %>">
+          <li class="<%= is_active_controller_action('administrator/marksheets', 'generate_tabulation_sheet') %> <%= is_active_controller_action('administrator/marksheets', 'tabulation_sheet') %>">
             <%= link_to "Tabulation Sheet", generate_tabulation_sheet_administrator_marksheets_path %>
           </li>
         </ul>
+      </li>
+      <li class="<%= is_active_controller_action('administrator/home', 'configuration') %>">
+        <%= link_to configuration_path do %>
+          <i class="fa fa-gears"></i> <span class="nav-label">Configuration</span>
+        <% end %>
       </li>
     </ul>
   </div>
