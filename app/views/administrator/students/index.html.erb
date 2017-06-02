@@ -81,9 +81,15 @@
                               <%= link_to edit_administrator_section_student_path(@section, student), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
                               <% end %>
-                               <%= link_to administrator_section_student_path(@section, student), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: student.class.name }, title: 'Delete' do %>
+                              <%= link_to administrator_section_student_path(@section, student), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: student.class.name }, title: 'Delete' do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
+                              <div id='change_section-<%= student.id %>' class='modal fade' role='dialog' aria-hidden="true">
+                                <%= render 'change_section_modal', student: student %>
+                              </div>
+                              <button type="button" class="btn btn-outline btn-primary btn-xs" data-toggle="modal" data-target="#change_section-<%= student.id %>" title='Transfer Section'>
+                                <i class="fa fa-arrows"></i>
+                              </button>
                             </td>
                           </tr>
                         <% end %>
