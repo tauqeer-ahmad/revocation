@@ -4,7 +4,7 @@
       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
       <h4 class="modal-title">Change section of student <span class="text-warning"><%= student.name %></span></h4>
       <h5 class="modal-title">Current Section is <span class="text-info"><%= @section.name %></span></h5>
-      <small class="font-bold">Student can only be trasffered within same class sections.</small>
+      <small class="font-bold">Student can only be transffered within same class sections.</small>
     </div>
     <%= form_tag(update_section_administrator_section_student_path(@section, student), class: 'form-horizontal', method: :put ) do %>
       <div class="modal-body">
@@ -13,7 +13,7 @@
             <div class='form-group'>
               <div class='col-sm-6'>
                 <label class="control-label">Select Trasfer Section</label>
-                <%= select_tag :new_section_id, options_for_select(@valid_sections.collect {|e| [ e.name, e.id ] unless (e.name == @section.name) }.compact), prompt: "Select Section", class: "select2_dropdown", disabled:false, required: true %>
+                <%= select_tag :new_section_id, options_for_select(@valid_sections), prompt: "Select Section", class: "select2_dropdown", disabled:false, required: true %>
               </div>
             </div>
           </div>
