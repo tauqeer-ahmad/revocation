@@ -77,7 +77,6 @@ class Administrator::StudentsController < ApplicationController
   def update_section
     valid_section_ids = @section.klass.sections.ids - [@section.id]
     return redirect_to administrator_section_students_path(@section), alert: "Student transfer only allowed within current class sections." unless params[:new_section_id].to_i.in?(valid_section_ids)
-    #section_student = SectionStudent.where(section_id: @section.id, student_id: @student.id).first
     SectionStudent.where(section_id: @section.id, student_id: @student.id).update(section_id: params[:new_section_id])
     redirect_to administrator_section_students_path(@section), notice: 'Student transfer was successfully completed.'
   end
