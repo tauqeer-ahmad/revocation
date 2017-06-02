@@ -1,6 +1,7 @@
 class Administrator::StudentsController < ApplicationController
-  before_action :set_section
-  before_action :set_student, only: [:show, :edit, :update, :destroy, :update_section]
+  before_action :set_section, except: [:results]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :update_section, :results]
+  layout 'empty', only: [:results]
 
   def index
     @students = params[:search].present? ? Student.lookup(params[:search], {section_id: @section.id}) : @section.students
@@ -79,6 +80,15 @@ class Administrator::StudentsController < ApplicationController
     return redirect_to administrator_section_students_path(@section), alert: "Student transfer only allowed within current class sections." unless params[:new_section_id].to_i.in?(valid_section_ids)
     SectionStudent.where(section_id: @section.id, student_id: @student.id).update(section_id: params[:new_section_id])
     redirect_to administrator_section_students_path(@section), notice: 'Student transfer was successfully completed.'
+  end
+
+  def results
+    @exam_marks = @student.exam_marks.includes(:subject, :klass, :section).group_by(&:exam_id)
+    @all_exam_marks = ExamMark.where(section_id: @student.sections.ids).to_a
+    @klass_marks = @all_exam_marks.group_by(&:klass_id)
+    @section_marks = @all_exam_marks.group_by(&:section_id)
+    @subject_marks = @all_exam_marks.group_by(&:subject_id)
+    @exams = Exam.pluck(:id, :name).to_h
   end
 
   private
