@@ -1,4 +1,5 @@
 class Term < ApplicationRecord
+  include AASM
   include SearchWrapper
 
   searchkick index_name: tenant_index_name
@@ -15,19 +16,64 @@ class Term < ApplicationRecord
   has_many :marksheets, dependent: :destroy
   has_many :exam_marks, dependent: :destroy
 
-  validates :name, presence: {message: "Term name is required"}
-  validates :start_date, presence: {message: "Term start date is required"}
-  validates :end_date, presence: {message: "Term end date is required"}
+  validates :name, presence: {message: "is required"}
+  validates :start_date, presence: {message: "is required"}
+  validates :end_date, presence: {message: "is required"}
 
-  validates :name, :uniqueness => {message: "Term already exits for this name"}
+  validates :name, :uniqueness => {message: "already exists"}
+  validate :status_integrity, if: :status_changed?
 
   def search_data
     {
       name: name,
+      status: status,
     }
+  end
+
+  aasm requires_lock: true, column: 'status' do
+    state :initialized
+    state :active
+    state :completed
+
+    event :reinitialize do
+      transitions from: [:initialized, :active], to: :initialized
+    end
+
+    event :active do
+      transitions from: [:initialized, :completed], to: :active
+    end
+
+    event :complete do
+      transitions from: [:active], to: :completed
+    end
   end
 
   def display_term_duration
     [start_date.strftime("%d, %B %Y"), 'to', end_date.strftime("%d, %B %Y")].join(' ')
+  end
+
+  def status_integrity
+    return if self.completed?
+
+    status_counts = Term.group(:status).count
+    return errors.add(:status, "One Active Term allowed.") if self.active? && status_counts['active'].to_i >= 1
+    return errors.add(:status, "One Initialized Term allowed.") if self.initialized? && status_counts['initialized'].to_i >= 1
+  end
+
+  def self.active_term
+    active.first
+  end
+
+  def update_state(new_status)
+    return true if self.persisted? && self.status == new_status
+
+    return self.complete! if new_status == 'completed'
+    return self.active! if new_status == 'active'
+    return self.reinitialize! if new_status == 'initialized'
+
+    rescue => e
+      message = self.persisted? ? e.message : 'Initialized Term Already exists.'
+      errors.add(:status, message)
+      return false
   end
 end

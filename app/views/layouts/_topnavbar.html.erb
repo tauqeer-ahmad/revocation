@@ -12,7 +12,7 @@
     <ul class='nav navbar-top-links navbar-right'>
       <% if current_term.present? %>
         <li>
-          <span class='m-r-sm text-muted welcome-message'>Running Term is <%= current_term.name %> <%= current_term.display_term_duration %> </span>
+          <span class="m-r-sm text-muted welcome-message"><strong><%= current_term.name.capitalize %></strong> - <%= current_term.display_term_duration %> </span>
         </li>
       <% end %>
 

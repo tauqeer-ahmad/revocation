@@ -34,21 +34,49 @@
               <div id="tab-1" class="tab-pane active">
                 <%= render partial: 'shared/search_box', locals: {path: administrator_terms_path} %>
                 <div class="ibox"></div>
-                <div class="row">
-                  <% @terms.each do |term| %>
-                    <div class="col-lg-4">
-                      <div class="contact-box">
-                        <%= link_to [:administrator, term] do %>
-                          <div class="col-sm-12">
-                            <div class="text-center">
-                              <div class="m-t-xs font-bold"><%= term.name %></div>
-                               <div class="m-t-xs"><%= term.display_term_duration %></div>
-                            </div>
-                          </div>
-                          <div class="clearfix"></div>
-                        <% end %>
+                <div class='row m-b-lg'>
+                  <div class="col-md-2 col-md-offset-3">
+                    <div class="widget style1 yellow-bg">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <h3 class="font-bold text-center">Initialized</h3>
+                        </div>
                       </div>
                     </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget style1 lazur-bg">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <h3 class="font-bold text-center">Active</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget style1 navy-bg">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <h3 class="font-bold text-center">Complete</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <% @terms.each do |term| %>
+                    <div class="col-lg-4 term-box" data-term-id= <%= term.id %> >
+                      <div class="contact-box style1 color-white <%= term_class(term) %>">
+                        <div class="col-sm-12">
+                          <div class="text-center">
+                            <div class="m-t-xs font-bold"><%= term.name %></div>
+                             <div class="m-t-xs"><%= term.display_term_duration %></div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                    </div>
+                    <%= render 'term_options_modal', term: term %>
                   <% end %>
                 </div>
               </div>
@@ -67,5 +95,6 @@
 
 <% content_for :javascript do %>
   animate_contact_box()
+  AdministratorTerm.init()
 <% end %>
 

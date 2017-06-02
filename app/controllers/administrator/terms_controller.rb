@@ -1,5 +1,6 @@
 class Administrator::TermsController < ApplicationController
-  before_action :set_term, only: [:show, :edit, :update, :destroy]
+  before_action :set_term, only: [:show, :edit, :update, :destroy, :update_selected_term]
+  before_action :validate_status, only: :update
 
   def index
     @terms = Term.lookup(params[:search])
@@ -20,45 +21,43 @@ class Administrator::TermsController < ApplicationController
   def create
     @term = Term.new(term_params)
 
-    respond_to do |format|
-      if @term.save
-        format.html { redirect_to administrator_terms_url, notice: 'Term was successfully created.' }
-        format.json { render :show, status: :created, location: @term }
-      else
-        format.html { render :new }
-        format.json { render json: @term.errors, status: :unprocessable_entity }
-      end
+    if @term.update_state('initialized')
+      redirect_to administrator_terms_url, notice: 'Term was successfully created.'
+    else
+      flash.now[:error] = @term.errors.full_messages.to_sentence
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @term.update(term_params)
-        format.html { redirect_to administrator_terms_url, notice: 'Term was successfully updated.' }
-        format.json { render :show, status: :ok, location: @term }
-      else
-        format.html { render :edit }
-        format.json { render json: @term.errors, status: :unprocessable_entity }
-      end
+    if @term.update(term_params) && @term.update_state(params[:term][:status])
+      redirect_to administrator_terms_url, notice: 'Term was successfully updated.'
+    else
+      flash.now[:error] = @term.errors.full_messages.to_sentence
+      render :edit
     end
   end
 
   def destroy
     @term.destroy
-    respond_to do |format|
-      format.html { redirect_to administrator_terms_url, notice: 'Term was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to administrator_terms_url, notice: 'Term was successfully destroyed.'
+  end
+
+  def update_selected_term
+    session[:selected_term] = @term.id
+    redirect_to administrator_terms_url, notice: "#{@term.name} has been selected successfully"
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_term
       @term = Term.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def term_params
       params.require(:term).permit(:name, :start_date, :end_date)
+    end
+
+    def validate_status
+      redirect_to administrator_terms_url, notice: 'Invalid Status.' unless params[:term][:status].in? Term.aasm.states.map(&:name).map(&:to_s)
     end
 end
