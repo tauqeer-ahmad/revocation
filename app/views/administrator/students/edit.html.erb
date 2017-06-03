@@ -1,3 +1,13 @@
-<h1>Editing Administrator Student</h1>
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <h1>
+        Editing Student
+        <%= link_to 'Profile', [:administrator, @section, @student], class: 'btn btn-info' %>
+        <%= link_to 'Back', administrator_section_students_path(@section), class: 'btn btn-warning' %>
+      </h1>
 
-<%= render 'form', student: @student %>
+      <%= render 'form', student: @student %>
+    </div>
+  </div>
+</div>

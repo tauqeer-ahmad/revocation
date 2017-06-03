@@ -1,120 +1,114 @@
+<div class='ibox float-e-margins'>
+  <div class='ibox-title'>
+    <h5>Student form <small> Please fill the details correctly</small></h5>
+  </div>
+  <div class='ibox-content'>
+    <%= simple_form_for([:administrator, @section, student], validate: true, html: { class: 'form-horizontal' }) do |f| %>
+      <%= f.error_notification %>
 
-<div class='wrapper wrapper-content animated fadeInRight'>
-  <div class='row'>
-    <div class='col-lg-12'>
-      <div class='ibox float-e-margins'>
-        <div class='ibox-title'>
-          <h5>Admit a new student <small> Please fill the details correctly</small></h5>
+      <div class='whole-form'>
+        <div class='form-inputs'>
+          <div class='form-group'>
+            <div class='col-sm-4'>
+              <%= f.input :first_name, label: false, placeholder: 'First Name', input_html: { class: 'form-control' } %>
+            </div>
+
+            <div class='col-sm-4'>
+              <%= f.input :last_name, label: false, placeholder: 'Last Name', input_html: { class: 'form-control' } %>
+            </div>
+
+            <div class='col-sm-4'>
+              <%= f.input :email, label: false, placeholder: 'Email', input_html: { class: 'form-control' } %>
+            </div>
+          </div>
         </div>
-        <div class='ibox-content'>
-          <%= simple_form_for([:administrator, @section, student], validate: true, html: { class: 'form-horizontal' }) do |f| %>
-            <%= f.error_notification %>
 
-            <div class='whole-form'>
-              <div class='form-inputs'>
-                <div class='form-group'>
-                  <div class='col-sm-4'>
-                    <%= f.input :first_name, label: false, placeholder: 'First Name', input_html: { class: 'form-control' } %>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= f.input :last_name, label: false, placeholder: 'Last Name', input_html: { class: 'form-control' } %>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= f.input :email, label: false, placeholder: 'Email', input_html: { class: 'form-control' } %>
-                  </div>
-                </div>
-              </div>
-
-              <div class='form-inputs'>
-                <div class='form-group'>
-                  <div class='col-sm-4'>
-                    <%= f.input :roll_number, label: false, placeholder: 'Roll Number', input_html: { class: 'form-control' } %>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= f.input :gender, collection: User::GENDERS, include_blank: false, label: false, input_html: { class: 'form-control' } %>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= f.input :guardian_id, collection: [], prompt: 'Select Gender', label: false, input_html: { class: 'form-control select-guardians' } %>
-                  </div>
-                </div>
-              </div>
-
-              <div class='form-inputs'>
-                <div class='form-group'>
-                  <div class='col-sm-4'></div>
-
-                  <div class='col-sm-4'>
-                    <label class='btn-bs-file btn btn-md btn-info'>
-                      Upload Image
-                      <%= f.input :avatar, label: false, as: :file, input_html: { class: 'form-control' } %>
-                    </label>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= button_tag type: :button, class: 'btn btn-success show-guardian-form-btn width-100-p' do %>
-                      <i class='fa fa-plus' aria-hidden='true'></i> New Guardian
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-
-              <div class='form-inputs'>
-                <div class='form-group'>
-                  <div class='col-sm-4'></div>
-
-                  <div class='col-sm-4'>
-                    <div id='uploaded-image'></div>
-                    <%= image_tag(f.object.avatar.url(:medium), class: 'img-thumbnail', id: 'previous-image') if f.object.avatar.present? %>
-                  </div>
-
-                  <div class='col-sm-4'></div>
-                </div>
-              </div>
-
-              <div class='form-inputs guardian-form hide'>
-                <div class='form-group'>
-                  <div class='col-sm-4'>
-                    <%= text_field_tag 'guardian[first_name]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian First Name', class: 'form-control' %>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= text_field_tag 'guardian[last_name]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Last Name', class: 'form-control' %>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= text_field_tag 'guardian[email]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Email', class: 'form-control' %>
-                  </div>
-                </div>
-
-                <div class='form-group'>
-                  <div class='col-sm-4'>
-                    <%= text_field_tag 'guardian[cnic]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian CNIC', class: 'form-control' %>
-                  </div>
-
-                  <div class='col-sm-4'>
-                    <%= text_field_tag 'guardian[phone]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Phone', class: 'form-control' %>
-                  </div>
-                </div>
-              </div>
+        <div class='form-inputs'>
+          <div class='form-group'>
+            <div class='col-sm-4'>
+              <%= f.input :roll_number, label: false, placeholder: 'Roll Number', input_html: { class: 'form-control' } %>
             </div>
 
-            <div class='form-group'>
-              <div class='col-sm-4 col-sm-offset-4 text-center'>
-                <%= f.submit class: 'btn btn-primary' do %>
-                  <i class='fa fa-check'>&nbsp;Submit</i>
-                <% end %>
-              </div>
+            <div class='col-sm-4'>
+              <%= f.input :gender, collection: User::GENDERS, include_blank: false, label: false, input_html: { class: 'form-control' } %>
             </div>
+
+            <div class='col-sm-4'>
+              <%= f.input :guardian_id, collection: [], prompt: 'Select Gender', label: false, input_html: { class: 'form-control select-guardians' } %>
+            </div>
+          </div>
+        </div>
+
+        <div class='form-inputs'>
+          <div class='form-group'>
+            <div class='col-sm-4'></div>
+
+            <div class='col-sm-4'>
+              <label class='btn-bs-file btn btn-md btn-info'>
+                Upload Image
+                <%= f.input :avatar, label: false, as: :file, input_html: { class: 'form-control' } %>
+              </label>
+            </div>
+
+            <div class='col-sm-4'>
+              <%= button_tag type: :button, class: 'btn btn-success show-guardian-form-btn width-100-p' do %>
+                <i class='fa fa-plus' aria-hidden='true'></i> New Guardian
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class='form-inputs'>
+          <div class='form-group'>
+            <div class='col-sm-4'></div>
+
+            <div class='col-sm-4'>
+              <div id='uploaded-image'></div>
+              <%= image_tag(f.object.avatar.url(:medium), class: 'img-thumbnail', id: 'previous-image') if f.object.avatar.present? %>
+            </div>
+
+            <div class='col-sm-4'></div>
+          </div>
+        </div>
+
+        <div class='form-inputs guardian-form hide'>
+          <div class='form-group'>
+            <div class='col-sm-4'>
+              <%= text_field_tag 'guardian[first_name]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian First Name', class: 'form-control' %>
+            </div>
+
+            <div class='col-sm-4'>
+              <%= text_field_tag 'guardian[last_name]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Last Name', class: 'form-control' %>
+            </div>
+
+            <div class='col-sm-4'>
+              <%= text_field_tag 'guardian[email]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Email', class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class='form-group'>
+            <div class='col-sm-4'>
+              <%= text_field_tag 'guardian[cnic]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian CNIC', class: 'form-control' %>
+            </div>
+
+            <div class='col-sm-4'>
+              <%= text_field_tag 'guardian[phone]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Phone', class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <div class='col-sm-4 col-sm-offset-4 text-center'>
+          <%= f.submit class: 'btn btn-primary' do %>
+            <i class='fa fa-check'>&nbsp;Submit</i>
           <% end %>
         </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
+
 
 <% content_for :javascript do %>
   Student.init();

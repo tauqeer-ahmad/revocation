@@ -60,7 +60,7 @@
                       <%= link_to edit_path(sheet), class: 'btn btn-success btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
                         <i class='fa fa-eye'></i>
                       <% end %>
-                      <%= link_to destroy_path(sheet), class: 'btn btn-danger btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                      <%= link_to destroy_path(sheet), class: 'btn btn-danger btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: sheet.class.name }, title: 'Delete' do %>
                         <i class='fa fa-trash-o'></i>
                       <% end %>
                     </td>
