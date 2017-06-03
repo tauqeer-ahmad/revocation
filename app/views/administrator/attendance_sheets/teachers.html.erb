@@ -42,21 +42,21 @@
               </thead>
               <tbody>
                 <% @attendance_sheets.each_with_index do |sheet, index| %>
-                <tr>
-                  <td><%= index.succ %></td>
-                  <td><%= render_time(sheet.name, :date_only) %></td>
-                  <td class='text-center'><span class='badge badge-primary'><%= sheet.present %></span></td>
-                  <td class='text-center'><span class='badge badge-danger'><%= sheet.absent %></span></td>
-                  <td class='text-center'><span class='badge badge-warning'><%= sheet.leave %></span></td>
-                  <td>
-                    <%= link_to managing_teachers_administrator_attendance_sheets_path(date: sheet.name, section_id: sheet.section_id), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
-                      <i class="fa fa-eye"></i>
-                    <% end %>
-                    <%= link_to administrator_attendance_sheet_path(sheet), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: @guardian.class.name }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
-                      <i class="fa fa-trash-o"></i>
-                    <% end %>
-                  </td>
-                </tr>
+                  <tr>
+                    <td><%= index.succ %></td>
+                    <td><%= render_time(sheet.name, :date_only) %></td>
+                    <td class='text-center'><span class='badge badge-primary'><%= sheet.present %></span></td>
+                    <td class='text-center'><span class='badge badge-danger'><%= sheet.absent %></span></td>
+                    <td class='text-center'><span class='badge badge-warning'><%= sheet.leave %></span></td>
+                    <td>
+                      <%= link_to managing_teachers_administrator_attendance_sheets_path(date: sheet.name, section_id: sheet.section_id), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+                        <i class="fa fa-eye"></i>
+                      <% end %>
+                      <%= link_to administrator_attendance_sheet_path(sheet), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: @guardian.class.name }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                        <i class="fa fa-trash-o"></i>
+                      <% end %>
+                    </td>
+                  </tr>
                 <% end %>
               </tbody>
             </table>
