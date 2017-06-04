@@ -108,6 +108,7 @@ class Administrator::StudentsController < ApplicationController
     def student_params
       params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender).tap do |whitelisted|
         whitelisted[:enrollment_term_id] = current_term.id
+        whitelisted[:registration_number] = Student.generate_registration_number(Institution.current, current_term)
       end
     end
 
@@ -117,7 +118,10 @@ class Administrator::StudentsController < ApplicationController
 
     def bulk_student_params
       params.permit(students: [:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender, guardian: [:first_name, :last_name, :cnic, :email, :phone]]).tap do |custom_params|
-        custom_params[:students].each { |student| student[:enrollment_term_id] = current_term.id }
+        custom_params[:students].each { |student| 
+          student[:enrollment_term_id] = current_term.id
+          student[:registration_number] = Student.generate_registration_number(Institution.current, current_term)
+        }
       end[:students]
     end
 end

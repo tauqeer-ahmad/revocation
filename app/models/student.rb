@@ -14,7 +14,7 @@ class Student < User
   has_many :attendances, as: :attendee
 
   validates :roll_number, presence: { message: 'Roll number is required' }
-  validates :roll_number, uniqueness: true
+  validates :roll_number, :registration_number, uniqueness: true
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
@@ -28,6 +28,7 @@ class Student < User
       roll_number: roll_number,
       gender: gender,
       guardian_id: guardian_id,
+      registration_number: registration_number,
     }
   end
 
@@ -42,5 +43,13 @@ class Student < User
 
   def current_section(term_id)
     sections.of_current_term(term_id).first
+  end
+  
+  def self.generate_registration_number(current_institution, current_term)
+    p current_term
+    loop do
+      random_number = [current_institution.city.first(3), current_term.start_date.year,  SecureRandom.hex(5)].join('-').upcase
+      break random_number unless self.exists?(registration_number: random_number)
+    end
   end
 end

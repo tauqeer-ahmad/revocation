@@ -50,26 +50,32 @@
                           <th>Avatar</th>
                           <th>Name</th>
                           <th>Roll number</th>
+                          <th>Registration number</th>
                           <th>Email</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <% @students.each do |student| %>
-                          <tr>
+                        <% @students.each_with_index do |student, index| %>
+                          <tr id="row-student-<%= student.id %>" class="selectable-row <% if index == 0 %> table-helighted-row <% end %>">
                             <td class="client-avatar">
-                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", class: "client-link" do %>
+                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
                                 <%=image_tag student.avatar.url(:thumb), alt: "Image" %>
                               <% end %>
                             </td>
                             <td>
-                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", class: "client-link" do %>
+                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
                                 <%= student.name %>
                               <% end %>
                             </td>
                             <td>
-                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", class: "client-link" do %>
+                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
                                 <%= student.roll_number %>
+                              <% end %>
+                            </td>
+                             <td>
+                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", class: "client-link" do %>
+                                <%= student.registration_number %>
                               <% end %>
                             </td>
 
@@ -90,7 +96,7 @@
                               <button type="button" class="btn btn-outline btn-primary btn-xs" data-toggle="modal" data-target="#change_section-<%= student.id %>" title='Transfer Section'>
                                 <i class="fa fa-arrows"></i>
                               </button>
-                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal' } do %>
+                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal' } do  %>
                                 <i class='fa fa-bar-chart'></i>
                               <% end %>
 
