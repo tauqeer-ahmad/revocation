@@ -26,6 +26,7 @@
 //= require select2-full
 //= require iCheck/icheck.min.js
 //= require ckeditor/init
+//= require clipboard
 //= require_tree .
 
 toastr.options = {

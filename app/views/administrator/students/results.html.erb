@@ -1,6 +1,13 @@
 <div class='modal-header'>
   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4 class='modal-title text-center'>Acadamic Results</h4>
+  <div class='text-center'>
+    <div class="btn-group">
+      <%= button_tag 'COPY', type: :button, class: 'clipboard-btn btn btn-primary btn-sm btn-outline', 'data-clipboard-action': 'copy', 'data-clipboard-target': '#results .modal-body' %>
+      <%= button_tag 'EXCEL', type: :button, class: 'btn btn-primary btn-sm btn-outline' %>
+      <%= button_tag 'PDF', type: :button, class: 'btn btn-primary btn-sm btn-outline' %>
+    </div>
+  </div>
 </div>
 
 <div class='modal-body form-horizontal'>
@@ -113,4 +120,3 @@
     <%= submit_tag 'Print', class: 'btn btn-info' %>
   </div>
 </div>
-
