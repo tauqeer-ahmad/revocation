@@ -1,3 +1,10 @@
+$primary: #1ab394;
+$success: #1c84c6;
+$info: #23c6c8;
+$danger: #ed5565;
+$warning: #f8ac59;
+
+
 textarea {
   resize: none;
 }
@@ -218,4 +225,33 @@ textarea {
 
 #previous-image {
   width: 100%;
+}
+
+#comments-carousel, #testimonials-carousel {
+  height: auto;
+
+  .item {
+    background-color: transparent;
+    height: auto;
+    margin-top: 40px;
+  }
+
+  .prev, .next {
+    margin-top: 0;
+  }
+
+  .carousel-control {
+    color: $primary;
+    top: 30%;
+  }
+}
+
+#testimonials-carousel {
+  .carousel-control {
+    color: #fff;
+  }
+}
+
+.landing-page .social-icon a {
+  padding: 6px 8px;
 }
