@@ -1,1 +1,1 @@
-$('#results-<%= @student.id %> .modal-content').html("<%= raw escape_javascript(render 'results', student: @student, exam_marks: @exam_marks, all_exam_marks: @all_exam_marks, klass_marks: @klass_marks, section_marks: @section_marks, subject_marks: @subject_marks, exams: @exams) %>");
+$('#results .modal-content').html("<%= raw escape_javascript(render 'results', student: @student, exam_marks: @exam_marks, all_exam_marks: @all_exam_marks, klass_marks: @klass_marks, section_marks: @section_marks, subject_marks: @subject_marks, exams: @exams) %>");

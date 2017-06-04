@@ -90,16 +90,9 @@
                               <button type="button" class="btn btn-outline btn-warning btn-xs" data-toggle="modal" data-target="#change_section-<%= student.id %>" title='Transfer Section'>
                                 <i class="fa fa-arrows" data-toggle='tooltip' title='Change Section' data-placement='top'></i>
                               </button>
-                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal', remote: true } do %>
+                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results", toggle: 'modal', remote: true } do %>
                                 <i class='fa fa-bar-chart' data-toggle='tooltip' title='Result' data-placement='top'></i>
                               <% end %>
-
-                              <div id='results-<%= student.id %>' class='modal fade' role='dialog'>
-                                <div class='modal-dialog modal-lg'>
-                                  <div class='modal-content animated bounceIn'>
-                                  </div>
-                                </div>
-                              </div>
                             </td>
                           </tr>
                         <% end %>
@@ -108,6 +101,14 @@
                   </div>
                 </div>
               </div>
+
+              <div id='results' class='modal fade' role='dialog'>
+                <div class='modal-dialog modal-lg'>
+                  <div class='modal-content animated bounceIn'>
+                  </div>
+                </div>
+              </div>
+
               <div id="tab-2" class="tab-pane">
                 <div class="full-height-scroll">
                   <%= render 'form', student: @new_student %>
