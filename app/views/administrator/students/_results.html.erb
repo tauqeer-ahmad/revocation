@@ -16,8 +16,8 @@
         </thead>
         <tbody>
           <tr>
-            <td><span class="text-info text-bold"><%= @student.name %></span></td>
-            <td><span class="text-info text-bold"><%= @student.roll_number %></span></td>
+            <td><span class="text-info text-bold"><%= student.name %></span></td>
+            <td><span class="text-info text-bold"><%= student.roll_number %></span></td>
             <td><span class="text-info text-bold">RG-Requires-33434</span></td>
           </tr>
         </tbody>
@@ -29,10 +29,10 @@
     <div class='ibox-content'>
       <div class="full-height-scroll">
         <div class='table-responsive'>
-          <% @exam_marks.each do |exam_id, marks| %>
+          <% exam_marks.each do |exam_id, marks| %>
             <div class="panel panel-info">
               <div class="panel-heading">
-                <%= @exams[exam_id] %>
+                <%= exams[exam_id] %>
               </div>
               <div class="panel-body">
                 <p class="text-black">Class: <span class="text-info text-bold"><%= marks.first.klass.name %></span></p>
@@ -57,7 +57,7 @@
                         <td><%= mark.subject.name %></td>
                         <td><%= mark.obtained %></td>
                         <td><%= calculate_percentage(mark.obtained, mark.total) %></td>
-                        <td><%= display_collective_average(mark.subject_id, mark.term_id, exam_id, @subject_marks) %></td>
+                        <td><%= display_collective_average(mark.subject_id, mark.term_id, exam_id, subject_marks) %></td>
                         <td><%= mark.total %></td>
                         <td><%= mark.passing_marks %></td>
                         <td><%= mark.comment %></td>
@@ -87,10 +87,10 @@
                             <span class="text-danger text-bold"><%= calculate_percentage(marks.sum(&:obtained), marks.sum(&:total)) %></span>
                           </td>
                           <td>
-                            <span class="text-danger text-bold"><%= display_collective_average(marks.first.klass_id, marks.first.term_id, exam_id, @klass_marks) %></span>
+                            <span class="text-danger text-bold"><%= display_collective_average(marks.first.klass_id, marks.first.term_id, exam_id, klass_marks) %></span>
                           </td>
                           <td>
-                            <span class="text-danger text-bold"><%= display_collective_average(marks.first.section_id, marks.first.term_id, exam_id, @section_marks) %></span>
+                            <span class="text-danger text-bold"><%= display_collective_average(marks.first.section_id, marks.first.term_id, exam_id, section_marks) %></span>
                           </td>
                         </tr>
                       </tbody>

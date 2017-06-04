@@ -90,26 +90,13 @@
                               <button type="button" class="btn btn-outline btn-warning btn-xs" data-toggle="modal" data-target="#change_section-<%= student.id %>" title='Transfer Section'>
                                 <i class="fa fa-arrows" data-toggle='tooltip' title='Change Section' data-placement='top'></i>
                               </button>
-                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal' } do %>
-                                <i class='fa fa-bar-chart'  data-toggle='tooltip' title='Result' data-placement='top'></i>
+                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal', remote: true } do %>
+                                <i class='fa fa-bar-chart' data-toggle='tooltip' title='Result' data-placement='top'></i>
                               <% end %>
 
                               <div id='results-<%= student.id %>' class='modal fade' role='dialog'>
                                 <div class='modal-dialog modal-lg'>
-                                  <div class='modal-content'>
-                                    <div class="spinner-container">
-                                      <div class="sk-spinner sk-spinner-cube-grid">
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                        <div class="sk-cube"></div>
-                                      </div>
-                                    </div>
+                                  <div class='modal-content animated bounceIn'>
                                   </div>
                                 </div>
                               </div>
