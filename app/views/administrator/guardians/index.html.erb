@@ -18,7 +18,7 @@
                 <%= render partial: 'shared/search_box', locals: {path: administrator_guardians_path} %>
                 <div class="full-height-scroll">
                   <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover table-bordered">
                       <thead>
                         <tr>
                           <th>Avatar</th>
@@ -29,15 +29,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <% @guardians.each do |guardian| %>
-                          <tr>
+                        <% @guardians.each_with_index do |guardian, index| %>
+                          <tr id="row-guardian-<%= guardian.id %>" class="selectable-row <% if index == 0 %> table-helighted-row <% end %>">
                             <td class="client-avatar">
-                              <%= link_to "#guardian-#{guardian.id}", "data-toggle" => "tab", class: "client-link" do %>
+                              <%= link_to "#guardian-#{guardian.id}", "data-toggle" => "tab", marker: "guardian-#{guardian.id}", class: "client-link selected-data-row" do %>
                                 <%=image_tag guardian.avatar.url(:thumb), alt: "Image" %>
                               <% end %>
                             </td>
                             <td>
-                              <%= link_to "#guardian-#{guardian.id}", "data-toggle" => "tab", class: "client-link" do %>
+                              <%= link_to "#guardian-#{guardian.id}", "data-toggle" => "tab", marker: "guardian-#{guardian.id}", class: "client-link selected-data-row" do %>
                                 <%= guardian.name %>
                               <% end %>
                             </td>
