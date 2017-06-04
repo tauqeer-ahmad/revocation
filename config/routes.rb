@@ -94,6 +94,11 @@ Revocation::Application.routes.draw do
           end
         end
       end
+      resources :students, only: [] do
+        member do
+          get :results
+        end
+      end
 
       resource :pin_board, controller: :pin_board, only: [] do
         collection do

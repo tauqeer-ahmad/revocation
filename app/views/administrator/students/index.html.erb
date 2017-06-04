@@ -84,12 +84,36 @@
                               <%= link_to administrator_section_student_path(@section, student), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: student.class.name }, title: 'Delete' do %>
                                 <i class="fa fa-trash-o"></i>
                               <% end %>
-                              <div id='change_section-<%= student.id %>' class='modal fade' role='dialog' aria-hidden="true">
+                              <div id='change_section-<%= student.id %>' class='modal' aria-hidden="true">
                                 <%= render 'change_section_modal', student: student %>
                               </div>
                               <button type="button" class="btn btn-outline btn-primary btn-xs" data-toggle="modal" data-target="#change_section-<%= student.id %>" title='Transfer Section'>
                                 <i class="fa fa-arrows"></i>
                               </button>
+                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal' } do %>
+                                <i class='fa fa-bar-chart'></i>
+                              <% end %>
+
+                              <div id='results-<%= student.id %>' class='modal fade' role='dialog'>
+                                <div class='modal-dialog modal-lg'>
+                                  <div class='modal-content'>
+                                    <div class="spinner-container">
+                                      <div class="sk-spinner sk-spinner-cube-grid">
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        <div class="sk-cube"></div>
+                                        Loading...
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </td>
                           </tr>
                         <% end %>
