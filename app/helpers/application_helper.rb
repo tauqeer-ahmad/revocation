@@ -90,8 +90,11 @@ module ApplicationHelper
     value && value.strftime('%d/%m/%Y')
   end
 
-  def icon_of(klass)
-    content_tag(:i, '', class: klass)
+  def icon_of(klass, text = '')
+    content_tag :span do
+      concat content_tag(:i, '', class: klass)
+      concat text
+    end
   end
 
   def calculate_percentage(value, total)
