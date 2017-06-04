@@ -30,7 +30,7 @@
                 <%= render partial: 'shared/search_box', locals: {path: administrator_klasses_path} %>
                 <div class="full-height-scroll">
                   <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover selectable-table table-bordered">
                       <thead>
                         <tr>
                           <th>#</th>
@@ -41,15 +41,15 @@
                       </thead>
                       <tbody>
                         <% @klasses.each_with_index do |klass, index| %>
-                          <tr>
+                          <tr id="row-klass-<%= klass.id %>" class="selectable-row <% if index == 0 %> table-helighted-row <% end %>">
                             <td><%= index.succ %></td>
                             <td>
-                              <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, class: "client-link" do %>
+                              <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, marker: "klass-#{klass.id}", class: "client-link selected-data-row" do %>
                                 <%= klass.name %>
                               <% end %>
                             </td>
                             <td>
-                              <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, class: "client-link" do %>
+                              <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, marker: "klass-#{klass.id}", class: "client-link selected-data-row" do %>
                                 <%= klass.code %>
                               <% end %>
                             </td>

@@ -2,10 +2,8 @@ jQuery ->
 
   helight_selected_data_row = ->
     $('.selected-data-row').click ->
-      console.log this
       $('.selectable-row').removeClass('table-helighted-row')
       row_id = $(this).attr("marker")
-      console.log(row_id)
       $("#row-#{row_id}").addClass('table-helighted-row')
 
   load_subjects = ->
