@@ -46,7 +46,6 @@ class Student < User
   end
   
   def self.generate_registration_number(current_institution, current_term)
-    p current_term
     loop do
       random_number = [current_institution.city.first(3), current_term.start_date.year,  SecureRandom.hex(5)].join('-').upcase
       break random_number unless self.exists?(registration_number: random_number)
