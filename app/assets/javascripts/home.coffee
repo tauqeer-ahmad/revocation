@@ -60,6 +60,16 @@ display_uploaded_image = ->
 
     $('#previous-image').hide()
 
+set_clipboard = ->
+  clipboard = new Clipboard('.clipboard-btn')
+
+  clipboard.on 'success', (e) ->
+    toastr.success 'Copied!'
+
+  clipboard.on 'error', (e) ->
+    toastr.error 'Error while Copying!'
+
 $ ->
   bind_destroy_alert()
   display_uploaded_image()
+  set_clipboard()
