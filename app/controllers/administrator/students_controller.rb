@@ -1,7 +1,6 @@
 class Administrator::StudentsController < ApplicationController
   before_action :set_section, except: [:results]
   before_action :set_student, only: [:show, :edit, :update, :destroy, :update_section, :results]
-  layout 'empty', only: [:results]
 
   def index
     @students = params[:search].present? ? Student.lookup(params[:search], {section_id: @section.id}) : @section.students
@@ -89,6 +88,7 @@ class Administrator::StudentsController < ApplicationController
     @section_marks = @all_exam_marks.group_by(&:section_id)
     @subject_marks = @all_exam_marks.group_by(&:subject_id)
     @exams = Exam.pluck(:id, :name).to_h
+    render :layout => false
   end
 
   private
