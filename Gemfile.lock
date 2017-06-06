@@ -69,6 +69,7 @@ GEM
       js_regex (~> 1.2)
       rails (>= 5.0.0.1, < 5.2)
     climate_control (0.1.0)
+    clipboard-rails (1.6.1)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.1)
@@ -268,6 +269,7 @@ DEPENDENCIES
   byebug
   ckeditor
   client_side_validations
+  clipboard-rails
   coffee-rails (~> 4.2)
   country_select
   devise
