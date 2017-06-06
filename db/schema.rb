@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604134413) do
+ActiveRecord::Schema.define(version: 20170604204219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,24 @@ ActiveRecord::Schema.define(version: 20170604134413) do
     t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
   end
 
+  create_table "question_papers", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "teacher_id"
+    t.integer  "subject_id"
+    t.integer  "section_id"
+    t.integer  "klass_id"
+    t.integer  "exam_id"
+    t.integer  "term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exam_id"], name: "index_question_papers_on_exam_id", using: :btree
+    t.index ["klass_id"], name: "index_question_papers_on_klass_id", using: :btree
+    t.index ["section_id"], name: "index_question_papers_on_section_id", using: :btree
+    t.index ["subject_id"], name: "index_question_papers_on_subject_id", using: :btree
+    t.index ["teacher_id"], name: "index_question_papers_on_teacher_id", using: :btree
+    t.index ["term_id"], name: "index_question_papers_on_term_id", using: :btree
+  end
+
   create_table "section_students", force: :cascade do |t|
     t.integer  "section_id"
     t.integer  "student_id"
@@ -295,5 +313,10 @@ ActiveRecord::Schema.define(version: 20170604134413) do
   add_foreign_key "attendances", "attendance_sheets"
   add_foreign_key "attendances", "terms"
   add_foreign_key "notes", "users"
+  add_foreign_key "question_papers", "exams"
+  add_foreign_key "question_papers", "klasses"
+  add_foreign_key "question_papers", "sections"
+  add_foreign_key "question_papers", "subjects"
+  add_foreign_key "question_papers", "terms"
   add_foreign_key "users", "institutions"
 end
