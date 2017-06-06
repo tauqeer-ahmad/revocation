@@ -7,10 +7,10 @@ jQuery ->
       $("#row-#{row_id}").addClass('table-helighted-row')
 
   load_subjects = ->
-    klass_id = $('#klass_id :selected').val()
-    section_id = $('#section_id :selected').val()
+    klass_id = $('.selectable_klass :selected').val()
+    section_id = $('.selectable_section :selected').val()
     if section_id.blank?
-      return $('#subject_id').empty()
+      return $('.selectable_subject').empty()
 
     $.ajax "/administrator/classes/#{klass_id}/sections/#{section_id}/update_subjects",
       type: 'GET'
@@ -19,16 +19,16 @@ jQuery ->
       error: (jqXHR, textStatus, errorThrown) ->
         console.log("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
-        $('#subject_id').empty()
+        $('.selectable_subject').empty()
         i = 0
         while i < data.length
-          $('#subject_id').append(new Option(data[i].name, data[i].id))
+          $('.selectable_subject').append(new Option(data[i].name, data[i].id))
           i++
-  $('#klass_id').change ->
-    klass_id = $('#klass_id :selected').val()
+  $('.selectable_klass').change ->
+    klass_id = $('.selectable_klass :selected').val()
     if klass_id.blank?
-      $('#section_id').empty()
-      return $('#subject_id').empty()
+      $('.selectable_section').empty()
+      return $('.selectable_subject').empty()
 
     $.ajax "/administrator/classes/#{klass_id}/update_sections",
       type: 'GET'
@@ -37,14 +37,14 @@ jQuery ->
       error: (jqXHR, textStatus, errorThrown) ->
         console.log("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
-        $('#section_id').empty()
-        $('#subject_id').empty()
+        $('.selectable_section').empty()
+        $('.selectable_subject').empty()
         i = 0
         while i < data.length
-          $('#section_id').append(new Option(data[i].name, data[i].id))
+          $('.selectable_section').append(new Option(data[i].name, data[i].id))
           i++
         load_subjects()
 
-  $('#section_id').change ->
+  $('.selectable_section').change ->
     load_subjects()
   helight_selected_data_row()
