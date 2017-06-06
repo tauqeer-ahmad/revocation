@@ -3,7 +3,6 @@ class Administrator::SectionsController < ApplicationController
   before_action :set_klass, except: [:index]
   before_action :set_section, only: [:show, :edit, :update, :destroy, :update_subjects]
   before_action :set_form_data, only: [:new, :edit]
-  layout 'empty', only: [:fetch]
 
   def index
     @klasses = Klass.all
@@ -12,6 +11,7 @@ class Administrator::SectionsController < ApplicationController
 
   def fetch
     @sections = @klass.current_sections(current_term.id)
+    render layout: false
   end
 
   def show
