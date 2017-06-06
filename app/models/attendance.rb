@@ -4,4 +4,14 @@ class Attendance < ApplicationRecord
   belongs_to :term
 
   enum status: [:present, :absent, :leave]
+
+  scope :of_student, -> (student_id, term_id) { includes(:attendance_sheet).where(attendee_type: 'Student', attendee_id: student_id, term_id: term_id) }
+
+  def get_attendance_color
+    case status
+      when 'present' then '#1ab394'
+      when 'absent' then '#ed5565'
+      when 'leave' then '#f8ac59'
+    end
+  end
 end
