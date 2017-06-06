@@ -7,10 +7,6 @@ class Teacher::AssignmentsController < ApplicationController
     @assignment = Assignment.new(section_id: @section.id, subject_id: @subject.id)
   end
 
-  def new
-    @assignment = Assignment.new
-  end
-
   def edit
   end
 

@@ -14,6 +14,7 @@ class Section < ApplicationRecord
   has_many :attendance_sheets
   has_many :attendances
   has_many :assignments
+  has_many :question_papers
 
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
 
@@ -23,6 +24,7 @@ class Section < ApplicationRecord
   validates :klass_id, presence: {message: "Selection of class is required"}
 
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
+  scope :of_current_user, -> (ids) { where(id: ids) }
 
   def incharge_name
     incharge.name

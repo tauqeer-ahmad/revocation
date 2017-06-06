@@ -35,16 +35,21 @@
         <% end %>
       </li>
       <% if current_user.incharged_sections? %>
-        <li class="<%= is_active_controller('attendances') %>">
+        <li class="<%= is_active_controller('teacher/attendance_sheets') %>">
           <%= link_to attendance_sheets_path do %>
             <i class="fa fa-group"></i> <span class="nav-label">Attendance</span>
           <% end %>
         </li>
       <% end %>
       <% if current_user.sections? %>
-        <li class="<%= is_active_controller('sections') %>">
+        <li class="<%= is_active_controller('teacher/sections') %>">
           <%= link_to sections_path do %>
             <i class="fa fa-group"></i> <span class="nav-label">Sections</span>
+          <% end %>
+        </li>
+        <li class="<%= is_active_controller('teacher/question_papers') %>">
+          <%= link_to question_papers_path do %>
+            <i class="fa fa-group"></i> <span class="nav-label">Question Paper</span>
           <% end %>
         </li>
       <% end %>
