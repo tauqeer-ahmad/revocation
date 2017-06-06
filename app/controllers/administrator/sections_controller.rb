@@ -11,7 +11,7 @@ class Administrator::SectionsController < ApplicationController
 
   def fetch
     @sections = @klass.current_sections(current_term.id)
-    render :layout => false
+    render layout: false
   end
 
   def show

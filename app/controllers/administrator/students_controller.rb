@@ -88,7 +88,7 @@ class Administrator::StudentsController < ApplicationController
     @section_marks = @all_exam_marks.group_by(&:section_id)
     @subject_marks = @all_exam_marks.group_by(&:subject_id)
     @exams = Exam.pluck(:id, :name).to_h
-    render :layout => false
+    render layout: false
   end
 
   private
@@ -118,10 +118,10 @@ class Administrator::StudentsController < ApplicationController
 
     def bulk_student_params
       params.permit(students: [:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender, guardian: [:first_name, :last_name, :cnic, :email, :phone]]).tap do |custom_params|
-        custom_params[:students].each { |student| 
+        custom_params[:students].each do |student|
           student[:enrollment_term_id] = current_term.id
           student[:registration_number] = Student.generate_registration_number(Institution.current, current_term)
-        }
+        end
       end[:students]
     end
 end
