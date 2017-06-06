@@ -7,7 +7,6 @@ set_attendance_calendar = ->
         right: 'prev,next'
       firstDay: 1
       showNonCurrentDates: false
-      contentHeight: 400
       events: gon.attendance_events
 
 $ ->

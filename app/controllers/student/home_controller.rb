@@ -12,4 +12,9 @@ class Student::HomeController < ApplicationController
                               attendance_hash
                             end
   end
+
+  def attendance_report
+    @sheets_by_month = Attendance.of_student(current_user.id, current_term.id)
+                                 .group_by{|a| Date::MONTHNAMES[a.attendance_sheet.name.month] }
+  end
 end

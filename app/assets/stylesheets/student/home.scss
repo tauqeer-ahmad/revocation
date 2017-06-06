@@ -1,3 +1,17 @@
-// Place all the styles related to the student/home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$primary: #1ab394;
+$success: #1c84c6;
+$info: #23c6c8;
+$danger: #ed5565;
+$warning: #f8ac59;
+
+.present {
+  color: $primary;
+}
+
+.absent {
+  color: $danger;
+}
+
+.leave {
+  color: $warning;
+}
