@@ -32,10 +32,11 @@
               swal 'Deleted!', "#{$(this).data('object')} has been deleted.", 'success'
               current_url = window.location.href
               last_index = current_url.split('/').pop()
-
               if last_index.match(/\D+/) == null
                 if current_url.indexOf('classes') > 0 && current_url.indexOf('sections') > 0
                   window.location = '/administrator/sections'
+                else if current_url.indexOf('assignments') > 0
+                  window.location = current_url
                 else
                   window.location = current_url.replace(last_index, '')
               else

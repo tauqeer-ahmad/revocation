@@ -34,7 +34,10 @@ class Teacher::QuestionPapersController < ApplicationController
 
   def destroy
     @question_paper.destroy
-    redirect_to question_papers_path, notice: 'Question Paper was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to question_papers_path, notice: 'Question Paper was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

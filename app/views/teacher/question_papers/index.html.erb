@@ -41,7 +41,7 @@
 
                       <%= link_to(edit_question_paper_path(paper), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit'){ icon_of('fa fa-edit') } %>
 
-                      <%= link_to(question_paper_path(paper), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?'){ icon_of('fa fa-trash-o') } %>
+                      <%= link_to(question_paper_path(paper), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: paper.class.name }, title: 'Delete'){ icon_of('fa fa-trash-o') } %>
                     </td>
                   </tr>
                   <%= render partial: 'paper_modal', locals: {paper: paper} %>
