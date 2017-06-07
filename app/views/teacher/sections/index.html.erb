@@ -39,11 +39,9 @@
               <td><%= section_subject_teachers.section.display_students_count %></td>
               <td>
                 <% if section_subject_teachers.section.incharge_id == current_user.id %>
-                  <%= link_to managing_students_attendance_sheets_path(date: Date.today.strftime('%d-%m-%Y'), section_id: section_subject_teachers.section.id), class: "btn btn-success btn-outline btn-xs" do %>
-                    <i class="fa fa-users"></i> Today's Attendance
-                  <% end %>
+                  <%= link_to(managing_students_attendance_sheets_path(date: Date.today.strftime('%d-%m-%Y'), section_id: section_subject_teachers.section.id), class: "btn btn-success btn-outline btn-xs"){ icon_of('fa fa-users', " Today's Attendance") } %>
                 <% end %>
-                <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section_subject_teachers.section_id, subject: section_subject_teachers.subject_id}{ "Add Assignment" } %>
+                <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section_subject_teachers.section_id, subject: section_subject_teachers.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
                 <%= link_to(assignments_path(section_id: section_subject_teachers.section.id, subject_id: section_subject_teachers.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
               </td>
             </tr>

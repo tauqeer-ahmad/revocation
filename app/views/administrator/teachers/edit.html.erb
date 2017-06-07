@@ -1,6 +1,13 @@
-<h1>Editing Administrator Teacher</h1>
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <h1>
+        Editing Teacher
+        <%= link_to 'Profile', [:administrator, @teacher], class: 'btn btn-info' %>
+        <%= link_to 'Back', administrator_teachers_path, class: 'btn btn-warning' %>
+      </h1>
 
-<%= render 'form', teacher: @teacher %>
-
-<%= link_to 'Show', [:administrator, @teacher] %> |
-<%= link_to 'Back', administrator_teachers_path %>
+      <%= render 'form', teacher: @teacher %>
+    </div>
+  </div>
+</div>

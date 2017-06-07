@@ -89,6 +89,14 @@ Revocation::Application.routes.draw do
             get :bulk_view
             post :bulk_insert
           end
+          member do
+            put :update_section
+          end
+        end
+      end
+      resources :students, only: [] do
+        member do
+          get :results
         end
       end
 

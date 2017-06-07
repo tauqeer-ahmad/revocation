@@ -1,3 +1,10 @@
+$primary: #1ab394;
+$success: #1c84c6;
+$info: #23c6c8;
+$danger: #ed5565;
+$warning: #f8ac59;
+
+
 textarea {
   resize: none;
 }
@@ -136,6 +143,13 @@ textarea {
   border-left: 5px solid #23c6c8;
 }
 
+.select2-close-mask{
+  z-index: 2099;
+}
+.select2-dropdown{
+  z-index: 3051;
+}
+
 .term-box {
   cursor: pointer;
 }
@@ -212,4 +226,68 @@ textarea {
   td {
     vertical-align: middle;
   }
+
+  .ibox-title {
+    h5 {
+      line-height: 20px;
+    }
+  }
+}
+
+#previous-image {
+  width: 100%;
+}
+
+.iradio_square-green {
+  width: 24px;
+}
+
+#comments-carousel, #testimonials-carousel {
+  height: auto;
+
+  .item {
+    background-color: transparent;
+    height: auto;
+    margin-top: 40px;
+  }
+
+  .prev, .next {
+    margin-top: 0;
+  }
+
+  .carousel-control {
+    color: $primary;
+    top: 30%;
+  }
+}
+
+#testimonials-carousel {
+  .carousel-control {
+    color: #fff;
+  }
+}
+
+.landing-page .social-icon a {
+  padding: 6px 8px;
+}
+
+.spinner-container {
+  height: 200px;
+  padding-top: 70px;
+}
+
+.text-red {
+  color: #ed5565;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.text-blue {
+  color: #1c84c6;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.text-bold {
+  font-weight: bold;
 }

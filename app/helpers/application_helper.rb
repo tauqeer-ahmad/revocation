@@ -90,7 +90,27 @@ module ApplicationHelper
     value && value.strftime('%d/%m/%Y')
   end
 
-  def icon_of(klass)
-    content_tag(:i, '', class: klass)
+  def icon_of(klass, text = '')
+    content_tag :span do
+      concat content_tag(:i, '', class: klass)
+      concat text
+    end
+  end
+
+  def calculate_percentage(value, total)
+    return 0.0 if total.zero?
+    ((value.to_f / total) * 100).round(1)
+  end
+
+  def calculate_average(values, count)
+    return 0.0 if count.zero?
+    (values.to_f/count.to_f).round(1)
+  end
+
+  def display_collective_average(groud_id, term_id, exam_id, objects)
+     entries = objects[groud_id].group_by(&:term_id)[term_id].group_by(&:exam_id)[exam_id]
+     total_sum = entries.sum(&:obtained)
+     number_of_students = entries.collect(&:student_id).uniq.size
+     calculate_average(total_sum, number_of_students)
   end
 end

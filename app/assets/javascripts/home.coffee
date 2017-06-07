@@ -77,13 +77,23 @@ display_uploaded_image = ->
       img = new Image
       img.src = file.target.result
       $('#uploaded-image').html img
-      $('#uploaded-image img').addClass('img-thumbnail')
+      $('#uploaded-image img').addClass('img-thumbnail').css('width', '100%')
 
     reader.readAsDataURL image
 
     $('#previous-image').hide()
 
+set_clipboard = ->
+  clipboard = new Clipboard('.clipboard-btn')
+
+  clipboard.on 'success', (e) ->
+    toastr.success 'Copied!'
+
+  clipboard.on 'error', (e) ->
+    toastr.error 'Error while Copying!'
+
 $ ->
   bind_destroy_alert()
   display_uploaded_image()
   bind_switch_term()
+  set_clipboard()

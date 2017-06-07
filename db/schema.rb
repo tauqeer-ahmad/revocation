@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170529205149) do
+ActiveRecord::Schema.define(version: 20170604134413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,15 +126,28 @@ ActiveRecord::Schema.define(version: 20170529205149) do
     t.text     "location"
     t.integer  "latitude"
     t.integer  "longitude"
-    t.string   "city",        limit: 20
-    t.string   "country",     limit: 20
+    t.string   "city",                limit: 20
+    t.string   "country",             limit: 20
     t.text     "description"
-    t.string   "sector",      limit: 20
-    t.string   "level",       limit: 20
-    t.string   "status",      limit: 12
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "subdomain",   limit: 15
+    t.string   "sector",              limit: 20
+    t.string   "level",               limit: 20
+    t.string   "status",              limit: 12
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "subdomain",           limit: 15
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "email",               limit: 60
+    t.string   "phone_number",        limit: 60
+    t.string   "fax_number",          limit: 60
+    t.string   "address",             limit: 100
+    t.string   "contact_description", limit: 150
+    t.string   "facebook_url",        limit: 100
+    t.string   "twitter_url",         limit: 100
+    t.string   "linkedin_url",        limit: 100
+    t.string   "video_url",           limit: 100
     t.index ["subdomain"], name: "index_institutions_on_subdomain", using: :btree
   end
 
@@ -268,6 +281,7 @@ ActiveRecord::Schema.define(version: 20170529205149) do
     t.string   "profession",             limit: 60
     t.integer  "guardian_id"
     t.integer  "institution_id"
+    t.string   "registration_number",    limit: 20
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["guardian_id"], name: "index_users_on_guardian_id", using: :btree
     t.index ["institution_id"], name: "index_users_on_institution_id", using: :btree

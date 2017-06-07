@@ -1,50 +1,64 @@
-<div class="ibox float-e-margins">
-  <div class="ibox-title">
-    <h5>Attendance Sheet for <%= @attendance_sheet.name %></h5>
-    <div class="ibox-tools">
-      <a class="collapse-link">
-        <i class="fa fa-chevron-up"></i>
-      </a>
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="fa fa-wrench"></i>
-      </a>
-      <a class="close-link">
-        <i class="fa fa-times"></i>
-      </a>
-    </div>
-  </div>
-  <div class="ibox-content">
+<div id='attendance-wrapper'>
+  <div class='wrapper wrapper-content animated fadeInRight'>
     <div class='row'>
-      <%= simple_form_for(@attendance_sheet, url: administrator_attendance_sheet_path(@attendance_sheet)) do |f| %>
-        <div class="attendance-list m-t-lg">
-          <table class="table small">
-            <thead>
-              <tr>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Designation</th>
-                <th class='attendance-label'>Attendance</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= f.simple_fields_for :attendances do |attendance| %>
-                <tr>
-                  <td><%= @teachers[attendance.object.attendee_id][0] %></td>
-                  <td><%= @teachers[attendance.object.attendee_id][1] %></td>
-                  <td><%= @teachers[attendance.object.attendee_id][2] %></td>
-                  <td><%= @teachers[attendance.object.attendee_id][3] %></td>
-                  <%= attendance.input :attendee_id, as: :hidden, input_html: { value: attendance.object.attendee_id } %>
-                  <td>
-                    <%= attendance.input :status, collection: Attendance.statuses.keys.to_a, as: :radio_buttons, item_wrapper_class: 'inline i-checks', label: false %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-          <%= submit_tag "Mark Attendance", class: "btn btn-md btn-primary m-t-md pull-right" %>
+      <div class='col-sm-12'>
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Attendance Sheet for </h5>
+            <h5><span class='label label-info'><%= @attendance_sheet.name %></span></h5>
+
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="ibox-content">
+            <div class='row'>
+              <div class='col-sm-12'>
+                <%= simple_form_for(@attendance_sheet, url: administrator_attendance_sheet_path(@attendance_sheet)) do |f| %>
+                  <div class="attendance-list m-t-sm">
+                    <table class="table small table-hover table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Email</th>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Designation</th>
+                          <th class='attendance-label'>
+                            <span class='label label-primary'>Present</span>
+                            <span class='label label-danger'>Absent</span>
+                            <span class='label label-warning'>Leave</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <%= f.simple_fields_for :attendances do |attendance| %>
+                          <tr>
+                            <td><%= @teachers[attendance.object.attendee_id][0] %></td>
+                            <td><%= @teachers[attendance.object.attendee_id][1] %></td>
+                            <td><%= @teachers[attendance.object.attendee_id][2] %></td>
+                            <td><%= @teachers[attendance.object.attendee_id][3] %></td>
+                            <%= attendance.input :attendee_id, as: :hidden, input_html: { value: attendance.object.attendee_id } %>
+                            <td>
+                              <%= attendance.input :status, collection: Attendance.statuses.keys.to_a, as: :radio_buttons, item_wrapper_class: 'inline i-checks', label: false %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+
+                    <div class='col-sm-12 text-center'>
+                      <%= submit_tag "Mark Attendance", class: "btn btn-lg btn-primary m-t-md" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

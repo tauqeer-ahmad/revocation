@@ -1,10 +1,11 @@
 class Administrator::StudentsController < ApplicationController
-  before_action :set_section
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_section, except: [:results]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :update_section, :results]
 
   def index
     @students = params[:search].present? ? Student.lookup(params[:search], {section_id: @section.id}) : @section.students
     @new_student = Student.new
+    @valid_sections = @section.klass.sections.pluck(:name, :id).reject{|s| s.last == @section.id}
   end
 
   def show
@@ -73,6 +74,23 @@ class Administrator::StudentsController < ApplicationController
     redirect_to administrator_section_students_path(@section)
   end
 
+  def update_section
+    valid_section_ids = @section.klass.sections.ids - [@section.id]
+    return redirect_to administrator_section_students_path(@section), alert: "Student transfer only allowed within current class sections." unless params[:new_section_id].to_i.in?(valid_section_ids)
+    SectionStudent.where(section_id: @section.id, student_id: @student.id).update(section_id: params[:new_section_id])
+    redirect_to administrator_section_students_path(@section), notice: 'Student transfer was successfully completed.'
+  end
+
+  def results
+    @exam_marks = @student.exam_marks.includes(:subject, :klass, :section).group_by(&:exam_id)
+    @all_exam_marks = ExamMark.where(section_id: @student.sections.ids).to_a
+    @klass_marks = @all_exam_marks.group_by(&:klass_id)
+    @section_marks = @all_exam_marks.group_by(&:section_id)
+    @subject_marks = @all_exam_marks.group_by(&:subject_id)
+    @exams = Exam.pluck(:id, :name).to_h
+    render layout: false
+  end
+
   private
     def get_guardian_id
       Guardian.where(email: guardian_params[:email]).first_or_create(guardian_params).id
@@ -90,6 +108,7 @@ class Administrator::StudentsController < ApplicationController
     def student_params
       params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender).tap do |whitelisted|
         whitelisted[:enrollment_term_id] = current_term.id
+        whitelisted[:registration_number] = Student.generate_registration_number(Institution.current, current_term)
       end
     end
 
@@ -99,7 +118,10 @@ class Administrator::StudentsController < ApplicationController
 
     def bulk_student_params
       params.permit(students: [:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender, guardian: [:first_name, :last_name, :cnic, :email, :phone]]).tap do |custom_params|
-        custom_params[:students].each { |student| student[:enrollment_term_id] = current_term.id }
+        custom_params[:students].each do |student|
+          student[:enrollment_term_id] = current_term.id
+          student[:registration_number] = Student.generate_registration_number(Institution.current, current_term)
+        end
       end[:students]
     end
 end
