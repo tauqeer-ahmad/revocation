@@ -49,7 +49,7 @@ class Term < ApplicationRecord
   end
 
   def display_term_duration
-    [start_date.strftime("%d, %B %Y"), 'to', end_date.strftime("%d, %B %Y")].join(' ')
+    [start_date.strftime("%d, %B %y"), 'to', end_date.strftime("%d, %B %y")].join(' ')
   end
 
   def status_integrity
