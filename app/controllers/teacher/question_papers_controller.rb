@@ -7,7 +7,7 @@ class Teacher::QuestionPapersController < ApplicationController
     @question_paper = QuestionPaper.new
     @klasses = current_user.my_klasses
     @sections, @subjects = [], []
-    @exams = Exam.pluck(:name, :id)
+    @exams = current_term.exams.pluck(:name, :id)
   end
 
   def edit
@@ -57,6 +57,6 @@ class Teacher::QuestionPapersController < ApplicationController
       my_sections = current_user.sections.pluck(:id)
       @sections = @question_paper.klass.sections.of_current_user(my_sections).pluck(:name, :id)
       @subjects = @question_paper.section.subjects.of_current_user(my_sections).pluck(:name, :id)
-      @exams = Exam.pluck(:name, :id)
+      @exams = current_term.exams.pluck(:name, :id)
     end
 end
