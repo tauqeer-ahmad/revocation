@@ -150,7 +150,13 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :student do
-    root to: 'home#index'
+    scope module: :student do
+      root to: 'home#index'
+
+      resource :attendance, controller: :attendance, only: [] do
+        get :report
+      end
+    end
   end
 
   authenticated :parent do

@@ -30,15 +30,15 @@ textarea {
     width: 100%;
 
     #heading {
-      width: 23%;
+      width: 23% !important;
     }
 
     #description {
-      width: 39.4%;
+      width: 39.4% !important;
     }
 
     #color {
-      width: 5%;
+      width: 5% !important;
     }
   }
 }
@@ -279,4 +279,19 @@ textarea {
 
 .text-bold {
   font-weight: bold;
+}
+
+.attendance-event {
+  margin: 35px;
+}
+
+.fc-center {
+  h2 {
+    font-weight: bold;
+    margin-bottom: 10px !important;
+  }
+}
+
+.fc-other-month {
+  background-color: #F6F6F6;
 }

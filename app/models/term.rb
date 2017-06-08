@@ -4,7 +4,7 @@ class Term < ApplicationRecord
 
   searchkick index_name: tenant_index_name
 
-  has_many :enrolled_students, :class_name => "Student", :foreign_key => "enrollment_term_id" 
+  has_many :enrolled_students, class_name: 'Student', foreign_key: 'enrollment_term_id'
   has_many :section_students
   has_many :students, through: :section_students
   has_many :sections, dependent: :destroy
@@ -75,5 +75,9 @@ class Term < ApplicationRecord
       message = self.persisted? ? e.message : 'Initialized Term Already exists.'
       errors.add(:status, message)
       return false
+  end
+
+  def display_name
+    [name, display_term_duration].join(' ')
   end
 end
