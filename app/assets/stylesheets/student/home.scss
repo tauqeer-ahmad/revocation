@@ -4,14 +4,28 @@ $info: #23c6c8;
 $danger: #ed5565;
 $warning: #f8ac59;
 
-.present {
-  color: $primary;
-}
+.attendance-table {
+  td {
+    font-weight: bold;
+  }
 
-.absent {
-  color: $danger;
-}
+  td.absent {
+    background-color: $danger;
+  }
 
-.leave {
-  color: $warning;
+  td.leave {
+    background-color: $warning;
+  }
+
+  span.present {
+    color: $primary;
+  }
+
+  span.absent {
+    color: #fff;
+  }
+
+  span.leave {
+    color: #fff;
+  }
 }

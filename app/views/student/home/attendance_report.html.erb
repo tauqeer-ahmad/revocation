@@ -9,7 +9,7 @@
         <div class='clearfix'></div>
 
         <div class='ibox-content'>
-          <table class='table small table-bordered table-hover'>
+          <table class='table small table-bordered table-hover attendance-table'>
             <thead>
               <tr>
                 <th class='text-center'>
@@ -28,9 +28,10 @@
                   <td class='text-center'><%= month %></td>
 
                   <% (1..31).each do |index| %>
-                    <th class='text-center'>
-                      <%= display_attendance_status(attendances.select{|a| a.attendance_sheet.name.day == index}.first.try(:status)) %>
-                    </th>
+                    <% status = attendances.select{|a| a.attendance_sheet.name.day == index}.first.try(:status) %>
+                    <td class='text-center <%= status %>'>
+                      <%= display_attendance_status(status) %>
+                    </td>
                   <% end %>
                 </tr>
               <% end %>
