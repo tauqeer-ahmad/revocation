@@ -5,7 +5,7 @@ class Attendance < ApplicationRecord
 
   enum status: [:present, :absent, :leave]
 
-  scope :of_student, -> (student_id, term_id) { includes(:attendance_sheet).where(attendee_type: 'Student', attendee_id: student_id, term_id: term_id) }
+  scope :of_student_and_term, -> (student_id, term_id) { includes(:attendance_sheet).where(attendee_type: 'Student', attendee_id: student_id, term_id: term_id) }
 
   def get_attendance_color
     case status

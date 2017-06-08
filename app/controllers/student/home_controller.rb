@@ -1,6 +1,6 @@
 class Student::HomeController < ApplicationController
   def index
-    @attendances = Attendance.of_student(current_user.id, current_term.id)
+    @attendances = Attendance.of_student_and_term(current_user.id, current_term.id)
 
     gon.attendance_events = @attendances.collect do |attendance|
                               attendance_hash = {}
@@ -14,7 +14,7 @@ class Student::HomeController < ApplicationController
   end
 
   def attendance_report
-    @sheets_by_month = Attendance.of_student(current_user.id, current_term.id)
-                                 .group_by{|a| Date::MONTHNAMES[a.attendance_sheet.name.month] }
+    @sheets_by_month = Attendance.of_student_and_term(current_user.id, current_term.id)
+                                 .group_by{ |a| Date::MONTHNAMES[a.attendance_sheet.name.month] }
   end
 end
