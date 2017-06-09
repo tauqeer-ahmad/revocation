@@ -19,6 +19,9 @@ class Student < User
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
 
+  scope :promotable, -> { where("section_students.promoted =?", false) }
+  scope :promoted, -> { where("section_students.promoted =?", true) }
+
   def search_data
     {
       first_name: first_name,

@@ -1,7 +1,7 @@
 jQuery ->
 
   helight_selected_data_row = ->
-    $('.selected-data-row').click ->
+    $('body').on 'click', '.selected-data-row', ->
       $('.selectable-row').removeClass('table-helighted-row')
       row_id = $(this).attr("marker")
       $("#row-#{row_id}").addClass('table-helighted-row')
@@ -9,7 +9,7 @@ jQuery ->
   load_subjects = ->
     klass_id = $('.selectable_klass :selected').val()
     section_id = $('.selectable_section :selected').val()
-    if section_id.blank?
+    unless section_id
       return $('.selectable_subject').empty()
 
     $.ajax "/administrator/classes/#{klass_id}/sections/#{section_id}/update_subjects",
@@ -24,9 +24,10 @@ jQuery ->
         while i < data.length
           $('.selectable_subject').append(new Option(data[i].name, data[i].id))
           i++
-  $('.selectable_klass').change ->
+
+  load_sections = ->
     klass_id = $('.selectable_klass :selected').val()
-    if klass_id.blank?
+    unless klass_id
       $('.selectable_section').empty()
       return $('.selectable_subject').empty()
 
@@ -44,6 +45,10 @@ jQuery ->
           $('.selectable_section').append(new Option(data[i].name, data[i].id))
           i++
         load_subjects()
+
+  load_sections()
+  $('.selectable_klass').change ->
+    load_sections()
 
   $('.selectable_section').change ->
     load_subjects()

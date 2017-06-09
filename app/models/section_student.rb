@@ -6,6 +6,8 @@ class SectionStudent < ApplicationRecord
   belongs_to :term
   belongs_to :klass
 
+  scope :promotable_students, -> (student_ids) { where("student_id IN(?) and promoted =?", student_ids, false) }
+
   def reindex_student
     student.reindex
   end

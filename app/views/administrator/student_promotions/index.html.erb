@@ -1,0 +1,97 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Student Promotion</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+      <li class="active">
+        <strong>Promote Students</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <%= form_tag list_students_administrator_student_promotions_path, method: :get, remote: true do %>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="ibox">
+                  <div class="ibox-content text-center">
+                    <h3 class="m-b-xxs">Current Term</h3>
+                    <small><%= current_term.name %></small>
+                  </div>
+                </div>
+              </div>
+               <div class="col-md-5">
+                 <div class="ibox">
+                  <div class="ibox-content text-center">
+                    <h3 class="m-b-xxs">Promotion Term</h3>
+                    <small><%= @initialized_term.name %></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5 lazur-bg">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Promote From Class</label>
+                      <div class="input-group">
+                        <%= select_tag :klass_id, options_for_select(Klass.all.collect {|e| [ e.name, e.id ] }, params[:klass_id]), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Promote From Section</label>
+                      <div class="input-group">
+                        <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 yellow-bg">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Promote To Class</label>
+                      <div class="input-group">
+                        <%= select_tag :promotion_klass_id, options_for_select(Klass.all.collect {|e| [ e.name, e.id ] }, params[:promotion_klass_id]), prompt: "Select Class", class: "select2_dropdown selectable_promotion_klass", required: true %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Promote To Section</label>
+                      <div class="input-group">
+                        <%= select_tag :promotion_section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_promotion_section", disabled:false, required: true %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 margin-top-20">
+                <center>
+                  <button type="submit" class="btn btn-primary" id="manage_promotion_button">Manage Promotion</button>
+                </center>
+              </div>
+            </div>
+
+          <% end %>
+          <div id="promoteable_students"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :javascript do %>
+  StudentPromotion.init();
+<% end %>

@@ -1,0 +1,10 @@
+$("#promoteable_students").replaceWith("<%= raw escape_javascript(render 'list_students') %>");
+enable_ichecks()
+
+$("body").on("ifChecked", '#select_all', function(){
+  $('.select_all_checkbox').iCheck('check')
+})
+
+$("body").on("ifUnchecked", '#select_all', function(){
+  $('.select_all_checkbox').iCheck('uncheck')
+})

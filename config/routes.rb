@@ -1,4 +1,9 @@
 Revocation::Application.routes.draw do
+
+  namespace :administrator do
+    get 'student_promotions/create'
+  end
+
   mount Ckeditor::Engine => '/ckeditor'
 
   namespace :admin do
@@ -129,6 +134,12 @@ Revocation::Application.routes.draw do
           get :teachers
           get :managing_teachers
           get :managing_students
+        end
+      end
+
+      resources :student_promotions, only: [:index, :create] do
+        collection do
+          get :list_students
         end
       end
     end
