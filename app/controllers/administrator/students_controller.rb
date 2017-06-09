@@ -5,7 +5,7 @@ class Administrator::StudentsController < ApplicationController
   def index
     @students = params[:search].present? ? Student.lookup(params[:search], {section_id: @section.id}) : @section.students
     @new_student = Student.new
-    @valid_sections = @section.klass.sections.pluck(:name, :id).reject{|s| s.last == @section.id}
+    @valid_sections = @section.klass.sections.of_current_term(current_term.id).pluck(:name, :id).reject{|s| s.last == @section.id}
   end
 
   def show
@@ -87,7 +87,7 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def update_section
-    valid_section_ids = @section.klass.sections.ids - [@section.id]
+    valid_section_ids = @section.klass.sections.of_current_term(current_term.id).ids - [@section.id]
     return redirect_to administrator_section_students_path(@section), alert: "Student transfer only allowed within current class sections." unless params[:new_section_id].to_i.in?(valid_section_ids)
     SectionStudent.where(section_id: @section.id, student_id: @student.id).update(section_id: params[:new_section_id])
     redirect_to administrator_section_students_path(@section), notice: 'Student transfer was successfully completed.'

@@ -97,21 +97,12 @@
                                 <i class="fa fa-arrows" data-toggle='tooltip' title='Change Section' data-placement='top'></i>
                               </button>
 
-                              <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results", toggle: 'modal' } do %>
-                                <i class='fa fa-bar-chart'  data-toggle='tooltip' title='Result' data-placement='top'></i>
-                              <% end %>
+                              <%= render 'student_results', student: student, text: "" %>
                             </td>
                           </tr>
                         <% end %>
                       </tbody>
                     </table>
-                  </div>
-                </div>
-              </div>
-
-              <div id='results' class='modal fade' role='dialog'>
-                <div class='modal-dialog modal-lg'>
-                  <div class='modal-content animated flipInY'>
                   </div>
                 </div>
               </div>

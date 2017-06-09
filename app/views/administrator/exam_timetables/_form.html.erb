@@ -12,7 +12,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Select Subject</label>
       <div class="col-sm-8">
-        <%= f.grouped_collection_select(:subject, @klasses, :get_subjects, :name, :id, :name, {}, {class: "form-control select2_dropdown"}) %>
+        <%= f.grouped_collection_select(:subject_id, @klasses, :get_subjects, :name, :id, :name, {}, {class: "form-control select2_dropdown"}) %>
       </div>
     </div>
   </div>
