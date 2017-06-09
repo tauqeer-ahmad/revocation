@@ -12,15 +12,19 @@ class Administrator::MarksheetsController < ApplicationController
   end
 
   def build_marksheet
+    @section = Section.find(params[:section_id])
+    @students = @section.students
     @marksheet = Marksheet.existing_marksheet(current_term.id, params[:exam_id], params[:klass_id], params[:section_id], params[:subject_id]).first
     if @marksheet.present?
       @exam_marks = @marksheet.exam_marks
+      new_students = @students.pluck(:id) - @exam_marks.pluck(:student_id)
+      new_students.each do |student_id|
+        @exam_marks << @marksheet.exam_marks.build(JSON.parse(@exam_marks.first.dup.to_json).merge!({obtained: nil, student_id: student_id}))
+      end
     else
       @exam = Exam.find(params[:exam_id])
       @subject = Subject.find(params[:subject_id])
-      @section = Section.find(params[:section_id])
       @klass = @section.klass
-      @students = @section.students
     end
   end
 
