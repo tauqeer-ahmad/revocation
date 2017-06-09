@@ -28,7 +28,7 @@
                   <% @subjects.each do |subject| %>
                     <td class='text-center'><%= disply_obtained_marks(exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:obtained), exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:total)) %></td>
                   <% end %>
-                  <td class='text-center'><%= exam_marks.collect{|x| x.obtained}.sum %></td>
+                  <td class='text-center'><%= exam_marks.collect{|x| x.obtained.to_f}.sum %></td>
                 </tr>
               <% end %>
             </tbody>
