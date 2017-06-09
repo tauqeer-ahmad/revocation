@@ -3,7 +3,7 @@ load_promotion_sections = ->
   unless klass_id
     return $('.selectable_promotion_section').empty()
 
-  $.ajax "/administrator/classes/#{klass_id}/update_sections?initialized=ture",
+  $.ajax "/administrator/classes/#{klass_id}/update_sections?initialized=true",
     type: 'GET'
     dataType: 'json'
     data: []
