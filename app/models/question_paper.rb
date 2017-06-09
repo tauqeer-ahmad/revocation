@@ -9,8 +9,7 @@ class QuestionPaper < ApplicationRecord
   belongs_to :term
   belongs_to :klass
 
-  scope :of_section, -> (section) { where(section_id: section) }
-  scope :of_subject, -> (subject) { where(subject_id: subject) }
+  scope :of_term, -> (term_id) { where(term_id: term_id) }
 
   def search_data
     attributes.merge({

@@ -9,12 +9,12 @@ class Teacher::SectionsController < ApplicationController
   end
 
   def update_sections
-    @sections  = @klass.sections.of_current_term(current_term.id).of_current_user(current_user.sections.pluck(:id))
+    @sections  = SectionSubjectTeacher.includes(:section).term_teacher_klass(current_term.id, current_user.id, @klass.id).collect(&:section).uniq
     render json: @sections.map { |section| section.as_json(:only => [:id, :name]) }
   end
 
   def update_subjects
-    @subjects  = @section.subjects.of_current_user(current_user.subjects.pluck(:id))
+    @subjects  = SectionSubjectTeacher.includes(:subject).term_teacher_section(current_term.id, current_user.id, @section.id).collect(&:subject)
     render json: @subjects.map { |subject| subject.as_json(:only => [:id, :name]) }
   end
 

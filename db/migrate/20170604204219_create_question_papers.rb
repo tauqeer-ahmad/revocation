@@ -11,5 +11,7 @@ class CreateQuestionPapers < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_index :question_papers, [:teacher_id, :term_id]
   end
 end

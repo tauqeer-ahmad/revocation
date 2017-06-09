@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="ibox-content">
-          <%= form_for(@question_paper, html: {class: "form-vertical", id: "question-paper-form"}) do |f| %>
+          <%= form_for(@question_paper, html: { class: "form-vertical", id: "question-paper-form" }) do |f| %>
           <%= render partial: 'teacher/question_papers/form_content', locals: {f: f} %>
           <hr/>
           <div class= 'row m-t-lg'>

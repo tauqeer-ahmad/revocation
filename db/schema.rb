@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(version: 20170604204219) do
     t.index ["klass_id"], name: "index_question_papers_on_klass_id", using: :btree
     t.index ["section_id"], name: "index_question_papers_on_section_id", using: :btree
     t.index ["subject_id"], name: "index_question_papers_on_subject_id", using: :btree
+    t.index ["teacher_id", "term_id"], name: "index_question_papers_on_teacher_id_and_term_id", using: :btree
     t.index ["teacher_id"], name: "index_question_papers_on_teacher_id", using: :btree
     t.index ["term_id"], name: "index_question_papers_on_term_id", using: :btree
   end

@@ -13,8 +13,6 @@ class Subject < ApplicationRecord
   has_many :exam_marks
   has_many :question_papers
 
-  scope :of_current_user, -> (ids) { where(id: ids) }
-
   def search_data
     {
       name: name,

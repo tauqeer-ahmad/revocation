@@ -3,7 +3,7 @@ class Teacher::QuestionPapersController < ApplicationController
   before_action :set_edit_objects, only: [:edit]
 
   def index
-    @question_papers = current_user.question_papers
+    @question_papers = current_user.question_papers.of_term(current_term.id)
     @question_paper = QuestionPaper.new
     @klasses = current_user.my_klasses
     @sections, @subjects = [], []
@@ -54,9 +54,8 @@ class Teacher::QuestionPapersController < ApplicationController
 
     def set_edit_objects
       @klasses = current_user.my_klasses
-      my_sections = current_user.sections.pluck(:id)
-      @sections = @question_paper.klass.sections.of_current_user(my_sections).pluck(:name, :id)
-      @subjects = @question_paper.section.subjects.of_current_user(my_sections).pluck(:name, :id)
+      @sections = SectionSubjectTeacher.includes(:section).term_teacher_klass(current_term.id, current_user.id, @question_paper.klass.id).collect(&:section_option).uniq
+      @subjects = SectionSubjectTeacher.includes(:subject).term_teacher_section(current_term.id, current_user.id, @question_paper.section.id).collect &:subject_option
       @exams = current_term.exams.pluck(:name, :id)
     end
 end
