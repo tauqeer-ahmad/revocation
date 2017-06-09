@@ -27,6 +27,7 @@
 //= require iCheck/icheck.min.js
 //= require ckeditor/init
 //= require clipboard
+//= require fullcalendar
 //= require_tree .
 
 toastr.options = {

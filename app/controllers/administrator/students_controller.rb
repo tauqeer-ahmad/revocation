@@ -65,10 +65,22 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def bulk_insert
-    bulk_student_params.each do |student_params|
-      student_params[:guardian_id] ||= Guardian.create(student_params[:guardian]).id
-      student = Student.create(student_params.except(:guardian))
-      @section.section_students.create!(student_id: student.id, klass_id: @section.klass_id, term_id: current_term.id, roll_number: student.roll_number)
+    Student.transaction do
+      students_and_sections = []
+
+      bulk_student_params.each do |student_params|
+        student_params[:guardian_id] ||= Guardian.create(student_params[:guardian]).id
+        student = Student.where(email: student_params[:email]).first_or_create(student_params.except(:guardian))
+
+        students_and_sections << {
+          student_id: student.id,
+          klass_id: @section.klass_id,
+          term_id: current_term.id,
+          roll_number: student.roll_number
+        }
+      end
+
+      @section.section_students.create!(students_and_sections)
     end
 
     redirect_to administrator_section_students_path(@section)

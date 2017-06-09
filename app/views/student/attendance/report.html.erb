@@ -1,0 +1,44 @@
+<div class="wrapper wrapper-content animated fadeInUp">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class='ibox float-e-margins'>
+        <div class='ibox-title'>
+          <h5>Attendances <small><%= current_term.name %> <%= current_term.display_term_duration %></small></h5>
+        </div>
+
+        <div class='clearfix'></div>
+
+        <div class='ibox-content'>
+          <table class='table small table-bordered table-hover attendance-table'>
+            <thead>
+              <tr>
+                <th class='text-center'>
+                  Months <i class="fa fa-arrow-down"></i> | Dates <i class="fa fa-arrow-right"></i>
+                </th>
+
+                <% (1..31).each do |index| %>
+                  <th class='text-center'><%= index %></th>
+                <% end %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @sheets_by_month.each do |month, attendances| %>
+                <tr>
+                  <td class='text-center'><%= month %></td>
+
+                  <% (1..31).each do |index| %>
+                    <% status = attendances.select{|a| a.attendance_sheet.name.day == index}.first.try(:status) %>
+                    <td class='text-center <%= status %>'>
+                      <%= display_attendance_status(status) %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

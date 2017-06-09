@@ -116,8 +116,17 @@ GEM
     ffi (1.9.18)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
+    fullcalendar-rails (3.2.0.0)
+      jquery-rails (>= 4.0.5, < 5.0.0)
+      jquery-ui-rails (>= 5.0.2)
+      momentjs-rails (>= 2.9.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    gon (6.1.0)
+      actionpack (>= 3.0)
+      json
+      multi_json
+      request_store (>= 1.0)
     hashie (3.5.5)
     hirb (0.7.3)
     i18n (0.8.1)
@@ -133,6 +142,7 @@ GEM
       railties (>= 3.2.16)
     js_regex (1.2.2)
       regexp_parser (>= 0.3.6, <= 0.5.0)
+    json (2.0.4)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -203,6 +213,7 @@ GEM
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
     regexp_parser (0.4.3)
+    request_store (1.3.2)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
     ruby-graphviz (1.2.3)
@@ -276,6 +287,8 @@ DEPENDENCIES
   elasticsearch-model
   elasticsearch-rails
   font-awesome-rails
+  fullcalendar-rails
+  gon
   hirb
   jbuilder (~> 2.5)
   jquery-rails
