@@ -1,3 +1,26 @@
+bind_switch_term = ->
+  $('#term-switch').on 'click', (e) ->
+    swal {
+      title: 'Are you sure?'
+      text: "You want to switch to Active Term!"
+      type: 'warning'
+      showCancelButton: true
+      confirmButtonColor: '#1c84c6'
+      confirmButtonText: 'Yes, switch'
+      cancelButtonText: 'No, cancel!'
+      closeOnConfirm: true
+      closeOnCancel: true
+    }, (confirmed) =>
+      if confirmed
+        $.ajax(
+            url: "/administrator/terms/#{$(this).data('active-term')}/update_selected_term"
+            method: 'Put'
+            dataType: 'JSON'
+            success: =>
+              swal 'Updated!', "Context has switched to Active Term.", 'success'
+              location.reload()
+          )
+
 @bind_destroy_alert = ->
   $('body').on 'click', "[data-behavior='delete'], [data-behavior='ajax-delete']", (e) ->
     e.preventDefault()
@@ -72,4 +95,5 @@ set_clipboard = ->
 $ ->
   bind_destroy_alert()
   display_uploaded_image()
+  bind_switch_term()
   set_clipboard()

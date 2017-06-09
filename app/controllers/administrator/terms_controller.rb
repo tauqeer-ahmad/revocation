@@ -45,7 +45,10 @@ class Administrator::TermsController < ApplicationController
 
   def update_selected_term
     session[:selected_term] = @term.id
-    redirect_to administrator_terms_url, notice: "#{@term.name} has been selected successfully"
+    respond_to do |format|
+      format.html { redirect_to administrator_terms_url, notice: "#{@term.name} has been selected successfully" }
+      format.json { head :no_content }
+    end
   end
 
   private

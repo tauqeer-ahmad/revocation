@@ -154,6 +154,17 @@ textarea {
   cursor: pointer;
 }
 
+.b-r-xl {
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  border-radius: 24px;
+}
+
+.nav-term {
+  padding: 3%;
+  color: white;
+}
+
 #contact-modal {
   .modal-footer {
     text-align: center;
