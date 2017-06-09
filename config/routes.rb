@@ -1,9 +1,5 @@
 Revocation::Application.routes.draw do
 
-  namespace :administrator do
-    get 'student_promotions/create'
-  end
-
   mount Ckeditor::Engine => '/ckeditor'
 
   namespace :admin do

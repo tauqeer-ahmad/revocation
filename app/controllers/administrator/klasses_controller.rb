@@ -59,8 +59,7 @@ class Administrator::KlassesController < ApplicationController
   end
 
   def update_sections
-    term_id = current_term.id
-    term_id = Term.initialized.first.id if params[:initialized].present?
+    term_id = params[:initialized].present? ? Term.initialized.first.id : current_term.id
     @sections  = @klass.sections.of_current_term(term_id)
     render json: @sections.map { |section| section.as_json(:only => [:id, :name]) }
   end

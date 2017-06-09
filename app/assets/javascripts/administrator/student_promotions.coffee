@@ -1,6 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
 load_promotion_sections = ->
   klass_id = $('.selectable_promotion_klass :selected').val()
   unless klass_id
