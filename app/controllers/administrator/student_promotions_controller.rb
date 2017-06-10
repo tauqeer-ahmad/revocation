@@ -18,7 +18,7 @@ class Administrator::StudentPromotionsController < ApplicationController
     @promotion_term = Term.initialized.first
     @promotion_section = @promotion_term.sections.find(params[:promotion_section_id])
     @students_sections = @section.section_students.promotable_students(student_ids)
-    @student_mapping = @students_sections.collect{|s| [s.student_id, s.roll_number}.to_h
+    @student_mapping = @students_sections.pluck(:student_id, :roll_number).to_h
     ActiveRecord::Base.transaction do
       SectionStudent.create(student_section_params)
       @students_sections.update(promoted: true)
