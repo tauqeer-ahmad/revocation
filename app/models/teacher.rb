@@ -7,8 +7,10 @@ class Teacher < User
   has_many :incharged_sections, :class_name => "Section", :foreign_key => "incharge_id"
   has_many :section_subject_teachers
   has_many :sections, through: :section_subject_teachers
+  has_many :subjects, through: :section_subject_teachers
   has_many :attendances, as: :attendee
   has_many :assignments
+  has_many :question_papers
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
@@ -50,5 +52,9 @@ class Teacher < User
 
   def incharged_sections?
     incharged_sections.exists?
+  end
+
+  def my_klasses
+    return self.sections.includes(:klass).collect{|section| [section.klass.name, section.klass.id]}.uniq
   end
 end

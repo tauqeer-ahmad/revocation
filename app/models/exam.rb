@@ -7,6 +7,8 @@ class Exam < ApplicationRecord
   has_many :exam_timetables, dependent: :destroy
   has_many :exam_marks
   has_many :marksheets
+  has_many :question_papers
+
   validates :name, :start_date, presence: true
   validates :name, uniqueness: {scope: [:term_id]}
 

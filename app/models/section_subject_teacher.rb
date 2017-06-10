@@ -8,6 +8,16 @@ class SectionSubjectTeacher < ApplicationRecord
   validates :teacher_id, presence: {message: "Selection of teacher is required"}
   validates :section_id, uniqueness: {scope: [:teacher_id, :subject_id, :klass_id , :term_id]}
 
-  scope :by_subject_id, -> (subject_id) { where(subject_id: subject_id) }
-  scope :of_term,       -> (term_id)    { where(term_id: term_id) }
+  scope :by_subject_id,        -> (subject_id) { where(subject_id: subject_id) }
+  scope :of_term,              -> (term_id)    { where(term_id: term_id) }
+  scope :term_teacher_klass,   -> (term_id, teacher_id, klass_id) { where(term_id: term_id, teacher_id: teacher_id, klass_id: klass_id) }
+  scope :term_teacher_section, -> (term_id, teacher_id, section_id) { where(term_id: term_id, teacher_id: teacher_id, section_id: section_id) }
+
+  def section_option
+    [section.name, section.id]
+  end
+
+  def subject_option
+    [subject.name, subject.id]
+  end
 end

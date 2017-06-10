@@ -1,51 +1,51 @@
-<div class="ibox float-e-margins">
-  <div class="ibox-title">
-    <h5><%= @klass.name %>-<%= @section.name %> assignment for <%= @subject.name %></h5>
-    <div class="ibox-tools">
-      <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal m-r-md', data: {toggle: "modal", target: "#assignment-modal"}{ "Add Assignment" } %>
-      <a class="collapse-link">
-        <i class="fa fa-chevron-up"></i>
-      </a>
-      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i class="fa fa-wrench"></i>
-      </a>
-      <a class="close-link">
-        <i class="fa fa-times"></i>
-      </a>
-    </div>
-  </div>
-  <div class="ibox-content">
-    <div class='assignments-table'>
-      <table class='table m-b-xs'>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Heading</th>
-            <th>Assigned at</th>
-            <th>Submission Deadline</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5><%= @klass.name %> - <%= @section.name %> Assignment for <%= @subject.name %></h5>
+          <div class="ibox-tools">
+            <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal m-r-md', data: {toggle: "modal", target: "#assignment-modal"}{ "Add Assignment" } %>
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class='assignments-table'>
+            <table class='table table-striped table-hover table-bordered m-b-xs'>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Heading</th>
+                  <th>Assigned at</th>
+                  <th>Submission Deadline</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
 
-        <tbody>
-          <% @assignments.each_with_index do |assignment, index| %>
-            <tr>
-              <td><%= index.succ %></td>
-              <td><%= assignment.heading %></td>
-              <td><%= render_time(assignment.assigned_at) %></td>
-              <td><%= render_time(assignment.submission_deadline) %></td>
-              <td>
-                <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs task-modal', data: {toggle: "modal", target: "#task-modal-#{assignment.id}"}{ icon_of('fa fa-eye') } %>
+              <tbody>
+                <% @assignments.each_with_index do |assignment, index| %>
+                  <tr>
+                    <td><%= index.succ %></td>
+                    <td><%= assignment.heading %></td>
+                    <td><%= render_time(assignment.assigned_at) %></td>
+                    <td><%= render_time(assignment.submission_deadline) %></td>
+                    <td>
+                      <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs task-modal', data: {toggle: "modal", target: "#task-modal-#{assignment.id}"}{ icon_of('fa fa-eye') } %>
 
-                <%= link_to(edit_assignment_path(assignment), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit'){ icon_of('fa fa-edit') } %>
+                      <%= link_to(edit_assignment_path(assignment), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit'){ icon_of('fa fa-edit') } %>
 
-                <%= link_to(assignment_path(assignment), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Delete', method: :delete, confirm: 'Are you sure?'){ icon_of('fa fa-trash-o') } %>
-              </td>
-            </tr>
-            <%= render partial: 'task_modal', locals: {assignment: assignment} %>
-          <% end %>
-        </tbody>
-      </table>
+                      <%= link_to(assignment_path(assignment), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: assignment.class.name }, title: 'Delete'){ icon_of('fa fa-trash-o') } %>
+                    </td>
+                  </tr>
+                  <%= render partial: 'task_modal', locals: {assignment: assignment} %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

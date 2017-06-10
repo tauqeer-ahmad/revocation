@@ -14,6 +14,7 @@ class Section < ApplicationRecord
   has_many :attendance_sheets
   has_many :attendances
   has_many :assignments
+  has_many :question_papers
 
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
 

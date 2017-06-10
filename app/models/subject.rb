@@ -11,6 +11,7 @@ class Subject < ApplicationRecord
   has_many :exam_timetables
   has_many :marksheets
   has_many :exam_marks
+  has_many :question_papers
 
   def search_data
     {

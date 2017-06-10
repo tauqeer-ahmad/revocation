@@ -7,10 +7,6 @@ class Teacher::AssignmentsController < ApplicationController
     @assignment = Assignment.new(section_id: @section.id, subject_id: @subject.id)
   end
 
-  def new
-    @assignment = Assignment.new
-  end
-
   def edit
   end
 
@@ -35,7 +31,10 @@ class Teacher::AssignmentsController < ApplicationController
 
   def destroy
     @assignment.destroy
-    redirect_to assignments_path(section_id: @assignment.section_id, subject_id: @assignment.subject_id), notice: 'Assignment was successfully destroyed.'
+    respond_to do |format|
+      format.html { redirect_to "/assignments_path/#{@assignment.section_id}/#{@assignment.subject_id}", notice: 'Assignment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

@@ -1,0 +1,38 @@
+<div class='row'>
+  <div class="form-group">
+    <label class="col-md-3 control-label m-t-xs">Class</label>
+    <div class="col-md-8">
+      <%= f.select :klass_id, @klasses, {}, class: "select2_dropdown form-control", required: true %>
+    </div>
+  </div>
+</div>
+<div class='row m-t-md'>
+  <div class="form-group">
+    <label class="col-md-3 control-label m-t-xs">Section</label>
+    <div class="col-md-8">
+      <%= f.select :section_id, @sections, {}, class: "select2_dropdown form-control", required: true %>
+    </div>
+  </div>
+</div>
+<div class='row m-t-md'>
+  <div class="form-group">
+    <label class="col-md-3 control-label m-t-xs">Subject</label>
+    <div class="col-md-8">
+      <%= f.select :subject_id, @subjects, {}, class: "select2_dropdown", required: true %>
+    </div>
+  </div>
+</div>
+<div class='row m-t-md'>
+  <div class="form-group">
+    <label class="col-md-3 control-label m-t-xs">Exam</label>
+    <div class="col-md-8">
+      <%= f.select :exam_id, @exams, {}, class: "select2_dropdown" %>
+    </div>
+  </div>
+</div>
+<div class='row m-t-md'>
+  <label class="col-md-3 control-label m-t-xs">Paper</label>
+  <div class="col-md-8">
+    <%= f.text_area :content, class: 'ckeditor', required: true %>
+  </div>
+</div>

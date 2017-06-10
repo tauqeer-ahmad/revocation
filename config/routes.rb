@@ -151,8 +151,22 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :sections, only: [:index]
-      resources :assignments
+      resources :sections, only: [:index] do
+        collection do
+          get :update_sections
+        end
+        member do
+          get :update_subjects
+        end
+      end
+
+      resources :assignments, only: [:edit, :create, :update, :destroy] do
+        collection do
+          get ':section_id/:subject_id', to: 'assignments#index'
+        end
+      end
+
+      resources :question_papers
     end
   end
 
