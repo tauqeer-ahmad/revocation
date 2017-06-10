@@ -16,7 +16,7 @@ load_promotion_sections = ->
         $('.selectable_promotion_section').append(new Option(data[i].name, data[i].id))
         i++
 
-auto_load_load_promotable_students = ->
+auto_load_promotable_students = ->
   klass = $('.selectable_klass :selected').val()
   section = $('.selectable_section :selected').val()
   promotion_klass = $('.selectable_promotion_klass :selected').val()
@@ -61,7 +61,7 @@ bind_promotions_section_load =->
   init_controls = ->
     bind_sweet_alert_for_enrollment()
     setTimeout ->
-      auto_load_load_promotable_students()
+      auto_load_promotable_students()
     , 1000
     load_promotion_sections()
     bind_promotions_section_load()
