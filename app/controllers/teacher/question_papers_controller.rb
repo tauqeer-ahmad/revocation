@@ -3,7 +3,7 @@ class Teacher::QuestionPapersController < ApplicationController
   before_action :set_edit_objects, only: [:edit]
 
   def index
-    @question_papers = current_user.question_papers.of_term(current_term.id)
+    @question_papers = current_user.question_papers.of_term(current_term.id).includes(:teacher, :subject, :klass, :section, :exam, :term)
     @question_paper = QuestionPaper.new
     @klasses = current_user.my_klasses
     @sections, @subjects = [], []
