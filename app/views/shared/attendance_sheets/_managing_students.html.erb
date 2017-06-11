@@ -43,8 +43,8 @@
                             <td><%= @students[attendance.object.attendee_id][1] %></td>
                             <td><%= @students[attendance.object.attendee_id][2] %></td>
                             <%= attendance.input :attendee_id, as: :hidden, input_html: { value: attendance.object.attendee_id } %>
-                            <td>
-                              <%= attendance.input :status, collection: Attendance.statuses.keys.to_a, as: :radio_buttons, item_wrapper_class: 'inline i-checks', label: false %>
+                            <td class='attendance-radio'>
+                              <%= attendance.input :status, collection: ['', '', ''].zip(Attendance.statuses.keys.to_a), as: :radio_buttons, item_wrapper_class: 'inline i-checks', label: false %>
                             </td>
                           </tr>
                         <% end %>
