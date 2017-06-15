@@ -47,6 +47,13 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
+staging:
+  <<: *default
+  database: revocation_staging
+  username: koochu
+  password: <%= ENV['REVOCATION_DATABASE_PASSWORD'] %>
+
 production:
   <<: *default
   database: revocation_production
