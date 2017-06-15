@@ -53,9 +53,11 @@ staging:
   database: revocation_staging
   username: koochu
   password: <%= ENV['REVOCATION_DATABASE_PASSWORD'] %>
+  host: localhost
 
 production:
   <<: *default
   database: revocation_production
   username: revocation
+  host: localhost
   password: <%= ENV['REVOCATION_DATABASE_PASSWORD'] %>
