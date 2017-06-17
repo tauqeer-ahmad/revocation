@@ -34,13 +34,13 @@ class Exam < ApplicationRecord
 
     events = exams.collect do |exam|
                 exam.exam_timetables.collect do |exam_timetable|
-                  exam_hash = {}
-                  exam_hash[:title] = [exam.name, ' of ', exam_timetable.subject.name, ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join
-                  exam_hash[:start] = exam_timetable.paper_date.to_time
-                  exam_hash[:color] = exam_timetable.get_exam_color
-                  exam_hash[:className] = ['text-center', 'exam-event']
-                  exam_hash[:allDay] = true
-                  exam_hash
+                  {
+                    title: [exam.name, ' of ', exam_timetable.subject.name, ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
+                    start: exam_timetable.paper_date.to_time,
+                    color: exam_timetable.get_exam_color,
+                    className: ['text-center', 'exam-event'],
+                    allDay: true,
+                  }
                 end
               end
     events.flatten

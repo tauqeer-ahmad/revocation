@@ -24,13 +24,13 @@ class Assignment < ApplicationRecord
     assignments = Assignment.of_section_and_term(current_user.sections.last.id, current_term.id)
 
     assignments.collect do |assignment|
-      assignment_hash = {}
-      assignment_hash[:title] = ['Assignment: ', assignment.heading].join
-      assignment_hash[:start] = assignment.submission_deadline
-      assignment_hash[:color] = assignment.get_assignment_color
-      assignment_hash[:className] = ['text-center', 'assignment-event']
-      assignment_hash[:allDay] = true
-      assignment_hash
+      {
+        title: ['Assignment: ', assignment.heading].join,
+        start: assignment.submission_deadline,
+        color: assignment.get_assignment_color,
+        className: ['text-center', 'assignment-event'],
+        allDay: true,
+      }
     end
   end
 end

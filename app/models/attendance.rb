@@ -19,13 +19,13 @@ class Attendance < ApplicationRecord
     attendances = Attendance.of_student_and_term(current_user.id, current_term.id)
 
     attendances.collect do |attendance|
-      attendance_hash = {}
-      attendance_hash[:title] = ['Attendance: ', attendance.status.capitalize].join
-      attendance_hash[:start] = attendance.attendance_sheet.name.to_s
-      attendance_hash[:color] = attendance.get_attendance_color
-      attendance_hash[:className] = ['text-center', 'attendance-event']
-      attendance_hash[:allDay] = true
-      attendance_hash
+      {
+        title: ['Attendance: ', attendance.status.capitalize].join,
+        start: attendance.attendance_sheet.name.to_s,
+        color: attendance.get_attendance_color,
+        className: ['text-center', 'attendance-event'],
+        allDay: true,
+      }
     end
   end
 end
