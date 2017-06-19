@@ -33,16 +33,16 @@ class Exam < ApplicationRecord
     exams = Exam.of_class_and_term(current_user.klasses.last.id, current_term.id)
 
     events = exams.collect do |exam|
-                exam.exam_timetables.collect do |exam_timetable|
-                  {
-                    title: [exam.name, ' of ', exam_timetable.subject.name, ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
-                    start: exam_timetable.paper_date.to_time,
-                    color: exam_timetable.get_exam_color,
-                    className: ['text-center', 'exam-event'],
-                    allDay: true,
-                  }
-                end
-              end
+               exam.exam_timetables.collect do |exam_timetable|
+                 {
+                   title: [exam.name, ' of ', exam_timetable.subject.name, ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
+                   start: exam_timetable.paper_date.to_time,
+                   color: exam_timetable.get_exam_color,
+                   className: ['text-center', 'exam-event'],
+                   allDay: true,
+                 }
+               end
+             end
     events.flatten
   end
 end
