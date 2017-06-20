@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604204219) do
+ActiveRecord::Schema.define(version: 20170608112534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,8 +209,9 @@ ActiveRecord::Schema.define(version: 20170604204219) do
     t.integer  "term_id"
     t.integer  "klass_id"
     t.string   "roll_number", limit: 32
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "promoted",               default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|

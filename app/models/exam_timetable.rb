@@ -35,4 +35,14 @@ class ExamTimetable < ApplicationRecord
   def subject_name
     subject.try(:name)
   end
+
+  def get_exam_color
+    if Date.today == paper_date.to_date
+      '#1ab394'
+    elsif Date.today > paper_date.to_date
+      '#ed5565'
+    else
+      '#f8ac59'
+    end
+  end
 end
