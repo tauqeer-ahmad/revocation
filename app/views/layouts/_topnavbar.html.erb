@@ -10,7 +10,7 @@
     </div>
 
     <ul class='nav navbar-top-links navbar-right'>
-      <% if current_term.present? %>
+      <% if current_term.present? && !current_admin_supervisor %>
         <li>
           <span class="m-r-sm text-muted welcome-message nav-term b-r-xl <%= term_class(current_term) %>"><strong><%= current_term.name.capitalize %></strong> - <%= current_term.display_term_duration %> </span>
         </li>

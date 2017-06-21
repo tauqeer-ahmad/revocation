@@ -3,7 +3,7 @@ class Admin::AdministratorsController < ApplicationController
   before_action :set_administrator, only: [:show, :edit, :update, :destroy]
 
   def index
-    @administrators = params[:search].present? ? Administrator.lookup(params[:search], {institution_id: @institution.id}) : @institution.administrators
+    @administrators = params[:search].present? ? Administrator.lookup(params[:search]) : Administrator.all
   end
 
   def show
@@ -17,7 +17,7 @@ class Admin::AdministratorsController < ApplicationController
   end
 
   def create
-    @administrator = @institution.administrators.new(administrator_params)
+    @administrator = Administrator.new(administrator_params)
     password = SecureRandom.hex(8)
     @administrator.password = password
     respond_to do |format|
@@ -60,6 +60,7 @@ class Admin::AdministratorsController < ApplicationController
 
     def set_institution
       @institution = Institution.find(params[:institution_id])
+      @institution.switch!
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
