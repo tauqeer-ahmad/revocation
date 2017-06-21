@@ -13,6 +13,7 @@ class Exam < ApplicationRecord
   validates :name, uniqueness: {scope: [:term_id]}
 
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
+  scope :of_class_and_term, -> (klass_id, term_id) { includes(exam_timetables: :subject).where(exam_timetables: {klass_id: klass_id, term_id: term_id}) }
 
   def search_data
     {
@@ -26,5 +27,22 @@ class Exam < ApplicationRecord
     date = self[:start_date]
     return nil unless date
     date.strftime("%d/%m/%Y")
+  end
+
+  def self.exam_events(current_user, current_term)
+    exams = Exam.of_class_and_term(current_user.klasses.last.id, current_term.id)
+
+    events = exams.collect do |exam|
+               exam.exam_timetables.collect do |exam_timetable|
+                 {
+                   title: [exam.name, ' of ', exam_timetable.subject.name, ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
+                   start: exam_timetable.paper_date.to_time,
+                   color: exam_timetable.get_exam_color,
+                   className: ['text-center', 'exam-event'],
+                   allDay: true,
+                 }
+               end
+             end
+    events.flatten
   end
 end

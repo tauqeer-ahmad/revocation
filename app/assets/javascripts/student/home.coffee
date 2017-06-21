@@ -7,7 +7,7 @@ set_attendance_calendar = ->
         right: 'prev,next'
       firstDay: 1
       showNonCurrentDates: false
-      events: gon.attendance_events
+      events: gon.attendance_events.concat(gon.assignment_events).concat(gon.exam_events)
 
 $ ->
   set_attendance_calendar()
