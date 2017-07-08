@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608112534) do
+ActiveRecord::Schema.define(version: 20170707100652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,6 +302,7 @@ ActiveRecord::Schema.define(version: 20170608112534) do
     t.integer  "guardian_id"
     t.integer  "institution_id"
     t.string   "registration_number",    limit: 20
+    t.string   "access_token",           limit: 20
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["guardian_id"], name: "index_users_on_guardian_id", using: :btree
     t.index ["institution_id"], name: "index_users_on_institution_id", using: :btree

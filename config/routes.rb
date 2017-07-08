@@ -1,10 +1,36 @@
+require 'api_version'
 Revocation::Application.routes.draw do
-
   mount Ckeditor::Engine => '/ckeditor'
 
+  namespace :api, constraints: { format: 'json' } do
+
+    scope module: :v1, constraints: ApiVersion.new(version: 'v1', default: true) do
+      scope module: :devise do
+        devise_for :students, skip: [:sessions]
+        as :student do
+          post 'students/login', to: 'sessions#create'
+          delete 'students/logout', to: 'sessions#destroy'
+        end
+
+        devise_for :teachers, skip: [:sessions]
+        as :teacher do
+          post 'teachers/login', to: 'sessions#create'
+          delete 'teachers/logout', to: 'sessions#destroy'
+        end
+
+        devise_for :guardians, skip: [:sessions]
+        as :guardian do
+          post 'guardians/login', to: 'sessions#create'
+          delete 'guardians/logout', to: 'sessions#destroy'
+        end
+      end
+    end
+
+  end
+
   namespace :admin do
-    devise_for :supervisors, :controllers => {
-      :sessions => 'sessions'
+    devise_for :supervisors, controllers: {
+      sessions: 'sessions'
     }
   end
 
