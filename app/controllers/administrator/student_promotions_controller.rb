@@ -1,7 +1,8 @@
 class Administrator::StudentPromotionsController < ApplicationController
   def index
     @initialized_term = Term.initialized.first
-    return redirect_to(administrator_terms_path, alert: "Please switch to Active term to perfom promotions") unless current_term.active? || @initialized_term.present?
+    return redirect_to(administrator_terms_path, alert: "Please create a new initialized term ") if @initialized_term.blank?
+    return redirect_to(administrator_terms_path, alert: "Please switch to Active term to perfom promotions") unless current_term.active?
   end
 
   def list_students
