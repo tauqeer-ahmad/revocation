@@ -9,7 +9,7 @@ class Api::V1::Devise::SessionsController < Api::V1::BaseController
 
     if @user.valid_password?(params[:user][:password])
       @user.regenerate_access_token
-      render json: @user, serializer: LoginSuccessSerializer
+      render json: @user, serializer: LoginSuccessSerializer, subdomain: request.subdomain
     else
       invalid_login_attempt
     end
