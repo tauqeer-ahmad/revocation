@@ -29,6 +29,9 @@
     <script type="text/javascript">
       $(function() {
         <%= yield :javascript %>
+        <% if current_user.type_of == 'Guardian' %>
+          ChildSelect.init()
+        <% end %>
       });
     </script>
   </body>

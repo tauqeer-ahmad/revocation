@@ -54,6 +54,6 @@ class Teacher::AssignmentsController < ApplicationController
       @klass = @section.klass
       @subject = Subject.find(params[:subject_id] || @assignment.subject_id)
 
-      redirect_to sections_path, notice: 'Invalid Access.' unless current_user.validate_section_and_subject(@section, @subject)
+      redirect_to sections_path, error: 'Invalid Access.' unless current_user.validate_section_and_subject(@section, @subject)
     end
 end

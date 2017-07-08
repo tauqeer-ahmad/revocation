@@ -4,7 +4,7 @@
       <li class="nav-header">
         <div class="dropdown profile-element">
           <span>
-            <img alt="image" class="img-circle" src="<%= image_url 'profile_small.jpg' %>"/>
+            <%= image_tag 'profile_small.jpg', class: 'img-circle' %>
           </span>
           <a data-toggle="dropdown" class="dropdown-toggle" href="#">
             <span class="clear">
@@ -29,30 +29,23 @@
           RC+
         </div>
       </li>
-      <li class="<%= is_active_controller('administrator/home') %>">
+
+      <li class="<%= is_active_controller_action('guardian/home', 'index') %>">
         <%= link_to root_path do %>
           <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
         <% end %>
       </li>
-      <% if current_user.incharged_sections? %>
-        <li class="<%= is_active_controller('teacher/attendance_sheets') %>">
-          <%= link_to attendance_sheets_path do %>
-            <i class="fa fa-group"></i> <span class="nav-label">Attendance</span>
-          <% end %>
-        </li>
-      <% end %>
-      <% if current_user.sections? %>
-        <li class="<%= is_active_controller('teacher/sections') %>">
-          <%= link_to sections_path do %>
-            <i class="fa fa-university"></i> <span class="nav-label">Sections</span>
-          <% end %>
-        </li>
-        <li class="<%= is_active_controller('teacher/question_papers') %>">
-          <%= link_to question_papers_path do %>
-            <i class="fa fa-file-o"></i> <span class="nav-label">Question Paper</span>
-          <% end %>
-        </li>
-      <% end %>
+
+      <li class="<%= is_active_controller_action('guardian/attendance', 'report') %>">
+        <%= link_to report_attendance_path do %>
+          <i class="fa fa-calendar"></i> <span class="nav-label">Attendance Report</span>
+        <% end %>
+      </li>
+      <li class="<%= is_active_controller_action('guardian/assignments', 'index') %>">
+        <%= link_to assignments_path(section_id: selected_student.current_section(current_term.id)) do %>
+          <i class="fa fa-tasks"></i> <span class="nav-label">Assignments</span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </nav>
