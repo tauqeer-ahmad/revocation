@@ -3,8 +3,6 @@ class Administrator < User
 
   searchkick
 
-  belongs_to :institution
-
   def search_data
     {
       first_name: first_name,
