@@ -36,9 +36,14 @@
         <% end %>
       </li>
 
-      <li class="<%= is_active_controller_action('student/home', 'attendance_report') %>">
+      <li class="<%= is_active_controller_action('student/attendance', 'report') %>">
         <%= link_to report_attendance_path do %>
           <i class="fa fa-calendar"></i> <span class="nav-label">Attendance Report</span>
+        <% end %>
+      </li>
+      <li class="<%= is_active_controller_action('student/assignments', 'index') %>">
+        <%= link_to assignments_path(section_id: current_user.current_section(current_term.id)) do %>
+          <i class="fa fa-tasks"></i> <span class="nav-label">Assignments</span>
         <% end %>
       </li>
     </ul>
