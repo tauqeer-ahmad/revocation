@@ -37,4 +37,12 @@ class User < ApplicationRecord
   def category
     self.type_of.downcase
   end
+
+  def self.get_resource_and_key_name(fullpath)
+    path_name = fullpath.split('/')[2]
+    path_name = path_name.to_s.singularize
+    resource_name = path_name.capitalize.constantize
+
+    resource_name
+  end
 end
