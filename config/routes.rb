@@ -203,11 +203,21 @@ Revocation::Application.routes.draw do
       resource :attendance, controller: :attendance, only: [] do
         get :report
       end
+      resources :assignments, only: [:index]
     end
   end
 
-  authenticated :parent do
-    root to: 'home#index'
+  authenticated :guardian do
+    scope module: :guardian do
+      root to: 'home#index'
+
+      post :select_student, to: 'home#select_student'
+
+      resource :attendance, controller: :attendance, only: [] do
+        get :report
+      end
+      resources :assignments, only: [:index]
+    end
   end
 
   post :contact_us, to: 'home#contact_us'
