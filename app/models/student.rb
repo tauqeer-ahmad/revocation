@@ -1,5 +1,6 @@
 class Student < User
   include SearchWrapper
+  include Authentication
 
   searchkick index_name: tenant_index_name
 

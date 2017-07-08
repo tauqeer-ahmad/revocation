@@ -26,7 +26,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rails-erd'
-  gem "better_errors"
   gem "binding_of_caller"
 end
 
@@ -54,3 +53,5 @@ gem 'simple_form'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'searchkick'
+
+gem 'active_model_serializers'
