@@ -22,7 +22,6 @@ class Api::V1::Devise::PasswordsController < Api::V1::BaseController
       resource.regenerate_access_token
       render json: resource, serializer: LoginSuccessSerializer, subdomain: request.subdomain
     else
-      #set_minimum_password_length
       render json: resource.errors, status: :unprocessable_entity
     end
   end
