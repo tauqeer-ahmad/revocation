@@ -30,7 +30,7 @@ class Api::V1::BaseController < ActionController::API
 
   def authenticate_token
     authenticate_with_http_token do |token, options|
-      user = Student.find_by(access_token: token)
+      user = User.find_by(access_token: token)
       user if user && Devise.secure_compare(user.access_token, token)
     end
   end
