@@ -33,7 +33,7 @@ class Administrator::AttendanceSheetsController < ApplicationController
 
   def destroy
     @attendance_sheet.destroy
-    redirect_to redirect_path, notice: 'Attendance sheet was successfully destroyed.'
+    head :no_content
   end
 
   private
