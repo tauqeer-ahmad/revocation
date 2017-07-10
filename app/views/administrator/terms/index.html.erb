@@ -17,16 +17,13 @@
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <span class="text-muted small pull-right">
-            last modification: aasdad
-          </span>
           <h2>Terms</h2>
           <p>
             All Terms
           </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted">1406 Elements</span>
+              <span class="pull-right small text-muted"><%= @terms.size %> Elements</span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Terms </a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Start New Term </a></li>
             </ul>
@@ -65,15 +62,28 @@
                 </div>
                 <div class="row">
                   <% @terms.each do |term| %>
-                    <div class="col-lg-4 term-box" data-term-id= <%= term.id %> >
-                      <div class="contact-box style1 color-white <%= term_class(term) %>">
-                        <div class="col-sm-12">
-                          <div class="text-center">
-                            <div class="m-t-xs font-bold"><%= term.name %></div>
-                             <div class="m-t-xs"><%= term.display_term_duration %></div>
-                          </div>
+                    <div class="col-lg-3">
+                      <div class="contact-box <%= term_class(term) %>">
+                        <div class="text-center">
+                          <div class="m-t-xs font-bold"><%= term.name %></div>
+                          <div class="m-t-xs"><%= term.display_term_duration %></div>
                         </div>
                         <div class="clearfix"></div>
+                      </div>
+                      <div class="m-t-xs text-center">
+                        <%= link_to [:administrator, term], class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+                          <i class="fa fa-eye"></i>
+                        <% end %>
+                        <%= link_to edit_administrator_term_path(term), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
+                          <i class="fa fa-pencil-square-o"></i>
+                        <% end %>
+                        <%= link_to administrator_term_path(term), class: "btn btn-outline btn-danger dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: term.class.name }, title: 'Delete' do %>
+                          <i class="fa fa-trash-o"></i>
+                        <% end %>
+
+                        <%= link_to "#", class: "term-box-modal btn btn-outline btn-warning dim btn-xs", data: { toggle: 'tooltip', placement: 'top'}, title: 'Switch', "data-term-id" => term.id do %>
+                          <i class="fa fa-arrows-alt"></i>
+                        <% end %>
                       </div>
                     </div>
                     <%= render 'term_options_modal', term: term %>

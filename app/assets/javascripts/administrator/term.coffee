@@ -1,5 +1,6 @@
 bind_options_modal = ->
-  $('.term-box').click ->
+  $('.term-box-modal').click (event) ->
+    event.preventDefault()
     $("#term-modal-#{$(this).data('term-id')}").modal('toggle')
 
 (($) ->
