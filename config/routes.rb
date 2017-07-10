@@ -136,7 +136,7 @@ Revocation::Application.routes.draw do
       end
 
       resources :exams do
-        resources :exam_timetables
+        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
       end
       resources :marksheets, only: [:index, :edit, :destroy]do
         collection do
