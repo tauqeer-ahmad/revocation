@@ -1,19 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Subject update</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li>
+        <%= link_to "Exams", administrator_exams_path %>
+      </li>
+      <li class="active">
+        <strong><%= @exam.name %></strong>
+      </li>
+    </ol>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @exam.name %>
-</p>
+<div id='subject-wrapper'>
+  <div class='wrapper wrapper-content animated fadeInRight'>
+    <div class='row m-b-lg'>
+      <div class='col-lg-12 text-center'>
+        <h1><%= @exam.name %></h1>
+        <h2><%= @exam.start_date %></h2>
+        <p><%= @exam.comment %></p>
+      </div>
+    </div>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @exam.start_date %>
-</p>
+    <div class='row m-b-lg'>
+      <div class='col-lg-12 text-center'>
+        <%= link_to edit_administrator_exam_path(@exam), class: 'btn btn-info btn-outline btn-md' do %>
+          <i class='fa fa-pencil-square-o'></i> Edit
+        <% end %>
 
-<p>
-  <strong>Comment:</strong>
-  <%= @exam.comment %>
-</p>
-
-<%= link_to 'Edit', edit_administrator_exam_path(@exam) %> |
-<%= link_to 'Back', administrator_exams_path %>
+        <%= link_to administrator_exam_path(@exam), data: { behavior: 'delete', object: @exam.class.name }, class: 'btn btn-danger btn-outline btn-md' do %>
+          <i class='fa fa-trash-o'></i> Delete
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
