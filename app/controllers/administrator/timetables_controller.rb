@@ -1,19 +1,12 @@
 class Administrator::TimetablesController < ApplicationController
   before_action :set_section
-  before_action :set_timetable, only: [:show, :edit, :update, :destroy]
-  before_action :set_new_timetable_data, only: [:index, :edit, :new, :update]
+  before_action :set_timetable, only: [:edit, :update, :destroy]
+  before_action :set_new_timetable_data, only: [:index, :edit, :update]
 
   def index
     @timetables = @section.timetables.by_bay_of_week
     @new_timetable = Timetable.new
     @days_hash = Timetable::DAYS
-  end
-
-  def show
-  end
-
-  def new
-    @timetable = Timetable.new
   end
 
   def edit
