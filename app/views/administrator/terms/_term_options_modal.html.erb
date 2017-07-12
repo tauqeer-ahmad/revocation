@@ -9,7 +9,6 @@
       <div class="modal-body">
       <div class='row text-center'>
         <%= button_to "Switch to #{term.name}", update_selected_term_administrator_term_path(term), { class: 'btn btn-success m-t-md', disable_with: 'Switching', method: :put } %>
-        <%= link_to "Edit #{term.name}", edit_administrator_term_path(term), class: 'btn btn-primary m-t-md' %>
       </div>
       </div>
       <div class="modal-footer">

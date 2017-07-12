@@ -1,18 +1,11 @@
 class Administrator::ExamTimetablesController < ApplicationController
   before_action :set_exam
-  before_action :set_exam_timetable, only: [:show, :edit, :update, :destroy]
-  before_action :set_new_exam_timetable_data, only: [:index, :new, :edit]
+  before_action :set_exam_timetable, only: [:edit, :update, :destroy]
+  before_action :set_new_exam_timetable_data, only: [:index, :edit]
 
   def index
     @exam_timetables = @exam.exam_timetables.by_paper_date
     @new_exam_timetable = @exam.exam_timetables.new(term_id: current_term.id)
-  end
-
-  def show
-  end
-
-  def new
-    @exam_timetable = @exam.exam_timetables.new(term_id: current_term.id)
   end
 
   def edit

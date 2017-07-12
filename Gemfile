@@ -14,7 +14,6 @@ gem 'coffee-rails', '~> 4.2'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   gem 'byebug', platform: :mri

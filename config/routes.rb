@@ -110,7 +110,7 @@ Revocation::Application.routes.draw do
       end
 
       resources :sections, only: [:index] do
-        resources :timetables
+        resources :timetables, only: [:index, :edit, :create, :update, :destroy]
         resources :students do
           collection do
             get :bulk_view
@@ -136,7 +136,7 @@ Revocation::Application.routes.draw do
       end
 
       resources :exams do
-        resources :exam_timetables
+        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
       end
       resources :marksheets, only: [:index, :edit, :destroy]do
         collection do
