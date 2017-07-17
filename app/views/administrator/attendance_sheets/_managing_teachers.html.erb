@@ -5,12 +5,9 @@
         <div class="ibox float-e-margins">
           <div class="ibox-title">
             <h5>Attendance Sheet for </h5>
-            <h5><span class='label label-info'><%= @attendance_sheet.name %></span></h5>
-
+            <h5><span class='label label-info'><%= render_time(@attendance_sheet.name, :date_only) %></span></h5>
             <div class="ibox-tools">
-              <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-              </a>
+              <button type="button" id="back-btn" class="btn btn-success btn-sm"><i class="fa fa-refresh"></i> Back</button>
             </div>
           </div>
 
@@ -62,7 +59,3 @@
     </div>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  enable_ichecks();
-<% end %>
