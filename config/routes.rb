@@ -186,7 +186,7 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :assignments, only: [:edit, :create, :update, :destroy] do
+      resources :assignments, only: [:new, :edit, :create, :update, :destroy] do
         collection do
           get '/list/:section_id/:subject_id', to: 'assignments#index'
         end
