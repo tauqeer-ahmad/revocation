@@ -151,7 +151,7 @@ textarea {
 }
 
 .term-box {
-  cursor: pointer;
+  border: 1px solid lightgray;
 }
 
 .b-r-xl {
@@ -323,4 +323,8 @@ td.attendance-radio {
   span:nth-child(4) {
     padding-left: 30px;
   }
+}
+
+.select-children {
+  cursor: pointer;
 }

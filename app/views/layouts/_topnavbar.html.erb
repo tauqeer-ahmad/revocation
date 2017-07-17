@@ -10,6 +10,25 @@
     </div>
 
     <ul class='nav navbar-top-links navbar-right'>
+      <% if current_user.type_of == 'Guardian' && current_user.children.count > 1 %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <%= selected_student.name %>
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <% current_user.children.each do |child| %>
+              <% next if child.id == selected_student.id %>
+              <div class="ibox-content text-center select-children" data-child-id=<%= child.id %> data-child-name=<%= child.name %>>
+                <h4><%= child.name %></h4>
+                <div class="m-b-sm">
+                  <%= image_tag child.avatar.url(:thumb), class: 'img-circle img-thumbnail' %>
+                </div>
+              </div>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
       <% if current_term.present? && !current_admin_supervisor %>
         <li>
           <span class="m-r-sm text-muted welcome-message nav-term b-r-xl <%= term_class(current_term) %>"><strong><%= current_term.name.capitalize %></strong> - <%= current_term.display_term_duration %> </span>

@@ -5,8 +5,11 @@
       <li>
         <%= link_to 'Home', administrator_root_path %>
       </li>
-      <li class='active'>
-        <strong>Profile</strong>
+       <li>
+        <%= link_to 'Teachers', administrator_teachers_path %>
+      </li>
+      <li class="active">
+        <strong> <%= link_to "#{@teacher.name}", administrator_teacher_path(@teacher) %> </strong>
       </li>
     </ol>
   </div>
