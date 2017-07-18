@@ -103,6 +103,10 @@ class Administrator::StudentsController < ApplicationController
     render layout: false
   end
 
+  def autocomplete
+    render json: Student.search(params[:search], fields: ["first_name", "last_name"], where: {section_id: params[:section_id]}, load: false, misspellings: {below: 5}, limit: 10).map{|student| {search: [student.first_name, ' ', student.last_name].join}}
+  end
+
   private
     def get_guardian_id
       Guardian.where(email: guardian_params[:email]).first_or_create(guardian_params).id

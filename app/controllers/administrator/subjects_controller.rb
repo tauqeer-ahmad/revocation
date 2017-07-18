@@ -55,6 +55,10 @@ class Administrator::SubjectsController < ApplicationController
     redirect_to administrator_subjects_path
   end
 
+  def autocomplete
+    render json: Subject.search(params[:search], fields: ["name"], load: false, misspellings: {below: 5}, limit: 10).map{|subject| {search: subject.name}}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subject
