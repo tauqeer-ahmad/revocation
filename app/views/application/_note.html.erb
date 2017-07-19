@@ -1,11 +1,50 @@
 <li class='note-<%= note.id %>'>
-  <div style='background-color: <%= note.color %>'>
+  <div class='note-container' style='background-color: <%= note.color %>'>
     <small><%= note.created_at.strftime('%I:%M %p - %d-%m-%y') %></small>
     <h4><%= note.heading %></h4>
     <p><%= note.description %></p>
+
+    <%= link_to '#', class: 'm-r-md', data: { toggle: 'modal', target: "#note-edit-#{note.id}" } do %>
+      <i class="fa fa-edit "></i>
+    <% end %>
 
     <%= link_to delete_note_administrator_pin_board_path(note_id: note.id), data: { behavior: 'ajax-delete', object: 'Note' } do %>
       <i class="fa fa-trash-o "></i>
     <% end %>
   </div>
 </li>
+
+<div id='note-edit-<%= note.id %>' class='modal' aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content animated flipInY">
+      <div class="modal-header text-center">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Edit Note</h4>
+      </div>
+
+      <%= form_tag update_note_administrator_pin_board_path(note_id: note.id), method: :put, remote: true, class: 'form-inline update-note-form' do %>
+        <div class='modal-body text-center'>
+          <div class="input-group">
+            <div class='row'>
+              <div class='col-md-12'>
+                <div>
+                  <%= text_field_tag :heading, note.heading, required: true, maxlength: 100, placeholder: 'Heading', class: 'input input-sm form-control' %>
+
+                  <%= text_field_tag :description, note.description, placeholder: 'Description', class: 'input input-sm form-control' %>
+
+                  <%= color_field_tag :color, note.color, class: 'input input-sm form-control color-field' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='modal-footer'>
+          <div class='text-center'>
+            <%= button_tag 'Update', class: 'btn btn-info' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

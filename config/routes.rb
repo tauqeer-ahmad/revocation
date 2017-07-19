@@ -132,6 +132,7 @@ Revocation::Application.routes.draw do
           get :landing
           post :create_note
           delete :delete_note
+          put :update_note
         end
       end
 

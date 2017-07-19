@@ -43,6 +43,24 @@ textarea {
   }
 }
 
+.update-note-form {
+  .input-group {
+    width: 100%;
+
+    #heading {
+      width: 23% !important;
+    }
+
+    #description {
+      width: 70% !important;
+    }
+
+    #color {
+      width: 7% !important;
+    }
+  }
+}
+
 .tab-tools {
   display: block;
   float: none;

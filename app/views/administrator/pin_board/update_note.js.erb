@@ -1,0 +1,10 @@
+$('.notes .note-<%= @note.id %> .note-container').css('background-color', '<%= @note.color %>')
+
+$('.notes .note-<%= @note.id %> .note-container small').html('<%= @note.created_at.strftime("%I:%M %p - %d-%m-%y") %>');
+$('.notes .note-<%= @note.id %> .note-container h4').html('<%= @note.heading %>');
+$('.notes .note-<%= @note.id %> .note-container p').html('<%= @note.description %>');
+
+$('#note-edit-<%= @note.id %> .update-note-form #heading').val('<%= @note.heading %>');
+$('#note-edit-<%= @note.id %> .update-note-form #description').val('<%= @note.description %>');
+$('#note-edit-<%= @note.id %> .update-note-form #color').val('<%= @note.color %>');
+$('#note-edit-<%= @note.id %>').modal('hide');
