@@ -1,5 +1,5 @@
 <li class='note-<%= note.id %>'>
-  <div class='note-container' style='background-color: <%= note.color %>'>
+  <div class='note-container' style='background-color: <%= note.color %>' data-id='<%= note.id %>'>
     <small><%= note.created_at.strftime('%I:%M %p - %d-%m-%y') %></small>
     <h4><%= note.heading %></h4>
     <p><%= note.description %></p>
@@ -8,7 +8,7 @@
       <i class="fa fa-edit "></i>
     <% end %>
 
-    <%= link_to delete_note_administrator_pin_board_path(note_id: note.id), data: { behavior: 'ajax-delete', object: 'Note' } do %>
+    <%= link_to administrator_pin_board_path(note_id: note.id), data: { behavior: 'ajax-delete', object: 'Note' } do %>
       <i class="fa fa-trash-o "></i>
     <% end %>
   </div>
@@ -22,18 +22,16 @@
         <h4 class="modal-title">Edit Note</h4>
       </div>
 
-      <%= form_tag update_note_administrator_pin_board_path(note_id: note.id), method: :put, remote: true, class: 'form-inline update-note-form' do %>
+      <%= form_for note, url: administrator_pin_board_path(note_id: note.id), method: :put, remote: true, html: { class: 'form-inline update-note-form' } do |f| %>
         <div class='modal-body text-center'>
           <div class="input-group">
             <div class='row'>
               <div class='col-md-12'>
-                <div>
-                  <%= text_field_tag :heading, note.heading, required: true, maxlength: 100, placeholder: 'Heading', class: 'input input-sm form-control' %>
+                <%= f.text_field :heading, required: true, maxlength: 100, placeholder: 'Heading', class: 'input input-sm form-control' %>
 
-                  <%= text_field_tag :description, note.description, placeholder: 'Description', class: 'input input-sm form-control' %>
+                <%= f.text_field :description, placeholder: 'Description', class: 'input input-sm form-control' %>
 
-                  <%= color_field_tag :color, note.color, class: 'input input-sm form-control color-field' %>
-                </div>
+                <%= f.color_field :color, class: 'input input-sm form-control color-field' %>
               </div>
             </div>
           </div>

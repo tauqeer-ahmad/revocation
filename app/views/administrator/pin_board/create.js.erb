@@ -2,3 +2,4 @@ $('.notes').prepend("<%= escape_javascript(render 'note', note: @note) %>")
 $('#create-note-form input[type="text"]').val('');
 set_notes_colors();
 bind_destroy_alert();
+bind_note_double_click_edit()
