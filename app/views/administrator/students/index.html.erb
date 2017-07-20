@@ -187,3 +187,6 @@
     </div>
   </div>
 </div>
+<% content_for :javascript do %>
+  enable_autocomplete("/<%= params[:section_id] %>/students")
+<% end %>

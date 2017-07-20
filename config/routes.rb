@@ -70,18 +70,21 @@ Revocation::Application.routes.draw do
       resources :teachers do
         collection do
           post :bulk_insert
+          get :autocomplete
         end
       end
 
       resources :guardians do
         collection do
           get :fetch
+          get :autocomplete
         end
       end
 
       resources :klasses, path: :classes do
         collection do
           post :bulk_insert
+          get :autocomplete
         end
         member do
           get :update_sections
@@ -100,6 +103,7 @@ Revocation::Application.routes.draw do
       resources :subjects do
         collection do
           post :bulk_insert
+          get :autocomplete
         end
       end
 
@@ -115,6 +119,7 @@ Revocation::Application.routes.draw do
           collection do
             get :bulk_view
             post :bulk_insert
+            get :autocomplete
           end
           member do
             put :update_section
@@ -136,8 +141,12 @@ Revocation::Application.routes.draw do
       end
 
       resources :exams do
+        collection do
+          get :autocomplete
+        end
         resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
       end
+
       resources :marksheets, only: [:index, :edit, :destroy]do
         collection do
           get :existing

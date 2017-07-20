@@ -55,6 +55,10 @@ class Administrator::TeachersController < ApplicationController
     redirect_to administrator_teachers_path
   end
 
+  def autocomplete
+    render json: Teacher.search(params[:search], fields: ["first_name", "last_name"], load: false, misspellings: {below: 5}, limit: 10).map{|teacher| {search: [teacher.first_name, ' ', teacher.last_name].join}}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher

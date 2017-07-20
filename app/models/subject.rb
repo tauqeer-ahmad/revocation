@@ -1,7 +1,7 @@
 class Subject < ApplicationRecord
   include SearchWrapper
 
-  searchkick index_name: tenant_index_name
+  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
   belongs_to :institution
   has_many :section_subject_teachers

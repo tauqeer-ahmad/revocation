@@ -1,7 +1,7 @@
 class Exam < ApplicationRecord
   include SearchWrapper
 
-  searchkick index_name: tenant_index_name
+  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
   belongs_to :term
   has_many :exam_timetables, dependent: :destroy
