@@ -3,7 +3,7 @@ class Administrator::PinBoardController < ApplicationController
   end
 
   def create
-    @note = current_user.notes.create(heading: params[:heading], description: params[:description], color: params[:color])
+    @note = current_user.notes.create(note_params)
   end
 
   def destroy
