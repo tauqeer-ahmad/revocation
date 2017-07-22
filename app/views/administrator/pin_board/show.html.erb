@@ -1,0 +1,9 @@
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <%= render 'note_create_form' %>
+    </div>
+  </div>
+
+  <%= render 'notes', notes: current_user.notes %>
+</div>

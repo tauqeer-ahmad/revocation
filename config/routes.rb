@@ -132,13 +132,7 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resource :pin_board, controller: :pin_board, only: [] do
-        collection do
-          get :landing
-          post :create_note
-          delete :delete_note
-        end
-      end
+      resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
 
       resources :exams do
         collection do

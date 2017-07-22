@@ -29,16 +29,34 @@ textarea {
   .input-group {
     width: 100%;
 
-    #heading {
+    #note_heading {
       width: 23% !important;
     }
 
-    #description {
+    #note_description {
       width: 39.4% !important;
     }
 
-    #color {
+    #note_color {
       width: 5% !important;
+    }
+  }
+}
+
+.update-note-form {
+  .input-group {
+    width: 100%;
+
+    #note_heading {
+      width: 23% !important;
+    }
+
+    #note_description {
+      width: 70% !important;
+    }
+
+    #note_color {
+      width: 7% !important;
     }
   }
 }

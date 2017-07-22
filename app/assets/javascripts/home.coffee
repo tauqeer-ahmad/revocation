@@ -93,8 +93,14 @@ set_clipboard = ->
   clipboard.on 'error', (e) ->
     toastr.error 'Error while Copying!'
 
+@bind_note_double_click_edit = ->
+  $('body').on 'dblclick', '.note-container', ->
+    note_id = $(this).data('id')
+    $("#note-edit-#{note_id}").modal('show')
+
 $ ->
   bind_destroy_alert()
   display_uploaded_image()
   bind_switch_term()
   set_clipboard()
+  bind_note_double_click_edit()

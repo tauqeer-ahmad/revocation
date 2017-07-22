@@ -1,0 +1,3 @@
+$('#note-edit-<%= @note.id %>').modal('hide');
+
+$('.notes .note-<%= @note.id %>').replaceWith("<%= j(render 'note', note: @note) %>")
