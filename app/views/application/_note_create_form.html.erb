@@ -6,7 +6,13 @@
 
         <%= f.text_field :description, placeholder: 'Description', class: 'input input-sm form-control' %>
 
-        <%= f.color_field :color, value: '#ffffcc', class: 'input input-sm form-control color-field' %>
+        <%= f.color_field :color, value: '#ffffcc', class: 'input input-sm form-control color-field', list: 'colors' %>
+
+        <datalist id='colors'>
+          <% Note::SAMPLE_COLORS.each do |color| %>
+            <option><%= color %></option>
+          <% end %>
+        </datalist>
 
         <span class='input-group-btn'>
           <%= button_tag class: 'btn btn-sm btn-white' do %>
