@@ -157,7 +157,7 @@ textarea {
 }
 
 .table-helighted-row {
-  background-color: #eee !important;
+  background-color: rgba(35, 198, 200, 0.2) !important;
   border-left: 5px solid #23c6c8;
 }
 
@@ -179,7 +179,7 @@ textarea {
 }
 
 .nav-term {
-  padding: 3%;
+  padding: 5%;
   color: white;
 }
 
@@ -345,4 +345,8 @@ td.attendance-radio {
 
 .select-children {
   cursor: pointer;
+}
+
+.clients-list {
+  overflow: auto;
 }
