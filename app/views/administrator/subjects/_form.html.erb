@@ -36,7 +36,7 @@
                 <div class='col-sm-4'></div>
 
                 <div class='col-sm-4'>
-                  <%= f.color_field :color, value: f.object.color || '#EB016E', class: 'input input-sm form-control color-field', list: 'colors' %>
+                  <%= f.color_field :color, class: 'input input-sm form-control color-field', list: 'colors' %>
 
                   <datalist id='colors'>
                     <% Subject::COLORS.each do |color| %>
