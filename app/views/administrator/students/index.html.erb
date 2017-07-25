@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div class="wrapper wrapper-content  animated fadeInRight">
+<div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-sm-8">
       <div class="ibox">
@@ -50,9 +50,8 @@
                           <th>Avatar</th>
                           <th>Name</th>
                           <th>Roll number</th>
-                          <th>Registration number</th>
                           <th>Email</th>
-                          <th>Actions</th>
+                          <th class='col-sm-3'>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -73,14 +72,13 @@
                                 <%= student.roll_number %>
                               <% end %>
                             </td>
+
                             <td>
-                              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", class: "client-link" do %>
-                                <%= student.registration_number %>
-                              <% end %>
+                              <span class="contact-type"><i class="fa fa-envelope"></i></span>
+                              <%= student.email %>
                             </td>
 
-                            <td> <span class="contact-type"><i class="fa fa-envelope"> </i></span> <%= student.email %></td>
-                            <td>
+                            <td class='text-center'>
                               <%= link_to administrator_section_student_path(@section, student), class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
                                 <i class="fa fa-eye"></i>
                               <% end %>
@@ -187,6 +185,7 @@
     </div>
   </div>
 </div>
+
 <% content_for :javascript do %>
   enable_autocomplete("/<%= params[:section_id] %>/students")
 <% end %>
