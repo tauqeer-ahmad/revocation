@@ -6,12 +6,16 @@ class Administrator::SectionsController < ApplicationController
 
   def index
     @klasses = Klass.all
-    @sections = Section.includes(:klass).where(term_id: current_term.id)
+    if params[:klass_id].present?
+      @klass = Klass.find(params[:klass_id])
+    else
+      @klass = @klasses.first
+    end
+    @sections = @klass.sections.where(term_id: current_term.id)
   end
 
   def fetch
     @sections = @klass.current_sections(current_term.id)
-    render layout: false
   end
 
   def show
@@ -30,7 +34,7 @@ class Administrator::SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
-        format.html { redirect_to administrator_sections_url, notice: 'Section was successfully created.' }
+        format.html { redirect_to administrator_sections_url(klass_id: @klass.id), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class Administrator::SectionsController < ApplicationController
   def update
     respond_to do |format|
       if @section.update(section_params)
-        format.html { redirect_to administrator_sections_url, notice: 'Section was successfully updated.' }
+        format.html { redirect_to administrator_sections_url(klass_id: @klass.id), notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
       else
         format.html { render :edit }
@@ -54,7 +58,7 @@ class Administrator::SectionsController < ApplicationController
   def destroy
     @section.destroy
     respond_to do |format|
-      format.html { redirect_to administrator_klass_sections_url(@klass), notice: 'Section was successfully destroyed.' }
+      format.html { redirect_to administrator_sections_url(klass_id: @klass.id), notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

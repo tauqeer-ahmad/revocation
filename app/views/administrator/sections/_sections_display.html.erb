@@ -1,0 +1,61 @@
+<div class="col-lg-9 animated fadeInRight sections-container">
+
+  <div class="ibox">
+    <div class="ibox-title">
+      <h5>All sections of class <%= link_to klass.name, [:administrator, klass] %></h5>
+      <div class="ibox-tools">
+        <%= link_to 'Add a new section', new_administrator_klass_section_path(klass), class: 'btn btn-primary btn-xs' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <% sections.each_with_index do |section, index| %>
+        <div class="file-box">
+          <div class="file">
+            <div class="btn-group">
+              <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false">Action <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link_to administrator_section_students_path(section), class: "btn btn-outline btn-link btn-xs" do %>
+                    <i class="fa fa-users"></i> Students
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to administrator_section_timetables_path(section), class: "btn btn-outline btn-link btn-xs" do %>
+                    <i class="fa fa-calendar"></i> TimeTable
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+            <%= link_to [:administrator, klass, section] do %>
+              <span class="corner"></span>
+              <div class="icon">
+                <i class="fa fa-windows"></i>
+              </div>
+              <div class="file-name">
+                <%= section.name %>
+                <br />
+                <small><%= format_date(section.created_at) %></small>
+                <br>
+                <small>Students: <%= section.display_students_count %></small>
+                <br>
+                <small>Teacher: <%= section.incharge_name %></small>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if sections.blank? %>
+        <div class="middle-box text-center animated fadeInDown">
+        <%= link_to 'Add a new section', new_administrator_klass_section_path(klass), class: 'btn btn-primary' %>
+
+        <div class="error-desc">
+          No sections are created yet. You can add section right now!
+        </div>
+    </div>
+      <% end %>
+    </div>
+  </div>
+</div>
