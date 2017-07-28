@@ -108,9 +108,10 @@ module ApplicationHelper
   end
 
   def display_collective_average(groud_id, term_id, exam_id, objects)
-     entries = objects[groud_id].group_by(&:term_id)[term_id].group_by(&:exam_id)[exam_id]
-     total_sum = entries.sum(&:obtained)
-     number_of_students = entries.collect(&:student_id).uniq.size
-     calculate_average(total_sum, number_of_students)
+    return 0.0 if objects.blank?
+    entries = objects[groud_id].group_by(&:term_id)[term_id].group_by(&:exam_id)[exam_id]
+    total_sum = entries.sum(&:obtained)
+    number_of_students = entries.collect(&:student_id).uniq.size
+    calculate_average(total_sum, number_of_students)
   end
 end

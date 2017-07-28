@@ -350,3 +350,32 @@ td.attendance-radio {
 .clients-list {
   overflow: auto;
 }
+
+.folder-list li a:hover {
+  background-color: #e6e6e6;
+  color: #676a6c;
+}
+
+.folder-list li i {
+  color: #f8ac59 !important;
+}
+
+.folder-list li a {
+  color: #A7B1C2;
+  font-weight: 600;
+  padding: 10px 10px 10px 10px;
+}
+
+.folder-list li.active a {
+  background-color: #e6e6e6;
+  color: #676a6c;
+}
+
+.folder-list li.active i {
+  color: #1ab394 !important;
+}
+
+.file .btn-group,
+.file .btn-group-vertical {
+  position: absolute;
+}

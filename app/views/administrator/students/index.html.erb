@@ -6,7 +6,7 @@
         <%= link_to 'Home', administrator_root_path %>
       </li>
       <li>
-        <%= link_to administrator_section_students_path(@section) do %>
+        <%= link_to administrator_sections_path(klass_id: @section.klass.id) do %>
           Manage Sections
         <% end %>
       </li>
