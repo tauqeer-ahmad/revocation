@@ -375,7 +375,12 @@ td.attendance-radio {
   color: #1ab394 !important;
 }
 
-.file .btn-group,
-.file .btn-group-vertical {
+.sections-container .file .btn-group,
+.sections-container .file .btn-group-vertical {
   position: absolute;
+}
+
+.sections-container .file {
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
