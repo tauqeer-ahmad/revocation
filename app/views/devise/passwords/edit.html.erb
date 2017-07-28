@@ -1,25 +1,37 @@
-<h2>Change your password</h2>
+<div class='middle-box text-center loginscreen animated fadeInDown'>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.hidden_field :reset_password_token %>
+  <h1 class='logo-name'>
+    <%= image_tag 'landing/revo-logo-crop.png', width: 150, height: 150 %>
+  </h1>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
-  </div>
+  <h2>Change your password</h2>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  <p><%= resource_name.capitalize %></p>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+    <%= f.hidden_field :reset_password_token %>
 
-<%= render "devise/shared/links" %>
+    <div class='form-group'>
+      <%= f.password_field :password, autofocus: true, placeholder: 'New Password', class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.password_field :password_confirmation, placeholder: 'Confirm new Password', class: 'form-control' %>
+    </div>
+
+    <div class='actions'>
+      <%= f.submit 'Change my password', class: 'btn btn-primary block full-width m-b' %>
+    </div>
+  <% end %>
+
+  <%= render 'devise/shared/links' %>
+
+  <p class='m-t-lg'>
+    <strong>&copy; 2017 Revoech Group</strong><br/>
+  </p>
+
+  <p>
+    <small>Revoech is introducing revolutionary technology in the society.</small>
+  </p>
+</div>

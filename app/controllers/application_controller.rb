@@ -51,9 +51,9 @@ class ApplicationController < ActionController::Base
   private
     def layout_by_resource
       if devise_controller?
-        "devise"
+        'empty'
       else
-        "application"
+        'application'
       end
     end
 
