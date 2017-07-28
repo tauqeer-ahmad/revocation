@@ -1,1 +1,17 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Classes</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+      <li>
+        <%= link_to "Terms", administrator_terms_path %>
+      </li>
+      <li class="active">
+        <strong><%= @term.name %></strong>
+      </li>
+    </ol>
+  </div>
+</div>
 <%= render 'form', term: @term %>

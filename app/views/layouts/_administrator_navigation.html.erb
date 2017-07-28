@@ -44,11 +44,6 @@
           <i class="fa fa-users"></i> <span class="nav-label">Teachers</span>
         <% end %>
       </li>
-      <li class="<%= is_active_controller('administrator/klasses') %>">
-        <%= link_to administrator_klasses_path do %>
-          <i class="fa fa-cubes"></i> <span class="nav-label">Classes</span>
-        <% end %>
-      </li>
       <li class="<%= is_active_controller('administrator/subjects') %>">
         <%= link_to administrator_subjects_path do %>
           <i class="fa fa-book"></i> <span class="nav-label">Subjects</span>
@@ -57,6 +52,11 @@
       <li class="<%= is_active_controller('administrator/guardians') %>">
         <%= link_to administrator_guardians_path do %>
           <i class="fa fa-user"></i> <span class="nav-label">Guardians</span>
+        <% end %>
+      </li>
+      <li class="<%= is_active_controller('administrator/klasses') %>">
+        <%= link_to administrator_klasses_path do %>
+          <i class="fa fa-cubes"></i> <span class="nav-label">Manage Classes</span>
         <% end %>
       </li>
       <li class="<%= is_active_controller('administrator/sections') %>">
