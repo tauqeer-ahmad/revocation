@@ -49,12 +49,12 @@
       <% end %>
       <% if sections.blank? %>
         <div class="middle-box text-center animated fadeInDown">
-        <%= link_to 'Add a new section', new_administrator_klass_section_path(klass), class: 'btn btn-primary' %>
+          <%= link_to 'Add a new section', new_administrator_klass_section_path(klass), class: 'btn btn-primary' %>
 
-        <div class="error-desc">
-          No sections are created yet. You can add section right now!
+          <div class="error-desc">
+            No sections are created yet. You can add section right now!
+          </div>
         </div>
-    </div>
       <% end %>
     </div>
   </div>
