@@ -11,7 +11,6 @@ bind_back_btn = ->
   $('body').on 'click', '#back-btn', (event) ->
     location.reload()
 
-
 (($) ->
   window.AttendanceSheet || (window.AttendanceSheet = {})
 

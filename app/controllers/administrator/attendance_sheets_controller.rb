@@ -33,7 +33,7 @@ class Administrator::AttendanceSheetsController < ApplicationController
 
   def destroy
     @attendance_sheet.destroy
-    head :no_content
+    head :ok
   end
 
   private
