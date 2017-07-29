@@ -29,16 +29,34 @@ textarea {
   .input-group {
     width: 100%;
 
-    #heading {
+    #note_heading {
       width: 23% !important;
     }
 
-    #description {
+    #note_description {
       width: 39.4% !important;
     }
 
-    #color {
+    #note_color {
       width: 5% !important;
+    }
+  }
+}
+
+.update-note-form {
+  .input-group {
+    width: 100%;
+
+    #note_heading {
+      width: 23% !important;
+    }
+
+    #note_description {
+      width: 70% !important;
+    }
+
+    #note_color {
+      width: 7% !important;
     }
   }
 }
@@ -139,7 +157,7 @@ textarea {
 }
 
 .table-helighted-row {
-  background-color: #eee !important;
+  background-color: rgba(35, 198, 200, 0.2) !important;
   border-left: 5px solid #23c6c8;
 }
 
@@ -161,7 +179,7 @@ textarea {
 }
 
 .nav-term {
-  padding: 3%;
+  padding: 5%;
   color: white;
 }
 
@@ -327,4 +345,42 @@ td.attendance-radio {
 
 .select-children {
   cursor: pointer;
+}
+
+.clients-list {
+  overflow: auto;
+}
+
+.folder-list li a:hover {
+  background-color: #e6e6e6;
+  color: #676a6c;
+}
+
+.folder-list li i {
+  color: #f8ac59 !important;
+}
+
+.folder-list li a {
+  color: #A7B1C2;
+  font-weight: 600;
+  padding: 10px 10px 10px 10px;
+}
+
+.folder-list li.active a {
+  background-color: #e6e6e6;
+  color: #676a6c;
+}
+
+.folder-list li.active i {
+  color: #1ab394 !important;
+}
+
+.sections-container .file .btn-group,
+.sections-container .file .btn-group-vertical {
+  position: absolute;
+}
+
+.sections-container .file {
+  margin-bottom: 20px;
+  margin-right: 20px;
 }

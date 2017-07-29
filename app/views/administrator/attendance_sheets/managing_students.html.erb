@@ -6,13 +6,12 @@
         <%= link_to 'Home', administrator_root_path %>
       </li>
       <li>
-        <%= link_to 'Classes', administrator_klasses_path %>
+        <%= link_to "Student's Attendance", administrator_attendance_sheets_path %>
       </li>
       <li class="active">
-        <strong><%= @klass.name %></strong>
+        <strong>Attendance Sheet <%= @attendance_sheet.name %></strong>
       </li>
     </ol>
   </div>
 </div>
-
-<%= render 'form', klass: @klass %>
+<%= render partial: 'shared/attendance_sheets/managing_students', locals: { path: administrator_attendance_sheet_path(@attendance_sheet) } %>

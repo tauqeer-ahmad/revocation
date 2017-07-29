@@ -1,0 +1,4 @@
+$(".sections-container").replaceWith("<%= raw escape_javascript(render 'sections_display', sections: @sections, klass: @klass) %>");
+
+$('li.klass-selection-list').removeClass('active');
+$("li#klass_link_<%= @klass.id %>").addClass('active');

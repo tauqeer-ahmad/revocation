@@ -2,7 +2,7 @@ class Teacher < User
   include SearchWrapper
   include Authentication
 
-  searchkick index_name: tenant_index_name
+  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name]
 
   belongs_to :institution
   has_many :incharged_sections, :class_name => "Section", :foreign_key => "incharge_id"

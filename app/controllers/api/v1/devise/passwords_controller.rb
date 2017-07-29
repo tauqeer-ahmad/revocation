@@ -7,9 +7,9 @@ class Api::V1::Devise::PasswordsController < Api::V1::BaseController
     resource = resource_class.send_reset_password_instructions(resource_params)
 
     if resource.errors.empty?
-      render json: {message: "You will receive an email to reset your password."}
+      success_response "You will receive an email to reset your password."
     else
-      render json: resource.errors, status: :unprocessable_entity
+      error_response('', resource.errors.messages)
     end
   end
 
@@ -20,9 +20,9 @@ class Api::V1::Devise::PasswordsController < Api::V1::BaseController
 
     if resource.errors.empty?
       resource.regenerate_access_token
-      render json: resource, serializer: LoginSuccessSerializer, subdomain: request.subdomain
+      render json: resource, serializer: LoginSuccessSerializer, subdomain: request.subdomain, institution: Institution.current.name
     else
-      render json: resource.errors, status: :unprocessable_entity
+      error_response('', resource.errors.messages)
     end
   end
 

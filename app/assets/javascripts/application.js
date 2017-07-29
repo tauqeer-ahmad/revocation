@@ -28,6 +28,7 @@
 //= require ckeditor/init
 //= require clipboard
 //= require fullcalendar
+//= require typeahead.min
 //= require_tree .
 
 toastr.options = {

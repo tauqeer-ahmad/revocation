@@ -2,7 +2,7 @@ class Guardian < User
   include SearchWrapper
   include Authentication
 
-  searchkick index_name: tenant_index_name
+  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name]
 
   has_many :children, class_name: 'Student', foreign_key: 'guardian_id'
 
