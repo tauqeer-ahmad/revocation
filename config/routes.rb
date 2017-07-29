@@ -223,6 +223,8 @@ Revocation::Application.routes.draw do
     end
   end
 
+  resources :testimonials, only: [:index, :create, :update, :destroy]
+
   post :contact_us, to: 'home#contact_us'
   root to: 'home#index'
 end

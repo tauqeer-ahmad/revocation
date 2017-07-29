@@ -1,0 +1,47 @@
+<div class='wrapper wrapper-content animated fadeInRight blog'>
+  <% @testimonials.each do |testimonial| %>
+    <div class='faq-item <%= testimonial.status %>'>
+      <div class='row'>
+        <div class='col-sm-7'>
+          <a data-toggle='collapse' href='#faq-<%= testimonial.id %>' class='faq-question collapsed' aria-expanded='false'>
+            <%= testimonial.heading %>
+          </a>
+          <small>
+            Added by <strong><%= testimonial.user.name %></strong> <i class='fa fa-clock-o'></i>
+            <%= render_time(testimonial.created_at, :long) %>
+          </small>
+        </div>
+        <div class='col-sm-3'></div>
+
+        <div class='col-sm-2 text-center'>
+          <span class='small font-bold'>Actions</span><br>
+
+          <% if testimonial.active? %>
+            <%= link_to testimonial_path(id: testimonial.id, status: 'inactive'), method: :put, class: "btn btn-warning btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Deactivate' do %>
+              <i class="fa fa-times"></i>
+            <% end %>
+          <% else %>
+            <%= link_to testimonial_path(id: testimonial.id, status: 'active'), method: :put, class: "btn btn-info btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Activate' do %>
+              <i class="fa fa-check"></i>
+            <% end %>
+          <% end %>
+
+          <%= link_to testimonial_path(id: testimonial.id), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: testimonial.class.name }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+            <i class="fa fa-trash-o"></i>
+          <% end %>
+        </div>
+      </div>
+      <div class='row'>
+        <div class='col-lg-12'>
+          <div id='faq-<%= testimonial.id %>' class='panel-collapse collapse' aria-expanded='false' style='height: 0px;'>
+            <div class='faq-answer'>
+              <p>
+                <%= testimonial.message %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+.faq-item {
+  &.active {
+    background-color: rgba(148, 254, 255, 0.2) !important;
+    border-left: 5px solid #23c6c8;
+  }
+}
+

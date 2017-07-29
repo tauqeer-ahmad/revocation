@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170723184411) do
+ActiveRecord::Schema.define(version: 20170729120041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -251,6 +251,16 @@ ActiveRecord::Schema.define(version: 20170723184411) do
     t.string   "status",     limit: 16
   end
 
+  create_table "testimonials", force: :cascade do |t|
+    t.string   "heading",    limit: 100,                      null: false
+    t.text     "message"
+    t.string   "status",     limit: 20,  default: "inactive"
+    t.integer  "user_id"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.index ["user_id"], name: "index_testimonials_on_user_id", using: :btree
+  end
+
   create_table "timetables", force: :cascade do |t|
     t.datetime "start_time"
     t.datetime "end_time"
@@ -320,4 +330,5 @@ ActiveRecord::Schema.define(version: 20170723184411) do
   add_foreign_key "question_papers", "sections"
   add_foreign_key "question_papers", "subjects"
   add_foreign_key "question_papers", "terms"
+  add_foreign_key "testimonials", "users"
 end
