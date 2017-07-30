@@ -1,4 +1,6 @@
 class Guardian::HomeController < ApplicationController
+  layout 'empty', only: [:lock_account]
+
   before_action :validate_selected_student, only: :select_student
 
   def index
@@ -15,6 +17,21 @@ class Guardian::HomeController < ApplicationController
     respond_to do |format|
       format.json { head :no_content }
     end
+  end
+
+  def lock_account
+    session[:lock_account] = true
+  end
+
+  def unlock_account
+    if current_user.valid_password?(params[:password])
+      session[:lock_account] = false
+      flash[:notice] = 'Successfully unlocked your account!'
+    else
+      flash[:alert] = 'You entered incorrect password!'
+    end
+
+    redirect_to root_path
   end
 
   private
