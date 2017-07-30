@@ -1,5 +1,5 @@
 class Administrator::StudentsController < ApplicationController
-  before_action :set_section, except: [:results]
+  before_action :set_section, only: [:new, :index, :edit, :create, :update, :show, :destroy, :update_section, :autocomplete, :bulk_view, :bulk_insert]
   before_action :set_student, only: [:show, :edit, :update, :destroy, :update_section, :results]
 
   def index
