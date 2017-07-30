@@ -35,7 +35,7 @@ class Exam < ApplicationRecord
     events = exams.collect do |exam|
                exam.exam_timetables.collect do |exam_timetable|
                  {
-                   title: [exam.name, ' of ', exam_timetable.subject.name, ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
+                   title: [exam.name, ' of ', exam_timetable.subject.try(:name), ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
                    start: exam_timetable.paper_date.to_time,
                    color: exam_timetable.get_exam_color,
                    className: ['text-center', 'exam-event'],

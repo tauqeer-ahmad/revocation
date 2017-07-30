@@ -46,6 +46,13 @@
           <i class="fa fa-tasks"></i> <span class="nav-label">Assignments</span>
         <% end %>
       </li>
+      <li>
+        <%= link_to '#', data: { toggle: 'modal', target: '#feedback-modal' }, id: 'feedback-model-trigger' do %>
+          <i class="fa fa-comments-o"></i> <span class="nav-label">Feedback</span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </nav>
+
+<%= render 'testimonials/form' %>

@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :notes
+  has_many :testimonials
 
   has_attached_file :avatar,
                     styles: {

@@ -101,6 +101,11 @@
           <i class="fa fa-trophy"></i> <span class="nav-label">Student Promotion</span>
         <% end %>
       </li>
+      <li class="<%= is_active_controller_action('testimonials', 'index') %>">
+        <%= link_to testimonials_path do %>
+          <i class="fa fa-comments-o"></i> <span class="nav-label">Testimonials</span>
+        <% end %>
+      </li>
       <li class="<%= is_active_controller_action('administrator/home', 'configuration') %>">
         <%= link_to configuration_path do %>
           <i class="fa fa-gears"></i> <span class="nav-label">Configuration</span>
