@@ -67,7 +67,9 @@ class Administrator::SubjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subject_params
-      params.require(:subject).permit(:name, :description)
+      params.require(:subject).permit(:name, :description, :color).tap do |custom_params|
+        custom_params[:color] ||= Subject::COLORS.sample
+      end
     end
 
     def bulk_subject_params
