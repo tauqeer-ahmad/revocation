@@ -100,6 +100,12 @@ Revocation::Application.routes.draw do
         end
       end
 
+      resources :notices, except: :new do
+        collection do
+         get :autocomplete
+        end
+      end
+
       resources :subjects do
         collection do
           post :bulk_insert

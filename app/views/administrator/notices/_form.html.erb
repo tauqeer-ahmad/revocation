@@ -1,0 +1,64 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Add a Notice <small> Please fill the details correctly.</small></h5>
+        </div>
+        <div class="ibox-content">
+          <%= simple_form_for([:administrator, notice], validate: true, html: {class: "form-horizontal"}) do |f| %>
+            <%= f.error_notification %>
+
+            <div class='form-inputs'>
+              <div class='form-group'>
+                <div class='col-sm-6 col-sm-offset-3'>
+                  <%= f.input :title, label: false, placeholder: 'Title', input_html: { class: 'form-control' }, required: true %>
+                </div>
+              </div>
+            </div>
+
+            <div class='form-inputs'>
+              <div class='form-group'>
+                <div class='col-sm-6 col-sm-offset-3'>
+                  <%= f.input :message, label: false, placeholder: 'Message', input_html: { class: 'form-control', rows: 8 } %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-inputs">
+              <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-3">
+                  <%= f.select :notice_type, Notice::TYPES, {prompt: 'Select Notice Type'}, class: "select2_dropdown form-control notice-type", required: true %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-inputs class-specific <%= notice_class_hide(notice.notice_type) %>">
+              <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-3">
+                  <%= f.select :klass_id, @klasses, {prompt: 'Select Class'}, class: "select2_dropdown form-control", required: true, disabled: notice_class_disable(notice.notice_type) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-inputs section-specific <%= notice_section_hide(notice.notice_type) %>">
+              <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-3">
+                  <%= f.select :section_id, @sections, {prompt: 'Select Section'}, class: "select2_dropdown form-control", required: true, disabled: notice_section_disable(notice.notice_type) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group m-t-lg">
+              <div class="col-sm-6 col-sm-offset-3 text-center">
+                <%= f.submit class: "btn btn-primary" do %>
+                  <i class="fa fa-check">&nbsp;Submit
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
