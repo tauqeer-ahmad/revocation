@@ -55,6 +55,10 @@ class Administrator::SubjectsController < ApplicationController
     redirect_to administrator_subjects_path
   end
 
+  def autocomplete
+    render json: Subject.search(params[:search], fields: ["name"], load: false, misspellings: {below: 5}, limit: 10).map{|subject| {search: subject.name}}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_subject
@@ -63,7 +67,9 @@ class Administrator::SubjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subject_params
-      params.require(:subject).permit(:name, :description)
+      params.require(:subject).permit(:name, :description, :color).tap do |custom_params|
+        custom_params[:color] ||= Subject::COLORS.sample
+      end
     end
 
     def bulk_subject_params

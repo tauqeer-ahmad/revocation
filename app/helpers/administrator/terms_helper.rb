@@ -5,4 +5,10 @@ module Administrator::TermsHelper
     return 'yellow-bg' if term.initialized?
   end
 
+  def term_text_class(term)
+    return 'text-navy' if term.completed?
+    return 'text-lazur' if term.active?
+    return 'text-yellow' if term.initialized?
+  end
+
 end

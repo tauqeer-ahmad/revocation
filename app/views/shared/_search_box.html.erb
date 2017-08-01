@@ -2,7 +2,7 @@
   <div class="row m-b-sm m-t-sm">
     <div class="col-md-12">
       <div class="input-group">
-        <%= text_field_tag :search, params[:search], class: "input-sm form-control", placeholder: 'Search' %>
+        <%= text_field_tag :search, params[:search], class: "input-sm form-control typeahead", placeholder: 'Search', id: "search-box" %>
         <span class="input-group-btn">
           <%= submit_tag "Lookup", class: "btn btn-sm btn-outline btn-primary" %>
         </span>

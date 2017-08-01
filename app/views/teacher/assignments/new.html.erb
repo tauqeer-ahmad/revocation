@@ -1,0 +1,33 @@
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Assignment</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <%= form_for(@assignment, html: {class: "form-vertical", id: "assignment-form"}) do |f| %>
+            <%= render partial: 'teacher/assignments/form_content', locals: {f: f} %>
+            <%= f.hidden_field :section_id %>
+            <%= f.hidden_field :subject_id %>
+            <hr/>
+            <div class= 'row m-t-lg'>
+              <div class='col-md-11'>
+                <%= submit_tag "Publish", class: "btn btn-success m-l-md pull-right" %>
+                <%= link_to 'Back', assignments_path(section_id: @assignment.section_id, subject_id: @assignment.subject_id), class: 'btn btn-info pull-right' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

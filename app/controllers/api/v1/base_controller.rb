@@ -4,8 +4,10 @@ class Api::V1::BaseController < ActionController::API
 
   respond_to :json
 
-  def error_response(message)
-    render status: :unprocessable_entity, json: { message: message }
+  def error_response(message, errors={})
+    response = {message: message}
+    response.merge!({errors: errors}) if errors.present?
+    render status: :unprocessable_entity, json: response
   end
 
   def success_response(message)

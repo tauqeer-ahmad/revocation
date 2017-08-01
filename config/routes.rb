@@ -70,18 +70,21 @@ Revocation::Application.routes.draw do
       resources :teachers do
         collection do
           post :bulk_insert
+          get :autocomplete
         end
       end
 
       resources :guardians do
         collection do
           get :fetch
+          get :autocomplete
         end
       end
 
       resources :klasses, path: :classes do
         collection do
           post :bulk_insert
+          get :autocomplete
         end
         member do
           get :update_sections
@@ -100,6 +103,7 @@ Revocation::Application.routes.draw do
       resources :subjects do
         collection do
           post :bulk_insert
+          get :autocomplete
         end
       end
 
@@ -115,6 +119,7 @@ Revocation::Application.routes.draw do
           collection do
             get :bulk_view
             post :bulk_insert
+            get :autocomplete
           end
           member do
             put :update_section
@@ -127,17 +132,15 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resource :pin_board, controller: :pin_board, only: [] do
-        collection do
-          get :landing
-          post :create_note
-          delete :delete_note
-        end
-      end
+      resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
 
       resources :exams do
+        collection do
+          get :autocomplete
+        end
         resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
       end
+
       resources :marksheets, only: [:index, :edit, :destroy]do
         collection do
           get :existing
@@ -186,7 +189,7 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :assignments, only: [:edit, :create, :update, :destroy] do
+      resources :assignments, only: [:new, :edit, :create, :update, :destroy] do
         collection do
           get '/list/:section_id/:subject_id', to: 'assignments#index'
         end
@@ -219,6 +222,8 @@ Revocation::Application.routes.draw do
       resources :assignments, only: [:index]
     end
   end
+
+  resources :testimonials, only: [:index, :create, :update, :destroy]
 
   post :contact_us, to: 'home#contact_us'
   root to: 'home#index'

@@ -5,7 +5,7 @@
         <div class="ibox-title">
           <h5><%= @klass.name %> - <%= @section.name %> Assignment for <%= @subject.name %></h5>
           <div class="ibox-tools">
-            <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal m-r-md', data: {toggle: "modal", target: "#assignment-modal"}{ "Add Assignment" } %>
+            <%= link_to 'Add Assignment', new_assignment_path(section_id: @section.id, subject_id: @subject.id), class: 'btn btn-info btn-outline btn-xs add-assignment-modal m-r-md' %>
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
             </a>

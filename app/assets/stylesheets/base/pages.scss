@@ -337,7 +337,7 @@ ul.notes li div {
 
 .file-box {
   float: left;
-  width: 220px;
+  width: 210px;
 }
 
 .file-manager h5 {
@@ -363,7 +363,6 @@ ul.notes li div {
 
 .folder-list li i {
   margin-right: 8px;
-  color: #3d4d5d;
 }
 
 .category-list li a {
@@ -433,12 +432,12 @@ ul.notes li div {
 }
 
 .file .icon, .file .image {
-  height: 100px;
+  height: 50px;
   overflow: hidden;
 }
 
 .file .icon {
-  padding: 15px 10px;
+  padding: 10px 10px;
   text-align: center;
 }
 
@@ -453,7 +452,7 @@ ul.notes li div {
 }
 
 .file .icon i {
-  font-size: 70px;
+  font-size: 30px;
   color: #dadada;
 }
 

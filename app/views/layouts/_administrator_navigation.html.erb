@@ -44,11 +44,6 @@
           <i class="fa fa-users"></i> <span class="nav-label">Teachers</span>
         <% end %>
       </li>
-      <li class="<%= is_active_controller('administrator/klasses') %>">
-        <%= link_to administrator_klasses_path do %>
-          <i class="fa fa-cubes"></i> <span class="nav-label">Classes</span>
-        <% end %>
-      </li>
       <li class="<%= is_active_controller('administrator/subjects') %>">
         <%= link_to administrator_subjects_path do %>
           <i class="fa fa-book"></i> <span class="nav-label">Subjects</span>
@@ -57,6 +52,11 @@
       <li class="<%= is_active_controller('administrator/guardians') %>">
         <%= link_to administrator_guardians_path do %>
           <i class="fa fa-user"></i> <span class="nav-label">Guardians</span>
+        <% end %>
+      </li>
+      <li class="<%= is_active_controller('administrator/klasses') %>">
+        <%= link_to administrator_klasses_path do %>
+          <i class="fa fa-cubes"></i> <span class="nav-label">Manage Classes</span>
         <% end %>
       </li>
       <li class="<%= is_active_controller('administrator/sections') %>">
@@ -75,7 +75,7 @@
         </ul>
       </li>
       <li class="<%= is_active_controller('administrator/pin_board') %>">
-        <%= link_to landing_administrator_pin_board_path do %>
+        <%= link_to administrator_pin_board_path do %>
           <i class="fa fa-sticky-note"></i> <span class="nav-label">Pin Board</span>
         <% end %>
       </li>
@@ -99,6 +99,11 @@
       <li class="<%= is_active_controller('administrator/student_promotions') %>">
         <%= link_to administrator_student_promotions_path do %>
           <i class="fa fa-trophy"></i> <span class="nav-label">Student Promotion</span>
+        <% end %>
+      </li>
+      <li class="<%= is_active_controller_action('testimonials', 'index') %>">
+        <%= link_to testimonials_path do %>
+          <i class="fa fa-comments-o"></i> <span class="nav-label">Testimonials</span>
         <% end %>
       </li>
       <li class="<%= is_active_controller_action('administrator/home', 'configuration') %>">

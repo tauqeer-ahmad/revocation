@@ -1,7 +1,7 @@
 <div class='wrapper wrapper-content animated fadeInRight'>
   <div class='row m-b-md'>
     <div class='col-sm-12'>
-      <%= form_tag(path, method: :get, class: 'form-inline') do %>
+      <%= form_tag(path, method: :get, class: 'form-inline', remote: true) do %>
         <div class='row'>
           <div class='col-sm-3'>
             <%= text_field_tag :date, nil, placeholder: 'Select Date', class: 'form-control date-field', required: true %>
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class='row'>
+  <div class='row list-view'>
     <div class='col-sm-12'>
       <div class='ibox float-e-margins'>
         <div class='ibox-title'>

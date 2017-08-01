@@ -56,6 +56,10 @@ class Administrator::GuardiansController < ApplicationController
     render json: Guardian.all
   end
 
+  def autocomplete
+    render json: Guardian.search(params[:search], fields: ["first_name", "last_name"], load: false, misspellings: {below: 5}, limit: 10).map{|guardian| {search: [guardian.first_name, ' ', guardian.last_name].join}}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_guardian

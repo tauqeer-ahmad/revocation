@@ -1,12 +1,22 @@
 class Administrator::PinBoardController < ApplicationController
-  def landing
+  def show
   end
 
-  def create_note
-    @note = current_user.notes.create(heading: params[:heading], description: params[:description], color: params[:color])
+  def create
+    @note = current_user.notes.create(note_params)
   end
 
-  def delete_note
+  def destroy
     current_user.notes.find(params[:note_id]).delete
   end
+
+  def update
+    @note = current_user.notes.find(params[:note_id])
+    @note.update(note_params)
+  end
+
+  private
+    def note_params
+      params.require(:note).permit(:heading, :description, :color)
+    end
 end

@@ -64,6 +64,9 @@ class Administrator::KlassesController < ApplicationController
     render json: @sections.map { |section| section.as_json(:only => [:id, :name]) }
   end
 
+  def autocomplete
+    render json: Klass.search(params[:search], fields: ["name"], load: false, misspellings: {below: 5}, limit: 10).map{|klass| {search: klass.name}}
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

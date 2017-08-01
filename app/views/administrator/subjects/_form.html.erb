@@ -6,15 +6,13 @@
           <h5>Add a subject <small> Please fill the details correctly</small></h5>
         </div>
         <div class="ibox-content">
-          <%= simple_form_for([:administrator, subject], validate: true, html: {class: "form-horizontal"}) do |f| %>
-            <%= f.error_notification %>
-
+          <%= form_for([:administrator, subject], html: {class: 'form-horizontal'}) do |f| %>
             <div class='form-inputs'>
               <div class='form-group'>
                 <div class='col-sm-4'></div>
 
                 <div class='col-sm-4'>
-                  <%= f.input :name, label: false, placeholder: 'Name', input_html: { class: 'form-control' } %>
+                  <%= f.text_field :name, required: true, placeholder: 'Name', class: 'form-control' %>
                 </div>
 
                 <div class='col-sm-4'></div>
@@ -26,7 +24,25 @@
                 <div class='col-sm-4'></div>
 
                 <div class='col-sm-4'>
-                  <%= f.input :description, label: false, placeholder: 'Description', input_html: { class: 'form-control' } %>
+                  <%= f.text_field :description, placeholder: 'Description', class: 'form-control' %>
+                </div>
+
+                <div class='col-sm-4'></div>
+              </div>
+            </div>
+
+            <div class='form-inputs'>
+              <div class='form-group'>
+                <div class='col-sm-4'></div>
+
+                <div class='col-sm-4'>
+                  <%= f.color_field :color, class: 'input input-sm form-control color-field', list: 'colors' %>
+
+                  <datalist id='colors'>
+                    <% Subject::COLORS.each do |color| %>
+                      <option><%= color %></option>
+                    <% end %>
+                  </datalist>
                 </div>
 
                 <div class='col-sm-4'></div>

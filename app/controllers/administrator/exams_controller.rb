@@ -50,6 +50,10 @@ class Administrator::ExamsController < ApplicationController
     end
   end
 
+  def autocomplete
+    render json: Exam.search(params[:search], fields: ["name"], where: {term_id: current_term.id}, load: false, misspellings: {below: 5}, limit: 10).map{|exam| {search: exam.name}}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_exam

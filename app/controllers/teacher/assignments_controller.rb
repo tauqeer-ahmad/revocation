@@ -1,9 +1,13 @@
 class Teacher::AssignmentsController < ApplicationController
   before_action :set_assignment, only: [:edit, :update, :destroy]
-  before_action :set_class_section_subject, only: [:index, :edit]
+  before_action :set_class_section_subject, only: [:index, :edit, :new]
 
   def index
     @assignments = current_user.assignments.of_section(@section.id).of_subject(@subject.id).ordered
+    @assignment = Assignment.new(section_id: @section.id, subject_id: @subject.id)
+  end
+
+  def new
     @assignment = Assignment.new(section_id: @section.id, subject_id: @subject.id)
   end
 

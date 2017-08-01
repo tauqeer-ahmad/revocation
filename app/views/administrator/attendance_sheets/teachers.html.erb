@@ -1,7 +1,21 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Classes</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+      <li class="active">
+        <strong>Teacher's Attandance</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
 <div class='wrapper wrapper-content animated fadeInRight'>
   <div class='row m-b-md'>
     <div class='col-sm-12'>
-      <%= form_tag(managing_teachers_administrator_attendance_sheets_path, method: :get, class: 'form-inline') do %>
+      <%= form_tag(managing_teachers_administrator_attendance_sheets_path, method: :get, remote: true, class: 'form-inline') do %>
         <div class='row'>
           <div class='col-sm-3'>
             <%= text_field_tag :date, nil, class: 'form-control date-field', required: true %>
@@ -15,7 +29,7 @@
     </div>
   </div>
 
-  <div class='row'>
+  <div class='row list-view'>
     <div class='col-sm-12'>
       <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -49,10 +63,10 @@
                     <td class='text-center'><span class='badge badge-danger'><%= sheet.absent %></span></td>
                     <td class='text-center'><span class='badge badge-warning'><%= sheet.leave %></span></td>
                     <td>
-                      <%= link_to managing_teachers_administrator_attendance_sheets_path(date: sheet.name, section_id: sheet.section_id), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+                      <%= link_to managing_teachers_administrator_attendance_sheets_path(date: sheet.name, section_id: sheet.section_id), class: "btn btn-success btn-outline dim btn-xs", remote: true, data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
                         <i class="fa fa-eye"></i>
                       <% end %>
-                      <%= link_to administrator_attendance_sheet_path(sheet), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: @guardian.class.name }, title: 'Delete', method: :delete, confirm: 'Are you sure?' do %>
+                      <%= link_to administrator_attendance_sheet_path(sheet), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: sheet.class.name }, title: 'Delete' do %>
                         <i class="fa fa-trash-o"></i>
                       <% end %>
                     </td>
