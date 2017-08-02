@@ -4,14 +4,13 @@
 <%= render 'home/features' %>
 
 <% if @institution.present? %>
-  <%= render 'home/comments' %>
+  <%= render 'home/testimonials' %>
 <% else %>
   <%= render 'home/timeline' %>
 <% end %>
 
+<%= render 'home/testimonials' unless @institution.present? %>
 <%= render 'home/more_features' %>
-<%= render 'home/testimonials' %>
-<%= render 'home/extra_features' %>
 <%= render 'home/comments' unless @institution.present? %>
 <%= render 'home/pricing' unless @institution.present? %>
 <%= render 'home/contact' %>
