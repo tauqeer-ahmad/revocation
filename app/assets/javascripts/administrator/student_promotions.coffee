@@ -1,7 +1,7 @@
 load_promotion_sections = ->
   klass_id = $('.selectable_promotion_klass :selected').val()
-  unless klass_id
-    return $('.selectable_promotion_section').empty()
+  return unless klass_id
+  $('.selectable_promotion_section').empty()
 
   $.ajax "/administrator/classes/#{klass_id}/update_sections?initialized=true",
     type: 'GET'
