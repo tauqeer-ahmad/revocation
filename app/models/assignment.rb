@@ -21,7 +21,9 @@ class Assignment < ApplicationRecord
   end
 
   def self.assignment_events(current_user, current_term)
-    assignments = Assignment.of_section_and_term(current_user.sections.last.id, current_term.id)
+    student_section = current_user.sections.last
+    return unless student_section
+    assignments = Assignment.of_section_and_term(student_section.id, current_term.id)
 
     assignments.collect do |assignment|
       {

@@ -30,7 +30,9 @@ class Exam < ApplicationRecord
   end
 
   def self.exam_events(current_user, current_term)
-    exams = Exam.of_class_and_term(current_user.klasses.last.id, current_term.id)
+    student_klass = current_user.klasses.last
+    return unless student_klass
+    exams = Exam.of_class_and_term(student_klass.id, current_term.id)
 
     events = exams.collect do |exam|
                exam.exam_timetables.collect do |exam_timetable|
