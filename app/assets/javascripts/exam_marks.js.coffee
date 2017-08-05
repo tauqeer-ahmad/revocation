@@ -9,8 +9,8 @@ jQuery ->
   load_subjects = ->
     klass_id = $('.selectable_klass :selected').val()
     section_id = $('.selectable_section :selected').val()
-    unless section_id
-      return $('.selectable_subject').empty()
+    return false unless section_id
+    $('.selectable_subject').empty()
 
     $.ajax "/administrator/classes/#{klass_id}/sections/#{section_id}/update_subjects",
       type: 'GET'
@@ -27,9 +27,9 @@ jQuery ->
 
   load_sections = ->
     klass_id = $('.selectable_klass :selected').val()
-    unless klass_id
-      $('.selectable_section').empty()
-      return $('.selectable_subject').empty()
+    return false unless klass_id
+    $('.selectable_section').empty()
+    $('.selectable_subject').empty()
 
     $.ajax "/administrator/classes/#{klass_id}/update_sections",
       type: 'GET'

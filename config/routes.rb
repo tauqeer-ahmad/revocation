@@ -67,6 +67,7 @@ Revocation::Application.routes.draw do
     post :unlock_account, to: 'administrator/home#unlock_account'
 
     namespace :administrator do
+      resources :admissions, only: [:index, :new]
       resources :teachers do
         collection do
           post :bulk_insert
