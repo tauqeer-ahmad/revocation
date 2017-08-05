@@ -4,6 +4,12 @@ $info: #23c6c8;
 $danger: #ed5565;
 $warning: #f8ac59;
 
+$navy: #1ab394;
+$dark-gray: #c2c2c2;
+$blue: #1c84c6;
+$lazur: #23c6c8;
+$yellow: #f8ac59;
+$red: #ed5565;
 
 textarea {
   resize: none;
@@ -387,4 +393,29 @@ td.attendance-radio {
 
 .m-t-xs-20 {
   margin-top: 20px;
+}
+
+.navy-border {
+  border: 1px solid $navy;
+  color: $navy;
+}
+
+.lazur-border {
+  border: 1px solid $lazur;
+  color: $lazur;
+}
+
+.yellow-border {
+  border: 1px solid $yellow;
+  color: $yellow;
+}
+
+.btn-link {
+  color: $navy;
+}
+
+#term-details {
+  th, td {
+    text-align: center;
+  }
 }

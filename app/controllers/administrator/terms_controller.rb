@@ -8,7 +8,16 @@ class Administrator::TermsController < ApplicationController
   end
 
   def show
-    @klasses = Klass.all
+    @sections = Section.includes(
+                          :klass,
+                          :subjects,
+                          :teachers,
+                          :marksheets,
+                          :attendance_sheets,
+                          :assignments,
+                          :question_papers,
+                          :section_students
+                        ).where(term_id: @term.id)
   end
 
   def new
