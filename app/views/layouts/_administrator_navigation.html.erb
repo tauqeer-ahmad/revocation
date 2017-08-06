@@ -110,11 +110,15 @@
 
         <ul class='nav nav-second-level collapse'>
           <li class='<%= is_active_controller_action('administrator/attendance_sheets', 'teachers') %> <%= is_active_controller_action('administrator/attendance_sheets', 'managing_teachers') %>'>
-            <%= link_to 'Teacher', teachers_administrator_attendance_sheets_path %>
+            <%= link_to teachers_administrator_attendance_sheets_path do %>
+              <i class='fa fa-leanpub' aria-hidden='true'></i> Teachers
+            <% end %>
           </li>
 
           <li class='<%= is_active_controller_action('administrator/attendance_sheets', 'index') %> <%= is_active_controller_action('administrator/attendance_sheets', 'managing_students') %>'>
-            <%= link_to 'Students', administrator_attendance_sheets_path %>
+            <%= link_to administrator_attendance_sheets_path do %>
+              <i class='fa fa-users' aria-hidden='true'></i> Students
+            <% end %>
           </li>
         </ul>
       </li>
