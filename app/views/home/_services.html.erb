@@ -1,43 +1,49 @@
-<% if @institution.present? %>
-  <section id='services' class='container services m-t-lg'>
+<section id='services' class='container services m-t-lg no-padding'>
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <div class="navy-line"></div>
+      <h1>Members</h1>
+      <p>Users with their roles in our system</p>
+    </div>
+  </div>
+
+  <% if @institution.present? %>
     <div class='row'>
-      <div class='col-sm-3'>
+      <div class='col-sm-3 text-center'>
         <h2>
           <%= link_to 'Login as Admin', new_administrator_session_path, class: 'btn btn-success btn-lg' %>
         </h2>
-        <p>Login as Admin and manage everything of your institute.</p>
+        <p>Login as Admin to manage everything.</p>
       </div>
 
-      <div class='col-sm-3'>
+      <div class='col-sm-3 text-center'>
         <h2>
           <%= link_to 'Login as Teacher', new_teacher_session_path, class: 'btn btn-danger btn-lg' %>
         </h2>
-        <p>Login as Teacher and manage your sections.</p>
+        <p>Login as Teacher to manage your sections.</p>
       </div>
 
-      <div class='col-sm-3'>
+      <div class='col-sm-3 text-center'>
         <h2>
-          <%= link_to 'Login as Guardian', new_student_session_path, class: 'btn btn-primary btn-lg' %>
+          <%= link_to 'Login as Student', new_student_session_path, class: 'btn btn-info btn-lg' %>
         </h2>
-        <p>Login as Guardian and view all the statistics of your child(ren).</p>
+        <p>Login as Student to view all your statistics and online homework/assignments.</p>
       </div>
 
-      <div class='col-sm-3'>
+      <div class='col-sm-3 text-center'>
         <h2>
-          <%= link_to 'Login as Student', new_guardian_session_path, class: 'btn btn-info btn-lg' %>
+          <%= link_to 'Login as Guardian', new_guardian_session_path, class: 'btn btn-primary btn-lg' %>
         </h2>
-        <p>Login as Student and view all your statistics and online homework/assignments.</p>
+        <p>Login as Guardian to view all the statistics of your child(ren).</p>
       </div>
     </div>
-  </section>
-<% else %>
-  <section id='services' class='container services m-t-lg'>
+  <% else %>
     <div class='row text-center'>
       <div class='col-sm-3'>
         <h2>
           <%= button_tag 'Admin', type: :button, class: 'btn btn-success btn-lg' %>
         </h2>
-        <p>Admins can manage everything of an institute by using our application.</p>
+        <p>Admins can manage everything of an institute by using our Portal.</p>
       </div>
 
       <div class='col-sm-3'>
@@ -49,17 +55,17 @@
 
       <div class='col-sm-3'>
         <h2>
-          <%= button_tag 'Guardian', type: :button, class: 'btn btn-primary btn-lg' %>
-        </h2>
-        <p>Guardians can view all the statistics of thier child(ren).</p>
-      </div>
-
-      <div class='col-sm-3'>
-        <h2>
           <%= button_tag 'Student', type: :button, class: 'btn btn-info btn-lg' %>
         </h2>
         <p>Students can view all their statistics and online homework/assignments.</p>
       </div>
+
+      <div class='col-sm-3'>
+        <h2>
+          <%= button_tag 'Guardian', type: :button, class: 'btn btn-primary btn-lg' %>
+        </h2>
+        <p>Guardians can view all the statistics of their child(ren).</p>
+      </div>
     </div>
-  </section>
-<% end %>
+  <% end %>
+</section>

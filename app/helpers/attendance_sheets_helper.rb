@@ -4,6 +4,6 @@ module AttendanceSheetsHelper
   end
 
   def destroy_path(sheet)
-    current_user.teacher? ? attendance_sheets_path(sheet) : administrator_attendance_sheets_path(sheet)
+    current_user.teacher? ? attendance_sheet_path(sheet) : administrator_attendance_sheet_path(sheet)
   end
 end

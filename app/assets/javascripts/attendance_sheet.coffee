@@ -7,6 +7,10 @@ bind_date_field = ->
     todayHighlight: true
   $('.date-field').datepicker('setDate', today)
 
+bind_back_btn = ->
+  $('body').on 'click', '#back-btn', (event) ->
+    location.reload()
+
 (($) ->
   window.AttendanceSheet || (window.AttendanceSheet = {})
 
@@ -15,4 +19,5 @@ bind_date_field = ->
 
   init_controls = ->
     bind_date_field()
+    bind_back_btn()
 ).call(this)

@@ -12,7 +12,7 @@
         <% if @institution.present? && @institution.logo.present? %>
           <%= link_to image_tag(@institution.logo.url(:medium), width: 50, height: 50), nil, class: 'navbar-brand' %>
         <% else %>
-          <%= link_to image_tag('http://vignette3.wikia.nocookie.net/litschools/images/a/a1/Education_logo.png', width: 50, height: 50), nil, class: 'navbar-brand' %>
+          <%= link_to image_tag('revo-no-title-logo.png', width: 50, height: 50), nil, class: 'navbar-brand' %>
         <% end %>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
@@ -21,7 +21,7 @@
           <li><a class="page-scroll" href="#features">Features</a></li>
           <li><a class="page-scroll" href="#workflow">Workflow</a></li>
           <li><a class="page-scroll" href="#testimonials">Testimonials</a></li>
-          <li><a class="page-scroll" href="#pricing">Pricing</a></li>
+          <li><a class="page-scroll" href="#pricing">Plans</a></li>
           <li><a class="page-scroll" href="#contact">Contact</a></li>
         </ul>
       </div>

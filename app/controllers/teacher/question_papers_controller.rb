@@ -4,6 +4,12 @@ class Teacher::QuestionPapersController < ApplicationController
 
   def index
     @question_papers = current_user.question_papers.of_term(current_term.id).includes(:teacher, :subject, :klass, :section, :exam, :term)
+    @klasses = current_user.my_klasses
+    @sections, @subjects = [], []
+    @exams = current_term.exams.pluck(:name, :id)
+  end
+
+  def new
     @question_paper = QuestionPaper.new
     @klasses = current_user.my_klasses
     @sections, @subjects = [], []
