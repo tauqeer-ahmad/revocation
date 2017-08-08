@@ -1,14 +1,11 @@
 class Administrator::NoticesController < ApplicationController
-  before_action :set_notice, only: [:show, :edit, :update, :destroy]
+  before_action :set_notice, only: [:edit, :update, :destroy]
   before_action :set_klasses, only: [:index, :edit]
 
   def index
     @notices = Notice.lookup params[:search]
     @new_notice = Notice.new(notice_type: 'General')
     @sections = []
-  end
-
-  def show
   end
 
   def edit
@@ -31,7 +28,7 @@ class Administrator::NoticesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @notice.update(notice_params)
+      if @notice.update(notice_update_params)
         format.html { redirect_to administrator_notices_path, notice: 'Notice was successfully updated.' }
         format.json { render :show, status: :ok, location: @notice }
       else
@@ -66,5 +63,9 @@ class Administrator::NoticesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def notice_params
       params.require(:notice).permit(:title, :message, :notice_type, :klass_id, :section_id)
+    end
+
+    def notice_update_params
+      params.require(:notice).permit(:title, :message)
     end
 end

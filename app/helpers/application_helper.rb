@@ -114,4 +114,12 @@ module ApplicationHelper
     number_of_students = entries.collect(&:student_id).uniq.size
     calculate_average(total_sum, number_of_students)
   end
+
+  def notice_index_link(user)
+    if user.type_of == 'Administrator'
+      administrator_notices_path
+    else
+      notices_path
+    end
+  end
 end

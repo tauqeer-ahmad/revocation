@@ -17,10 +17,6 @@
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <h2>Notices</h2>
-          <p>
-            All Notices
-          </p>
           <div class="notice-list">
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Notices</a></li>
@@ -53,8 +49,8 @@
                             <td><%= notice.klass.try(:name) %></td>
                             <td><%= notice.section.try(:name) %></td>
                             <td>
-                              <%= link_to [:administrator, notice], class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
-                                <i class="fa fa-eye"></i>
+                              <%= link_to '#', class: 'btn btn-outline btn-success dim btn-xs', data: { toggle: 'modal', target: "#notice-modal-#{notice.id}" } do %>
+                                <i class="fa fa-eye "></i>
                               <% end %>
                               <%= link_to edit_administrator_notice_path(notice), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                                 <i class="fa fa-pencil-square-o"></i>
@@ -64,6 +60,7 @@
                               <% end %>
                             </td>
                           </tr>
+                          <%= render 'shared/notices/notices_message_modal', notice: notice %>
                         <% end %>
                       </tbody>
                     </table>
@@ -73,7 +70,7 @@
 
               <div id="tab-2" class="tab-pane">
                 <div class="full-height-scroll">
-                  <%= render 'form', notice: @new_notice %>
+                  <%= render 'form', { notice: @new_notice, edit: false } %>
                 </div>
               </div>
 
