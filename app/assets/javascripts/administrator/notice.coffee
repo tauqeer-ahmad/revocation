@@ -13,10 +13,7 @@ bind_class_change = ->
         $('#notice_section_id').empty()
       success: (data, textStatus, jqXHR) ->
         $('#notice_section_id').empty()
-        i = 0
-        while i < data.length
-          $('#notice_section_id').append(new Option(data[i].name, data[i].id))
-          i++
+        $('#notice_section_id').append(new Option(data[x].name, data[x].id)) for x in [0..(data.length)]
 
 enable_class = ->
   $('.class-specific').removeClass('hide')

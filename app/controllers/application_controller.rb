@@ -53,13 +53,13 @@ class ApplicationController < ActionController::Base
   def set_notices
     return if current_user.blank?
 
-    @new_notices_count = Notice.new_notice_count(selected_user, active_term, current_user.type_of)
+    @new_notices_count = Notice.new_notice_count(selected_user, active_term.id, current_user.type_of)
   end
 
   def latest_notices
     return if current_user.blank?
 
-    @latest_notices = Notice.latest_notices(selected_user, active_term, current_user.type_of)
+    @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
 
   private

@@ -103,7 +103,7 @@ Revocation::Application.routes.draw do
 
       resources :notices, except: [:new, :show] do
         collection do
-         get :autocomplete
+          get :autocomplete
         end
       end
 
@@ -208,7 +208,7 @@ Revocation::Application.routes.draw do
 
       resources :notices, only: :index do
         collection do
-         get :autocomplete
+          get :autocomplete
         end
       end
     end
@@ -227,7 +227,7 @@ Revocation::Application.routes.draw do
 
       resources :notices, only: :index do
         collection do
-         get :autocomplete
+          get :autocomplete
         end
       end
     end
@@ -241,14 +241,14 @@ Revocation::Application.routes.draw do
 
       post :select_student, to: 'home#select_student'
 
-      resource :attendance, controller: :attendance, only: [] do
+      resource :attendance, controller: :attendance_sheetsdance, only: [] do
         get :report
       end
       resources :assignments, only: [:index]
 
       resources :notices, only: :index do
         collection do
-         get :autocomplete
+          get :autocomplete
         end
       end
     end

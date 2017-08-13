@@ -116,7 +116,7 @@ module ApplicationHelper
   end
 
   def notice_index_link(user)
-    if user.type_of == 'Administrator'
+    if user.administrator?
       administrator_notices_path
     else
       notices_path
