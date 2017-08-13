@@ -2,13 +2,16 @@ class Guardian::HomeController < ApplicationController
   layout 'empty', only: [:lock_account]
 
   before_action :validate_selected_student, only: :select_student
+  skip_before_action :check_selected_student
 
   def index
-    gon.attendance_events = Attendance.attendance_events(selected_student, current_term)
+    if selected_student.present?
+      gon.attendance_events = Attendance.attendance_events(selected_student, current_term)
 
-    gon.assignment_events = Assignment.assignment_events(selected_student, current_term)
+      gon.assignment_events = Assignment.assignment_events(selected_student, current_term)
 
-    gon.exam_events       = Exam.exam_events(selected_student, current_term)
+      gon.exam_events       = Exam.exam_events(selected_student, current_term)
+    end
   end
 
   def select_student

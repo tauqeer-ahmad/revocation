@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user, :user_signed_in?, :current_term, :active_term, :selected_student
   before_action :check_locked_account
+  before_action :check_selected_student, unless: :devise_controller?
 
   add_flash_types :error
   layout :layout_by_resource
@@ -22,6 +23,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_selected_student
+    if current_user && current_user.guardian? && selected_student.blank?
+      redirect_to root_path
+    end
+  end
+
   def selected_student
     return @selected_student if @selected_student && @selected_student.id == session[:selected_student]
 
@@ -29,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def selected_user
-    current_user.type_of == 'Guardian' ? selected_student : current_user
+    current_user.guardian? ? selected_student : current_user
   end
 
   def allocate_term
