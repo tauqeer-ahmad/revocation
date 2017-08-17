@@ -103,6 +103,11 @@ feedback_model_hide_trigger = ->
     $('#feedback-model-trigger').on 'focus', ->
       $(this).blur()
 
+bind_select2 = ->
+  $('.select2_dropdown').select2
+    theme: 'bootstrap'
+    width: '100%'
+
 $ ->
   bind_destroy_alert()
   display_uploaded_image()
@@ -110,3 +115,4 @@ $ ->
   set_clipboard()
   bind_note_double_click_edit()
   feedback_model_hide_trigger()
+  bind_select2()
