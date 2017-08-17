@@ -25,7 +25,7 @@
           <div class="file-manager">
           <h5>Class Selection</h5>
           <div class="hr-line-dashed"></div>
-          <ul class="folder-list" style="padding: 0">
+          <ul class="folder-list no-padding">
             <% @klasses.each_with_index do |klass, index| %>
               <li id="klass_link_<%= klass.id %>" class='klass-selection-list <%= "active" if klass.id == @klass.id %>'>
                 <%= link_to fetch_administrator_klass_sections_path(klass), remote: true do %>
