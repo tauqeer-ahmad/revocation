@@ -14,6 +14,10 @@ class Api::V1::BaseController < ActionController::API
     render json: { message: message }.to_json, status: :ok
   end
 
+  def unauthorized_response(message)
+    render json: {message: message}.to_json, status: :unauthorized
+  end
+
  def current_user
     @current_user ||= authenticate_token
   end
@@ -22,10 +26,14 @@ class Api::V1::BaseController < ActionController::API
     authenticate_token || render_unauthorized("Unauthorized access")
   end
 
+  def current_term
+    @current_term ||= Term.active_term
+  end
+
   protected
 
   def render_unauthorized(message)
-    render json: {message: message}, status: :unauthorized
+    render json: {message: message}.to_json, status: :unauthorized
   end
 
   private
