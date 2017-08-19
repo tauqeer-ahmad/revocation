@@ -1,5 +1,11 @@
 class ExamSerializer < ActiveModel::Serializer
-  attributes :name, :start_date, :comment
+  include Rails.application.routes.url_helpers
+  attributes :id, :name, :start_date, :comment, :created_at, :updated_at, :links
 
-  has_many :exam_marks
+  def links
+    {
+      results: results_api_student_exam_path(object),
+      timetable: api_student_exam_path(object)
+    }
+  end
 end

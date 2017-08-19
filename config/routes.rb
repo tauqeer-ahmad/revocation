@@ -26,7 +26,11 @@ Revocation::Application.routes.draw do
       end
 
       namespace :student do
-        resources :results, only: [:index]
+        resources :exams, only: [:index, :show] do
+          member do
+            get :results
+          end
+        end
         resources :timetables, only: [:index]
       end
     end
