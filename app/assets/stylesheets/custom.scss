@@ -1,0 +1,25 @@
+#left-section {
+  .ibox {
+    margin-bottom: 0
+  }
+
+  .clients-list {
+    overflow: visible;
+    height: 635px;
+    overflow: auto;
+    margin-bottom: 25px;
+
+    .tab-pane {
+      height: inherit;
+    }
+  }
+}
+
+.client-detail {
+  height: inherit;
+}
+
+button[data-dismiss='modal'] {
+  position: absolute;
+  right: 20px;
+}

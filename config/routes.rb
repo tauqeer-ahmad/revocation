@@ -76,6 +76,7 @@ Revocation::Application.routes.draw do
     post :unlock_account, to: 'administrator/home#unlock_account'
 
     namespace :administrator do
+      resources :admissions, only: [:index, :new]
       resources :teachers do
         collection do
           post :bulk_insert
@@ -181,6 +182,8 @@ Revocation::Application.routes.draw do
 
   authenticated :teacher do
     scope module: :teacher do
+      get :lock_account, to: 'home#lock_account'
+      post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
 
       resources :attendance_sheets, only: [:index, :update, :destroy] do
@@ -210,6 +213,8 @@ Revocation::Application.routes.draw do
 
   authenticated :student do
     scope module: :student do
+      get :lock_account, to: 'home#lock_account'
+      post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
 
       resource :attendance, controller: :attendance, only: [] do
@@ -221,6 +226,8 @@ Revocation::Application.routes.draw do
 
   authenticated :guardian do
     scope module: :guardian do
+      get :lock_account, to: 'home#lock_account'
+      post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
 
       post :select_student, to: 'home#select_student'
