@@ -49,4 +49,12 @@ class Timetable < ApplicationRecord
   def subject_name
     subject.try(:name)
   end
+
+  def klass_name
+    klass.try(:name)
+  end
+
+  def section_name
+    section.try(:name)
+  end
 end
