@@ -1,5 +1,6 @@
 class Api::V1::BaseController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :require_login
 
   respond_to :json
@@ -28,6 +29,10 @@ class Api::V1::BaseController < ActionController::API
 
   def current_term
     @current_term ||= Term.active_term
+  end
+  
+  def record_not_found
+    render json: { message: 'Record not found' }, status: 404
   end
 
   protected

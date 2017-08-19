@@ -1,5 +1,5 @@
 class Api::V1::Student::ExamsController < Api::V1::Student::StudentBaseController
-  before_action :set_exam, only: [:show]
+  before_action :set_exam, only: [:show, :results]
   def index
     @exams = current_term.exams
     render json: @exams
@@ -18,5 +18,6 @@ class Api::V1::Student::ExamsController < Api::V1::Student::StudentBaseControlle
   private
   def set_exam
     @exams = current_term.exams.where(id: params[:id])
+    return record_not_found if @exams.blank?
   end
 end
