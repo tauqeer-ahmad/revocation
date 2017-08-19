@@ -212,6 +212,7 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
+      resources :results, only: [:index]
     end
   end
 
