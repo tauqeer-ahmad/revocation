@@ -456,3 +456,17 @@ td.attendance-radio {
   font-size: 26px;
   color: $danger;
 }
+
+.custom_timetable-widget {
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+
+.vertical-middle {
+  vertical-align: middle !important;
+}
+
+.timetabe-day-cell {
+  height: 100px;
+  width:100px;
+}

@@ -39,6 +39,11 @@
         <% end %>
       </li>
 
+      <li class="<%= is_active_controller_action('student/timetables', 'index') %>">
+        <%= link_to class_routine_index_path do %>
+          <i class="fa fa-tachometer"></i> <span class="nav-label">Class Routine</span>
+        <% end %>
+      </li>
       <li class="<%= is_active_controller_action('student/attendance', 'report') %>">
         <%= link_to report_attendance_path do %>
           <i class="fa fa-calendar"></i> <span class="nav-label">Attendance Report</span>

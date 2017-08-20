@@ -213,6 +213,7 @@ Revocation::Application.routes.draw do
       end
       resources :assignments, only: [:index]
       resources :results, only: [:index]
+      resources :timetables, only: [:index], as: :class_routine, path: :class_routine
     end
   end
 
