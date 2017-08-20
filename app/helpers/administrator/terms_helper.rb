@@ -1,8 +1,8 @@
 module Administrator::TermsHelper
   def term_class(term)
-    return 'navy-bg' if term.completed?
-    return 'lazur-bg' if term.active?
-    return 'yellow-bg' if term.initialized?
+    return 'navy-border' if term.completed?
+    return 'lazur-border' if term.active?
+    return 'yellow-border' if term.initialized?
   end
 
   def term_text_class(term)

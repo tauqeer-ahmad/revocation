@@ -1,5 +1,5 @@
 <%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal' } do %>
-  <i class='fa fa-bar-chart'></i> <%= text %>
+  <i class='fa fa-bar-chart' data-toggle='tooltip' title='Results' data-placement='top'></i> <%= text %>
 <% end %>
 
 <div id='results-<%= student.id %>' class='modal fade' role='dialog'>

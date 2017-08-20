@@ -1,76 +1,83 @@
-<%= simple_nested_form_for([:administrator, @klass, section], validate: true, html: {class: "form-horizontal"}) do |f| %>
+<%= simple_nested_form_for([:administrator, @klass, section], validate: true, html: {class: 'form-horizontal'}) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Name</label>
-      <div class="col-sm-10">
-        <%= f.input :name, label: false, presence: true, input_html: { class: "form-control"} %>
+  <div class='form-inputs'>
+    <div class='form-group'>
+      <label class='col-sm-2 control-label'>Name</label>
+      <div class='col-sm-10'>
+        <%= f.input :name, label: false, presence: true, input_html: { class: 'form-control'} %>
       </div>
     </div>
   </div>
 
-  <div class="form-inputs">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Nickname</label>
-      <div class="col-sm-10">
-        <%= f.input :nickname, label: false, input_html: { class: "form-control"} %>
-      </div>
-    </div>
-  </div>
-  
-  <div class="form-inputs">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Select Section Incharge</label>
-      <div class="col-sm-10">
-        <%= f.input :incharge_id, label: false, collection: @teachers, input_html: { class: "form-control"}, prompt: "Select Section Teacher" %>
+  <div class='form-inputs'>
+    <div class='form-group'>
+      <label class='col-sm-2 control-label'>Nickname</label>
+      <div class='col-sm-10'>
+        <%= f.input :nickname, label: false, input_html: { class: 'form-control'} %>
       </div>
     </div>
   </div>
 
-  <div class="ibox-title">
+  <div class='form-inputs'>
+    <div class='form-group'>
+      <label class='col-sm-2 control-label'>Select Section Incharge</label>
+      <div class='col-sm-10'>
+        <%= f.input :incharge_id, label: false, collection: @teachers, input_html: { class: 'form-control select2_dropdown'}, prompt: 'Select Incharge' %>
+      </div>
+    </div>
+  </div>
+
+  <hr class='hr-line-dashed'>
+
+  <div class='text-center m-b-lg'>
     <h2>Section Subjects</h2>
   </div>
-  
+
   <%= f.simple_fields_for :section_subject_teachers do |sst| %>
     <%= sst.hidden_field :klass_id, {value: @klass.id} %>
     <%= sst.hidden_field :term_id, {value: current_term.id} %>
-    <div class="ibox float-e-margins">
-      <div class="ibox-title">
-        <h5>New Subject</h5>
-      </div>
-      <div class="ibox-content">
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Select subject</label>
-          <div class="col-sm-9">
-            <%= sst.input :subject_id, label: false, collection: @subjects, input_html: { class: "form-control"}, prompt: "Select Subject" %>
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label class="col-sm-3 control-label">Select Teacher</label>
-          <div class="col-sm-9">
-            <%= sst.input :teacher_id, label: false, collection: @teachers, input_html: { class: "form-control"}, prompt: "Select Subject Teacher" %>
+    <div id='section-subject-fields' class='ibox float-e-margins'>
+      <div class='form-group'>
+        <div class='row'>
+          <div class='col-sm-3 col-sm-offset-3'>
+            <%= sst.input :subject_id, label: false, collection: @subjects, input_html: { class: 'form-control'}, prompt: 'Select Subject' %>
           </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-12">
-          <%= sst.link_to_remove do %>
-            <i class="fa fa-trash btn btn-danger pull-right"></i>
-          <% end %>
+
+          <div class='col-sm-3'>
+            <%= sst.input :teacher_id, label: false, collection: @teachers, input_html: { class: 'form-control'}, prompt: 'Select Teacher' %>
+          </div>
+
+          <div class='col-sm-1'>
+            <%= sst.link_to_remove do %>
+              <i class='fa fa-trash btn btn-danger pull-left'></i>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-    
+
+    <hr>
   <% end %>
-  <%= f.link_to_add :section_subject_teachers, class: "btn btn-primary" do %>
-    <i class="fa fa-plus"></i> Add New Subject
-  <% end %>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <%= f.submit class: "btn btn-primary pull-right" do %>
-        <i class="fa fa-check">&nbsp;Submit
+
+  <div class='clearfix'></div>
+
+  <div class='form-group text-center'>
+    <div class='row'>
+      <div class='col-sm-12'>
+        <%= f.link_to_add :section_subject_teachers, class: 'btn btn-info' do %>
+          <i class='fa fa-plus'></i> Add Subject
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class='form-group m-t-lg'>
+    <div class='col-sm-12 text-center'>
+      <%= f.submit class: 'btn btn-primary btn-lg' do %>
+        <i class='fa fa-check'>&nbsp;Submit
       <% end %>
     </div>
   </div>
