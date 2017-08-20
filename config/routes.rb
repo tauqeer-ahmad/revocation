@@ -241,7 +241,7 @@ Revocation::Application.routes.draw do
 
       post :select_student, to: 'home#select_student'
 
-      resource :attendance, controller: :attendance_sheetsdance, only: [] do
+      resource :attendance, controller: :attendance, only: [] do
         get :report
       end
       resources :assignments, only: [:index]
