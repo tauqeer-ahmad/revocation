@@ -7,11 +7,11 @@ class Api::V1::BaseController < ActionController::API
   def error_response(message, errors={})
     response = {message: message}
     response.merge!({errors: errors}) if errors.present?
-    render status: :unprocessable_entity, json: response
+    render status: :unprocessable_entity, json: response.to_json
   end
 
   def success_response(message)
-    render status: :success, json: { message: message }
+    render json: { message: message }.to_json, status: :ok
   end
 
  def current_user

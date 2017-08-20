@@ -20,6 +20,7 @@ class Marksheet < ApplicationRecord
       section_name: section.name,
       exam_name: exam.name,
       subject_name: subject.name,
+      term_id: term_id,
     })
   end
 end

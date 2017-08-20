@@ -4,6 +4,12 @@ $info: #23c6c8;
 $danger: #ed5565;
 $warning: #f8ac59;
 
+$navy: #1ab394;
+$dark-gray: #c2c2c2;
+$blue: #1c84c6;
+$lazur: #23c6c8;
+$yellow: #f8ac59;
+$red: #ed5565;
 
 textarea {
   resize: none;
@@ -357,7 +363,7 @@ td.attendance-radio {
 }
 
 .folder-list li i {
-  color: #f8ac59 !important;
+  color: #676a6c !important;
 }
 
 .folder-list li a {
@@ -368,7 +374,7 @@ td.attendance-radio {
 
 .folder-list li.active a {
   background-color: #e6e6e6;
-  color: #676a6c;
+  color: $primary;
 }
 
 .folder-list li.active i {
@@ -387,4 +393,61 @@ td.attendance-radio {
 
 .m-t-xs-20 {
   margin-top: 20px;
+}
+
+.navy-border {
+  border: 1px solid $navy;
+  color: $navy;
+}
+
+.lazur-border {
+  border: 1px solid $lazur;
+  color: $lazur;
+}
+
+.yellow-border {
+  border: 1px solid $yellow;
+  color: $yellow;
+}
+
+.btn-link {
+  color: $navy;
+}
+
+#term-details {
+  th, td {
+    text-align: center;
+  }
+}
+    
+.text-primary {
+  color: $primary;
+}
+
+.text-success {
+  color: $success;
+}
+
+.text-info {
+  color: $info;
+}
+
+.text-danger {
+  color: $danger;
+}
+
+.text-warning {
+  color: $warning;
+}
+
+.ibox-head-link {
+  font-size: 120%;
+  font-weight: 900;
+  line-height: 15px;
+}
+
+#section-subject-fields {
+  i.btn-danger {
+    padding: 10px 15px;
+  }
 }

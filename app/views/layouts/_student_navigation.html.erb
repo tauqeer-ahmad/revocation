@@ -21,7 +21,10 @@
             <li><a href="">Mailbox</a>
             </li>
             <li class="divider"></li>
-            <li><a href="">Logout</a>
+            <li>
+              <%= link_to(get_logout_path(current_user), :method => :delete) do %>
+                <i class='fa fa-sign-out'></i> Logout
+              <% end %>
             </li>
           </ul>
         </div>

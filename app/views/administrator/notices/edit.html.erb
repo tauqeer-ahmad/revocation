@@ -1,0 +1,22 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Notice update</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to "Home", root_path %>
+      </li>
+      <li>
+        <%= link_to "Notice Board", administrator_notices_path %>
+      </li>
+      <li class="active">
+        <strong>Edit Notice</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<%= render 'form', { notice: @notice, edit: true } %>
+
+<% content_for :javascript do %>
+  Notice.init();
+<% end %>
