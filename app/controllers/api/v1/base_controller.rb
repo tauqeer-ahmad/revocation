@@ -23,6 +23,10 @@ class Api::V1::BaseController < ActionController::API
     @current_user ||= authenticate_token
   end
 
+  def selected_user
+    current_user.guardian? ? selected_student : current_user
+  end
+
   def require_login
     authenticate_token || render_unauthorized("Unauthorized access")
   end
