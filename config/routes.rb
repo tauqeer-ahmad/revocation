@@ -33,6 +33,7 @@ Revocation::Application.routes.draw do
         end
         resources :timetables, only: [:index]
         resources :attendances, only: [:index]
+        resources :assignments, only: [:index, :show]
       end
     end
 
