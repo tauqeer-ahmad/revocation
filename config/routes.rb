@@ -101,6 +101,12 @@ Revocation::Application.routes.draw do
         end
       end
 
+      resources :notices, except: [:new, :show] do
+        collection do
+          get :autocomplete
+        end
+      end
+
       resources :subjects do
         collection do
           post :bulk_insert
@@ -199,6 +205,12 @@ Revocation::Application.routes.draw do
       end
 
       resources :question_papers
+
+      resources :notices, only: :index do
+        collection do
+          get :autocomplete
+        end
+      end
     end
   end
 
@@ -212,6 +224,12 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
+
+      resources :notices, only: :index do
+        collection do
+          get :autocomplete
+        end
+      end
     end
   end
 
@@ -227,6 +245,12 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
+
+      resources :notices, only: :index do
+        collection do
+          get :autocomplete
+        end
+      end
     end
   end
 

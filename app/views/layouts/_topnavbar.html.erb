@@ -99,47 +99,27 @@
 
       <li class='dropdown'>
         <a class='dropdown-toggle count-info' data-toggle='dropdown' href='#'>
-          <i class='fa fa-bell'></i>  <span class='label label-primary'>8</span>
+          <i class='fa fa-bell'></i>  <span class='label label-primary'><%= @new_notices_count %></span>
         </a>
 
         <ul class='dropdown-menu dropdown-alerts'>
-          <li>
-            <a href='#'>
-              <div>
-                <i class='fa fa-envelope fa-fw'></i> You have 16 messages
-                <span class='pull-right text-muted small'>4 minutes ago</span>
-              </div>
-            </a>
-          </li>
-          <li class='divider'></li>
-          <li>
-            <a href='#'>
-              <div>
-                <i class='fa fa-twitter fa-fw'></i> 3 New Followers
-                <span class='pull-right text-muted small'>12 minutes ago</span>
-              </div>
-            </a>
-          </li>
-
-          <li class='divider'></li>
-
-          <li>
-            <a href='#'>
-              <div>
-                <i class='fa fa-upload fa-fw'></i> Server Rebooted
-                <span class='pull-right text-muted small'>4 minutes ago</span>
-              </div>
-            </a>
-          </li>
-
-          <li class='divider'></li>
-
+          <% @latest_notices.each do |notice| %>
+            <li>
+              <a href='#'>
+                <div>
+                  <i class='fa fa-bell-o fa-fw'></i><%= notice.title.truncate(25) %>
+                  <span class='pull-right text-muted small'><%= time_ago_in_words(notice.created_at) %></span>
+                </div>
+              </a>
+            </li>
+            <li class='divider'></li>
+          <% end %>
           <li>
             <div class='text-center link-block'>
-              <a href='#'>
-                <strong>See All Alerts</strong>
+              <%= link_to notice_index_link(current_user) do %>
+                <strong>See All Notifications</strong>
                 <i class='fa fa-angle-right'></i>
-              </a>
+              <% end %>
             </div>
           </li>
         </ul>
