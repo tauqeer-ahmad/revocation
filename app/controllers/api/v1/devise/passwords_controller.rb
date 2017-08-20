@@ -20,7 +20,7 @@ class Api::V1::Devise::PasswordsController < Api::V1::BaseController
 
     if resource.errors.empty?
       resource.regenerate_access_token
-      render json: resource, serializer: LoginSuccessSerializer, subdomain: request.subdomain, institution: Institution.current.name
+      render json: resource, serializer: LoginSuccessSerializer, subdomain: request.subdomain, institution: Institution.current.name, adapter: :attributes
     else
       error_response('', resource.errors.messages)
     end

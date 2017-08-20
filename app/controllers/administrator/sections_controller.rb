@@ -11,7 +11,7 @@ class Administrator::SectionsController < ApplicationController
     else
       @klass = @klasses.first
     end
-    @sections = @klass.sections.where(term_id: current_term.id)
+    @sections = @klass.sections.includes(:incharge).where(term_id: current_term.id)
   end
 
   def fetch

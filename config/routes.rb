@@ -24,6 +24,15 @@ Revocation::Application.routes.draw do
           delete 'guardians/logout', to: 'sessions#destroy'
         end
       end
+
+      namespace :student do
+        resources :exams, only: [:index, :show] do
+          member do
+            get :results
+          end
+        end
+        resources :timetables, only: [:index]
+      end
     end
 
   end
