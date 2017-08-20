@@ -35,22 +35,28 @@
           <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span>
         <% end %>
       </li>
-
-      <li class="<%= is_active_controller_action('guardian/attendance', 'report') %>">
-        <%= link_to report_attendance_path do %>
-          <i class="fa fa-calendar"></i> <span class="nav-label">Attendance Report</span>
-        <% end %>
-      </li>
-      <li class="<%= is_active_controller_action('guardian/assignments', 'index') %>">
-        <%= link_to assignments_path(section_id: selected_student.current_section(current_term.id)) do %>
-          <i class="fa fa-tasks"></i> <span class="nav-label">Assignments</span>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to '#', data: { toggle: 'modal', target: '#feedback-modal' }, id: 'feedback-model-trigger' do %>
-          <i class="fa fa-comments-o"></i> <span class="nav-label">Feedback</span>
-        <% end %>
-      </li>
+      <% if selected_student.present? %>
+        <li class="<%= is_active_controller_action('guardian/attendance', 'report') %>">
+          <%= link_to report_attendance_path do %>
+            <i class="fa fa-calendar"></i> <span class="nav-label">Attendance Report</span>
+          <% end %>
+        </li>
+        <li class="<%= is_active_controller_action('guardian/assignments', 'index') %>">
+          <%= link_to assignments_path(section_id: selected_student.current_section(current_term.id)) do %>
+            <i class="fa fa-tasks"></i> <span class="nav-label">Assignments</span>
+          <% end %>
+        </li>
+        <li class="<%= is_active_controller('guardian/exams') %>">
+          <%= link_to exams_path do %>
+            <i class="fa fa-list-alt" aria-hidden="true"></i> Exam List
+          <% end %>
+        </li>
+        <li>
+          <%= link_to '#', data: { toggle: 'modal', target: '#feedback-modal' }, id: 'feedback-model-trigger' do %>
+            <i class="fa fa-comments-o"></i> <span class="nav-label">Feedback</span>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>

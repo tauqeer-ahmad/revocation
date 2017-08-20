@@ -145,6 +145,9 @@ Revocation::Application.routes.draw do
         collection do
           get :autocomplete
         end
+        member do
+          post :status_update
+        end
         resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
       end
 
@@ -225,6 +228,12 @@ Revocation::Application.routes.draw do
       end
       resources :assignments, only: [:index]
 
+      resources :exams do
+        collection do
+          get :autocomplete
+        end
+      end
+
       resources :notices, only: :index do
         collection do
           get :autocomplete
@@ -245,6 +254,12 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
+
+      resources :exams do
+        collection do
+          get :autocomplete
+        end
+      end
 
       resources :notices, only: :index do
         collection do

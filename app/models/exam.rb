@@ -1,4 +1,5 @@
 class Exam < ApplicationRecord
+  include AASM
   include SearchWrapper
 
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
@@ -20,13 +21,31 @@ class Exam < ApplicationRecord
       name: name,
       start_date: start_date,
       term_id: term_id,
+      status: status,
     }
+  end
+
+  aasm requires_lock: true, column: 'status' do
+    state :initialized
+    state :activated
+
+    event :activate do
+      transitions from: [:initialized], to: :activated
+    end
+
+    event :reinitialize do
+      transitions from: [:activated], to: :initialized
+    end
   end
 
   def start_date
     date = self[:start_date]
     return nil unless date
     date.strftime("%d/%m/%Y")
+  end
+
+  def toggle_status
+    initialized? ? self.activate! : self.reinitialize!
   end
 
   def self.exam_events(current_user, current_term)

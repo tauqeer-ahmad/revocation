@@ -22,7 +22,7 @@ class User < ApplicationRecord
   validates :email, presence: { message: "First name field is required" }
 
   def self.type_ofs
-    %w(Administrator Teacher Student Parent Supervisor)
+    %w(Administrator Teacher Student Guardian Supervisor)
   end
 
   self.type_ofs.each do |classification|
