@@ -228,6 +228,11 @@ Revocation::Application.routes.draw do
 
   authenticated :student do
     scope module: :student do
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
