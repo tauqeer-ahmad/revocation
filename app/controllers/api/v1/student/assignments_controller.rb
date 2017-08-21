@@ -18,7 +18,6 @@ class Api::V1::Student::AssignmentsController < Api::V1::Student::StudentBaseCon
 
     def set_assignment
       @assignment = Assignment.find(params[:id])
-      return record_not_found if @assignment.blank?
       return unauthorized_response("Invalid Access") if @assignment.section_id != @section.id
     end
 end
