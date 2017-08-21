@@ -35,6 +35,19 @@ Revocation::Application.routes.draw do
         resources :attendances, only: [:index]
         resources :assignments, only: [:index, :show]
       end
+
+      namespace :guardian do
+        post :select_student, to: 'home#select_student'
+
+        resources :exams, only: [:index, :show] do
+          member do
+            get :results
+          end
+        end
+        resources :timetables, only: [:index]
+        resources :attendances, only: [:index]
+        resources :assignments, only: [:index, :show]
+      end
     end
 
   end

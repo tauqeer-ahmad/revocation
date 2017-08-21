@@ -23,6 +23,12 @@ class Api::V1::BaseController < ActionController::API
     @current_user ||= authenticate_token
   end
 
+  def selected_student
+    return @selected_student if @selected_student && @selected_student.id == session[:selected_student]
+
+    @selected_student = session[:selected_student] ? Student.find(session[:selected_student]) : current_user.children.first
+  end
+
   def selected_user
     current_user.guardian? ? selected_student : current_user
   end
