@@ -82,6 +82,11 @@ Revocation::Application.routes.draw do
     resources :remarks, only: [:create]
 
     namespace :administrator do
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
       resources :admissions, only: [:index, :new]
       resources :teachers do
         collection do
@@ -202,6 +207,12 @@ Revocation::Application.routes.draw do
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
+
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
 
       resources :attendance_sheets, only: [:index, :update, :destroy] do
         collection do
