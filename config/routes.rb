@@ -200,6 +200,12 @@ Revocation::Application.routes.draw do
       post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
 
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
+
       resources :attendance_sheets, only: [:index, :update, :destroy] do
         collection do
           get :managing_students
