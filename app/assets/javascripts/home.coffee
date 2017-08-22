@@ -69,7 +69,7 @@ bind_switch_term = ->
         swal 'Cancelled', "#{$(this).data('object')} is safe!", 'error'
 
 display_uploaded_image = ->
-  $('#teacher_avatar, #student_avatar, #guardian_avatar, #institution_logo').on 'change', (event) ->
+  $('#teacher_avatar, #student_avatar, #guardian_avatar, #institution_logo, #administrator_avatar').on 'change', (event) ->
     files = event.target.files
     image = files[0]
     reader = new FileReader
