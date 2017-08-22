@@ -59,6 +59,12 @@
           <i class="fa fa-comments-o"></i> <span class="nav-label">Feedback</span>
         <% end %>
       </li>
+
+      <li class="<%= is_active_controller_action('student/accounts', 'show') %>">
+        <%= link_to account_path do %>
+          <i class="fa fa-lock"></i> <span class="nav-label">Account</span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </nav>
