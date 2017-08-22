@@ -7,7 +7,7 @@ class Administrator::AccountsController < ApplicationController
   def update
     @user = Administrator.find(current_user.id)
     if @user.update(administrator_params)
-      redirect_to account_path, notice: "Your avatar has been updated successfully"
+      redirect_to administrator_account_path, notice: "Your avatar has been updated successfully"
     else
       flash[:alert] = @user.errors.full_messages.to_sentence
       render :show
@@ -18,7 +18,7 @@ class Administrator::AccountsController < ApplicationController
     @user = Administrator.find(current_user.id)
     if @user.update_with_password(administrator_password_params)
       sign_in(:administrator, @user, bypass: true)
-      redirect_to account_path, notice: "Your password has been updated successfully"
+      redirect_to administrator_account_path, notice: "Your password has been updated successfully"
     else
       flash[:alert] = @user.errors.full_messages.to_sentence
       render :show
