@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   layout 'splash'
 
   def index
+    @remarks = Remark.active.order('Random()').limit(Remark::LIMIT_FOR_LANDING)
   end
 
   def contact_us

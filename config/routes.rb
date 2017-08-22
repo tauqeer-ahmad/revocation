@@ -45,6 +45,9 @@ Revocation::Application.routes.draw do
 
   authenticated :admin_supervisor do
     root to: 'admin/home#index'
+
+    resources :remarks, only: [:index, :update, :destroy]
+
     namespace :admin do
       resources :institutions do
         resources :administrators
@@ -74,6 +77,9 @@ Revocation::Application.routes.draw do
     post :save_configuration, to: 'administrator/home#save_configuration'
     get :lock_account, to: 'administrator/home#lock_account'
     post :unlock_account, to: 'administrator/home#unlock_account'
+
+    resources :testimonials, only: [:index, :update, :destroy]
+    resources :remarks, only: [:create]
 
     namespace :administrator do
       resources :admissions, only: [:index, :new]
@@ -190,6 +196,8 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :teacher do
+    resources :testimonials, only: [:create]
+
     scope module: :teacher do
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
@@ -227,6 +235,8 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :student do
+    resources :testimonials, only: [:create]
+
     scope module: :student do
       resource :account, only: [:show, :update] do
         member do
@@ -257,6 +267,8 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :guardian do
+    resources :testimonials, only: [:create]
+
     scope module: :guardian do
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
@@ -282,8 +294,6 @@ Revocation::Application.routes.draw do
       end
     end
   end
-
-  resources :testimonials, only: [:index, :create, :update, :destroy]
 
   post :contact_us, to: 'home#contact_us'
   root to: 'home#index'
