@@ -149,7 +149,7 @@
 
                 <% if student.guardian.present? %>
                   <div class="client-detail">
-                    <div class="contact-box center-version">
+                    <div class="contact-box center-version no-margins">
                       <%= link_to administrator_guardian_path(student.guardian) do %>
                         <%= image_tag student.guardian.avatar.url(:thumb), class: 'img-circle' %>
 

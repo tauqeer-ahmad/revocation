@@ -18,3 +18,8 @@
 .client-detail {
   height: inherit;
 }
+
+button[data-dismiss='modal'] {
+  position: absolute;
+  right: 20px;
+}

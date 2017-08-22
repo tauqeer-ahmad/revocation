@@ -1,5 +1,6 @@
 class Api::V1::BaseController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :require_login
 
   respond_to :json
@@ -14,6 +15,10 @@ class Api::V1::BaseController < ActionController::API
     render json: { message: message }.to_json, status: :ok
   end
 
+  def unauthorized_response(message)
+    render json: {message: message}.to_json, status: :unauthorized
+  end
+
  def current_user
     @current_user ||= authenticate_token
   end
@@ -22,10 +27,18 @@ class Api::V1::BaseController < ActionController::API
     authenticate_token || render_unauthorized("Unauthorized access")
   end
 
+  def current_term
+    @current_term ||= Term.active_term
+  end
+  
+  def record_not_found
+    render json: { message: 'Record not found' }, status: 404
+  end
+
   protected
 
   def render_unauthorized(message)
-    render json: {message: message}, status: :unauthorized
+    render json: {message: message}.to_json, status: :unauthorized
   end
 
   private

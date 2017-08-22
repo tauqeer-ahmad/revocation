@@ -1,5 +1,5 @@
 class Administrator::ExamsController < ApplicationController
-  before_action :set_exam, only: [:show, :edit, :update, :destroy]
+  before_action :set_exam, only: [:show, :edit, :update, :destroy, :status_update]
 
   def index
     @exams = Exam.lookup params[:search], {term_id: current_term.id}
@@ -52,6 +52,11 @@ class Administrator::ExamsController < ApplicationController
 
   def autocomplete
     render json: Exam.search(params[:search], fields: ["name"], where: {term_id: current_term.id}, load: false, misspellings: {below: 5}, limit: 10).map{|exam| {search: exam.name}}
+  end
+
+  def status_update
+    @exam.toggle_status
+    redirect_to administrator_exams_url, notice: "Status changed to #{@exam.status.titleize}."
   end
 
   private

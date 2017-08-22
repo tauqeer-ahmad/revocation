@@ -1,0 +1,40 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Notice Board</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Home', root_path %>
+      </li>
+      <li class="active">
+        <strong>Guardian Notice Board</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <div class="notice-list">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i>Notices</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <%= render partial: 'shared/search_box', locals: {path: notices_path} %>
+                <%= render 'shared/notices/notices_table', notices: @notices %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  Notice.init();
+  enable_autocomplete('/notices');
+<% end %>

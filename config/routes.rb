@@ -24,6 +24,15 @@ Revocation::Application.routes.draw do
           delete 'guardians/logout', to: 'sessions#destroy'
         end
       end
+
+      namespace :student do
+        resources :exams, only: [:index, :show] do
+          member do
+            get :results
+          end
+        end
+        resources :timetables, only: [:index]
+      end
     end
 
   end
@@ -107,6 +116,12 @@ Revocation::Application.routes.draw do
         end
       end
 
+      resources :notices, except: [:new, :show] do
+        collection do
+          get :autocomplete
+        end
+      end
+
       resources :subjects do
         collection do
           post :bulk_insert
@@ -144,6 +159,9 @@ Revocation::Application.routes.draw do
       resources :exams do
         collection do
           get :autocomplete
+        end
+        member do
+          post :status_update
         end
         resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
       end
@@ -207,6 +225,12 @@ Revocation::Application.routes.draw do
       end
 
       resources :question_papers
+
+      resources :notices, only: :index do
+        collection do
+          get :autocomplete
+        end
+      end
     end
   end
 
@@ -214,6 +238,11 @@ Revocation::Application.routes.draw do
     resources :testimonials, only: [:create]
 
     scope module: :student do
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
@@ -222,6 +251,18 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
+
+      resources :exams do
+        collection do
+          get :autocomplete
+        end
+      end
+
+      resources :notices, only: :index do
+        collection do
+          get :autocomplete
+        end
+      end
     end
   end
 
@@ -239,6 +280,18 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
+
+      resources :exams do
+        collection do
+          get :autocomplete
+        end
+      end
+
+      resources :notices, only: :index do
+        collection do
+          get :autocomplete
+        end
+      end
     end
   end
 
