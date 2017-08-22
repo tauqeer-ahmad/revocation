@@ -10,18 +10,18 @@ class Student::AccountsController < ApplicationController
       redirect_to account_path, notice: "Your avatar has been updated successfully"
     else
       flash[:alert] = @user.errors.full_messages.to_sentence
-      render "show"
+      render :show
     end
   end
 
   def update_password
     @user = Student.find(current_user.id)
     if @user.update_with_password(student_password_params)
-      sign_in(:student, @user, :bypass => true)
+      sign_in(:student, @user, bypass: true)
       redirect_to account_path, notice: "Your password has been updated successfully"
     else
       flash[:alert] = @user.errors.full_messages.to_sentence
-      render "show"
+      render :show
     end
   end
 
@@ -37,7 +37,7 @@ class Student::AccountsController < ApplicationController
     def ensure_params
       if params[:student].blank?
         flash[:alert] = "No image selected"
-        render "show"
+        render :show
       end
     end
 end
