@@ -76,6 +76,11 @@ Revocation::Application.routes.draw do
     post :unlock_account, to: 'administrator/home#unlock_account'
 
     namespace :administrator do
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
       resources :admissions, only: [:index, :new]
       resources :teachers do
         collection do
