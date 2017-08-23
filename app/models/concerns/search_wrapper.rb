@@ -7,8 +7,13 @@ module SearchWrapper
     end
 
     def lookup(keyword, clause = {})
-      return where(clause).all unless keyword.present?
-      self.search keyword, where: clause
+      return all if keyword.blank? && clause.blank?
+
+      self.search search_key(keyword), where: clause
+    end
+
+    def search_key(keyword)
+      keyword.present? ? keyword : '*'
     end
   end
 end

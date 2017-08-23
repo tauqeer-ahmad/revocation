@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user, :user_signed_in?, :current_term, :active_term, :selected_student
   before_action :check_locked_account
+  before_action :check_selected_student, unless: :devise_controller?
+  before_action :set_notices
+  before_action :latest_notices
+
 
   add_flash_types :error
   layout :layout_by_resource
@@ -22,6 +26,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_selected_student
+    if current_user && current_user.guardian? && selected_student.blank?
+      redirect_to root_path
+    end
+  end
+
   def selected_student
     return @selected_student if @selected_student && @selected_student.id == session[:selected_student]
 
@@ -29,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def selected_user
-    current_user.type_of == 'Guardian' ? selected_student : current_user
+    current_user.guardian? ? selected_student : current_user
   end
 
   def allocate_term
@@ -46,6 +56,18 @@ class ApplicationController < ActionController::Base
 
   def user_signed_in?
     current_teacher.present? || current_administrator.present? || current_student.present? || current_guardian.present? || current_admin_supervisor.present?
+  end
+
+  def set_notices
+    return if current_user.blank?
+
+    @new_notices_count = Notice.new_notice_count(selected_user, active_term.id, current_user.type_of)
+  end
+
+  def latest_notices
+    return if current_user.blank?
+
+    @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
 
   private

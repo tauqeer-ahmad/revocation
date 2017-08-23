@@ -13,4 +13,16 @@ class ExamMark < ApplicationRecord
   def display_status
     obtained >= passing_marks ? "<span class='label label-primary'>Pass</span>".html_safe : "<span class='label label-danger'>Fail</span>".html_safe
   end
+
+  def klass_name
+    klass.name
+  end
+
+  def section_name
+    section.name
+  end
+
+  def subject_name
+    subject.name
+  end
 end

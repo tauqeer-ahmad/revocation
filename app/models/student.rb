@@ -48,7 +48,7 @@ class Student < User
   def current_section(term_id)
     sections.of_current_term(term_id).first
   end
-  
+
   def self.generate_registration_number(current_institution, current_term)
     loop do
       random_number = [current_institution.city.first(3), current_term.start_date.year, SecureRandom.hex(5)].join('-').upcase
