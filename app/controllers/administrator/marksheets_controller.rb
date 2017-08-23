@@ -61,7 +61,7 @@ class Administrator::MarksheetsController < ApplicationController
     @section = Section.includes(:subjects).find(params[:section_id])
     @subjects = @section.subjects
     @exam = Exam.find(params[:exam_id])
-    @exam_marks = ExamMark.by_klass_section_exam(params[:exam_id], params[:klass_id], params[:section_id]).includes(:subject).group_by(&:student_id)
+    @exam_marks = ExamMark.by_klass_section_exam(params[:exam_id], params[:klass_id], params[:section_id]).includes(:student).group_by(&:student_id)
   end
 
   private
