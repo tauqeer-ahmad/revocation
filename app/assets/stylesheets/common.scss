@@ -452,6 +452,14 @@ td.attendance-radio {
   }
 }
 
+.color-white {
+  color: white;
+
+  &:hover, &:focus {
+    color: white;
+  }
+}
+
 .select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
   background-color: $primary;
 }
