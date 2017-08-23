@@ -2,7 +2,7 @@ class Student::AssignmentsController < ApplicationController
   before_action :validate_section, only: [:index]
 
   def index
-    @assignments = Assignment.of_section(params[:section_id]).includes(:subject, section: :klass).ordered
+    @assignments = Assignment.of_section(params[:section_id]).includes(:subject, section: :klass).activated.ordered
   end
 
   private

@@ -38,7 +38,7 @@
 
                 <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section_subject_teachers.section_id, subject: section_subject_teachers.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
 
-                <%= link_to("/assignments/list/#{section_subject_teachers.section.id}/#{section_subject_teachers.subject_id}", class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
+                <%= link_to(list_assignments_path(section_subject_teachers.section.id, section_subject_teachers.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
               </td>
             </tr>
           <% end %>

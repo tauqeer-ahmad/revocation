@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170730201430) do
+ActiveRecord::Schema.define(version: 20170823162447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 20170730201430) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "status"
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
+    t.index ["status"], name: "index_assignments_on_status", using: :btree
     t.index ["subject_id"], name: "index_assignments_on_subject_id", using: :btree
     t.index ["teacher_id"], name: "index_assignments_on_teacher_id", using: :btree
     t.index ["term_id"], name: "index_assignments_on_term_id", using: :btree
@@ -116,8 +118,9 @@ ActiveRecord::Schema.define(version: 20170730201430) do
     t.date     "start_date"
     t.text     "comment"
     t.integer  "term_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "status",     limit: 16
     t.index ["term_id"], name: "index_exams_on_term_id", using: :btree
   end
 
@@ -182,6 +185,18 @@ ActiveRecord::Schema.define(version: 20170730201430) do
     t.datetime "updated_at",                                  null: false
     t.string   "color",       limit: 7,   default: "#ffffcc"
     t.index ["user_id"], name: "index_notes_on_user_id", using: :btree
+  end
+
+  create_table "notices", force: :cascade do |t|
+    t.string   "title"
+    t.text     "message"
+    t.string   "notice_type"
+    t.integer  "klass_id"
+    t.integer  "section_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["klass_id"], name: "index_notices_on_klass_id", using: :btree
+    t.index ["section_id"], name: "index_notices_on_section_id", using: :btree
   end
 
   create_table "question_papers", force: :cascade do |t|
@@ -336,6 +351,8 @@ ActiveRecord::Schema.define(version: 20170730201430) do
   add_foreign_key "attendances", "attendance_sheets"
   add_foreign_key "attendances", "terms"
   add_foreign_key "notes", "users"
+  add_foreign_key "notices", "klasses"
+  add_foreign_key "notices", "sections"
   add_foreign_key "question_papers", "exams"
   add_foreign_key "question_papers", "klasses"
   add_foreign_key "question_papers", "sections"

@@ -68,9 +68,7 @@
                               <%= link_to administrator_exam_exam_timetables_path(exam), class: "btn btn-outline btn-info dim btn-xs" do %>
                                 <i class="fa fa-clock"></i> Manage Datesheet
                               <% end %>
-                              <%= link_to status_update_administrator_exam_path(exam), method: :post, class: "btn btn-outline #{exam_status_class(exam)} dim btn-xs" do %>
-                                <i class="fa fa-clock"></i> <%= exam_status(exam) %>
-                              <% end %>
+                              <%= link_to(status_update_administrator_exam_path(exam), method: :post, class: "btn btn-outline #{entity_status_class(exam)} dim btn-xs") { entity_status(exam) } %>
                             </td>
                           </tr>
                         <% end %>

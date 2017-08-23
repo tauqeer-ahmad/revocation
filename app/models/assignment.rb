@@ -1,4 +1,6 @@
 class Assignment < ApplicationRecord
+  include AASM
+
   belongs_to :teacher
   belongs_to :section
   belongs_to :subject
@@ -9,6 +11,19 @@ class Assignment < ApplicationRecord
   scope :ordered,    ->           { order(:submission_deadline) }
 
   scope :of_section_and_term, -> (section_id, term_id) { where(section_id: section_id, term_id: term_id) }
+
+  aasm requires_lock: true, column: 'status' do
+    state :initialized
+    state :activated
+
+    event :activate do
+      transitions from: [:initialized], to: :activated
+    end
+
+    event :reinitialize do
+      transitions from: [:activated], to: :initialized
+    end
+  end
 
   def get_assignment_color
     if Date.today == submission_deadline.to_date
@@ -34,5 +49,9 @@ class Assignment < ApplicationRecord
         allDay: true,
       }
     end
+  end
+
+  def toggle_status
+    initialized? ? self.activate! : self.reinitialize!
   end
 end
