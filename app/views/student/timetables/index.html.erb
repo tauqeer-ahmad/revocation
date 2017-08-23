@@ -32,7 +32,6 @@
                               <tr>
                                 <td class="timetabe-day-cell vertical-middle"><%= name %></td>
                                 <td>
-                                <% if @timetables[day].present? %>
                                   <% @timetables[day].each do |timetable| %>
                                     <div class="col-xs-3">
                                       <div class="custom_timetable-widget gray-bg">
@@ -52,8 +51,7 @@
                                         </ul>
                                       </div>
                                     </div>
-                                  <% end %>
-                                <% end %>
+                                  <% end if @timetables[day].present? %>
                                 </td>
                               </tr>
                             <% end %>
