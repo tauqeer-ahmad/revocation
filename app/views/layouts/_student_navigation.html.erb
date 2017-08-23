@@ -14,12 +14,7 @@
             </span>
           </a>
           <ul class="dropdown-menu animated fadeInRight m-t-xs">
-            <li><a href="">Profile</a>
-            </li>
-            <li><a href="">Contacts</a>
-            </li>
-            <li><a href="">Mailbox</a>
-            </li>
+            <li><%= link_to "Account", account_path %></li>
             <li class="divider"></li>
             <li>
               <%= link_to(get_logout_path(current_user), :method => :delete) do %>
@@ -57,12 +52,6 @@
       <li>
         <%= link_to '#', data: { toggle: 'modal', target: '#feedback-modal' }, id: 'feedback-model-trigger' do %>
           <i class="fa fa-comments-o"></i> <span class="nav-label">Feedback</span>
-        <% end %>
-      </li>
-
-      <li class="<%= is_active_controller_action('student/accounts', 'show') %>">
-        <%= link_to account_path do %>
-          <i class="fa fa-lock"></i> <span class="nav-label">Account</span>
         <% end %>
       </li>
     </ul>

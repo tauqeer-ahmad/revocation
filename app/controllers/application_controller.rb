@@ -69,6 +69,10 @@ class ApplicationController < ActionController::Base
 
     @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
+  
+  def authenticate_access!
+    authenticate_student! || authenticate_teacher! || authenticate_administrator! || authenticate_supervisor!
+  end
 
   private
     def layout_by_resource

@@ -34,10 +34,16 @@
                   </h2>
                 </div>
                 <%= image_tag current_user.avatar.url(:medium), class: "img-responsive img-circle circle-border m-b-md", alt: "profile" %>
+                <% if current_user.student? %>
+                  <div>
+                    <span><%= current_user.current_section(current_term.id).klass_name %></span> |
+                    <span><%= current_user.current_section(current_term.id).name %></span>
+                  </div>
+                <% end %>
               </div>
             </div>
             <div class="col-lg-6">
-              <%= form_for(current_user, as: current_user, url: administrator_account_path(), html: { method: :put, class: 'form-horizontal"' }) do |f| %>
+              <%= form_for(current_user, as: current_user, url: account_path(), html: { method: :put, class: 'form-horizontal"' }) do |f| %>
                 <div class='form-group'>
                   <label class='btn-bs-file btn btn-md btn-info'>
                     Select New Image
@@ -71,7 +77,7 @@
         </div>
         <div class="ibox-content">
           <h3 class="m-t-none m-b">Change Password</h3>
-          <%= form_for(current_user, as: current_user.class, url: update_password_administrator_account_path(), html: { method: :put, class: 'form-horizontal"' }) do |f| %>
+          <%= form_for(current_user, as: current_user.class, url: update_password_account_path(), html: { method: :put, class: 'form-horizontal"' }) do |f| %>
             <div class='form-group'>
               <%= f.password_field :current_password, autofocus: true, placeholder: 'Current Password', class: 'form-control' %>
               <i>(we need your current password to confirm your changes)</i>
