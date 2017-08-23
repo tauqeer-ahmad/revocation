@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    <%= render 'layouts/skinconfig' %>
     <div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
       <%= render "layouts/#{current_user.category}_navigation" if current_user.present? %>
 
