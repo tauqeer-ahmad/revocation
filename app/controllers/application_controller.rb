@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate_access!
-    authenticate_student! || authenticate_teacher! || authenticate_administrator! || authenticate_supervisor!
+    redirect_to :root, alert: "You need to login before you continue." unless current_user.present?
   end
 
   private
