@@ -19,7 +19,7 @@
   height: inherit;
 }
 
-button[data-dismiss='modal'] {
+button[data-dismiss='modal'] > span[aria-hidden='true'] {
   position: absolute;
   right: 20px;
 }
