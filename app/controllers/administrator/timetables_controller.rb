@@ -4,7 +4,7 @@ class Administrator::TimetablesController < ApplicationController
   before_action :set_new_timetable_data, only: [:index, :edit, :update]
 
   def index
-    @timetables = @section.timetables.by_bay_of_week
+    @timetables = @section.timetables.by_day_of_week
     @new_timetable = Timetable.new
     @days_hash = Timetable::DAYS
   end

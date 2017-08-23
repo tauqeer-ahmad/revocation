@@ -451,3 +451,22 @@ td.attendance-radio {
     padding: 10px 15px;
   }
 }
+
+.results-icon i{
+  font-size: 26px;
+  color: $danger;
+}
+
+.custom_timetable-widget {
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+
+.vertical-middle {
+  vertical-align: middle !important;
+}
+
+.timetabe-day-cell {
+  height: 100px;
+  width:100px;
+}
