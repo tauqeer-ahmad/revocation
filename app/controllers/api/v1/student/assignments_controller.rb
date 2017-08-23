@@ -8,7 +8,7 @@ class Api::V1::Student::AssignmentsController < Api::V1::Student::StudentBaseCon
   end
 
   def show
-    render json: @assignment, serializer: AssignmentSerializer
+    render json: @assignment, serializer: AssignmentDetailSerializer
   end
 
   private

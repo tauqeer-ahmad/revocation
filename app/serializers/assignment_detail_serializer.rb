@@ -1,5 +1,5 @@
-class AssignmentSerializer < ActiveModel::Serializer
-  attributes :id, :assigned_at, :submission_deadline, :heading, :teacher, :klass, :section, :subject
+class AssignmentDetailSerializer < ActiveModel::Serializer
+  attributes :id, :assigned_at, :submission_deadline, :heading, :task, :teacher, :klass, :section, :subject
 
   def teacher
     object.teacher.name

@@ -37,8 +37,6 @@ Revocation::Application.routes.draw do
       end
 
       namespace :guardian do
-        post :select_student, to: 'home#select_student'
-
         resources :exams, only: [:index, :show] do
           member do
             get :results

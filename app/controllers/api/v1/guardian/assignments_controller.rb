@@ -8,7 +8,7 @@ class Api::V1::Guardian::AssignmentsController < Api::V1::Guardian::GuardianBase
   end
 
   def show
-    render json: @assignment, serializer: AssignmentSerializer
+    render json: @assignment, serializer: AssignmentDetailSerializer
   end
 
   private
