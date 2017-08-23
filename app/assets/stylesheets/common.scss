@@ -419,7 +419,7 @@ td.attendance-radio {
     text-align: center;
   }
 }
-    
+
 .text-primary {
   color: $primary;
 }
@@ -449,5 +449,13 @@ td.attendance-radio {
 #section-subject-fields {
   i.btn-danger {
     padding: 10px 15px;
+  }
+}
+
+.color-white {
+  color: white;
+
+  &:hover, &:focus {
+    color: white;
   }
 }
