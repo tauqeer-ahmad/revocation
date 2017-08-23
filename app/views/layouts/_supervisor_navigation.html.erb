@@ -39,6 +39,11 @@
           <i class="fa fa-diamond"></i> <span class="nav-label">Institutions</span>
         <% end %>
       </li>
+      <li class="<%= is_active_controller_action('remarks', 'index') %>">
+        <%= link_to remarks_path do %>
+          <i class="fa fa-comments-o"></i> <span class="nav-label">Remarks</span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </nav>

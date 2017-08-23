@@ -12,115 +12,31 @@
   <div class='carousel slide' data-ride='carousel' id='comments-carousel'>
     <div class='container'>
       <div class='carousel-inner'>
-        <div class='item active'>
-          <div class='row'>
-            <div class='col-lg-4'>
-              <div class='bubble'>
-                'Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).'
-              </div>
-              <div class='comments-avatar'>
-                <a href='' class='pull-left'>
-                  <img alt='image' src='<%= image_path('landing/avatar3.jpg') %>'>
-                </a>
-                <div class='media-body'>
-                  <div class='commens-name'>
-                    Andrew Williams
+        <% @remarks.in_groups_of(3) do |remarks_group| %>
+          <div class='item <%= "active" if remarks_group.first == @remarks.first %>'>
+            <div class='row'>
+              <% remarks_group.each do |remark| next if remark.blank? %>
+                <div class='col-lg-4'>
+                  <div class='bubble'>
+                    <div><strong><%= remark.heading %></strong></div>
+                    <%= remark.message %>
                   </div>
-                  <small class='text-muted'>Company X from California</small>
-                </div>
-              </div>
-            </div>
 
-            <div class='col-lg-4'>
-              <div class='bubble'>
-                'Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).'
-              </div>
-              <div class='comments-avatar'>
-                <a href='' class='pull-left'>
-                  <img alt='image' src='<%= image_path('landing/avatar1.jpg') %>'>
-                </a>
-                <div class='media-body'>
-                  <div class='commens-name'>
-                    Andrew Williams
-                  </div>
-                  <small class='text-muted'>Company X from California</small>
-                </div>
-              </div>
-            </div>
+                  <div class='comments-avatar'>
+                    <%= link_to image_tag(remark.user_avatar_url), 'javascript;', class: 'pull-left' %>
 
-            <div class='col-lg-4'>
-              <div class='bubble'>
-                'Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).'
-              </div>
-              <div class='comments-avatar'>
-                <a href='' class='pull-left'>
-                  <img alt='image' src='<%= image_path('landing/avatar2.jpg') %>'>
-                </a>
-                <div class='media-body'>
-                  <div class='commens-name'>
-                    Andrew Williams
+                    <div class='media-body'>
+                      <div class='commens-name'>
+                        <%= remark.user_name %>
+                      </div>
+                      <small class='text-muted'><%= remark.user_institution %> from Pakistan</small>
+                    </div>
                   </div>
-                  <small class='text-muted'>Company X from California</small>
                 </div>
-              </div>
+              <% end %>
             </div>
           </div>
-        </div>
-
-        <div class='item'>
-          <div class='row'>
-            <div class='col-lg-4'>
-              <div class='bubble'>
-                'Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).'
-              </div>
-              <div class='comments-avatar'>
-                <a href='' class='pull-left'>
-                  <img alt='image' src='<%= image_path('landing/avatar3.jpg') %>'>
-                </a>
-                <div class='media-body'>
-                  <div class='commens-name'>
-                    Andrew Williams
-                  </div>
-                  <small class='text-muted'>Company X from California</small>
-                </div>
-              </div>
-            </div>
-
-            <div class='col-lg-4'>
-              <div class='bubble'>
-                'Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).'
-              </div>
-              <div class='comments-avatar'>
-                <a href='' class='pull-left'>
-                  <img alt='image' src='<%= image_path('landing/avatar1.jpg') %>'>
-                </a>
-                <div class='media-body'>
-                  <div class='commens-name'>
-                    Andrew Williams
-                  </div>
-                  <small class='text-muted'>Company X from California</small>
-                </div>
-              </div>
-            </div>
-
-            <div class='col-lg-4'>
-              <div class='bubble'>
-                'Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).'
-              </div>
-              <div class='comments-avatar'>
-                <a href='' class='pull-left'>
-                  <img alt='image' src='<%= image_path('landing/avatar2.jpg') %>'>
-                </a>
-                <div class='media-body'>
-                  <div class='commens-name'>
-                    Andrew Williams
-                  </div>
-                  <small class='text-muted'>Company X from California</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% end %>
       </div>
     </div>
 

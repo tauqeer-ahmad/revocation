@@ -45,6 +45,9 @@ Revocation::Application.routes.draw do
 
   authenticated :admin_supervisor do
     root to: 'admin/home#index'
+
+    resources :remarks, only: [:index, :update, :destroy]
+
     namespace :admin do
       resources :institutions do
         resources :administrators
@@ -75,7 +78,15 @@ Revocation::Application.routes.draw do
     get :lock_account, to: 'administrator/home#lock_account'
     post :unlock_account, to: 'administrator/home#unlock_account'
 
+    resources :testimonials, only: [:index, :update, :destroy]
+    resources :remarks, only: [:create]
+
     namespace :administrator do
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
       resources :admissions, only: [:index, :new]
       resources :teachers do
         collection do
@@ -190,10 +201,18 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :teacher do
+    resources :testimonials, only: [:create]
+
     scope module: :teacher do
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
       root to: 'home#index'
+
+      resource :account, only: [:show, :update] do
+        member do
+          put :update_password
+        end
+      end
 
       resources :attendance_sheets, only: [:index, :update, :destroy] do
         collection do
@@ -227,6 +246,8 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :student do
+    resources :testimonials, only: [:create]
+
     scope module: :student do
       resource :account, only: [:show, :update] do
         member do
@@ -241,7 +262,8 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
-
+      resources :results, only: [:index]
+      resources :timetables, only: [:index], as: :class_routine, path: :class_routine
       resources :exams do
         collection do
           get :autocomplete
@@ -257,6 +279,8 @@ Revocation::Application.routes.draw do
   end
 
   authenticated :guardian do
+    resources :testimonials, only: [:create]
+
     scope module: :guardian do
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
@@ -282,8 +306,6 @@ Revocation::Application.routes.draw do
       end
     end
   end
-
-  resources :testimonials, only: [:index, :create, :update, :destroy]
 
   post :contact_us, to: 'home#contact_us'
   root to: 'home#index'
