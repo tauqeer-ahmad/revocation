@@ -46,22 +46,28 @@
                                 <% if @timetables[day].present? %>
                                   <% @timetables[day].each do |timetable| %>
                                       <div class="btn-group">
-                                        <button class="btn btn-default btn-xs dropdown-toggle timetable-btn" data-toggle="dropdown">
+                                        <button class="btn btn-default dropdown-toggle timetable-btn" data-toggle="dropdown" style='background-color: <%= timetable.subject_color %>; border-color: <%= timetable.subject_color %>'>
                                           <%= timetable.subject_name %> <%= timetable.timings %> <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu">
                                           <li>
-                                            <%= link_to "#" do %>
+                                            <%= link_to administrator_teacher_path(timetable.teacher),
+                                              onmouseover: "this.style.backgroundColor='#{timetable.subject_color}', this.style.color='#fff'",
+                                              onmouseout: "this.style.backgroundColor='#fff', this.style.color='#676a6c'" do %>
                                               <i class="entypo-trash"></i> <%= timetable.teacher_name %>
                                             <% end %>
                                           </li>
                                           <li>
-                                           <%= link_to edit_administrator_section_timetable_path(@section, timetable) do %>
+                                           <%= link_to edit_administrator_section_timetable_path(@section, timetable),
+                                              onmouseover: "this.style.backgroundColor='#{timetable.subject_color}', this.style.color='#fff'",
+                                              onmouseout: "this.style.backgroundColor='#fff', this.style.color='#676a6c'" do %>
                                               <i class="fa fa-pencil-square-o"></i> Edit
                                             <% end %>
                                           </li>
                                           <li>
-                                            <%= link_to administrator_section_timetable_path(@section, timetable), data: { behavior: 'delete', object: timetable.class.name } do %>
+                                            <%= link_to administrator_section_timetable_path(@section, timetable),
+                                              onmouseover: "this.style.backgroundColor='#{timetable.subject_color}', this.style.color='#fff'",
+                                              onmouseout: "this.style.backgroundColor='#fff', this.style.color='#676a6c'", data: { behavior: 'delete', object: timetable.class.name } do %>
                                               <i class="fa fa-trash-o"></i> Delete
                                             <% end %>
                                           </li>

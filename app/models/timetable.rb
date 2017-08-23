@@ -50,6 +50,10 @@ class Timetable < ApplicationRecord
     subject.try(:name)
   end
 
+  def subject_color
+    subject.try(:color)
+  end
+
   def klass_name
     klass.try(:name)
   end
