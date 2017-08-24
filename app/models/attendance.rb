@@ -1,4 +1,6 @@
 class Attendance < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :attendee, polymorphic: true
   belongs_to :attendance_sheet
   belongs_to :term

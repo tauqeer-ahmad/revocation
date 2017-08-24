@@ -1,5 +1,8 @@
 class QuestionPaper < ApplicationRecord
   include SearchWrapper
+
+  acts_as_paranoid
+
   searchkick index_name: tenant_index_name
 
   belongs_to :teacher

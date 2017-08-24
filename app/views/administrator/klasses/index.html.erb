@@ -134,7 +134,7 @@
                       </thead>
 
                       <tbody>
-                        <% klass.sections.each do |section| %>
+                        <% klass.sections.of_current_term(current_term.id).each do |section| %>
                           <tr>
                             <td>
                               <%= link_to section.name, administrator_section_students_path(section), class: 'btn-link' %>

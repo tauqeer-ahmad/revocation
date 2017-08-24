@@ -47,6 +47,7 @@ gem 'hirb'
 gem 'nested_form'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'paperclip'
+gem 'paranoia', '~> 2.2'
 gem 'select2-rails'
 gem 'simple_form'
 

@@ -2,6 +2,8 @@ class Term < ApplicationRecord
   include AASM
   include SearchWrapper
 
+  acts_as_paranoid
+
   searchkick index_name: tenant_index_name
 
   has_many :enrolled_students, class_name: 'Student', foreign_key: 'enrollment_term_id'

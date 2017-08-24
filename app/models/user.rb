@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  acts_as_paranoid
+
   has_many :notes
   has_many :testimonials
 

@@ -1,6 +1,8 @@
 class Subject < ApplicationRecord
   include SearchWrapper
 
+  acts_as_paranoid
+
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
   belongs_to :institution
