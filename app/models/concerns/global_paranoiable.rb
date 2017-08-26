@@ -13,7 +13,7 @@ module GlobalParanoiable
     end
 
     def self.only_deleted
-      unscoped.where('deleted_in_term_id is not null and deleted_in_term_id <= ?', Current.term.id)
+      with_deleted.where.not(id: paranoia_scope)
     end
 
     def paranoia_restore_attributes
