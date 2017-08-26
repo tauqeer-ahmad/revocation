@@ -16,6 +16,11 @@ class AddColumnDeletedAtToRemarks < ActiveRecord::Migration[5.0]
     add_column :klasses, :deleted_at, :datetime
     add_column :subjects, :deleted_at, :datetime
     add_column :users, :deleted_at, :datetime
+
+    add_column :klasses, :deleted_in_term_id, :integer
+    add_column :subjects, :deleted_in_term_id, :integer
+    add_column :users, :deleted_in_term_id, :integer
+
     add_column :remarks, :deleted_at, :datetime
 
     add_index :terms, :deleted_at
@@ -32,7 +37,13 @@ class AddColumnDeletedAtToRemarks < ActiveRecord::Migration[5.0]
     add_index :question_papers, :deleted_at
 
     add_index :klasses, :deleted_at
+    add_index :subjects, :deleted_at
     add_index :users, :deleted_at
+
+    add_index :klasses, :deleted_in_term_id
+    add_index :subjects, :deleted_in_term_id
+    add_index :users, :deleted_in_term_id
+
     add_index :remarks, :deleted_at
   end
 end

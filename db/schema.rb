@@ -167,10 +167,12 @@ ActiveRecord::Schema.define(version: 20170823202621) do
   create_table "klasses", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.datetime "deleted_at"
+    t.integer  "deleted_in_term_id"
     t.index ["deleted_at"], name: "index_klasses_on_deleted_at", using: :btree
+    t.index ["deleted_in_term_id"], name: "index_klasses_on_deleted_in_term_id", using: :btree
   end
 
   create_table "marksheets", force: :cascade do |t|
@@ -283,10 +285,13 @@ ActiveRecord::Schema.define(version: 20170823202621) do
   create_table "subjects", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "color",       limit: 7, default: "#EB016E"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "color",              limit: 7, default: "#EB016E"
     t.datetime "deleted_at"
+    t.integer  "deleted_in_term_id"
+    t.index ["deleted_at"], name: "index_subjects_on_deleted_at", using: :btree
+    t.index ["deleted_in_term_id"], name: "index_subjects_on_deleted_in_term_id", using: :btree
   end
 
   create_table "terms", force: :cascade do |t|
@@ -365,7 +370,9 @@ ActiveRecord::Schema.define(version: 20170823202621) do
     t.string   "registration_number",    limit: 20
     t.string   "access_token",           limit: 20
     t.datetime "deleted_at"
+    t.integer  "deleted_in_term_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
+    t.index ["deleted_in_term_id"], name: "index_users_on_deleted_in_term_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["guardian_id"], name: "index_users_on_guardian_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
