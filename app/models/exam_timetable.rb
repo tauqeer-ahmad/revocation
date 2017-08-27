@@ -36,7 +36,11 @@ class ExamTimetable < ApplicationRecord
   end
 
   def subject_name
-    subject.try(:name)
+    subject&.name
+  end
+
+  def subject_color
+    subject&.color
   end
 
   def get_exam_color
