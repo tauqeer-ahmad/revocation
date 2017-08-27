@@ -1,4 +1,6 @@
 class ExamTimetable < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :term
   belongs_to :exam
   belongs_to :klass

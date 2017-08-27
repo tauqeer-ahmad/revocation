@@ -1,5 +1,6 @@
 class Klass < ApplicationRecord
   include SearchWrapper
+  include GlobalParanoiable
 
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 

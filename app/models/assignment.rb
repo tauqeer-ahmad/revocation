@@ -1,4 +1,6 @@
 class Assignment < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :teacher
   belongs_to :section
   belongs_to :subject
