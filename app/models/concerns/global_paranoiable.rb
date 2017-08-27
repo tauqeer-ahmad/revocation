@@ -5,7 +5,7 @@ module GlobalParanoiable
     acts_as_paranoid
 
     def self.paranoia_scope
-      where('deleted_in_term_id is null or deleted_in_term_id > ?', Current.term.id)
+      where('deleted_in_term_id is null or deleted_in_term_id > ?', Current.term&.id)
     end
 
     def self.with_deleted
