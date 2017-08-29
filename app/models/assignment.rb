@@ -1,7 +1,7 @@
 class Assignment < ApplicationRecord
   include AASM
   acts_as_paranoid
-g
+
   belongs_to :teacher
   belongs_to :section
   belongs_to :subject

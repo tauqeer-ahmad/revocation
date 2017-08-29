@@ -233,6 +233,7 @@ Revocation::Application.routes.draw do
         collection do
           get '/list/:section_id/:subject_id', to: 'assignments#index', as: 'list'
         end
+
         member do
           post :status_update
         end
