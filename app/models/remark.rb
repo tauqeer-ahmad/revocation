@@ -1,6 +1,8 @@
 class Remark < ApplicationRecord
   include AASM
 
+  acts_as_paranoid
+
   belongs_to :user
 
   validates :heading, :message, :user_name, :user_institution, :user_avatar_url, presence: true

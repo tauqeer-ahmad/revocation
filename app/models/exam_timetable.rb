@@ -1,4 +1,6 @@
 class ExamTimetable < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :term
   belongs_to :exam
   belongs_to :klass
@@ -34,7 +36,11 @@ class ExamTimetable < ApplicationRecord
   end
 
   def subject_name
-    subject.try(:name)
+    subject&.name
+  end
+
+  def subject_color
+    subject&.color
   end
 
   def get_exam_color

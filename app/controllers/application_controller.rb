@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :current_user, :user_signed_in?, :current_term, :active_term, :selected_student
+
+  before_action :set_current_term
   before_action :check_locked_account
   before_action :check_selected_student, unless: :devise_controller?
   before_action :set_notices
@@ -50,6 +52,10 @@ class ApplicationController < ActionController::Base
     @current_term ||= allocate_term
   end
 
+  def set_current_term
+    Current.term = current_term
+  end
+
   def active_term
     @active_term ||= Term.active_term
   end
@@ -59,13 +65,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_notices
-    return if current_user.blank?
+    return if current_user.blank? || current_user.supervisor?
 
     @new_notices_count = Notice.new_notice_count(selected_user, active_term.id, current_user.type_of)
   end
 
   def latest_notices
-    return if current_user.blank?
+    return if current_user.blank? || current_user.supervisor?
 
     @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end

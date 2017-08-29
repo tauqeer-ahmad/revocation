@@ -30,7 +30,7 @@ class Notice < ApplicationRecord
   end
 
   def self.new_notice_count(user, term_id, type = nil)
-    return self.latest.count if user.administrator?
+    return self.latest.count          if user.administrator?
     return self.latest.teachers.count if user.teacher?
 
     if user.type_of.in?(['Guardian', 'Student'])
@@ -42,7 +42,7 @@ class Notice < ApplicationRecord
   end
 
   def self.latest_notices(user, term_id, type = nil)
-    return self.latest.ordered.first(NOTIFICATION_BAR_LIMIT) if user.administrator?
+    return self.latest.ordered.first(NOTIFICATION_BAR_LIMIT)          if user.administrator?
     return self.latest.teachers.ordered.first(NOTIFICATION_BAR_LIMIT) if user.teacher?
 
     if user.type_of.in?(['Guardian', 'Student'])
