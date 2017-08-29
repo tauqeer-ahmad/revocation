@@ -244,7 +244,10 @@ Revocation::Application.routes.draw do
 
       resources :assignments, only: [:new, :edit, :create, :update, :destroy] do
         collection do
-          get '/list/:section_id/:subject_id', to: 'assignments#index'
+          get '/list/:section_id/:subject_id', to: 'assignments#index', as: 'list'
+        end
+        member do
+          post :status_update
         end
       end
 

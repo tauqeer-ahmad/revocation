@@ -122,4 +122,12 @@ module ApplicationHelper
       notices_path
     end
   end
+
+  def entity_status(entity)
+    entity.initialized? ? 'Publish' : 'DeActivate'
+  end
+
+  def entity_status_class(entity)
+    entity.initialized? ? 'btn-primary' : 'btn-warning'
+  end
 end
