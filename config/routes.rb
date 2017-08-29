@@ -32,6 +32,19 @@ Revocation::Application.routes.draw do
           end
         end
         resources :timetables, only: [:index]
+        resources :attendances, only: [:index]
+        resources :assignments, only: [:index, :show]
+      end
+
+      namespace :guardian do
+        resources :exams, only: [:index, :show] do
+          member do
+            get :results
+          end
+        end
+        resources :timetables, only: [:index]
+        resources :attendances, only: [:index]
+        resources :assignments, only: [:index, :show]
       end
     end
 
