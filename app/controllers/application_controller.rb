@@ -59,13 +59,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_notices
-    return if current_user.blank? || current_user.supervisor?
+    return if current_user.blank? || current_user.supervisor? || active_term.blank?
 
     @new_notices_count = Notice.new_notice_count(selected_user, active_term.id, current_user.type_of)
   end
 
   def latest_notices
-    return if current_user.blank? || current_user.supervisor?
+    return @latest_notices = [] if current_user.blank? || current_user.supervisor? || active_term.blank?
 
     @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
