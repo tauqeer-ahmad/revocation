@@ -1,4 +1,6 @@
 class ExamMark < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :markesheet
   belongs_to :term
   belongs_to :exam

@@ -24,7 +24,7 @@
                 <br>
                 <small>Students: <%= section.display_students_count %></small>
                 <br>
-                <small>Teacher: <%= link_to section.incharge_name, administrator_teacher_path(section.incharge), class: 'btn-link' %></small>
+                <small>Teacher: <%= link_to section.incharge_name, administrator_teacher_path(section.incharge), class: 'btn-link' if section.incharge.present? %></small>
 
                 <div class="m-t-xs text-center">
                   <%= link_to administrator_section_students_path(section), class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Manage Students' do %>

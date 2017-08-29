@@ -1,4 +1,6 @@
 class Timetable < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :section
   belongs_to :subject
   belongs_to :klass
@@ -47,7 +49,11 @@ class Timetable < ApplicationRecord
   end
 
   def subject_name
-    subject.try(:name)
+    subject&.name
+  end
+
+  def subject_color
+    subject&.color
   end
 
   def klass_name

@@ -1,5 +1,8 @@
 class AttendanceSheet < ApplicationRecord
+  acts_as_paranoid
+
   has_many :attendances, dependent: :destroy
+
   belongs_to :section
   belongs_to :term
 

@@ -27,20 +27,20 @@
         <div class="ibox-content">
           <div class="row">
             <div class="col-lg-6">
-              <div class="widget-head-color-box navy-bg p-lg text-center">
+              <div class="widget-head-color-box gray-bg p-lg text-center no-margins">
                 <div class="m-b-md">
                   <h2 class="font-bold no-margins">
                     <%= current_user.name %>
                   </h2>
                 </div>
-                <%= image_tag current_user.avatar.url(:medium), class: "img-responsive img-circle circle-border m-b-md", alt: "profile" %>
+                <%= image_tag current_user.avatar.url(:medium), width: 250, height: 250, class: 'img-circle circle-border m-b-md', alt: 'Profile Image' %>
               </div>
             </div>
             <div class="col-lg-6">
               <%= form_for(current_user, as: current_user, url: administrator_account_path(), html: { method: :put, class: 'form-horizontal"' }) do |f| %>
                 <div class='form-group'>
                   <label class='btn-bs-file btn btn-md btn-info'>
-                    Select New Image
+                    <i class='fa fa-plus'></i> Select New Image
                     <%= f.file_field :avatar, class: 'form-control' %>
                   </label>
                 </div>
@@ -49,8 +49,10 @@
                   <div id='uploaded-image'></div>
                 </div>
 
-                <div class='actions'>
-                  <%= f.submit 'Upload', class: 'btn btn-primary block m-b' %>
+                <div class='actions text-center'>
+                  <%= button_tag class: 'btn btn-primary m-b' do %>
+                    <i class='fa fa-arrow-up'></i> Upload
+                  <% end %>
                 </div>
               <% end %>
             </div>
