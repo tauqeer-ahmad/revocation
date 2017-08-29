@@ -53,7 +53,7 @@ class Administrator::GuardiansController < ApplicationController
   end
 
   def fetch
-    render json: Guardian.all
+    render json: Guardian.search(params[:keyword][:term], fields: ["first_name", "last_name"], load: false, misspellings: {below: 5}, limit: 10).map{|guardian| [guardian.id, [guardian.first_name, ' ', guardian.last_name].join]}
   end
 
   def autocomplete
