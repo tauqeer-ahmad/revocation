@@ -2,7 +2,7 @@ class Student::ExamsController < ApplicationController
   before_action :set_exam, only: [:show]
 
   def index
-    @exams = Exam.lookup params[:search], {term_id: current_term.id, status: 'activated'}
+    @exams = Exam.lookup params[:search], {term_id: current_term.id, status: 'active'}
   end
 
   def show
@@ -10,7 +10,7 @@ class Student::ExamsController < ApplicationController
   end
 
   def autocomplete
-    render json: Exam.search(params[:search], fields: ["name"], where: {term_id: current_term.id, status: 'activated'}, load: false, misspellings: {below: 5}, limit: 10).map{|exam| {search: exam.name}}
+    render json: Exam.search(params[:search], fields: ["name"], where: {term_id: current_term.id, status: 'active'}, load: false, misspellings: {below: 5}, limit: 10).map{|exam| {search: exam.name}}
   end
 
   private

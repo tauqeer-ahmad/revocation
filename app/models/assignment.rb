@@ -1,7 +1,7 @@
 class Assignment < ApplicationRecord
   include AASM
   acts_as_paranoid
-
+g
   belongs_to :teacher
   belongs_to :section
   belongs_to :subject
@@ -15,14 +15,14 @@ class Assignment < ApplicationRecord
 
   aasm requires_lock: true, column: 'status' do
     state :initialized
-    state :activated
+    state :active
 
     event :activate do
-      transitions from: [:initialized], to: :activated
+      transitions from: [:initialized], to: :active
     end
 
     event :reinitialize do
-      transitions from: [:activated], to: :initialized
+      transitions from: [:active], to: :initialized
     end
   end
 
