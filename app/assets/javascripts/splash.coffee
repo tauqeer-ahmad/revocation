@@ -36,6 +36,10 @@ init_setup = ->
 
     init()
 
+bind_scroll_animation = ->
+  $('.scroll-to-div').click ->
+    $('html, body').animate { scrollTop: $($(this).attr('href')).offset().top }, 1000
+
 (($) ->
   window.Splash || (window.Splash = {})
 
@@ -44,4 +48,5 @@ init_setup = ->
 
   init_controls = ->
     init_setup()
+    bind_scroll_animation()
 ).call(this)
