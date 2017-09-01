@@ -17,87 +17,53 @@
 
 <div id='class-wrapper'>
   <div class='wrapper wrapper-content animated fadeInRight'>
-    <div class='row m-b-lg'>
-      <div class='col-lg-12 text-center'>
-        <h1><%= @klass.name %></h1>
-      </div>
-    </div>
+    <div class='row'>
+      <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+        <div class='tabs-container'>
+          <ul class='nav nav-tabs'>
+            <li class='active'>
+              <%= link_to '#tab-stats', data: { toggle: 'tab' } do %>
+                <i class='fa fa-list'></i> Statistics
+              <% end %>
+            </li>
 
-    <div class='row m-b-lg'>
-      <div class='col-lg-4 text-center'>
-        <h2><span class='label label-info'><%= @students_count %></span></h2>
-        <h2><i>Students</i></h2>
-      </div>
+            <li>
+              <%= link_to '#tab-teachers', data: { toggle: 'tab' } do %>
+                <i class='fa fa-leanpub'></i> Teachers
+                <span class="label label-danger"><%= @teachers.length %></span>
+              <% end %>
+            </li>
 
-      <div class='col-lg-4 text-center'>
-        <h2><span class='label label-warning'><%= @sections.count %></span></h2>
-        <h2><i>Sections</i></h2>
-      </div>
+            <li>
+              <%= link_to '#tab-students', data: { toggle: 'tab' } do %>
+                <i class='fa fa-users'></i> Students
+                <span class="label label-info"><%= @students.length %></span>
+              <% end %>
+            </li>
+          </ul>
 
-      <div class='col-lg-4 text-center'>
-        <h2><span class='label label-danger'><%= @teachers_count %></span></h2>
-        <h2><i>Teachers</i></h2>
-      </div>
-    </div>
-
-    <div class='row m-b-lg m-t-lg'>
-      <div class='col-lg-12'>
-        <div class='ibox float-e-margins'>
-          <div class='ibox-title'>
-            <h5>Sections Details</h5>
-            <div class='ibox-tools'>
-              <a class='collapse-link'>
-                <i class='fa fa-chevron-up'></i>
-              </a>
+          <div class='tab-content'>
+            <div id='tab-stats' class='tab-pane active'>
+              <div class='full-height-scroll panel-body'>
+                <%= render 'statistics' %>
+              </div>
             </div>
-          </div>
 
-          <div class='ibox-content'>
-            <table class='table small'>
-              <thead>
-                <tr>
-                  <th>Section</th>
-                  <th>Incharge</th>
-                  <th>Subjects</th>
-                  <th>Teachers</th>
-                  <th>Students</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-
-              <tbody>
+            <div id='tab-teachers' class='tab-pane'>
+              <div class='full-height-scroll panel-body'>
                 <% @sections.each do |section| %>
-                  <tr>
-                    <td><%= link_to section.name, administrator_klass_section_path(@klass, section), class: 'btn-link' %></td>
-                    <td><%= link_to section.incharge_name, administrator_teacher_path(section.incharge), class: 'btn-link' if section.incharge.present? %></td>
-                    <td><%= section.display_subjects_count %></td>
-                    <td><%= section.display_teachers_count %></td>
-                    <td><%= section.display_students_count %></td>
-                    <td>
-                      <%= link_to administrator_klass_section_path(@klass, section), class: 'btn btn-success dim btn-outline btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
-                        <i class='fa fa-eye'></i>
-                      <% end %>
-
-                      <%= link_to edit_administrator_klass_section_path(@klass, section), class: 'btn btn-info btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
-                        <i class='fa fa-pencil-square-o'></i>
-                      <% end %>
-
-                      <%= link_to administrator_klass_section_path(@klass, section), class: 'btn btn-danger btn-outline dim btn-xs', data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: section.class.name }, title: 'Delete' do %>
-                        <i class='fa fa-trash-o'></i>
-                      <% end %>
-
-                      <%= link_to administrator_section_students_path(section), class: 'btn btn-success btn-outline btn-xs m-l-lg' do %>
-                        <i class='fa fa-users'></i> Manage Students
-                      <% end %>
-
-                      <%= link_to administrator_section_timetables_path(section), class: 'btn btn-info btn-outline btn-xs' do %>
-                        <i class='fa fa-calendar'></i> Manage TimeTable
-                      <% end %>
-                    </td>
-                  </tr>
+                  <%= render 'teachers', section: section %>
                 <% end %>
-              </tbody>
-            </table>
+              </div>
+            </div>
+
+            <div id='tab-students' class='tab-pane'>
+              <div class='full-height-scroll panel-body'>
+                <% @sections.each do |section| %>
+                  <%= render 'students', section: section %>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
