@@ -51,7 +51,7 @@ class Administrator::ExamsController < ApplicationController
   end
 
   def autocomplete
-    render json: Exam.search(params[:search], fields: ["name"], where: {term_id: current_term.id}, load: false, misspellings: {below: 5}, limit: 10).map{|exam| {search: exam.name}}
+    render json: autocomplete_query(Exam, ["name"], {term_id: current_term.id}).map{|exam| {search: exam.name}}
   end
 
   def status_update
