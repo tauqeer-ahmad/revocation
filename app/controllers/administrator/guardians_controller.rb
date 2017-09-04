@@ -46,6 +46,8 @@ class Administrator::GuardiansController < ApplicationController
 
   def destroy
     @guardian.destroy
+    @guardian.reload
+    @guardian.save
     respond_to do |format|
       format.html { redirect_to administrator_guardians_url, notice: 'Guardian was successfully destroyed.' }
       format.json { head :no_content }
@@ -57,7 +59,7 @@ class Administrator::GuardiansController < ApplicationController
   end
 
   def autocomplete
-    render json: Guardian.search(params[:search], fields: ["first_name", "last_name"], load: false, misspellings: {below: 5}, limit: 10).map{|guardian| {search: [guardian.first_name, ' ', guardian.last_name].join}}
+    render json: autocomplete_query(Guardian, ["first_name", "last_name"]).map{|guardian| {search: [guardian.first_name, ' ', guardian.last_name].join}}
   end
 
   private

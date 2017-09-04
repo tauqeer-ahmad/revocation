@@ -44,6 +44,8 @@ class Administrator::SubjectsController < ApplicationController
 
   def destroy
     @subject.destroy
+    @subject.reload
+    @subject.save
     respond_to do |format|
       format.html { redirect_to administrator_subjects_url, notice: 'Subject was successfully destroyed.' }
       format.json { head :no_content }
@@ -56,7 +58,7 @@ class Administrator::SubjectsController < ApplicationController
   end
 
   def autocomplete
-    render json: Subject.search(params[:search], fields: ["name"], load: false, misspellings: {below: 5}, limit: 10).map{|subject| {search: subject.name}}
+    render json: autocomplete_query(Subject, ["name"]).map{|subject| {search: subject.name}}
   end
 
   private

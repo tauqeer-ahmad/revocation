@@ -22,6 +22,8 @@ class Subject < ApplicationRecord
     {
       name: name,
       description: description,
+      deleted_at: deleted_at,
+      deleted_in_term_id: deleted_in_term_id,
     }
   end
 end

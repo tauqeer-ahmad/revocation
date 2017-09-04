@@ -44,6 +44,8 @@ class Administrator::TeachersController < ApplicationController
 
   def destroy
     @teacher.destroy
+    @teacher.reload
+    @teacher.save
     respond_to do |format|
       format.html { redirect_to administrator_teachers_url, notice: 'Teacher was successfully destroyed.' }
       format.json { head :no_content }
@@ -56,7 +58,7 @@ class Administrator::TeachersController < ApplicationController
   end
 
   def autocomplete
-    render json: Teacher.search(params[:search], fields: ["first_name", "last_name"], load: false, misspellings: {below: 5}, limit: 10).map{|teacher| {search: [teacher.first_name, ' ', teacher.last_name].join}}
+    render json: autocomplete_query(Teacher, ["first_name", "last_name"]).map{|teacher| {search: [teacher.first_name, ' ', teacher.last_name].join}}
   end
 
   private

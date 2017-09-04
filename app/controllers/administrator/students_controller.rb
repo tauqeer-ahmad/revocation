@@ -55,6 +55,8 @@ class Administrator::StudentsController < ApplicationController
 
   def destroy
     @student.destroy
+    @student.reload
+    @student.save
     respond_to do |format|
       format.html { redirect_to administrator_section_students_url(@section), notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
@@ -104,7 +106,7 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def autocomplete
-    render json: Student.search(params[:search], fields: ["first_name", "last_name"], where: {section_id: params[:section_id]}, load: false, misspellings: {below: 5}, limit: 10).map{|student| {search: [student.first_name, ' ', student.last_name].join}}
+    render json: autocomplete_query(Student, ["first_name", "last_name"], {section_id: params[:section_id]}).map{|student| {search: [student.first_name, ' ', student.last_name].join}}
   end
 
   private

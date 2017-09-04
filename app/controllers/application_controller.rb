@@ -76,6 +76,15 @@ class ApplicationController < ActionController::Base
     @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
 
+  def paranoia_condition(entity)
+    return {_or: [{deleted_at: nil}, {deleted_in_term_id: {gt: Current.term&.id}}]} if entity.name.in?(PARANOIA_TERM_CONDITION_MODELS)
+    return {deleted_at: nil}
+  end
+
+  def autocomplete_query(entity, fields, clause = {})
+    entity.search(params[:search], fields: fields, load: false, misspellings: {below: 5}, limit: 10, where: clause.merge!(paranoia_condition(entity)))
+  end
+
   private
     def layout_by_resource
       if devise_controller?
