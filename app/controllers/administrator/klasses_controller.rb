@@ -7,9 +7,9 @@ class Administrator::KlassesController < ApplicationController
   end
 
   def show
-    @sections = @klass.current_sections(current_term.id).includes(:subjects)
-    @students_count = @sections.collect(&:students).flatten.count
-    @teachers_count = @sections.collect(&:teachers).flatten.count
+    @sections = @klass.current_sections(current_term.id).includes(:incharge, { section_subject_teachers: [:teacher] }, { section_students: [:student] }, :teachers, :students)
+    @students = @sections.collect(&:students).flatten
+    @teachers = @sections.collect(&:teachers).flatten
   end
 
   def new
