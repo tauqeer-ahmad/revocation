@@ -1,14 +1,14 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-9">
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
     <h2>Classes</h2>
-    <ol class="breadcrumb">
+    <ol class='breadcrumb'>
       <li>
         <%= link_to 'Home', administrator_root_path %>
       </li>
       <li>
         <%= link_to 'Classes', administrator_klasses_path %>
       </li>
-      <li class="active">
+      <li class='active'>
         <strong><%= @klass.name %></strong>
       </li>
     </ol>
@@ -30,14 +30,14 @@
             <li>
               <%= link_to '#tab-teachers', data: { toggle: 'tab' } do %>
                 <i class='fa fa-leanpub'></i> Teachers
-                <span class="label label-danger"><%= @teachers.length %></span>
+                <span class='label label-danger m-l-xs'><%= @teachers.length %></span>
               <% end %>
             </li>
 
             <li>
               <%= link_to '#tab-students', data: { toggle: 'tab' } do %>
                 <i class='fa fa-users'></i> Students
-                <span class="label label-info"><%= @students.length %></span>
+                <span class='label label-info m-l-xs'><%= @students.length %></span>
               <% end %>
             </li>
           </ul>
@@ -51,17 +51,57 @@
 
             <div id='tab-teachers' class='tab-pane'>
               <div class='full-height-scroll panel-body'>
-                <% @sections.each do |section| %>
-                  <%= render 'teachers', section: section %>
-                <% end %>
+                <div class='row'>
+                  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                    <div class='tabs-container'>
+                      <ul class='nav nav-tabs'>
+                        <% @sections.each do |section| %>
+                          <li class="<%= 'active' if @sections.first == section %>">
+                            <%= link_to section.name&.titleize, "#tab-teacher-section-#{section.id}", data: { toggle: 'tab' } %>
+                          </li>
+                        <% end %>
+                      </ul>
+
+                      <div class='tab-content'>
+                        <% @sections.each do |section| %>
+                          <div id='tab-teacher-section-<%= section.id %>' class="tab-pane <%= 'active' if @sections.first == section %>">
+                            <div class='full-height-scroll panel-body'>
+                              <%= render 'teachers', section: section %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div id='tab-students' class='tab-pane'>
               <div class='full-height-scroll panel-body'>
-                <% @sections.each do |section| %>
-                  <%= render 'students', section: section %>
-                <% end %>
+                <div class='row'>
+                  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+                    <div class='tabs-container'>
+                      <ul class='nav nav-tabs'>
+                        <% @sections.each do |section| %>
+                          <li class="<%= 'active' if @sections.first == section %>">
+                            <%= link_to section.name&.titleize, "#tab-student-section-#{section.id}", data: { toggle: 'tab' } %>
+                          </li>
+                        <% end %>
+                      </ul>
+
+                      <div class='tab-content'>
+                        <% @sections.each do |section| %>
+                          <div id='tab-student-section-<%= section.id %>' class="tab-pane <%= 'active' if @sections.first == section %>">
+                            <div class='full-height-scroll panel-body'>
+                              <%= render 'students', section: section %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
