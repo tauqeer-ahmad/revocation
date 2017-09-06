@@ -30,3 +30,36 @@ hr.b-heading {
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
   width: 25%;
 }
+
+.dashboard-style {
+  color: white;
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-weight: 300;
+  height: 114px;
+  line-height: 20px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+
+  i {
+    transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -o-transition: all 0.4s ease-in-out 0s;
+  }
+
+  &:hover {
+    opacity: 0.8;
+
+    i {
+      transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      font-size: 140px;
+      opacity: 0.2;
+    }
+  }
+}
