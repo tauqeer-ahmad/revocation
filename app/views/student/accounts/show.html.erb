@@ -54,7 +54,9 @@
                 </div>
 
                 <div class='actions'>
-                  <%= f.submit 'Upload', class: 'btn btn-primary block m-b' %>
+                  <%= button_tag class: 'btn btn-lg btn-primary m-b' do %>
+                    <i class='fa fa-arrow-up'></i> Upload
+                  <% end %>
                 </div>
               <% end %>
             </div>
@@ -89,7 +91,7 @@
             </div>
 
             <div class='actions'>
-              <%= f.submit 'Change my password', class: 'btn btn-primary block full-width m-b' %>
+              <%= f.submit 'Change my password', class: 'btn btn-lg btn-primary block full-width m-b' %>
             </div>
           <% end %>
         </div>
