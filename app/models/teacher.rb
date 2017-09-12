@@ -24,6 +24,8 @@ class Teacher < User
       email: email,
       qualification: qualification,
       profession: profession,
+      deleted_at: deleted_at,
+      deleted_in_term_id: deleted_in_term_id,
     }
   end
 

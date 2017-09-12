@@ -1,7 +1,8 @@
 class QuestionPaper < ApplicationRecord
-  include SearchWrapper
-
   acts_as_paranoid
+
+  include SearchWrapper
+  include SearchCallbackable
 
   searchkick index_name: tenant_index_name
 
@@ -22,6 +23,7 @@ class QuestionPaper < ApplicationRecord
       section_name: section.name,
       exam_name: exam.name,
       subject_name: subject.name,
+      deleted_at: deleted_at,
     })
   end
 end

@@ -40,7 +40,7 @@ textarea {
     }
 
     #note_description {
-      width: 39.4% !important;
+      width: 52% !important;
     }
 
     #note_color {
@@ -497,4 +497,8 @@ td.attendance-radio {
 .timetabe-day-cell {
   height: 100px;
   width:100px;
+}
+
+.no-bg {
+  background: none !important;
 }

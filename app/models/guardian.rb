@@ -16,6 +16,8 @@ class Guardian < User
       email: email,
       profession: profession,
       cnic: cnic,
+      deleted_at: deleted_at,
+      deleted_in_term_id: deleted_in_term_id,
     }
   end
 

@@ -1,6 +1,8 @@
 class Klass < ApplicationRecord
   include SearchWrapper
   include GlobalParanoiable
+  include SearchCallbackable
+
 
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
@@ -19,6 +21,8 @@ class Klass < ApplicationRecord
     {
       name: name,
       code: code,
+      deleted_in_term_id: deleted_in_term_id,
+      deleted_at: deleted_at,
     }
   end
 

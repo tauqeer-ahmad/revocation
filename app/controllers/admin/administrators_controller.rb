@@ -46,6 +46,8 @@ class Admin::AdministratorsController < ApplicationController
 
   def destroy
     @administrator.destroy
+    @administrator.reload
+    @administrator.save
     respond_to do |format|
       format.html { redirect_to admin_institution_administrators_url(@institution), notice: 'Administrator was successfully destroyed.' }
       format.json { head :no_content }
