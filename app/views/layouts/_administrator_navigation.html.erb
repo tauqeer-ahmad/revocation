@@ -3,11 +3,9 @@
     <ul class='nav metismenu' id='side-menu'>
       <li class='nav-header'>
         <div class='dropdown profile-element'>
-          <span>
+          <a data-toggle='dropdown' class='dropdown-toggle no-bg' href='#'>
             <%= image_tag current_user.avatar.url(:thumb), width: 70, height: 70, class: 'img-circle' %>
-          </span>
 
-          <a data-toggle='dropdown' class='dropdown-toggle' href='#'>
             <span class='clear'>
               <span class='block m-t-xs'>
                 <strong class='font-bold'><%= current_user.name %></strong>
