@@ -1,8 +1,9 @@
 class Term < ApplicationRecord
+  acts_as_paranoid
+
   include AASM
   include SearchWrapper
-
-  acts_as_paranoid
+  include SearchCallbackable
 
   searchkick index_name: tenant_index_name
 
@@ -30,6 +31,7 @@ class Term < ApplicationRecord
     {
       name: name,
       status: status,
+      deleted_at: deleted_at,
     }
   end
 

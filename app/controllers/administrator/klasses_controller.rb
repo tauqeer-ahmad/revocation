@@ -47,6 +47,8 @@ class Administrator::KlassesController < ApplicationController
 
   def destroy
     @klass.destroy
+    @klass.reload
+    @klass.save
     respond_to do |format|
       format.html { redirect_to administrator_klasses_url, notice: 'Class was successfully destroyed.' }
       format.json { head :no_content }
@@ -65,7 +67,7 @@ class Administrator::KlassesController < ApplicationController
   end
 
   def autocomplete
-    render json: Klass.search(params[:search], fields: ["name"], load: false, misspellings: {below: 5}, limit: 10).map{|klass| {search: klass.name}}
+    render json: autocomplete_query(Klass, ["name"]).map{|klass| {search: klass.name}}
   end
 
   private

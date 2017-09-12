@@ -33,6 +33,8 @@ class Student < User
       gender: gender,
       guardian_id: guardian_id,
       registration_number: registration_number,
+      deleted_at: deleted_at,
+      deleted_in_term_id: deleted_in_term_id,
     }
   end
 
