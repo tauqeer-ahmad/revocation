@@ -253,6 +253,7 @@ Revocation::Application.routes.draw do
       end
 
       resources :question_papers
+      resources :subject_schedules
 
       resources :notices, only: :index do
         collection do

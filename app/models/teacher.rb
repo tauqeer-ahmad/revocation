@@ -12,6 +12,7 @@ class Teacher < User
   has_many :attendances, as: :attendee
   has_many :assignments
   has_many :question_papers
+  has_many :subject_schedules
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password

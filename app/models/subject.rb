@@ -13,6 +13,7 @@ class Subject < ApplicationRecord
   has_many :marksheets
   has_many :exam_marks
   has_many :question_papers
+  has_many :subject_schedules
 
   validates :color, presence: true
 

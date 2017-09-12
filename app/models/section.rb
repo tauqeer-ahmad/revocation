@@ -18,6 +18,7 @@ class Section < ApplicationRecord
   has_many :attendances, dependent: :destroy
   has_many :assignments, dependent: :destroy
   has_many :question_papers, dependent: :destroy
+  has_many :subject_schedules, dependent: :destroy
 
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
 
