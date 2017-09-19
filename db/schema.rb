@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905170212) do
+ActiveRecord::Schema.define(version: 20170918031756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,9 +211,12 @@ ActiveRecord::Schema.define(version: 20170905170212) do
     t.string   "notice_type"
     t.integer  "klass_id"
     t.integer  "section_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "noticeable_type"
+    t.integer  "noticeable_id"
     t.index ["klass_id"], name: "index_notices_on_klass_id", using: :btree
+    t.index ["noticeable_type", "noticeable_id"], name: "index_notices_on_noticeable_type_and_noticeable_id", using: :btree
     t.index ["section_id"], name: "index_notices_on_section_id", using: :btree
   end
 

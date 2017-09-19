@@ -22,9 +22,7 @@
             <td><%= notice.klass.try(:name) %></td>
             <td><%= notice.section.try(:name) %></td>
             <td>
-              <%= link_to '#', class: 'btn btn-outline btn-success dim btn-xs', data: { toggle: 'modal', target: "#notice-modal-#{notice.id}" } do %>
-                <i class="fa fa-eye "></i>
-              <% end %>
+              <%= notice_view(notice) %>
             </td>
           </tr>
           <%= render 'shared/notices/notices_message_modal', notice: notice %>

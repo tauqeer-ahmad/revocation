@@ -6,6 +6,7 @@ class Assignment < ApplicationRecord
   belongs_to :section
   belongs_to :subject
   belongs_to :term
+  has_many :notices, as: :noticeable
 
   scope :of_section, -> (section) { where(section_id: section) }
   scope :of_subject, -> (subject) { where(subject_id: subject) }
@@ -17,7 +18,7 @@ class Assignment < ApplicationRecord
     state :initialized
     state :active
 
-    event :activate do
+    event :activate, after: :add_notice do
       transitions from: [:initialized], to: :active
     end
 
@@ -54,5 +55,15 @@ class Assignment < ApplicationRecord
 
   def toggle_status
     initialized? ? self.activate! : self.reinitialize!
+  end
+
+  def add_notice
+    notices.create(
+                    title: "New #{subject.name}'s Assignment",
+                    message: heading,
+                    klass_id: section.klass_id,
+                    section_id: section.id,
+                    notice_type: 'Section Specific',
+                  )
   end
 end
