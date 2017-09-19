@@ -14,9 +14,7 @@ module Administrator::NoticesHelper
   def notice_path(notice)
     if notice.noticeable_type == 'Exam' && (current_user.student? || current_user.guardian?)
       exam_path(id: notice.noticeable_id)
-    elsif notice.noticeable_type == 'Assignment' && (current_user.student? || current_user.guardian?)
-      assignment_path(id: notice.noticeable_id)
-    elsif notice.noticeable_type == 'Assignment' && current_user.teacher?
+    elsif notice.noticeable_type == 'Assignment' && (current_user.student? || current_user.guardian? || current_user.teacher?)
       assignment_path(id: notice.noticeable_id)
     else
       return '#'
