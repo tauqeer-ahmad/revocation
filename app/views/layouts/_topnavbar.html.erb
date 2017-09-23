@@ -96,34 +96,35 @@
           </li>
         </ul>
       </li>
+      <% unless current_user.supervisor? %>
+        <li class='dropdown'>
+          <a class='dropdown-toggle count-info' data-toggle='dropdown' href='#'>
+            <i class='fa fa-bell'></i>  <span class='label label-primary'><%= @new_notices_count %></span>
+          </a>
 
-      <li class='dropdown'>
-        <a class='dropdown-toggle count-info' data-toggle='dropdown' href='#'>
-          <i class='fa fa-bell'></i>  <span class='label label-primary'><%= @new_notices_count %></span>
-        </a>
-
-        <ul class='dropdown-menu dropdown-alerts'>
-          <% @latest_notices.each do |notice| %>
+          <ul class='dropdown-menu dropdown-alerts'>
+            <% @latest_notices.each do |notice| %>
+              <li>
+                <a href='#'>
+                  <div>
+                    <i class='fa fa-bell-o fa-fw'></i><%= notice.title.truncate(25) %>
+                    <span class='pull-right text-muted small'><%= time_ago_in_words(notice.created_at) %></span>
+                  </div>
+                </a>
+              </li>
+              <li class='divider'></li>
+            <% end %>
             <li>
-              <a href='#'>
-                <div>
-                  <i class='fa fa-bell-o fa-fw'></i><%= notice.title.truncate(25) %>
-                  <span class='pull-right text-muted small'><%= time_ago_in_words(notice.created_at) %></span>
-                </div>
-              </a>
+              <div class='text-center link-block'>
+                <%= link_to notice_index_link(current_user) do %>
+                  <strong>See All Notifications</strong>
+                  <i class='fa fa-angle-right'></i>
+                <% end %>
+              </div>
             </li>
-            <li class='divider'></li>
-          <% end %>
-          <li>
-            <div class='text-center link-block'>
-              <%= link_to notice_index_link(current_user) do %>
-                <strong>See All Notifications</strong>
-                <i class='fa fa-angle-right'></i>
-              <% end %>
-            </div>
-          </li>
-        </ul>
-      </li>
+          </ul>
+        </li>
+      <% end %>
 
       <% if user_signed_in? %>
         <li>

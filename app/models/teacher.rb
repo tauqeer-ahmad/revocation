@@ -12,6 +12,7 @@ class Teacher < User
   has_many :attendances, as: :attendee
   has_many :assignments
   has_many :question_papers
+  has_many :subject_schedules
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
@@ -23,6 +24,8 @@ class Teacher < User
       email: email,
       qualification: qualification,
       profession: profession,
+      deleted_at: deleted_at,
+      deleted_in_term_id: deleted_in_term_id,
     }
   end
 

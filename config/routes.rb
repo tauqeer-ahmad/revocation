@@ -32,6 +32,20 @@ Revocation::Application.routes.draw do
           end
         end
         resources :timetables, only: [:index]
+        resources :attendances, only: [:index]
+        resources :assignments, only: [:index, :show]
+      end
+
+      namespace :guardian do
+        resources :exams, only: [:index, :show] do
+          member do
+            get :results
+          end
+        end
+        resources :timetables, only: [:index]
+        resources :students, only: [:index]
+        resources :attendances, only: [:index]
+        resources :assignments, only: [:index, :show]
       end
     end
 
@@ -220,11 +234,16 @@ Revocation::Application.routes.draw do
 
       resources :assignments, only: [:new, :edit, :create, :update, :destroy] do
         collection do
-          get '/list/:section_id/:subject_id', to: 'assignments#index'
+          get '/list/:section_id/:subject_id', to: 'assignments#index', as: 'list'
+        end
+
+        member do
+          post :status_update
         end
       end
 
       resources :question_papers
+      resources :subject_schedules
 
       resources :notices, only: :index do
         collection do
@@ -246,7 +265,8 @@ Revocation::Application.routes.draw do
         get :report
       end
       resources :assignments, only: [:index]
-
+      resources :results, only: [:index]
+      resources :timetables, only: [:index], as: :class_routine, path: :class_routine
       resources :exams do
         collection do
           get :autocomplete

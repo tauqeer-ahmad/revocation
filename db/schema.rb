@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170810163357) do
+=======
+ActiveRecord::Schema.define(version: 20170905170212) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +30,11 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "status"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
+    t.index ["status"], name: "index_assignments_on_status", using: :btree
     t.index ["subject_id"], name: "index_assignments_on_subject_id", using: :btree
     t.index ["teacher_id"], name: "index_assignments_on_teacher_id", using: :btree
     t.index ["term_id"], name: "index_assignments_on_term_id", using: :btree
@@ -42,6 +50,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "term_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_attendance_sheets_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_attendance_sheets_on_section_id", using: :btree
     t.index ["term_id"], name: "index_attendance_sheets_on_term_id", using: :btree
   end
@@ -54,8 +64,10 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "term_id"
+    t.datetime "deleted_at"
     t.index ["attendance_sheet_id"], name: "index_attendances_on_attendance_sheet_id", using: :btree
     t.index ["attendee_type", "attendee_id"], name: "index_attendances_on_attendee_type_and_attendee_id", using: :btree
+    t.index ["deleted_at"], name: "index_attendances_on_deleted_at", using: :btree
     t.index ["term_id"], name: "index_attendances_on_term_id", using: :btree
   end
 
@@ -86,6 +98,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "marksheet_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_exam_marks_on_deleted_at", using: :btree
     t.index ["exam_id"], name: "index_exam_marks_on_exam_id", using: :btree
     t.index ["klass_id"], name: "index_exam_marks_on_klass_id", using: :btree
     t.index ["marksheet_id"], name: "index_exam_marks_on_marksheet_id", using: :btree
@@ -105,6 +119,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "exam_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_exam_timetables_on_deleted_at", using: :btree
     t.index ["exam_id"], name: "index_exam_timetables_on_exam_id", using: :btree
     t.index ["klass_id"], name: "index_exam_timetables_on_klass_id", using: :btree
     t.index ["subject_id"], name: "index_exam_timetables_on_subject_id", using: :btree
@@ -119,6 +135,11 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "status",     limit: 16
+<<<<<<< HEAD
+=======
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_exams_on_deleted_at", using: :btree
+>>>>>>> master
     t.index ["term_id"], name: "index_exams_on_term_id", using: :btree
   end
 
@@ -155,8 +176,12 @@ ActiveRecord::Schema.define(version: 20170810163357) do
   create_table "klasses", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "deleted_at"
+    t.integer  "deleted_in_term_id"
+    t.index ["deleted_at"], name: "index_klasses_on_deleted_at", using: :btree
+    t.index ["deleted_in_term_id"], name: "index_klasses_on_deleted_in_term_id", using: :btree
   end
 
   create_table "marksheets", force: :cascade do |t|
@@ -167,6 +192,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_marksheets_on_deleted_at", using: :btree
     t.index ["exam_id"], name: "index_marksheets_on_exam_id", using: :btree
     t.index ["klass_id"], name: "index_marksheets_on_klass_id", using: :btree
     t.index ["section_id"], name: "index_marksheets_on_section_id", using: :btree
@@ -207,6 +234,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "term_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_question_papers_on_deleted_at", using: :btree
     t.index ["exam_id"], name: "index_question_papers_on_exam_id", using: :btree
     t.index ["klass_id"], name: "index_question_papers_on_klass_id", using: :btree
     t.index ["section_id"], name: "index_question_papers_on_section_id", using: :btree
@@ -225,6 +254,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.string   "user_avatar_url",  limit: 50
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_remarks_on_deleted_at", using: :btree
   end
 
   create_table "section_students", force: :cascade do |t|
@@ -256,14 +287,39 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "incharge_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_sections_on_deleted_at", using: :btree
+  end
+
+  create_table "subject_schedules", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "teacher_id"
+    t.integer  "subject_id"
+    t.integer  "section_id"
+    t.integer  "klass_id"
+    t.integer  "term_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_subject_schedules_on_deleted_at", using: :btree
+    t.index ["klass_id"], name: "index_subject_schedules_on_klass_id", using: :btree
+    t.index ["section_id"], name: "index_subject_schedules_on_section_id", using: :btree
+    t.index ["subject_id"], name: "index_subject_schedules_on_subject_id", using: :btree
+    t.index ["teacher_id", "term_id"], name: "index_subject_schedules_on_teacher_id_and_term_id", using: :btree
+    t.index ["teacher_id"], name: "index_subject_schedules_on_teacher_id", using: :btree
+    t.index ["term_id"], name: "index_subject_schedules_on_term_id", using: :btree
   end
 
   create_table "subjects", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.string   "color",       limit: 7, default: "#EB016E"
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "color",              limit: 7, default: "#EB016E"
+    t.datetime "deleted_at"
+    t.integer  "deleted_in_term_id"
+    t.index ["deleted_at"], name: "index_subjects_on_deleted_at", using: :btree
+    t.index ["deleted_in_term_id"], name: "index_subjects_on_deleted_in_term_id", using: :btree
   end
 
   create_table "terms", force: :cascade do |t|
@@ -273,6 +329,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "status",     limit: 16
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_terms_on_deleted_at", using: :btree
   end
 
   create_table "testimonials", force: :cascade do |t|
@@ -296,6 +354,8 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "teacher_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_timetables_on_deleted_at", using: :btree
     t.index ["klass_id"], name: "index_timetables_on_klass_id", using: :btree
     t.index ["section_id"], name: "index_timetables_on_section_id", using: :btree
     t.index ["subject_id"], name: "index_timetables_on_subject_id", using: :btree
@@ -337,6 +397,10 @@ ActiveRecord::Schema.define(version: 20170810163357) do
     t.integer  "guardian_id"
     t.string   "registration_number",    limit: 20
     t.string   "access_token",           limit: 20
+    t.datetime "deleted_at"
+    t.integer  "deleted_in_term_id"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
+    t.index ["deleted_in_term_id"], name: "index_users_on_deleted_in_term_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["guardian_id"], name: "index_users_on_guardian_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
@@ -356,5 +420,9 @@ ActiveRecord::Schema.define(version: 20170810163357) do
   add_foreign_key "question_papers", "sections"
   add_foreign_key "question_papers", "subjects"
   add_foreign_key "question_papers", "terms"
+  add_foreign_key "subject_schedules", "klasses"
+  add_foreign_key "subject_schedules", "sections"
+  add_foreign_key "subject_schedules", "subjects"
+  add_foreign_key "subject_schedules", "terms"
   add_foreign_key "testimonials", "users"
 end

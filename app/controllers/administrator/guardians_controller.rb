@@ -46,6 +46,8 @@ class Administrator::GuardiansController < ApplicationController
 
   def destroy
     @guardian.destroy
+    @guardian.reload
+    @guardian.save
     respond_to do |format|
       format.html { redirect_to administrator_guardians_url, notice: 'Guardian was successfully destroyed.' }
       format.json { head :no_content }
@@ -53,11 +55,11 @@ class Administrator::GuardiansController < ApplicationController
   end
 
   def fetch
-    render json: Guardian.all
+    render json: Guardian.search(params[:keyword][:term], fields: ["first_name", "last_name"], load: false, misspellings: {below: 5}, limit: 10).map{|guardian| [guardian.id, [guardian.first_name, ' ', guardian.last_name].join]}
   end
 
   def autocomplete
-    render json: Guardian.search(params[:search], fields: ["first_name", "last_name"], load: false, misspellings: {below: 5}, limit: 10).map{|guardian| {search: [guardian.first_name, ' ', guardian.last_name].join}}
+    render json: autocomplete_query(Guardian, ["first_name", "last_name"]).map{|guardian| {search: [guardian.first_name, ' ', guardian.last_name].join}}
   end
 
   private
@@ -68,6 +70,6 @@ class Administrator::GuardiansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def guardian_params
-      params.require(:guardian).permit(:first_name, :last_name, :email, :avatar, :cnic, :profession)
+      params.require(:guardian).permit(:first_name, :last_name, :email, :avatar, :cnic, :phone)
     end
 end

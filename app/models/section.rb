@@ -1,20 +1,24 @@
 class Section < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :institution
   belongs_to :term
   belongs_to :klass
   belongs_to :incharge, :class_name => "Teacher", :foreign_key => "incharge_id"
+
   has_many :section_subject_teachers, inverse_of: :section
   has_many :subjects, through: :section_subject_teachers
   has_many :teachers, through: :section_subject_teachers
   has_many :section_students
   has_many :students, through: :section_students
-  has_many :timetables
-  has_many :marksheets
-  has_many :exam_marks
-  has_many :attendance_sheets
-  has_many :attendances
-  has_many :assignments
-  has_many :question_papers
+  has_many :timetables, dependent: :destroy
+  has_many :marksheets, dependent: :destroy
+  has_many :exam_marks, dependent: :destroy
+  has_many :attendance_sheets, dependent: :destroy
+  has_many :attendances, dependent: :destroy
+  has_many :assignments, dependent: :destroy
+  has_many :question_papers, dependent: :destroy
+  has_many :subject_schedules, dependent: :destroy
 
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
 
@@ -26,7 +30,7 @@ class Section < ApplicationRecord
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
 
   def incharge_name
-    incharge.name
+    incharge&.name
   end
 
   def display_subjects_count

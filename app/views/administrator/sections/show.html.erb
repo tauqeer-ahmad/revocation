@@ -1,49 +1,80 @@
-<div id='section-wrapper'>
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>Sections</h2>
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+      <li>
+        <%= link_to 'Sections', [:administrator, @section.klass, @section] %>
+      </li>
+      <li class='active'>
+        <strong><%= @section.name %></strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div id='class-wrapper'>
   <div class='wrapper wrapper-content animated fadeInRight'>
-    <div class='row m-b-lg'>
-      <div class='col-lg-12 text-center'>
-        <h1><%= @section.name %></h1>
-      </div>
-    </div>
+    <div class='row'>
+      <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>
+        <div class='tabs-container'>
+          <ul class='nav nav-tabs'>
+            <li class='active'>
+              <%= link_to '#tab-stats', data: { toggle: 'tab' } do %>
+                <i class='fa fa-list'></i> Statistics
+              <% end %>
+            </li>
 
-    <div class='row m-b-lg'>
-      <div class='col-lg-12 text-center'>
-        <%= link_to edit_administrator_klass_section_path(@section.klass, @section), class: 'btn btn-info btn-outline btn-md' do %>
-          <i class='fa fa-pencil-square-o'></i> Edit
-        <% end %>
+            <li>
+              <%= link_to '#tab-subjects', data: { toggle: 'tab' } do %>
+                <i class='fa fa-book'></i> Subjects
+                <span class='label label-warning m-l-xs'><%= @section.subjects.length %></span>
+              <% end %>
+            </li>
 
-        <%= link_to administrator_klass_section_path(@section.klass, @section), data: { behavior: 'delete', object: @section.class.name }, class: 'btn btn-danger btn-outline btn-md' do %>
-          <i class='fa fa-trash-o'></i> Delete
-        <% end %>
-      </div>
-    </div>
+            <li>
+              <%= link_to '#tab-teachers', data: { toggle: 'tab' } do %>
+                <i class='fa fa-leanpub'></i> Teachers
+                <span class='label label-danger m-l-xs'><%= @section.teachers.uniq.length %></span>
+              <% end %>
+            </li>
 
-    <div class='row m-b-lg'>
-      <div class='col-lg-12 text-center'>
-        <%= link_to administrator_section_students_path(@section), class: 'btn btn-success btn-outline btn-md' do %>
-          <i class='fa fa-users'></i> Manage Students
-        <% end %>
+            <li>
+              <%= link_to '#tab-students', data: { toggle: 'tab' } do %>
+                <i class='fa fa-users'></i> Students
+                <span class='label label-info m-l-xs'><%= @section.students.length %></span>
+              <% end %>
+            </li>
+          </ul>
 
-        <%= link_to administrator_section_timetables_path(@section), class: 'btn btn-info btn-outline btn-md' do %>
-          <i class='fa fa-calendar'></i> Manage TimeTable
-        <% end %>
-      </div>
-    </div>
+          <div class='tab-content'>
+            <div id='tab-stats' class='tab-pane active'>
+              <div class='full-height-scroll panel-body'>
+                <%= render 'statistics' %>
+              </div>
+            </div>
 
-    <div class='row m-b-lg'>
-      <div class='col-lg-4 text-center'>
-        <h2><span class='label label-info'><%= @section.display_students_count %></span></h2>
-        <h2><i>Students</i></h2>
-      </div>
+            <div id='tab-subjects' class='tab-pane'>
+              <div class='full-height-scroll panel-body'>
+                <%= render 'subjects', section: @section %>
+              </div>
+            </div>
 
-      <div class='col-lg-4 text-center'>
-        <h2><span class='label label-warning'><%= @section.display_subjects_count %></span></h2>
-        <h2><i>Subjects</i></h2>
-      </div>
+            <div id='tab-teachers' class='tab-pane'>
+              <div class='full-height-scroll panel-body'>
+                <%= render 'teachers', section: @section %>
+              </div>
+            </div>
 
-      <div class='col-lg-4 text-center'>
-        <h2><span class='label label-danger'><%= @section.display_teachers_count %></span></h2>
-        <h2><i>Teachers</i></h2>
+            <div id='tab-students' class='tab-pane'>
+              <div class='full-height-scroll panel-body'>
+                <%= render 'students', section: @section %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

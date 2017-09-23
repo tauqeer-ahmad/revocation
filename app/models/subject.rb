@@ -1,5 +1,6 @@
 class Subject < ApplicationRecord
   include SearchWrapper
+  include GlobalParanoiable
 
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
@@ -12,6 +13,7 @@ class Subject < ApplicationRecord
   has_many :marksheets
   has_many :exam_marks
   has_many :question_papers
+  has_many :subject_schedules
 
   validates :color, presence: true
 
@@ -21,6 +23,8 @@ class Subject < ApplicationRecord
     {
       name: name,
       description: description,
+      deleted_at: deleted_at,
+      deleted_in_term_id: deleted_in_term_id,
     }
   end
 end

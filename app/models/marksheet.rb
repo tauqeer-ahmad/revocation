@@ -1,5 +1,10 @@
 class Marksheet < ApplicationRecord
+  acts_as_paranoid
+
   include SearchWrapper
+  include SearchCallbackable
+
+
   searchkick index_name: tenant_index_name
 
   has_many :exam_marks
@@ -21,6 +26,7 @@ class Marksheet < ApplicationRecord
       exam_name: exam.name,
       subject_name: subject.name,
       term_id: term_id,
+      deleted_at: deleted_at,
     })
   end
 end

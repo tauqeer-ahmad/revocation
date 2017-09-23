@@ -14,7 +14,7 @@
 
 <div class="wrapper wrapper-content  animated fadeInRight">
   <div class="row">
-    <div id='left-section' class="col-sm-12">
+    <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
           <h2>Teachers</h2>
@@ -32,32 +32,16 @@
               <div id="tab-1" class="tab-pane active">
                 <%= render partial: 'shared/search_box', locals: {path: administrator_teachers_path} %>
 
-                <div class="ibox"></div>
-
                 <div class="row">
                   <% @teachers.each do |teacher| %>
-                    <div class="col-lg-4">
-                      <div class="contact-box">
-                        <%= link_to [:administrator, teacher] do %>
-                          <div class="col-sm-4">
-                            <div class="text-center">
-                              <%= image_tag teacher.avatar.url(:medium), class: "img-circle m-t-xs img-responsive", alt: "image"%>
-                              <div class="m-t-xs font-bold">Graphics designer</div>
-                            </div>
-                          </div>
+                    <div class="col-lg-3 m-b-md">
+                      <div class='ibox-content text-center gray-bg'>
+                        <h3><%= teacher.name %></h3>
+                        <div class='m-b-sm'>
+                          <%= link_to image_tag(teacher.avatar.url(:medium), width: 100, height: 100, class: 'img-circle', alt: 'image'), [:administrator, teacher] %>
+                        </div>
 
-                          <div class="col-sm-8">
-                            <h3><strong><%= teacher.name %></strong></h3>
-                            <p><i class="fa fa-envelope"></i> <%= teacher.email %></p>
-                            <address>
-                              <strong>Twitter, Inc.</strong><br>
-                              795 Folsom Ave, Suite 600<br>
-                              San Francisco, CA 94107<br>
-                              <abbr title="Phone">P:</abbr> (123) 456-7890
-                            </address>
-                          </div>
-                          <div class="clearfix"></div>
-                        <% end %>
+                        <p class='font-bold'><i class="fa fa-envelope"></i> <%= teacher.email %></p>
 
                         <div class="m-t-xs text-center">
                           <%= link_to [:administrator, teacher], class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>

@@ -1,59 +1,75 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-lg-3">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <span class="label label-primary pull-right"><i class='fa fa-pencil'></i></span>
-          <h5>Students</h5>
+      <%= link_to [:administrator, :admissions] do %>
+        <div class="widget dashboard-style lazur-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-users fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Students</span>
+              <h2 class="font-bold"><%= @rolling[:students] %></h2>
+            </div>
+          </div>
         </div>
-        <div class="ibox-content">
-          <h1 class="no-margins"><%= @rolling[:students] %></h1>
-          <small>Total students</small>
-        </div>
-      </div>
+      <% end %>
     </div>
 
     <div class="col-lg-3">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <span class="label label-danger pull-right"><i class='fa fa-users'></i></span>
-          <h5>Teachers</h5>
+      <%= link_to [:administrator, Teacher] do %>
+        <div class="widget dashboard-style red-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-leanpub fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Teachers</span>
+              <h2 class="font-bold"><%= @rolling[:teachers] %></h2>
+            </div>
+          </div>
         </div>
-        <div class="ibox-content">
-          <h1 class="no-margins"><%= @rolling[:teachers] %></h1>
-          <small>Total teachers</small>
-        </div>
-      </div>
+      <% end %>
     </div>
 
     <div class="col-lg-3">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <span class="label label-success pull-right"><i class='fa fa-cubes'></i></span>
-          <h5>Classes</h5>
+      <%= link_to [:administrator, Klass] do %>
+        <div class="widget dashboard-style yellow-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-cubes fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Classes</span>
+              <h2 class="font-bold"><%= @rolling[:klasses] %></h2>
+            </div>
+          </div>
         </div>
-        <div class="ibox-content">
-          <h1 class="no-margins"><%= @rolling[:klasses] %></h1>
-          <small>Total classes</small>
-        </div>
-      </div>
+      <% end %>
     </div>
 
     <div class="col-lg-3">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <span class="label label-info pull-right"><i class='fa fa-table'></i></span>
-          <h5>Sections</h5>
+      <%= link_to [:administrator, Section] do %>
+        <div class="widget dashboard-style blue-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-table fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Sections</span>
+              <h2 class="font-bold"><%= @rolling[:sections] %></h2>
+            </div>
+          </div>
         </div>
-        <div class="ibox-content">
-          <h1 class="no-margins"><%= @rolling[:sections] %></h1>
-          <small>Total sections</small>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row m-t-sm">
     <div class='col-md-12'>
       <%= render 'note_create_form' %>
     </div>

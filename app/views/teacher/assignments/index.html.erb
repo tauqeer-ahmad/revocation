@@ -37,9 +37,10 @@
                       <%= link_to(edit_assignment_path(assignment), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit'){ icon_of('fa fa-edit') } %>
 
                       <%= link_to(assignment_path(assignment), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: assignment.class.name }, title: 'Delete'){ icon_of('fa fa-trash-o') } %>
+                      <%= link_to(status_update_assignment_path(assignment), method: :post, class: "btn btn-outline #{entity_status_class(assignment)} dim btn-xs") { entity_status(assignment) } %>
                     </td>
                   </tr>
-                  <%= render partial: 'task_modal', locals: {assignment: assignment} %>
+                  <%= render '/shared/assignments/task_modal', assignment: assignment %>
                 <% end %>
               </tbody>
             </table>

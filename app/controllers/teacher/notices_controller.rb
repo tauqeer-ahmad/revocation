@@ -4,7 +4,7 @@ class Teacher::NoticesController < ApplicationController
   end
 
   def autocomplete
-    render json: Notice.search(params[:search], fields: ["title"], where: where_clause, load: false, misspellings: {below: 5}, limit: 10).map{|notice| {search: notice.title}}
+    render json: autocomplete_query(Notice, ["title"], where_clause).map{|notice| {search: notice.title}}
   end
 
   private

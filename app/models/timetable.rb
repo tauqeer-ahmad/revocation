@@ -1,4 +1,6 @@
 class Timetable < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :section
   belongs_to :subject
   belongs_to :klass
@@ -10,7 +12,7 @@ class Timetable < ApplicationRecord
   validates :end_time, presence: { message: "End time is required" }
   validates :subject_id, presence: { message: "Selection of a subject is required" }
 
-  scope :by_bay_of_week, -> {order(day_of_week: :asc).group_by(&:day_of_week)}
+  scope :by_day_of_week, -> {order(day_of_week: :asc).group_by(&:day_of_week)}
 
   DAYS = {
     1 => "Monday",
@@ -47,7 +49,11 @@ class Timetable < ApplicationRecord
   end
 
   def subject_name
-    subject.try(:name)
+    subject&.name
+  end
+
+  def subject_color
+    subject&.color
   end
 
   def klass_name

@@ -1,6 +1,9 @@
 class Term < ApplicationRecord
+  acts_as_paranoid
+
   include AASM
   include SearchWrapper
+  include SearchCallbackable
 
   searchkick index_name: tenant_index_name
 
@@ -9,13 +12,14 @@ class Term < ApplicationRecord
   has_many :students, through: :section_students
   has_many :sections, dependent: :destroy
   has_many :exams, dependent: :destroy
-  has_many :attendance_sheets
-  has_many :attendances
-  has_many :assignments
+  has_many :attendance_sheets, dependent: :destroy
+  has_many :attendances, dependent: :destroy
+  has_many :assignments, dependent: :destroy
   has_many :exam_timetables, dependent: :destroy
   has_many :marksheets, dependent: :destroy
   has_many :exam_marks, dependent: :destroy
-  has_many :question_papers
+  has_many :question_papers, dependent: :destroy
+  has_many :subject_schedules, dependent: :destroy
 
   validates :name, presence: {message: "is required"}
   validates :start_date, presence: {message: "is required"}
@@ -28,6 +32,7 @@ class Term < ApplicationRecord
     {
       name: name,
       status: status,
+      deleted_at: deleted_at,
     }
   end
 
@@ -36,7 +41,7 @@ class Term < ApplicationRecord
     state :active
     state :completed
 
-    event :reinitialize do
+    event :reinitialize, after: :update_complete_term do
       transitions from: [:initialized, :active], to: :initialized
     end
 
@@ -44,9 +49,17 @@ class Term < ApplicationRecord
       transitions from: [:initialized, :completed], to: :active
     end
 
-    event :complete do
+    event :complete, after: :update_active_term do
       transitions from: [:active], to: :completed
     end
+  end
+
+  def update_complete_term
+    Term.completed.last.active!
+  end
+
+  def update_active_term
+    Term.initialized.first.active!
   end
 
   def display_term_duration
@@ -67,6 +80,7 @@ class Term < ApplicationRecord
 
   def update_state(new_status)
     return true if self.persisted? && self.status == new_status
+    status_integrity if self.new_record?
 
     return self.complete! if new_status == 'completed'
     return self.active! if new_status == 'active'

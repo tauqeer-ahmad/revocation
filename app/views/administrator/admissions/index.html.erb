@@ -25,7 +25,7 @@
           <%= form_tag new_administrator_admission_path, method: :get do %>
             <%= hidden_field_tag :type, params[:bulk] %>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-5">
                 <div class="form-group">
                   <label class="m-b-xs">Class</label>
                   <div class="input-group">
@@ -34,7 +34,7 @@
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="col-md-5">
                 <div class="form-group">
                   <label class="m-b-xs">Section</label>
                   <div class="input-group">
@@ -44,7 +44,7 @@
               </div>
               <div class="col-md-2 m-t-xs-20">
                 <center>
-                  <%= button_tag class: "btn btn-primary" do %>
+                  <%= button_tag class: "btn btn-primary btn-block" do %>
                     Proceed <i class="fa fa-forward-arrow"></i>
                   <% end %>
                 </center>

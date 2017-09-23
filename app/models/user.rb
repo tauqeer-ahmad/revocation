@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include GlobalParanoiable
+
   GENDERS = %w(Male Female)
   self.inheritance_column = :type_of
   # Include default devise modules. Others available are:

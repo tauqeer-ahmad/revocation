@@ -1,5 +1,5 @@
 class Teacher::AssignmentsController < ApplicationController
-  before_action :set_assignment, only: [:edit, :update, :destroy]
+  before_action :set_assignment, only: [:edit, :update, :destroy, :status_update]
   before_action :set_class_section_subject, only: [:index, :edit, :new]
 
   def index
@@ -39,6 +39,11 @@ class Teacher::AssignmentsController < ApplicationController
       format.html { redirect_to "/assignments_path/#{@assignment.section_id}/#{@assignment.subject_id}", notice: 'Assignment was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def status_update
+    @assignment.toggle_status
+    redirect_to :back, notice: "Status changed to #{@assignment.status.titleize}."
   end
 
   private

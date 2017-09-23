@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   helper_method :current_user, :user_signed_in?, :current_term, :active_term, :selected_student
+
+  before_action :set_current_term
   before_action :check_locked_account
   before_action :check_selected_student, unless: :devise_controller?
   before_action :set_notices
@@ -50,6 +52,10 @@ class ApplicationController < ActionController::Base
     @current_term ||= allocate_term
   end
 
+  def set_current_term
+    Current.term = current_term
+  end
+
   def active_term
     @active_term ||= Term.active_term
   end
@@ -59,19 +65,28 @@ class ApplicationController < ActionController::Base
   end
 
   def set_notices
-    return if current_user.blank?
+    return if current_user.blank? || current_user.supervisor? || active_term.blank?
 
     @new_notices_count = Notice.new_notice_count(selected_user, active_term.id, current_user.type_of)
   end
 
   def latest_notices
-    return if current_user.blank?
+    return @latest_notices = [] if current_user.blank? || current_user.supervisor? || active_term.blank?
 
     @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
   
   def authenticate_access!
     redirect_to :root, alert: "You need to login before you continue." unless current_user.present?
+  end
+
+  def paranoia_condition(entity)
+    return {_or: [{deleted_at: nil}, {deleted_in_term_id: {gt: Current.term&.id}}]} if entity.name.in?(PARANOIA_TERM_CONDITION_MODELS)
+    return {deleted_at: nil}
+  end
+
+  def autocomplete_query(entity, fields, clause = {})
+    entity.search(params[:search], fields: fields, load: false, misspellings: {below: 5}, limit: 10, where: clause.merge!(paranoia_condition(entity)))
   end
 
   private

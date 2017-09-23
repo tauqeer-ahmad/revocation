@@ -1,7 +1,7 @@
 class Api::V1::Student::ExamsController < Api::V1::Student::StudentBaseController
   before_action :set_exam, only: [:show, :results]
   def index
-    @exams = current_term.exams
+    @exams = current_term.exams.includes(exam_timetables: [:subject, :klass])
     render json: @exams
   end
 

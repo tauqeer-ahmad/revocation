@@ -1,4 +1,6 @@
 class Attendance < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :attendee, polymorphic: true
   belongs_to :attendance_sheet
   belongs_to :term
@@ -6,6 +8,15 @@ class Attendance < ApplicationRecord
   enum status: [:present, :absent, :leave]
 
   scope :of_student_and_term, -> (student_id, term_id) { includes(:attendance_sheet).where(attendee_type: 'Student', attendee_id: student_id, term_id: term_id) }
+
+  def self.during(year, month)
+    if year.present? && month.present?
+      date = Date.new(year.to_i, month.to_i)
+      return references(:attendance_sheet).where("attendance_sheets.name >= ? and attendance_sheets.name <= ?", date.beginning_of_month, date.end_of_month)
+    end
+
+    all
+  end
 
   def get_attendance_color
     case status

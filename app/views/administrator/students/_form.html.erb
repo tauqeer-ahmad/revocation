@@ -34,7 +34,12 @@
             </div>
 
             <div class='col-sm-4'>
-              <%= f.input :guardian_id, collection: [], prompt: 'Select Gender', label: false, input_html: { class: 'form-control select-guardians' } %>
+              <% if params.dig(:student, :guardian_id).present? %>
+                <% guardian = Guardian.find_by(id: params[:student][:guardian_id]) %>
+                <% guardian_option = [guardian.first_name, guardian.id] %>
+              <% end %>
+
+              <%= f.input :guardian_id, collection: [guardian_option], prompt: 'Select Gender', label: false, input_html: { class: 'form-control select-guardians' } %>
             </div>
           </div>
         </div>
@@ -100,7 +105,7 @@
 
       <div class='form-group'>
         <div class='col-sm-4 col-sm-offset-4 text-center'>
-          <%= f.submit class: 'btn btn-primary' do %>
+          <%= f.submit class: 'btn btn-lg btn-primary' do %>
             <i class='fa fa-check'>&nbsp;Submit</i>
           <% end %>
         </div>

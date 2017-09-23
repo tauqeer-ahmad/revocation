@@ -658,7 +658,7 @@ table.table-mail tr td {
 }
 
 .yellow-bg {
-  border-color: $yellow;
+  background-color: $yellow;
   color: #ffffff;
 }
 
@@ -773,43 +773,43 @@ table.table-mail tr td {
 /* COLORS */
 
 .text-navy {
-  color: $navy;
+  color: $navy !important;
 }
 
 .text-lazur {
-  color: $lazur;
+  color: $lazur !important;
 }
 
 .text-yellow {
-  color: $yellow;
+  color: $yellow !important;
 }
 
 .text-primary {
-  color: inherit;
+  color: inherit !important;
 }
 
 .text-success {
-  color: $blue;
+  color: $blue !important;
 }
 
 .text-info {
-  color: $lazur;
+  color: $lazur !important;
 }
 
 .text-warning {
-  color: $yellow;
+  color: $yellow !important;
 }
 
 .text-danger {
-  color: $red;
+  color: $red !important;
 }
 
 .text-muted {
-  color: #888888;
+  color: #888888 !important;
 }
 
 .text-white {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .simple_tag {

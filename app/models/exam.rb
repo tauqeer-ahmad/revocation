@@ -1,6 +1,10 @@
 class Exam < ApplicationRecord
+  acts_as_paranoid
+
   include AASM
   include SearchWrapper
+  include SearchCallbackable
+
 
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
@@ -22,19 +26,20 @@ class Exam < ApplicationRecord
       start_date: start_date,
       term_id: term_id,
       status: status,
+      deleted_at: deleted_at,
     }
   end
 
   aasm requires_lock: true, column: 'status' do
     state :initialized
-    state :activated
+    state :active
 
     event :activate do
-      transitions from: [:initialized], to: :activated
+      transitions from: [:initialized], to: :active
     end
 
     event :reinitialize do
-      transitions from: [:activated], to: :initialized
+      transitions from: [:active], to: :initialized
     end
   end
 
