@@ -27,3 +27,6 @@
     name: 'search'
     displayKey: 'search'
     source: engine.ttAdapter()
+
+  $('body').on 'click', '.tt-suggestion', (event) ->
+    $('#search-box').closest("form").submit()

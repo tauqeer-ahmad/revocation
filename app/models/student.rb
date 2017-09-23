@@ -2,7 +2,7 @@ class Student < User
   include SearchWrapper
   include Authentication
 
-  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name]
+  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name, name: :exact]
 
   belongs_to :enrollment_term, class_name: 'Term', foreign_key: 'enrollment_term_id'
   belongs_to :guardian
@@ -35,7 +35,12 @@ class Student < User
       registration_number: registration_number,
       deleted_at: deleted_at,
       deleted_in_term_id: deleted_in_term_id,
+      name: full_name,
     }
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def set_password

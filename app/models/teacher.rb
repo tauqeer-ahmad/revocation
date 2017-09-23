@@ -2,7 +2,7 @@ class Teacher < User
   include SearchWrapper
   include Authentication
 
-  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name]
+  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name, name: :exact]
 
   belongs_to :institution
   has_many :incharged_sections, :class_name => "Section", :foreign_key => "incharge_id"
@@ -26,7 +26,12 @@ class Teacher < User
       profession: profession,
       deleted_at: deleted_at,
       deleted_in_term_id: deleted_in_term_id,
+      name: full_name,
     }
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def set_password
