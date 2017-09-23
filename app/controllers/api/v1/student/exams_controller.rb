@@ -18,6 +18,6 @@ class Api::V1::Student::ExamsController < Api::V1::Student::StudentBaseControlle
   private
   def set_exam
     @exams = current_term.exams.where(id: params[:id])
-    return record_not_found if @exams.blank?
+    return error_response("No exam records found") if @exams.blank?
   end
 end
