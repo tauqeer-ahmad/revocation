@@ -75,6 +75,10 @@ class ApplicationController < ActionController::Base
 
     @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
+  
+  def authenticate_access!
+    redirect_to :root, alert: "You need to login before you continue." unless current_user.present?
+  end
 
   def paranoia_condition(entity)
     return {_or: [{deleted_at: nil}, {deleted_in_term_id: {gt: Current.term&.id}}]} if entity.name.in?(PARANOIA_TERM_CONDITION_MODELS)
