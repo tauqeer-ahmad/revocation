@@ -26,9 +26,9 @@
                 <tr>
                   <td class='text-center'><%= @exam_marks[student_id].first.student.name %></td>
                   <% @subjects.each do |subject| %>
-                    <td class='text-center'><%= disply_obtained_marks(exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:obtained), exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:total)) %></td>
+                    <td class='text-center'><%= display_obtained_marks(exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:obtained), exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:total)) %></td>
                   <% end %>
-                  <td class='text-center'><%= disply_obtained_marks(exam_marks.collect{|x| x.obtained.to_f}.sum.to_i, exam_marks.collect{|x| x.total.to_f}.sum.to_i) %>  </td>
+                  <td class='text-center'><%= display_obtained_marks(exam_marks.collect{|x| x.obtained.to_f}.sum, exam_marks.collect{|x| x.total.to_f}.sum) %>  </td>
                 </tr>
               <% end %>
             </tbody>
