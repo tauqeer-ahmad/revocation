@@ -35,4 +35,8 @@ class AttendanceSheet < ApplicationRecord
     counters = attendances.group(:status).count
     update_columns(present: counters['present'], absent: counters['absent'], leave: counters['leave'])
   end
+
+  def self.monthly_grouped
+    group_by { |entity| entity.name.to_date.strftime('%B-%y') }
+  end
 end
