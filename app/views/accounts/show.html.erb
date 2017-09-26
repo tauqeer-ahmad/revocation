@@ -34,10 +34,12 @@
                   </h2>
                 </div>
                 <%= image_tag current_user.avatar.url(:medium), class: "img-responsive img-circle circle-border m-b-md", alt: "profile" %>
-                <div>
-                  <span><%= current_user.current_section(current_term.id).klass_name %></span> |
-                  <span><%= current_user.current_section(current_term.id).name %></span>
-                </div>
+                <% if current_user.student? %>
+                  <div>
+                    <span><%= current_user.current_section(current_term.id).klass_name %></span> |
+                    <span><%= current_user.current_section(current_term.id).name %></span>
+                  </div>
+                <% end %>
               </div>
             </div>
             <div class="col-lg-6">

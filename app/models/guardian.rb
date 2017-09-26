@@ -2,7 +2,7 @@ class Guardian < User
   include SearchWrapper
   include Authentication
 
-  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name]
+  searchkick index_name: tenant_index_name, match: :word_start, searchable: [:first_name, :last_name, name: :exact]
 
   has_many :children, class_name: 'Student', foreign_key: 'guardian_id'
 
@@ -18,7 +18,12 @@ class Guardian < User
       cnic: cnic,
       deleted_at: deleted_at,
       deleted_in_term_id: deleted_in_term_id,
+      name: full_name,
     }
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def set_password
