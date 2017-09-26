@@ -7,6 +7,11 @@ class Student::ExamsController < ApplicationController
 
   def show
     @exam_timetables = @exam.exam_timetables.by_klass(selected_user.current_section(current_term).klass_id).by_paper_date
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   def autocomplete
@@ -16,6 +21,6 @@ class Student::ExamsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_exam
-      @exam = Exam.find(params[:id])
+      @exam = Exam.active.find(params[:id])
     end
 end

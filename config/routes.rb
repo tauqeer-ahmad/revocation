@@ -232,7 +232,7 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :assignments, only: [:new, :edit, :create, :update, :destroy] do
+      resources :assignments, only: [:new, :edit, :create, :update, :destroy, :show] do
         collection do
           get '/list/:section_id/:subject_id', to: 'assignments#index', as: 'list'
         end
@@ -264,7 +264,7 @@ Revocation::Application.routes.draw do
       resource :attendance, controller: :attendance, only: [] do
         get :report
       end
-      resources :assignments, only: [:index]
+      resources :assignments, only: [:index, :show]
       resources :results, only: [:index]
       resources :timetables, only: [:index], as: :class_routine, path: :class_routine
       resources :exams do
@@ -294,7 +294,7 @@ Revocation::Application.routes.draw do
       resource :attendance, controller: :attendance, only: [] do
         get :report
       end
-      resources :assignments, only: [:index]
+      resources :assignments, only: [:index, :show]
 
       resources :exams do
         collection do

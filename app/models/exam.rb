@@ -13,6 +13,7 @@ class Exam < ApplicationRecord
   has_many :exam_marks
   has_many :marksheets
   has_many :question_papers
+  has_many :notices, as: :noticeable
 
   validates :name, :start_date, presence: true
   validates :name, uniqueness: {scope: [:term_id]}
@@ -34,7 +35,7 @@ class Exam < ApplicationRecord
     state :initialized
     state :active
 
-    event :activate do
+    event :activate, after: :add_notice do
       transitions from: [:initialized], to: :active
     end
 
@@ -70,5 +71,13 @@ class Exam < ApplicationRecord
                end
              end
     events.flatten
+  end
+
+  def add_notice
+    notices.create(
+                    title: "#{name} Exam announced.",
+                    message: "Starting From #{start_date}",
+                    notice_type: 'General',
+                  )
   end
 end

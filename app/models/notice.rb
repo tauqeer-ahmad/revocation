@@ -1,6 +1,7 @@
 class Notice < ApplicationRecord
   belongs_to :klass
   belongs_to :section
+  belongs_to :noticeable, polymorphic: true
 
   include SearchWrapper
 
