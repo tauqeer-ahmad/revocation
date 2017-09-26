@@ -14,7 +14,8 @@ class Administrator::AttendanceSheetsController < ApplicationController
   end
 
   def teachers
-    @attendance_sheets = current_term.attendance_sheets.teacher.includes(:attendances).ordered
+    sheets = current_term.attendance_sheets.teacher.includes(:attendances).ordered
+    @attendance_sheets = sheets.group_by { |entity| entity.name.to_date.strftime('%B-%Y') }
   end
 
   def managing_teachers
