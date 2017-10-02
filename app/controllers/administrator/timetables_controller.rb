@@ -5,6 +5,7 @@ class Administrator::TimetablesController < ApplicationController
 
   def index
     @timetables = @section.timetables.by_day_of_week
+    gon.timetable_events = Timetable.events(@timetables)
     @new_timetable = Timetable.new
     @days_hash = Timetable::DAYS
   end

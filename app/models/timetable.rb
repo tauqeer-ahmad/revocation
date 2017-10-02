@@ -63,4 +63,31 @@ class Timetable < ApplicationRecord
   def section_name
     section.try(:name)
   end
+
+  def self.events(timetables)
+    today = Date.today
+    week_dates = (today.at_beginning_of_week..today.at_end_of_week).map(&:to_s)
+    events = []
+
+    timetables.each do |day, records|
+      records.each do |record|
+        teacher = record.teacher
+
+        events << {
+          id: record.id,
+          title: record.subject_name,
+          start: [week_dates[day.pred], record.start_time.strftime('%T')].join(' '),
+          end: [week_dates[day.pred], record.end_time.strftime('%T')].join(' '),
+          color: record.subject.color,
+          teacher_id: teacher.id,
+          teacher_name: teacher.name,
+          section_id: record.section.id,
+          className: ['text-center', 'timetable-event'],
+          allDay: false,
+        }
+      end
+    end
+
+    events
+  end
 end
