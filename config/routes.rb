@@ -182,7 +182,6 @@ Revocation::Application.routes.draw do
 
       resources :marksheets, only: [:index, :edit, :destroy]do
         collection do
-          get :existing
           get :build_marksheet
           post :create_marksheet
           get :generate_tabulation_sheet

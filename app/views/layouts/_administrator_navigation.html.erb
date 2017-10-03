@@ -138,12 +138,6 @@
             <% end %>
           </li>
 
-          <li class='<%= is_active_controller_action('administrator/marksheets', 'existing') %>'>
-            <%= link_to existing_administrator_marksheets_path do %>
-              <i class='fa fa-newspaper-o' aria-hidden='true'></i> Marksheets
-            <% end %>
-          </li>
-
           <li class='<%= is_active_controller_action('administrator/marksheets', 'generate_tabulation_sheet') %> <%= is_active_controller_action('administrator/marksheets', 'tabulation_sheet') %>'>
             <%= link_to generate_tabulation_sheet_administrator_marksheets_path do %>
               <i class='fa fa-th' aria-hidden='true'></i> Tabulation Sheet

@@ -6,11 +6,6 @@ class Administrator::MarksheetsController < ApplicationController
     @klasses = Klass.all
   end
 
-  def existing
-    @marksheets = Marksheet.lookup params[:search], {term_id: current_term.id}
-    #@marksheets = Marksheet.includes(:exam, :klass, :subject, :section, exam_marks: [:student]).of_current_term(current_term.id)
-  end
-
   def build_marksheet
     @section = Section.find(params[:section_id])
     @students = @section.students
