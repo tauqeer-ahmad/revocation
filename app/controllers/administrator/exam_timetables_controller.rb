@@ -4,8 +4,13 @@ class Administrator::ExamTimetablesController < ApplicationController
   before_action :set_new_exam_timetable_data, only: [:index, :edit]
 
   def index
+    @klasses = Klass.all
     @exam_timetables = @exam.exam_timetables.by_paper_date
     @new_exam_timetable = @exam.exam_timetables.new(term_id: current_term.id)
+  end
+
+  def filter
+    @exam_timetables = @exam.exam_timetables.where(klass_id: params[:klass_id], section_id: params[:section_id]).by_paper_date
   end
 
   def edit

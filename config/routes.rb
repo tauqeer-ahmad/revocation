@@ -177,7 +177,11 @@ Revocation::Application.routes.draw do
         member do
           post :status_update
         end
-        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
+        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy] do
+          collection do
+            get :filter
+          end
+        end
       end
 
       resources :marksheets, only: [:index, :edit, :destroy]do

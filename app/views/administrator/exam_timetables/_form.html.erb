@@ -3,7 +3,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Select Class</label>
       <div class="col-sm-8">
-        <%= f.select :klass_id, @klasses.pluck(:name, :id), {include_blank: "Select Class"}, class: "form-control select2_dropdown selectable_klass", required: true %>
+        <%= f.select :klass_id, @klasses.pluck(:name, :id), {include_blank: "Select Class"}, class: "form-control select2_dropdown selectable_exam_klass", required: true %>
       </div>
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Select Section</label>
       <div class="col-sm-8">
-        <%= f.select :section_id, options_for_select([]), {include_blank: "Select Section"}, {class: "form-control select2_dropdown selectable_section", required: true, disabled: false} %>
+        <%= f.select :section_id, options_for_select([]), {include_blank: "Select Section"}, {class: "form-control select2_dropdown selectable_exam_section", required: true, disabled: false} %>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Select Subject</label>
       <div class="col-sm-8">
-         <%= f.select :subject_id, options_for_select([]), {include_blank: "Select Subject"}, {class: "form-control select2_dropdown selectable_subject", required: true, disabled: false} %>
+         <%= f.select :subject_id, options_for_select([]), {include_blank: "Select Subject"}, {class: "form-control select2_dropdown selectable_exam_subject", required: true, disabled: false} %>
       </div>
     </div>
   </div>
