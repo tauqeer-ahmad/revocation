@@ -5,6 +5,7 @@ class ExamTimetable < ApplicationRecord
   belongs_to :exam
   belongs_to :klass
   belongs_to :subject
+  belongs_to :section
 
   scope :by_paper_date, -> {order(paper_date: :asc).group_by(&:paper_date)}
   scope :by_klass, -> (klass_id) { where(klass_id: klass_id) }

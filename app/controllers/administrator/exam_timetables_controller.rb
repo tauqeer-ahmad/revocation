@@ -63,7 +63,7 @@ class Administrator::ExamTimetablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def exam_timetable_params
-      params.require(:exam_timetable).permit(:start_time, :end_time, :paper_date, :klass_id, :subject_id).tap do |whitelisted|
+      params.require(:exam_timetable).permit(:start_time, :end_time, :paper_date, :klass_id, :section_id, :subject_id).tap do |whitelisted|
         whitelisted[:term_id] = current_term.id
       end
     end
