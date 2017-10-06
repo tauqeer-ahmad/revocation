@@ -39,6 +39,11 @@ class Administrator::HomeController < ApplicationController
     redirect_to root_path
   end
 
+
+  def validate_email
+    render json: params[:model].constantize.find_by("#{params[:attribute]}": params[:value]).to_json
+  end
+
   private
     def institution_params
       params.require(:institution).permit(:logo, :email, :phone_number, :fax_number, :address, :contact_description, :facebook_url, :twitter_url, :linkedin_url, :video_url, :latitude, :longitude)
