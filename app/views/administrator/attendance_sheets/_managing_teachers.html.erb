@@ -19,9 +19,9 @@
                     <table class="table small table-hover table-bordered">
                       <thead>
                         <tr>
-                          <th>Email</th>
                           <th>First Name</th>
                           <th>Last Name</th>
+                          <th>Email</th>
                           <th>Designation</th>
                           <th class='attendance-label'>
                             <span class='label label-primary'>Present</span>
@@ -33,9 +33,9 @@
                       <tbody>
                         <%= f.simple_fields_for :attendances do |attendance| %>
                           <tr>
-                            <td><%= @teachers[attendance.object.attendee_id][0] %></td>
                             <td><%= @teachers[attendance.object.attendee_id][1] %></td>
                             <td><%= @teachers[attendance.object.attendee_id][2] %></td>
+                            <td><%= @teachers[attendance.object.attendee_id][0] %></td>
                             <td><%= @teachers[attendance.object.attendee_id][3] %></td>
                             <%= attendance.input :attendee_id, as: :hidden, input_html: { value: attendance.object.attendee_id } %>
                             <td>
