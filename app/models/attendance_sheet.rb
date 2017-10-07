@@ -12,6 +12,7 @@ class AttendanceSheet < ApplicationRecord
 
   enum entity: [:student, :teacher]
 
+  scope :of_section, -> (section) { where(section_id: section) }
   scope :ordered, -> {order(name: :desc)}
 
   def create_or_build_records(section = nil)

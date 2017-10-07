@@ -14,8 +14,11 @@ bind_back_btn = ->
 bind_section_selection = ->
   $('body').on 'change', '.section-selection', (event) ->
     section = $(this).val()
-    $('.attendance-row').addClass('hidden')
-    $(".section-#{section}").removeClass('hidden')
+    if section == ''
+      $('.attendance-row').removeClass('hidden')
+    else
+      $('.attendance-row').addClass('hidden')
+      $(".section-#{section}").removeClass('hidden')
 
 
 (($) ->
