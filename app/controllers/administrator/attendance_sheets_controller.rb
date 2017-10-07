@@ -3,7 +3,9 @@ class Administrator::AttendanceSheetsController < ApplicationController
   before_action :set_section, only: :managing_students
 
   def index
-    @attendance_sheets = current_term.attendance_sheets.student.includes(:attendances, section: :klass).ordered
+    sheets = current_term.attendance_sheets.student.includes(:attendances, section: :klass).ordered
+    @attendance_sheets = sheets.group_by { |entity| entity.name.to_date.strftime('%B-%Y') }
+
     @sections = current_term.sections.all_sections_list
   end
 

@@ -11,11 +11,11 @@ bind_back_btn = ->
   $('body').on 'click', '#back-btn', (event) ->
     location.reload()
 
-bind_month_selection = ->
-  $('body').on 'click', '.month-selection', (event) ->
-    month = $(this).attr('id')
+bind_section_selection = ->
+  $('body').on 'change', '.section-selection', (event) ->
+    section = $(this).val()
     $('.attendance-row').addClass('hidden')
-    $(".#{month}").removeClass('hidden')
+    $(".section-#{section}").removeClass('hidden')
 
 
 (($) ->
@@ -27,5 +27,5 @@ bind_month_selection = ->
   init_controls = ->
     bind_date_field()
     bind_back_btn()
-    bind_month_selection()
+    bind_section_selection()
 ).call(this)
