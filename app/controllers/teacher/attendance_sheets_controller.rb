@@ -4,8 +4,10 @@ class Teacher::AttendanceSheetsController < ApplicationController
   before_action :update_params, only: :update
 
   def index
-    @attendance_sheets = current_term.attendance_sheets.student.includes(:attendances, {section: :klass}).ordered
     @sections =  current_user.incharged_sections_list(current_term.id)
+
+    sheets = current_term.attendance_sheets.student.of_section(@sections.map(&:first)).includes(:attendances, {section: :klass}).ordered
+    @attendance_sheets = sheets.group_by { |entity| entity.name.to_date.strftime('%B-%Y') }
   end
 
   def managing_students
