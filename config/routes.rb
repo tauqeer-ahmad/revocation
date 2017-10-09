@@ -91,6 +91,7 @@ Revocation::Application.routes.draw do
     post :save_configuration, to: 'administrator/home#save_configuration'
     get :lock_account, to: 'administrator/home#lock_account'
     post :unlock_account, to: 'administrator/home#unlock_account'
+    post :validate_field, to: 'administrator/home#validate_field'
 
     resources :testimonials, only: [:index, :update, :destroy]
     resources :remarks, only: [:create]

@@ -24,7 +24,8 @@
                       </div>
 
                       <div class='col-sm-3'>
-                        <%= email_field_tag 'students[][email]', nil, required: true, maxlength: 60, placeholder: 'Email', class: 'form-control' %>
+                        <%= email_field_tag 'students[][email]', nil, required: true, maxlength: 60, placeholder: 'Email', class: 'form-control validate-field', data: { model: 'Student', field: 'email' } %>
+                        <span class='help-block text-danger hide'>Email already exists.</span>
                       </div>
 
                       <div class='col-sm-3'>
@@ -51,7 +52,7 @@
                       </div>
 
                       <div class='col-sm-2'>
-                        <%= button_tag type: :button, class: 'btn btn-success show-guardian-form-btn' do %>
+                        <%= button_tag type: :button, class: 'btn btn-success show-guardian-form-btn btn-block' do %>
                           <i class='fa fa-plus' aria-hidden='true'></i> New Guardian
                         <% end %>
                       </div>
@@ -76,7 +77,8 @@
                         </div>
 
                         <div class='col-sm-3'>
-                          <%= email_field_tag 'students[][guardian][email]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Email', class: 'form-control' %>
+                          <%= email_field_tag 'students[][guardian][email]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Email', class: 'form-control validate-field', data: { model: 'Guardian', field: 'email' } %>
+                          <span class='help-block text-danger hide'>Email already exists.</span>
                         </div>
 
                         <div class='col-sm-3'>

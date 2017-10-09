@@ -19,13 +19,25 @@ bind_delete_row_bulk_insert = ->
 
 bind_guardian_form = ->
   $('body').on 'click', '.show-guardian-form-btn', ->
-    $(this).prop('disabled', true)
-
     form = $(this).parents('.whole-form')
     guardian_form = form.find('.guardian-form')
-    guardian_form.removeClass('hide')
-    guardian_form.find('input').prop('disabled', false)
-    form.find('.select-guardians').prop('disabled', true)
+
+    if $(this).html().trim().indexOf('New') > 0
+      guardian_form.removeClass('hide')
+      guardian_form.find('input').prop('disabled', false)
+      form.find('.select-guardians').prop('disabled', true)
+
+      $(this).html('<i class="fa fa-minus" aria-hidden="true"></i> Hide Guardian')
+      $(this).removeClass('btn-success').addClass('btn-warning')
+    else
+      guardian_form.addClass('hide')
+      guardian_form.find('input').prop('disabled', true)
+      form.find('.select-guardians').prop('disabled', false)
+
+      $(this).html('<i class="fa fa-plus" aria-hidden="true"></i> New Guardian')
+      $(this).removeClass('btn-warning').addClass('btn-success')
+
+    $(this).blur()
 
 (($) ->
   window.Student || (window.Student = {})

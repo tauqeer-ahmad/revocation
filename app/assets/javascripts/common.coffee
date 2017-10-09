@@ -30,3 +30,32 @@
 
   $('body').on 'click', '.tt-suggestion', (event) ->
     $('#search-box').closest("form").submit()
+
+@validate_field = ->
+  return unless $('.validate-field').length
+  $('.validate-field').on 'blur', ->
+    current_field = $(this)
+    span_field = current_field.siblings('span')
+    model_name = $(this).data('model')
+    field_name = $(this).data('field')
+    field_value = current_field.val()
+
+    if field_value.length > 0
+      $.ajax
+        url: '/validate_field'
+        type: 'POST'
+        dataType: 'json'
+        data:
+          model: model_name
+          attribute: field_name
+          value: field_value
+        success: (data) ->
+          if data == null
+            current_field.removeClass('error-field')
+            span_field.addClass('hide')
+          else
+            current_field.addClass('error-field')
+            span_field.removeClass('hide')
+
+$ ->
+  validate_field()
