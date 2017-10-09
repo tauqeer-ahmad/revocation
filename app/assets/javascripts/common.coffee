@@ -36,6 +36,7 @@
 
   $('.validate-field').on 'blur', ->
     current_field = $(this)
+    current_field.parent().append("<span class='help-block text-danger hide'></span>") unless current_field.siblings('span').length
     span_field = current_field.siblings('span')
     model_name = $(this).data('model')
     field_name = $(this).data('field')
