@@ -109,6 +109,16 @@ class Administrator::StudentsController < ApplicationController
     render json: autocomplete_query(Student, ["first_name", "last_name"], {section_id: params[:section_id]}).map{|student| {search: [student.first_name, ' ', student.last_name].join}}
   end
 
+  def lookup
+    @klasses = Klass.all
+  end
+
+  def perform_lookup
+    @section = Section.where(id: params[:section_id]).first
+    @students = Student.lookup('*', {section_id: @section.id})
+    @valid_sections = @section.klass.sections.of_current_term(current_term.id).pluck(:name, :id).reject{|s| s.last == @section.id}
+  end
+
   private
     def get_guardian_id
       Guardian.where(email: guardian_params[:email]).first_or_create(guardian_params).id

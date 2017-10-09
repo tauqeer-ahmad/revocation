@@ -29,51 +29,46 @@
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="panel panel-default" data-collapsed="0">
-                      <div class="panel-body">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
-                          <tbody>
-                            <% @exam_timetables.each do |date, timetables| %>
-                              <tr>
-                                <td width="100"><%= format_paper_date(date) %></td>
-                                <td>
-                                  <% timetables.each do |timetable| %>
-                                    <div class="btn-group">
-                                      <button class="btn btn-default dropdown-toggle timetable-btn" data-toggle="dropdown" style='background-color: <%= timetable.subject_color %>; border-color: <%= timetable.subject_color %>; color: #fff'>
-                                        <%= timetable.klass_name %> - <%= timetable.subject_name %>
-                                        <%= timetable.timings %>
-                                        <span class="caret"></span>
-                                      </button>
-                                      <ul class="dropdown-menu">
-                                        <li>
-                                         <%= link_to edit_administrator_exam_exam_timetable_path(@exam, timetable),
-                                              onmouseover: "this.style.backgroundColor='#{timetable.subject_color}', this.style.color='#fff'",
-                                              onmouseout: "this.style.backgroundColor='#fff', this.style.color='#676a6c'" do %>
-                                            <i class="fa fa-pencil-square-o"></i> Edit
-                                          <% end %>
-                                        </li>
-                                        <li>
-                                          <%= link_to administrator_exam_exam_timetable_path(@exam, timetable),
-                                              onmouseover: "this.style.backgroundColor='#{timetable.subject_color}', this.style.color='#fff'",
-                                              onmouseout: "this.style.backgroundColor='#fff', this.style.color='#676a6c'",
-                                              data: { behavior: 'delete', object: timetable.class.name } do %>
-                                            <i class="fa fa-trash-o"></i> Delete
-                                          <% end %>
-                                        </li>
-                                      </ul>
+                <div class=" animated fadeInRight">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="ibox">
+                        <div class="ibox-content">
+                          <%= form_tag filter_administrator_exam_exam_timetables_path(@exam), method: :get, remote: true do %>
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label style="margin-bottom: 5px;">Class</label>
+                                  <div class="input-group">
+                                    <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div id="subject_holder">
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label style="margin-bottom: 5px;">Section</label>
+                                    <div class="input-group">
+                                      <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true %>
                                     </div>
-                                  <% end %>
-                                </td>
-                              </tr>
-                            <% end %>
-                          </tbody>
-                        </table>
+                                  </div>
+                                </div>
+
+                                <div class="col-md-2" style="margin-top: 20px;">
+                                  <center>
+                                    <button type="submit" class="btn btn-primary">View Timetable</button>
+                                  </center>
+                                </div>
+                              </div>
+                            </div>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div id="exam_timetables"></div>
               </div>
 
               <div id="tab-2" class="tab-pane">
@@ -88,5 +83,10 @@
     </div>
   </div>
 </div>
+
+
+<% content_for :javascript do %>
+  ExamTimetable.init();
+<% end %>
 
 

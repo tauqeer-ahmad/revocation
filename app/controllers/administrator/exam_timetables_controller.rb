@@ -4,8 +4,13 @@ class Administrator::ExamTimetablesController < ApplicationController
   before_action :set_new_exam_timetable_data, only: [:index, :edit]
 
   def index
+    @klasses = Klass.all
     @exam_timetables = @exam.exam_timetables.by_paper_date
     @new_exam_timetable = @exam.exam_timetables.new(term_id: current_term.id)
+  end
+
+  def filter
+    @exam_timetables = @exam.exam_timetables.where(klass_id: params[:klass_id], section_id: params[:section_id]).by_paper_date
   end
 
   def edit
@@ -63,7 +68,7 @@ class Administrator::ExamTimetablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def exam_timetable_params
-      params.require(:exam_timetable).permit(:start_time, :end_time, :paper_date, :klass_id, :subject_id).tap do |whitelisted|
+      params.require(:exam_timetable).permit(:start_time, :end_time, :paper_date, :klass_id, :section_id, :subject_id).tap do |whitelisted|
         whitelisted[:term_id] = current_term.id
       end
     end

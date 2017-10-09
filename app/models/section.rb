@@ -14,6 +14,7 @@ class Section < ApplicationRecord
   has_many :timetables, dependent: :destroy
   has_many :marksheets, dependent: :destroy
   has_many :exam_marks, dependent: :destroy
+  has_many :exam_timetables, dependent: :destroy
   has_many :attendance_sheets, dependent: :destroy
   has_many :attendances, dependent: :destroy
   has_many :assignments, dependent: :destroy

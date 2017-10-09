@@ -167,6 +167,11 @@ Revocation::Application.routes.draw do
         member do
           get :results
         end
+
+        collection do
+          get :lookup
+          get :perform_lookup
+        end
       end
 
       resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
@@ -178,12 +183,15 @@ Revocation::Application.routes.draw do
         member do
           post :status_update
         end
-        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy]
+        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy] do
+          collection do
+            get :filter
+          end
+        end
       end
 
       resources :marksheets, only: [:index, :edit, :destroy]do
         collection do
-          get :existing
           get :build_marksheet
           post :create_marksheet
           get :generate_tabulation_sheet
