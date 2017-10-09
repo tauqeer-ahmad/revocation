@@ -25,7 +25,7 @@
 
                       <div class='col-sm-3'>
                         <%= email_field_tag 'students[][email]', nil, required: true, maxlength: 60, placeholder: 'Email', class: 'form-control validate-field', data: { model: 'Student', field: 'email' } %>
-                        <span class='help-block text-danger hide'>Email already exists.</span>
+                        <span class='help-block text-danger hide'></span>
                       </div>
 
                       <div class='col-sm-3'>
@@ -78,7 +78,7 @@
 
                         <div class='col-sm-3'>
                           <%= email_field_tag 'students[][guardian][email]', nil, disabled: true, required: true, maxlength: 60, placeholder: 'Guardian Email', class: 'form-control validate-field', data: { model: 'Guardian', field: 'email' } %>
-                          <span class='help-block text-danger hide'>Email already exists.</span>
+                          <span class='help-block text-danger hide'></span>
                         </div>
 
                         <div class='col-sm-3'>
