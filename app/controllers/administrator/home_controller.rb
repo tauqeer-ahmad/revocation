@@ -40,7 +40,7 @@ class Administrator::HomeController < ApplicationController
   end
 
 
-  def validate_email
+  def validate_field
     render json: params[:model].constantize.find_by("#{params[:attribute]}": params[:value]).to_json
   end
 

@@ -32,6 +32,7 @@
     $('#search-box').closest("form").submit()
 
 @validate_field = ->
+  return unless $('.validate-field').length
   $('.validate-field').on 'blur', ->
     current_field = $(this)
     span_field = current_field.siblings('span')
@@ -41,7 +42,7 @@
 
     if field_value.length > 0
       $.ajax
-        url: '/validate_email'
+        url: '/validate_field'
         type: 'POST'
         dataType: 'json'
         data:
@@ -57,4 +58,4 @@
             span_field.removeClass('hide')
 
 $ ->
-  validate_field() if $('.validate-field').length
+  validate_field()
