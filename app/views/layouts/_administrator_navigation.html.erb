@@ -51,6 +51,11 @@
         <% end %>
 
         <ul class='nav nav-second-level collapse <%= is_active_controller('administrator/exams') %>'>
+          <li class='<%= is_active_controller_action('administrator/students', 'lookup') %>'>
+            <%= link_to lookup_administrator_students_path do %>
+              <i class='fa fa-search' aria-hidden='true'></i> Lookup
+            <% end %>
+          </li>
           <li class='<%= is_active_controller_action('administrator/students', 'new') %> <%= is_active_controller_action('administrator/admissions', 'index') unless params[:bulk].present? %>'>
             <%= link_to administrator_admissions_path do %>
               <i class='fa fa-user-plus' aria-hidden='true'></i> Admit Student

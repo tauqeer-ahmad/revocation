@@ -166,6 +166,11 @@ Revocation::Application.routes.draw do
         member do
           get :results
         end
+
+        collection do
+          get :lookup
+          get :perform_lookup
+        end
       end
 
       resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
