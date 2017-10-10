@@ -1,12 +1,19 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-9">
-    <h2>Teachers</h2>
-    <ol class="breadcrumb">
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Teachers
+    </h2>
+    <ol class='breadcrumb'>
       <li>
         <%= link_to 'Home', administrator_root_path %>
       </li>
-      <li class="active">
-        <strong>Teachers</strong>
+
+      <li class='active'>
+        <strong>Teachers List</strong>
       </li>
     </ol>
   </div>
@@ -18,14 +25,13 @@
       <div class="ibox">
         <div class="ibox-content">
           <h2>Teachers</h2>
-          <p>All Teachers</p>
 
           <div class="clients-list">
             <ul class="nav nav-tabs">
               <span class="pull-right small text-muted"><%= "#{@teachers.count} Teachers" %></span>
-              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Teachers</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add New Teacher</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Add Bulk Teachers</a></li>
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-users"></i> Teachers</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-user-plus"></i> Add New Teacher</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-plus"></i> Add Bulk Teachers</a></li>
             </ul>
 
             <div class="tab-content full-height-scroll">

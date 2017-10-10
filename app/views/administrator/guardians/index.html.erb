@@ -1,17 +1,36 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Guardians
+    </h2>
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>Guardians List</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
 <div class="wrapper wrapper-content  animated fadeInRight">
   <div class="row">
     <div id='left-section' class="col-sm-8">
       <div class="ibox">
         <div class="ibox-content">
           <h2>Guardians</h2>
-          <p>
-            All guardians
-          </p>
+
           <div class="clients-list">
             <ul class="nav nav-tabs">
               <span class="pull-right small text-muted"><%= "#{@guardians.count} Guardians" %></span>
-              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Guardian</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Register New</a></li>
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-users"></i> Guardian</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-user-plus"></i> Register New</a></li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
