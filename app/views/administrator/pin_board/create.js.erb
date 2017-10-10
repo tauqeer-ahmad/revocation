@@ -1,5 +1,6 @@
 $('.notes').prepend("<%= j(render 'note', note: @note) %>")
 $('#create-note-form input[type="text"]').val('');
+$('#create-note').modal('hide')
 set_notes_colors();
 bind_destroy_alert();
 bind_note_double_click_edit()
