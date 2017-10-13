@@ -1,21 +1,30 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-10">
-    <h2>Students</h2>
-    <ol class="breadcrumb">
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-10'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Sections
+    </h2>
+
+    <ol class='breadcrumb'>
       <li>
-        <%= link_to 'Home', administrator_root_path %>
+        <%= link_to 'Home', root_path %>
       </li>
+
       <li>
-        <%= link_to administrator_sections_path(klass_id: @section.klass.id) do %>
-          Manage Sections
-        <% end %>
+        <%= link_to 'List', administrator_sections_path %>
       </li>
-      <li class="active">
+
+      <li>
+        <%= link_to @section.title_with_klass, [:administrator, @section.klass, @section] %>
+      </li>
+
+      <li class='active'>
         <strong>Students</strong>
       </li>
     </ol>
-  </div>
-  <div class="col-lg-2">
   </div>
 </div>
 
@@ -24,10 +33,6 @@
     <div id='left-section' class="col-sm-8">
       <div class="ibox">
         <div class="ibox-content">
-          <h2>Students</h2>
-          <p>
-            All students enrolled in class <%= @section.klass_name %> section <%= @section.name %>.
-          </p>
           <div class="clients-list">
             <ul class="nav nav-tabs">
               <span class="pull-right small text-muted"><%= "#{@students.count} Students" %></span>

@@ -1,17 +1,27 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-9">
-    <h2>Classes</h2>
-    <ol class="breadcrumb">
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-10'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Academic Periods
+    </h2>
+
+    <ol class='breadcrumb'>
       <li>
-        <%= link_to 'Home', administrator_root_path %>
+        <%= link_to 'Home', root_path %>
       </li>
+
       <li>
-        <%= link_to "Terms", administrator_terms_path %>
+        <%= link_to 'Terms', administrator_terms_path %>
       </li>
-      <li class="active">
-        <strong><%= @term.name %></strong>
+
+      <li class='active'>
+        <strong><%= @term.name %> (<small><%= @term.display_term_duration %></small>)</strong>
       </li>
     </ol>
   </div>
 </div>
+
 <%= render 'form', term: @term %>
