@@ -29,6 +29,7 @@
 //= require clipboard
 //= require fullcalendar
 //= require typeahead.min
+//= require sortable
 //= require_tree .
 
 toastr.options = {

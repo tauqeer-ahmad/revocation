@@ -39,32 +39,9 @@
                           <th>Actions</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody data-role="activerecord_sortable">
                         <% @klasses.each_with_index do |klass, index| %>
-                          <tr id="row-klass-<%= klass.id %>" class="selectable-row <% if index == 0 %> table-helighted-row <% end %>">
-                            <td><%= index.succ %></td>
-                            <td>
-                              <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, marker: "klass-#{klass.id}", class: "client-link selected-data-row" do %>
-                                <%= klass.name %>
-                              <% end %>
-                            </td>
-                            <td>
-                              <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, marker: "klass-#{klass.id}", class: "client-link selected-data-row" do %>
-                                <%= klass.code %>
-                              <% end %>
-                            </td>
-                            <td>
-                              <%= link_to administrator_klass_path(klass), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
-                                <i class="fa fa-eye"></i>
-                              <% end %>
-                              <%= link_to edit_administrator_klass_path(klass), class: "btn btn-info btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
-                                <i class="fa fa-pencil-square-o"></i>
-                              <% end %>
-                               <%= link_to administrator_klass_path(klass), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: klass.class.name }, title: 'Delete' do %>
-                                <i class="fa fa-trash-o"></i>
-                              <% end %>
-                            </td>
-                          </tr>
+                          <%= render 'klass', klass: klass %>
                         <% end %>
                       </tbody>
                     </table>
@@ -158,4 +135,8 @@
 </div>
 <% content_for :javascript do %>
   enable_autocomplete('/administrator/classes')
+<% end %>
+
+<% content_for :javascript do %>
+  AdminKlass.init();
 <% end %>

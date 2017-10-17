@@ -119,6 +119,7 @@ Revocation::Application.routes.draw do
         end
         member do
           get :update_sections
+          post :move
         end
 
         resources :sections, only: [:new, :edit, :show, :update, :create, :destroy] do

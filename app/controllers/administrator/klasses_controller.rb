@@ -2,7 +2,7 @@ class Administrator::KlassesController < ApplicationController
   before_action :set_klass, only: [:show, :edit, :update, :destroy, :update_sections]
 
   def index
-    @klasses = Klass.lookup params[:search]
+    @klasses = Klass.lookup params[:search], {order: {position: :asc}}
     @new_klass = Klass.new
   end
 
@@ -68,6 +68,12 @@ class Administrator::KlassesController < ApplicationController
 
   def autocomplete
     render json: autocomplete_query(Klass, ["name"]).map{|klass| {search: klass.name}}
+  end
+
+  def move
+    @klass = Klass.find(params[:id])
+    @klass.move_to! params[:position]
+    Klass.reindex
   end
 
   private

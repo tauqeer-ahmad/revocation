@@ -1,4 +1,5 @@
 class Klass < ApplicationRecord
+  acts_as_sortable
   include SearchWrapper
   include GlobalParanoiable
   include SearchCallbackable
@@ -23,6 +24,7 @@ class Klass < ApplicationRecord
       code: code,
       deleted_in_term_id: deleted_in_term_id,
       deleted_at: deleted_at,
+      position: position,
     }
   end
 
