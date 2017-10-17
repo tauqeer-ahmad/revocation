@@ -23,6 +23,8 @@ class User < ApplicationRecord
   validates :last_name, presence: { message: "Last name field is required" }
   validates :email, presence: { message: "First name field is required" }
 
+  before_validation :set_default_email, if: Proc.new { self.email.blank? }
+
   def self.type_ofs
     %w(Administrator Teacher Student Guardian Supervisor)
   end
@@ -48,4 +50,9 @@ class User < ApplicationRecord
 
     resource_name
   end
+
+  private
+    def set_default_email
+      self.email = "default+#{Time.now.to_i}@revocation.pk"
+    end
 end
