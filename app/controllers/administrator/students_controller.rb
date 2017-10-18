@@ -3,7 +3,7 @@ class Administrator::StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy, :update_section, :results]
 
   def index
-    @students = params[:search].present? ? Student.lookup(params[:search], {section_id: @section.id}) : @section.students
+    @students = params[:search].present? ? Student.lookup(params[:search], {where: {section_id: @section.id}}) : @section.students
     @new_student = Student.new
     @valid_sections = @section.klass.sections.of_current_term(current_term.id).pluck(:name, :id).reject{|s| s.last == @section.id}
   end
@@ -115,7 +115,7 @@ class Administrator::StudentsController < ApplicationController
 
   def perform_lookup
     @section = Section.where(id: params[:section_id]).first
-    @students = Student.lookup('*', {section_id: @section.id})
+    @students = Student.lookup('*', {where: {section_id: @section.id}})
     @valid_sections = @section.klass.sections.of_current_term(current_term.id).pluck(:name, :id).reject{|s| s.last == @section.id}
   end
 
