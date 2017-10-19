@@ -24,6 +24,9 @@ jQuery ->
         while i < data.length
           $('.selectable_subject').append(new Option(data[i].name, data[i].id))
           i++
+        selected = $('.selectable_subject').data('selected')
+        if selected
+          $(".selectable_subject > [value=#{selected}]").prop('selected', true);
 
   load_sections = ->
     klass_id = $('.selectable_klass :selected').val()
@@ -44,6 +47,9 @@ jQuery ->
         while i < data.length
           $('.selectable_section').append(new Option(data[i].name, data[i].id))
           i++
+        selected = $('.selectable_section').data('selected')
+        if selected
+          $(".selectable_section > [value=#{selected}]").prop('selected', true);
         load_subjects()
 
   load_sections()

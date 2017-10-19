@@ -20,19 +20,6 @@ class Administrator::ExamTimetablesController < ApplicationController
   end
 
   def bulk
-    @section = Section.find(params[:section_id])
-    @subjects_hash = {}
-    @subjects = @section.subjects.collect{|s| @subjects_hash[s.id] = s.name}
-    @exam_timetables = @exam.exam_timetables.where(klass_id: params[:klass_id], section_id: params[:section_id]).to_a
-
-    existing_timetables = @exam_timetables.collect(&:subject_id)
-    new_subjects = @subjects_hash.keys - existing_timetables
-    new_subjects.each do |new_subject|
-      @exam_timetables << @exam.exam_timetables.build(klass_id: params[:klass_id], section_id: params[:section_id], term_id: current_term.id, subject_id: new_subject)
-    end
-  end
-
-  def bulk_form
     return unless params[:section_id].present? && params[:klass_id].present?
     @section = Section.find(params[:section_id])
     @subjects_hash = {}
@@ -92,7 +79,7 @@ class Administrator::ExamTimetablesController < ApplicationController
       else
         bulk_exam_timetable_params
         set_new_exam_timetable_data
-        format.html { render :bulk_form }
+        format.html { redirect_to bulk_administrator_exam_exam_timetables_path(@exam, section_id: params), alert: @exam.errors.full_messages.to_sentence }
         format.json { render json: @exam.errors, status: :unprocessable_entity }
       end
     end

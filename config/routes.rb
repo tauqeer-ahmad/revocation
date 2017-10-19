@@ -171,7 +171,6 @@ Revocation::Application.routes.draw do
 
         collection do
           get :lookup
-          get :perform_lookup
         end
       end
 
@@ -189,7 +188,6 @@ Revocation::Application.routes.draw do
             get :filter
             post :bulk_create
             get :bulk
-            get :bulk_form
           end
         end
       end

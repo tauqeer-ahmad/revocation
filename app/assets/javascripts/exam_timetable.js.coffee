@@ -19,7 +19,10 @@ load_subjects = (parent) ->
         i++
       form = subject_box.parents('form[data-client-side-validations]')
       if form.length > 0
-        $(subject_box).data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
+        subject_box.data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
+      selected = subject_box.data('selected')
+      if selected
+        subject_box.find("option[value=#{selected}]").prop('selected', true);
 
 load_sections = (parent) ->
   klass_id = parent.find('.selectable_exam_klass :selected').val()
@@ -46,7 +49,10 @@ load_sections = (parent) ->
       form = $(section_box).parents('form[data-client-side-validations]')
       if form.length > 0
         klass_box.data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
-        $(section_box).data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
+        section_box.data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
+      selected = section_box.data('selected')
+      if selected
+        section_box.find("option[value=#{selected}]").prop('selected', true);
       load_subjects(parent)
 
 bind_exam_klass_section_change = ->

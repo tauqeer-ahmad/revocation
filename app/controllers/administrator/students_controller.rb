@@ -111,12 +111,20 @@ class Administrator::StudentsController < ApplicationController
 
   def lookup
     @klasses = Klass.all
+    options = {}
+    if params[:section_id].present?
+      @section = Section.where(id: params[:section_id]).first
+      options[:where] = {section_id: @section.id}
+    end
+    @students = []
+    if options.present? || params[:keyword].present?
+      @students = Student.lookup(params[:keyword], options)
+    end
   end
 
   def perform_lookup
     @section = Section.where(id: params[:section_id]).first
     @students = Student.lookup('*', {where: {section_id: @section.id}})
-    @valid_sections = @section.klass.sections.of_current_term(current_term.id).pluck(:name, :id).reject{|s| s.last == @section.id}
   end
 
   private
