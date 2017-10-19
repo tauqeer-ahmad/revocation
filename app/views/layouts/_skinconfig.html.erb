@@ -1,13 +1,55 @@
 <div class='theme-config'>
   <div class='theme-config-box'>
-    <div class='spin-icon'>
-      <%= link_to configuration_path, class: 'color-white' do %>
-        <i class='fa fa-cogs fa-spin'></i>
+    <div class='spin-icon red-bg'>
+      <%= link_to '#', class: 'color-white', data: { toggle: 'modal', target: "#create-note" } do %>
+        <i class='fa fa-pencil'></i>
       <% end %>
     </div>
 
     <div class='skin-setttings'>
-      <div class='title'>Configuration</div>
+      <div class='title'>Notes</div>
+    </div>
+  </div>
+</div>
+
+<div id='create-note' class='modal' aria-hidden='true'>
+  <div class="modal-dialog">
+    <div class="modal-content animated flipInY">
+      <div class="modal-header text-center">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title">Add Note</h3>
+      </div>
+
+      <%= form_for :note, url: administrator_pin_board_path, remote: true, html: { class: 'form-horizontal' } do |f| %>
+        <div class='modal-body text-center'>
+
+          <div class='row'>
+            <div class='col-sm-6 col-sm-offset-3'>
+              <div class='form-group'>
+                <%= f.text_field :heading, required: true, maxlength: 100, placeholder: 'Heading', class: 'form-control m-b' %>
+
+                <%= f.text_field :description, placeholder: 'Description', class: 'form-control m-b' %>
+
+                <%= f.color_field :color, value: '#ffffcc', class: 'form-control color-field', list: 'colors' %>
+
+                <datalist id='colors'>
+                  <% Note::SAMPLE_COLORS.each do |color| %>
+                    <option><%= color %></option>
+                  <% end %>
+                </datalist>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='modal-footer'>
+          <div class='text-center'>
+            <%= button_tag class: 'btn btn-lg btn-info' do %>
+              <i class='fa fa-plus'></i> Add Note
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
