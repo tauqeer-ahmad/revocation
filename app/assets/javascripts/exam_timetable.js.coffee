@@ -1,8 +1,9 @@
-load_subjects = ->
-  klass_id = $('.selectable_exam_klass :selected').val()
-  section_id = $('.selectable_exam_section :selected').val()
+load_subjects = (parent) ->
+  klass_id = parent.find('.selectable_exam_klass :selected').val()
+  section_id = parent.find('.selectable_exam_section :selected').val()
   return false unless section_id
-  $('.selectable_exam_subject').empty()
+  subject_box = parent.find('.selectable_exam_subject')
+  subject_box.empty()
 
   $.ajax "/administrator/classes/#{klass_id}/sections/#{section_id}/update_subjects",
     type: 'GET'
@@ -11,17 +12,23 @@ load_subjects = ->
     error: (jqXHR, textStatus, errorThrown) ->
       console.log("AJAX Error: #{textStatus}")
     success: (data, textStatus, jqXHR) ->
-      $('.selectable_exam_subject').empty()
+      subject_box.empty()
       i = 0
       while i < data.length
-        $('.selectable_exam_subject').append(new Option(data[i].name, data[i].id))
+        subject_box.append(new Option(data[i].name, data[i].id))
         i++
+      form = subject_box.parents('form[data-client-side-validations]')
+      if form.length > 0
+        $(subject_box).data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
 
-load_sections = ->
-  klass_id = $('.selectable_exam_klass :selected').val()
+load_sections = (parent) ->
+  klass_id = parent.find('.selectable_exam_klass :selected').val()
   return false unless klass_id
-  $('.selectable_exam_section').empty()
-  $('.selectable_exam_subject').empty()
+  klass_box = parent.find('.selectable_exam_klass')
+  section_box = parent.find('.selectable_exam_section')
+  subject_box = parent.find('.selectable_exam_subject')
+  section_box.empty()
+  subject_box.empty()
 
   $.ajax "/administrator/classes/#{klass_id}/update_sections",
     type: 'GET'
@@ -30,20 +37,26 @@ load_sections = ->
     error: (jqXHR, textStatus, errorThrown) ->
       console.log("AJAX Error: #{textStatus}")
     success: (data, textStatus, jqXHR) ->
-      $('.selectable_exam_section').empty()
-      $('.selectable_exam_subject').empty()
+      section_box.empty()
+      subject_box.empty()
       i = 0
       while i < data.length
-        $('.selectable_exam_section').append(new Option(data[i].name, data[i].id))
+        section_box.append(new Option(data[i].name, data[i].id))
         i++
-      load_subjects()
+      form = $(section_box).parents('form[data-client-side-validations]')
+      if form.length > 0
+        klass_box.data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
+        $(section_box).data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
+      load_subjects(parent)
 
 bind_exam_klass_section_change = ->
   $('.selectable_exam_klass').change ->
-      load_sections()
+      parent = $(this).parents('.selectable_parent')
+      load_sections(parent)
 
   $('.selectable_exam_section').change ->
-    load_subjects()
+    parent = $(this).parents('.selectable_parent')
+    load_subjects(parent)
 
 (($) ->
   window.ExamTimetable || (window.ExamTimetable = {})
@@ -52,6 +65,19 @@ bind_exam_klass_section_change = ->
     init_controls()
 
   init_controls = ->
-    load_sections()
+    load_sections(default_parent())
+    bind_exam_klass_section_change()
+).call(this)
+
+default_parent = ->
+  $('.selectable_parent')
+(($) ->
+  window.ExamEditTimetable || (window.ExamEditTimetable = {})
+
+  ExamEditTimetable.init = ->
+    init_controls()
+
+  init_controls = ->
+    load_sections(default_parent())
     bind_exam_klass_section_change()
 ).call(this)

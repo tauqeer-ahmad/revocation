@@ -1,27 +1,30 @@
-<%= form_for([:administrator, @exam, exam_timetable], html: {class: "form-horizontal"}) do |f| %>
-  <div class="form-inputs">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Select Class</label>
-      <div class="col-sm-8">
-        <%= f.select :klass_id, @klasses.pluck(:name, :id), {include_blank: "Select Class"}, class: "form-control select2_dropdown selectable_exam_klass", required: true %>
+
+<%= form_for([:administrator, @exam, exam_timetable], validate: true, html: {class: "form-horizontal", validate: true}) do |f| %>
+  <div class="selectable_parent">
+    <div class="form-inputs">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Select Class</label>
+        <div class="col-sm-8">
+          <%= f.select :klass_id, @klasses.pluck(:name, :id), {include_blank: "Select Class"}, {class: "form-control selectable_exam_klass", required: true} %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-inputs">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Select Section</label>
-      <div class="col-sm-8">
-        <%= f.select :section_id, options_for_select([]), {include_blank: "Select Section"}, {class: "form-control select2_dropdown selectable_exam_section", required: true, disabled: false} %>
+    <div class="form-inputs">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Select Section</label>
+        <div class="col-sm-8">
+          <%= f.select :section_id, options_for_select([]), {include_blank: "Select Section"}, {class: "form-control selectable_exam_section", disabled: false} %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-inputs">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Select Subject</label>
-      <div class="col-sm-8">
-         <%= f.select :subject_id, options_for_select([]), {include_blank: "Select Subject"}, {class: "form-control select2_dropdown selectable_exam_subject", required: true, disabled: false} %>
+    <div class="form-inputs">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Select Subject</label>
+        <div class="col-sm-8">
+           <%= f.select :subject_id, options_for_select([]), {include_blank: "Select Subject"}, {class: "form-control selectable_exam_subject", required: true, disabled: false} %>
+        </div>
       </div>
     </div>
   </div>
@@ -30,7 +33,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Date</label>
       <div class="col-sm-8">
-        <%= f.text_field :paper_date, class: "form-control datepicker", required: true %>
+        <%= f.text_field :paper_date, class: "form-control datepicker" %>
       </div>
     </div>
   </div>
@@ -39,7 +42,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Start time</label>
       <div class="col-sm-8">
-        <%= f.text_field :start_time, class: "form-control timepicker", required: true %>
+        <%= f.text_field :start_time, class: "form-control timepicker" %>
       </div>
     </div>
   </div>
@@ -48,7 +51,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">End Time</label>
       <div class="col-sm-8">
-        <%= f.text_field :end_time, class: "form-control timepicker", required: true %>
+        <%= f.text_field :end_time, class: "form-control timepicker" %>
       </div>
     </div>
   </div>

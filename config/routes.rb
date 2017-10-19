@@ -184,9 +184,12 @@ Revocation::Application.routes.draw do
         member do
           post :status_update
         end
-        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy] do
+        resources :exam_timetables do
           collection do
             get :filter
+            post :bulk_create
+            get :bulk
+            get :bulk_form
           end
         end
       end

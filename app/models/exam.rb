@@ -15,6 +15,8 @@ class Exam < ApplicationRecord
   has_many :question_papers
   has_many :notices, as: :noticeable
 
+  accepts_nested_attributes_for :exam_timetables
+
   validates :name, :start_date, presence: true
   validates :name, uniqueness: {scope: [:term_id]}
 

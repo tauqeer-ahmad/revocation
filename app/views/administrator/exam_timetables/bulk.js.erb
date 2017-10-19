@@ -1,0 +1,6 @@
+$("#bulk_exam_timetables").html("<%= raw escape_javascript(render 'bulk_form') %>");
+js_bind_timepicker()
+$(document).ready(function(){
+  ClientSideValidations.formBuilders['NestedForm::Builder'] = ClientSideValidations.formBuilders['ActionView::Helpers::FormBuilder'];
+})
+
