@@ -54,5 +54,6 @@ gem 'simple_form'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'searchkick'
+gem 'activerecord-sortable'
 
 gem 'active_model_serializers'

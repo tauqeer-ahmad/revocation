@@ -1,6 +1,13 @@
 class ExamTimetable < ApplicationRecord
   acts_as_paranoid
 
+  validates :klass_id, presence: {message: "Class is a mandatory field"}
+  validates :section_id, presence: {message: "Section is a mandatory field"}
+  validates :subject_id, presence: {message: "Subject is a mandatory field"}
+  validates :paper_date, presence: {message: "Paper date is a mandatory field"}
+  validates :start_time, presence: {message: "Start time is a mandatory field"}
+  validates :end_time, presence: {message: "End time is a mandatory field"}
+
   belongs_to :term
   belongs_to :exam
   belongs_to :klass

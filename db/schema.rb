@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003122758) do
+ActiveRecord::Schema.define(version: 20171017083017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,8 +175,10 @@ ActiveRecord::Schema.define(version: 20171003122758) do
     t.datetime "updated_at",         null: false
     t.datetime "deleted_at"
     t.integer  "deleted_in_term_id"
+    t.integer  "position",           null: false
     t.index ["deleted_at"], name: "index_klasses_on_deleted_at", using: :btree
     t.index ["deleted_in_term_id"], name: "index_klasses_on_deleted_in_term_id", using: :btree
+    t.index ["position"], name: "index_klasses_on_position", using: :btree
   end
 
   create_table "marksheets", force: :cascade do |t|

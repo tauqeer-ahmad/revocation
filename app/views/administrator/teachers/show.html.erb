@@ -1,15 +1,23 @@
 <div class='row wrapper border-bottom white-bg page-heading'>
   <div class='col-lg-9'>
-    <h2>Teachers</h2>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Teachers
+    </h2>
     <ol class='breadcrumb'>
       <li>
         <%= link_to 'Home', administrator_root_path %>
       </li>
+
        <li>
-        <%= link_to 'Teachers', administrator_teachers_path %>
+        <%= link_to 'List', administrator_teachers_path %>
       </li>
+
       <li class="active">
-        <strong> <%= link_to "#{@teacher.name}", administrator_teacher_path(@teacher) %> </strong>
+        <strong> <%= link_to @teacher.name, administrator_teacher_path(@teacher) %> </strong>
       </li>
     </ol>
   </div>

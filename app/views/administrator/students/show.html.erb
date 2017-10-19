@@ -1,3 +1,37 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-10'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Students
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', root_path %>
+      </li>
+
+      <li>
+        <%= link_to 'Sections', administrator_sections_path %>
+      </li>
+
+      <li>
+        <%= link_to @section.title_with_klass, [:administrator, @section.klass, @section] %>
+      </li>
+
+      <li>
+        <%= link_to 'Students', [:administrator, @section, @student] %>
+      </li>
+
+      <li class='active'>
+        <strong><%= @student.name %></strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
 <div id='student-wrapper'>
   <div class='wrapper wrapper-content animated fadeInRight'>
     <div class='row m-b-lg'>

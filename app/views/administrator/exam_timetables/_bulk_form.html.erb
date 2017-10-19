@@ -1,0 +1,50 @@
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Add a new exam sadada <small> Please fill the details correctly</small></h5>
+        </div>
+        <div class="ibox-content">
+          <% if params[:section_id].present? %>
+            <%= nested_form_for([:administrator, @exam], url: bulk_create_administrator_exam_exam_timetables_path(@exam), method: :post,  html: {class: "form-horizontal"}, validate: true) do |f| %>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Paper Date</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= f.fields_for :exam_timetables, @exam_timetables do |ff| %>
+                    <tr>
+                      <td>
+                        <%= ff.hidden_field :klass_id %>
+                        <%= ff.hidden_field :section_id %>
+                        <%= ff.hidden_field :term_id %>
+                        <%= ff.hidden_field :subject_id %>
+                        <%= @subjects_hash[ff.object.subject_id] %>
+                      </td>
+                      <td><%= ff.text_field :paper_date, class: "form-control datepicker", placeholder: "Date" %></td>
+                      <td><%= ff.text_field :start_time, class: "form-control timepicker", placeholder: "Start Time" %></td>
+                      <td><%= ff.text_field :end_time, class: "form-control timepicker", placeholder: "End Time" %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+              <div class='clearfix'></div>
+
+                <div class='row'>
+                  <div class='col-sm-12'>
+                    <%= submit_tag 'Submit', class: 'btn btn-primary pull-right' %>
+                  </div>
+                </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -119,6 +119,7 @@ Revocation::Application.routes.draw do
         end
         member do
           get :update_sections
+          post :move
         end
 
         resources :sections, only: [:new, :edit, :show, :update, :create, :destroy] do
@@ -170,7 +171,6 @@ Revocation::Application.routes.draw do
 
         collection do
           get :lookup
-          get :perform_lookup
         end
       end
 
@@ -183,9 +183,11 @@ Revocation::Application.routes.draw do
         member do
           post :status_update
         end
-        resources :exam_timetables, only: [:index, :edit, :update, :create, :destroy] do
+        resources :exam_timetables do
           collection do
             get :filter
+            post :bulk_create
+            get :bulk
           end
         end
       end

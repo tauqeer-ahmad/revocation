@@ -20,7 +20,8 @@ class Institution < ApplicationRecord
   validates :city, presence: { message: "City must be selected" }
   validates :country, presence: { message: "Country must be selected" }
   validates :sector, presence: { message: "Sector must be selected" }
-  validates :subdomain, presence: { message: "Sector must be selected" }, uniqueness: true
+  validates :subdomain, presence: { message: "subdomain must be selected" }
+  validates :subdomain, uniqueness: { message: "Subdomain already selected" }
 
   SECTORS = %w(public private)
   LEVELS = %w(high middle primary olevel alevel)

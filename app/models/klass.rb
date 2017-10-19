@@ -1,4 +1,5 @@
 class Klass < ApplicationRecord
+  acts_as_sortable
   include SearchWrapper
   include GlobalParanoiable
   include SearchCallbackable
@@ -16,6 +17,7 @@ class Klass < ApplicationRecord
 
   validates :name, presence: { message: 'Class name is required' }
   validates :code, presence: { message: 'Class code is required' }
+  default_scope { order(position: :asc) }
 
   def search_data
     {
@@ -23,6 +25,7 @@ class Klass < ApplicationRecord
       code: code,
       deleted_in_term_id: deleted_in_term_id,
       deleted_at: deleted_at,
+      position: position,
     }
   end
 

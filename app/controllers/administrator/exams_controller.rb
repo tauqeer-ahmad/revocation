@@ -2,7 +2,7 @@ class Administrator::ExamsController < ApplicationController
   before_action :set_exam, only: [:show, :edit, :update, :destroy, :status_update]
 
   def index
-    @exams = Exam.lookup params[:search], {term_id: current_term.id}
+    @exams = Exam.lookup params[:search], {where: {term_id: current_term.id}}
     @new_exam = current_term.exams.new
   end
 
