@@ -76,3 +76,7 @@ hr.b-heading {
 .form-control {
   border-radius: 5px;
 }
+
+.breadcrumb > li + li:before {
+  content: '> ';
+}

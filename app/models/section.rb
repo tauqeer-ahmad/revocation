@@ -50,6 +50,10 @@ class Section < ApplicationRecord
     klass.name
   end
 
+  def title_with_klass
+    [klass.name, name].join(' - ')
+  end
+
   def get_teacher_by_subject(subject_id)
     section_subject_teachers.by_subject_id(subject_id).last.teacher_id if subject_id
   end
