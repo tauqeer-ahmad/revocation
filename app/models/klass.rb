@@ -17,6 +17,7 @@ class Klass < ApplicationRecord
 
   validates :name, presence: { message: 'Class name is required' }
   validates :code, presence: { message: 'Class code is required' }
+  default_scope { order(position: :asc) }
 
   def search_data
     {
