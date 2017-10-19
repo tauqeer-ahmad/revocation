@@ -1,6 +1,6 @@
 class Guardian::NoticesController < ApplicationController
   def index
-    @notices = Notice.lookup(params[:search], where_clause)
+    @notices = Notice.lookup(params[:search], {where: where_clause})
   end
 
   def autocomplete

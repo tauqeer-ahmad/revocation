@@ -2,7 +2,7 @@ class Student::ExamsController < ApplicationController
   before_action :set_exam, only: [:show]
 
   def index
-    @exams = Exam.lookup params[:search], {term_id: current_term.id, status: 'active'}
+    @exams = Exam.lookup params[:search], {where: {term_id: current_term.id, status: 'active'}}
   end
 
   def show

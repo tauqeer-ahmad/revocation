@@ -26,6 +26,7 @@
               <span class="pull-right small text-muted"><%= "#{@exam_timetables.count} Exams" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-list"></i> Exam Schedule</a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add Schedule</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Bulk Schedules</a></li>
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
@@ -76,6 +77,11 @@
                   <%= render 'new_exam_timetable', exam_timetable: @new_exam_timetable %>
                 </div>
               </div>
+              <div id="tab-3" class="tab-pane">
+                <div class="full-height-scroll">
+                  <%= render 'bulk_timetables' %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -83,7 +89,6 @@
     </div>
   </div>
 </div>
-
 
 <% content_for :javascript do %>
   ExamTimetable.init();

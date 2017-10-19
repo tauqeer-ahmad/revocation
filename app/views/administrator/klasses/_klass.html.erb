@@ -1,0 +1,28 @@
+<tr id="row-klass-<%= klass.id %>" class="selectable-row" data-role="klass<%= klass.id %>" data-move-url="<%= move_administrator_klass_url(klass) %>" data-position="<%= klass.position %>">
+  <td>
+    <a>
+      <i class="fa fa-arrows"></i>
+    </a>
+  </td>
+  <td>
+    <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, marker: "klass-#{klass.id}", class: "client-link selected-data-row" do %>
+      <%= klass.name %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to "#klass-#{klass.id}", data: { toggle: 'tab' }, marker: "klass-#{klass.id}", class: "client-link selected-data-row" do %>
+      <%= klass.code %>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to administrator_klass_path(klass), class: "btn btn-success btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+      <i class="fa fa-eye"></i>
+    <% end %>
+    <%= link_to edit_administrator_klass_path(klass), class: "btn btn-info btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
+      <i class="fa fa-pencil-square-o"></i>
+    <% end %>
+    <%= link_to administrator_klass_path(klass), class: "btn btn-danger btn-outline dim btn-xs", data: { toggle: 'tooltip', placement: 'top', behavior: 'delete', object: klass.class.name }, title: 'Delete' do %>
+      <i class="fa fa-trash-o"></i>
+    <% end %>
+  </td>
+</tr>

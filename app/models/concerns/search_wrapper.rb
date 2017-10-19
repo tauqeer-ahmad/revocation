@@ -6,9 +6,11 @@ module SearchWrapper
       -> { [Apartment::Tenant.current, model_name.plural, Rails.env].join('_') }
     end
 
-    def lookup(keyword, clause = {})
-      return all if keyword.blank? && clause.blank?
-      self.search search_key(keyword), where: clause.merge!(paranoia_condition)
+    def lookup(keyword, options={where: {}})
+      return all if keyword.blank? && options.blank?
+      options[:where] = {} if options[:where].blank?
+      options[:where].merge!(paranoia_condition)
+      self.search search_key(keyword), options
     end
 
     def paranoia_condition

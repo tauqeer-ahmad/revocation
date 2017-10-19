@@ -24,14 +24,18 @@
                 <div class="col-sm-12">
                   <div class="ibox">
                     <div class="ibox-content">
-                      <%= form_tag perform_lookup_administrator_students_path, method: :get, remote: true do %>
+                      <%= form_tag lookup_administrator_students_path, method: :get do %>
                         <div class="row">
                           <div class="col-md-3">
                             <div class="form-group">
+                              <label style="margin-bottom: 5px;">Keyword</label>
+                              <%= text_field_tag :keyword, params[:keyword], placeholder: 'search by name,email..', class: "form-control" %>
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
                               <label style="margin-bottom: 5px;">Class</label>
-                              <div class="input-group">
-                                <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
-                              </div>
+                              <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }, params[:klass_id]), prompt: "Select Class", class: "select2_dropdown selectable_klass form-control" %>
                             </div>
                           </div>
 
@@ -39,9 +43,7 @@
                             <div class="col-md-3">
                               <div class="form-group">
                                 <label style="margin-bottom: 5px;">Section</label>
-                                <div class="input-group">
-                                  <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true %>
-                                </div>
+                                <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section form-control", disabled:false, data: {selected: params[:section_id]} %>
                               </div>
                             </div>
 
@@ -60,7 +62,7 @@
             </div>
           </div>
         </div>
-        <div id="student_lookup"></div>
+        <%= render 'search' %>
       </div>
     </div>
   </div>
