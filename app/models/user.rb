@@ -20,9 +20,8 @@ class User < ApplicationRecord
                     default_url: "/assets/users/:style/missing.jpeg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
-  validates :first_name, presence: { message: "First name field is required" }
-  validates :last_name, presence: { message: "Last name field is required" }
-  validates :email, presence: true, format: { with: Devise::email_regexp }
+  validates :first_name, presence: { message: "First name field is mandatory" }
+  validates :last_name, presence: { message: "Last name field is mandatory" }
 
   before_validation :set_default_email, if: Proc.new { self.email.blank? }
 
