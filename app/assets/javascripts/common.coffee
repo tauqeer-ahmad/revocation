@@ -38,6 +38,7 @@
     current_field = $(this)
     current_field.parent().append("<span class='help-block text-danger hide'></span>") unless current_field.siblings('span').length
     span_field = current_field.siblings('span')
+    form = $(this).parents('form')
     model_name = $(this).data('model')
     field_name = $(this).data('field')
     field_value = current_field.val()
@@ -53,10 +54,12 @@
           value: field_value
         success: (data) ->
           if data['message']
+            form.find('*[type="submit"]').prop('disabled', true)
             current_field.addClass('error-field')
             span_field.text([field_name.capitalize(), data['message']].join(' '))
             span_field.removeClass('hide')
           else
+            form.find('*[type="submit"]').prop('disabled', false)
             current_field.removeClass('error-field')
             span_field.addClass('hide')
 
