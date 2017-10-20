@@ -1,12 +1,31 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Guardians
+    </h2>
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+
+      <li>
+        <%= link_to 'List', [:administrator, Guardian] %>
+      </li>
+
+      <li class='active'>
+        <strong><%= @guardian.name %></strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
 <div class='wrapper wrapper-content animated fadeInRight'>
   <div class='row'>
     <div class='col-lg-12'>
-      <h1>
-        Editing Guardian
-        <%= link_to 'Profile', [:administrator, @guardian], class: 'btn btn-info' %>
-        <%= link_to 'Back', administrator_guardians_path, class: 'btn btn-warning' %>
-      </h1>
-
       <%= render 'form', guardian: @guardian %>
     </div>
   </div>

@@ -33,8 +33,10 @@
 
 @validate_field = ->
   return unless $('.validate-field').length
+
   $('.validate-field').on 'blur', ->
     current_field = $(this)
+    current_field.parent().append("<span class='help-block text-danger hide'></span>") unless current_field.siblings('span').length
     span_field = current_field.siblings('span')
     model_name = $(this).data('model')
     field_name = $(this).data('field')
@@ -50,12 +52,13 @@
           attribute: field_name
           value: field_value
         success: (data) ->
-          if data == null
+          if data['message']
+            current_field.addClass('error-field')
+            span_field.text([field_name.capitalize(), data['message']].join(' '))
+            span_field.removeClass('hide')
+          else
             current_field.removeClass('error-field')
             span_field.addClass('hide')
-          else
-            current_field.addClass('error-field')
-            span_field.removeClass('hide')
 
 $ ->
   validate_field()
