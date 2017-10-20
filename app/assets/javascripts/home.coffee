@@ -108,6 +108,12 @@ bind_select2 = ->
     theme: 'bootstrap'
     width: '100%'
 
+bind_modal_select2 = ->
+  $('.select2_dropdown_modal').select2
+    theme: 'bootstrap'
+    width: '100%'
+    dropdownParent: $('.modal-downdown')
+
 $ ->
   bind_destroy_alert()
   display_uploaded_image()
@@ -116,3 +122,4 @@ $ ->
   bind_note_double_click_edit()
   feedback_model_hide_trigger()
   bind_select2()
+  bind_modal_select2()
