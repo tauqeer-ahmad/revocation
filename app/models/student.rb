@@ -15,9 +15,9 @@ class Student < User
   has_many :attendances, as: :attendee
 
   validates :roll_number, presence: { message: 'Roll number is mandatory' }
-  validates :roll_number, uniqueness: {message: 'Roll number must uniqe'}
   validates :registration_number, presence: { message: 'Registration number is mandatory' }
   validates :registration_number, uniqueness: {message: 'Registration number must be unique'}
+  validate :roll_number_uniqueness
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
@@ -67,5 +67,12 @@ class Student < User
       random_number = [current_institution.city.first(3), current_term.start_date.year, SecureRandom.hex(5)].join('-').upcase
       break random_number unless self.exists?(registration_number: random_number)
     end
+  end
+
+  def roll_number_uniqueness
+    section_student = self.section_students.first
+    return true if section_student.blank?
+    existing_roll_numbers = section_student.section.section_students.pluck(:roll_number)
+    errors.add(:roll_number, "Roll number already assigned for this section") if self.roll_number.in?(existing_roll_numbers)
   end
 end

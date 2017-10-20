@@ -24,10 +24,10 @@ class Administrator::StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     @student.guardian_id ||= get_guardian_id
+    @student.section_students.build(section_id: @section.id, klass_id: @section.klass_id, term_id: current_term.id, roll_number: params[:student][:roll_number])
 
     respond_to do |format|
       if @student.save
-        @section.section_students.create!(student_id: @student.id, klass_id: @section.klass_id, term_id: current_term.id, roll_number: params[:student][:roll_number])
         format.html { redirect_to administrator_section_students_url(@section), notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
