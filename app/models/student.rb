@@ -14,8 +14,10 @@ class Student < User
   has_many :exam_marks
   has_many :attendances, as: :attendee
 
-  validates :roll_number, presence: { message: 'Roll number is required' }
-  validates :roll_number, :registration_number, uniqueness: true
+  validates :roll_number, presence: { message: 'Roll number is mandatory' }
+  validates :roll_number, uniqueness: {message: 'Roll number must uniqe'}
+  validates :registration_number, presence: { message: 'Registration number is mandatory' }
+  validates :registration_number, uniqueness: {message: 'Registration number must be unique'}
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
@@ -49,7 +51,11 @@ class Student < User
   end
 
   def send_password
-    StudentMailer.send_password(self, Institution.current, @password).deliver!
+    begin
+      StudentMailer.send_password(self, Institution.current, @password).deliver!
+    rescue
+      logger.info "Password Email not sent for Student #{self.name}"
+    end
   end
 
   def current_section(term_id)

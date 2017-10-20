@@ -40,6 +40,8 @@
 @bind_client_side_validations = ->
   $(document).on 'focus', "*[data-client-side-validations]", ->
     $(this).enableClientSideValidations()
+    ClientSideValidations.formBuilders['NestedForm::Builder'] = ClientSideValidations.formBuilders['ActionView::Helpers::FormBuilder'];
+
 $ ->
   bind_datepicker()
   bind_datetimepicker()

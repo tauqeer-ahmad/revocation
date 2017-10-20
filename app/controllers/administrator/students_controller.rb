@@ -15,7 +15,7 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def new
-    @student = Student.new
+    @student = Student.new(registration_number: Student.generate_registration_number(Institution.current, current_term))
   end
 
   def edit
@@ -142,9 +142,8 @@ class Administrator::StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender).tap do |whitelisted|
+      params.require(:student).permit(:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender, :registration_number).tap do |whitelisted|
         whitelisted[:enrollment_term_id] = current_term.id
-        whitelisted[:registration_number] = Student.generate_registration_number(Institution.current, current_term)
       end
     end
 
@@ -157,7 +156,6 @@ class Administrator::StudentsController < ApplicationController
       params.permit(students: [:first_name, :last_name, :email, :avatar, :roll_number, :guardian_id, :gender, guardian: [:first_name, :last_name, :cnic, :email, :phone]]).tap do |custom_params|
         custom_params[:students].each do |student|
           student[:enrollment_term_id] = current_term.id
-          student[:registration_number] = Student.generate_registration_number(Institution.current, current_term)
         end
       end[:students]
     end

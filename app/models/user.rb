@@ -8,8 +8,8 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :notes
-  has_many :testimonials
+  has_many :notes, dependent: :destroy
+  has_many :testimonials, dependent: :destroy
 
   has_attached_file :avatar,
                     styles: {
@@ -21,7 +21,7 @@ class User < ApplicationRecord
 
   validates :first_name, presence: { message: "First name field is required" }
   validates :last_name, presence: { message: "Last name field is required" }
-  validates :email, presence: { message: "First name field is required" }
+  validates :email, presence: { message: "Email field is required" }
 
   def self.type_ofs
     %w(Administrator Teacher Student Guardian Supervisor)
