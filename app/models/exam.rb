@@ -17,8 +17,9 @@ class Exam < ApplicationRecord
 
   accepts_nested_attributes_for :exam_timetables
 
-  validates :name, :start_date, presence: true
-  validates :name, uniqueness: {scope: [:term_id]}
+  validates :name, presence: {message: "Name feild is mandatory"}
+  validates :start_date, presence: {message: "Start feild is mandatory"}
+  validates :name, uniqueness: {scope: :term_id, message: "Name already exists."}
 
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
   scope :of_class_and_term, -> (klass_id, term_id) { includes(exam_timetables: :subject).where(exam_timetables: {klass_id: klass_id, term_id: term_id}) }
