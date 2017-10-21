@@ -1,7 +1,7 @@
 @bind_datepicker = ->
   $('body').on 'focus', '.datepicker', ->
     $(this).datetimepicker
-      format: 'DD/MM/YYYY'
+      format: 'DD MMMM YYYY'
       showTodayButton: true
       sideBySide: true
       widgetPositioning:
@@ -15,7 +15,7 @@
 @bind_datetimepicker = ->
   $('body').on 'focus', '.datetimepicker', ->
     $(this).datetimepicker
-      format: 'DD/MM/YYYY LT'
+      format: 'DD MMMM YYYY LT'
       widgetPositioning:
         horizontal: 'left'
         vertical: 'bottom'

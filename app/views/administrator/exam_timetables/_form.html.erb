@@ -33,7 +33,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Date</label>
       <div class="col-sm-8">
-        <%= f.text_field :paper_date, class: "form-control datepicker" %>
+        <%= f.text_field :paper_date, class: "form-control datepicker", value: datepicker_default_value(f.object.paper_date) %>
       </div>
     </div>
   </div>
@@ -42,7 +42,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Start time</label>
       <div class="col-sm-8">
-        <%= f.text_field :start_time, class: "form-control timepicker" %>
+        <%= f.text_field :start_time, class: "form-control timepicker", value: timepicker_default_value(f.object.start_time) %>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">End Time</label>
       <div class="col-sm-8">
-        <%= f.text_field :end_time, class: "form-control timepicker" %>
+        <%= f.text_field :end_time, class: "form-control timepicker", value: timepicker_default_value(f.object.end_time) %>
       </div>
     </div>
   </div>

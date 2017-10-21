@@ -21,12 +21,6 @@ class ExamTimetable < ApplicationRecord
     SectionSubjectTeacher.where(klass_id: self.klass_id, term_id: self.term_id)
   end
 
-  def paper_date
-    date = self[:paper_date]
-    return nil unless date
-    date.strftime("%d/%m/%Y")
-  end
-
   def get_start_time
     start_time.strftime("%I:%M %p") if start_time
   end
