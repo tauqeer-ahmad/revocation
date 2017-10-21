@@ -21,11 +21,12 @@ class Term < ApplicationRecord
   has_many :question_papers, dependent: :destroy
   has_many :subject_schedules, dependent: :destroy
 
-  validates :name, presence: {message: "is required"}
-  validates :start_date, presence: {message: "is required"}
-  validates :end_date, presence: {message: "is required"}
+  validates :name, presence: {message: "Name is mandatory"}
+  validates :start_date, presence: {message: "Start date is mandatory"}
+  validates :end_date, presence: {message: "End date is mandatory"}
 
-  validates :name, :uniqueness => {message: "already exists"}
+  validates :name, uniqueness: {message: "Name already exists"}
+  validates :end_date, in_future: { after_or_equal_to:  :start_date, name: 'term[start_date]', message: "End date can't be before start date"}
   validate :status_integrity, if: :status_changed?
 
   def search_data
@@ -71,7 +72,7 @@ class Term < ApplicationRecord
 
     status_counts = Term.group(:status).count
     return errors.add(:status, "One Active Term allowed.") if self.active? && status_counts['active'].to_i >= 1
-    return errors.add(:status, "One Initialized Term allowed.") if self.initialized? && status_counts['initialized'].to_i >= 1
+    return errors.add(:status, "One Initialized Term allowed.") if self.initialized? && status_counts['initialized'].to_i >= 2
   end
 
   def self.active_term

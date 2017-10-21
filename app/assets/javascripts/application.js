@@ -21,6 +21,7 @@
 //= require jquery_nested_form
 //= require rails.validations
 //= nested_form_validations
+//= rails.validations.customValidators
 //= require moment
 //= require datapicker/bootstrap-datepicker.js
 //= require bootstrap-datetimepicker
