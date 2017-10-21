@@ -26,7 +26,8 @@ class Term < ApplicationRecord
   validates :end_date, presence: {message: "End date is mandatory"}
 
   validates :name, uniqueness: {message: "Name already exists"}
-  validates :end_date, in_future: { after_or_equal_to:  :start_date, name: 'term[start_date]', message: "End date can't be before start date"}
+  validates :end_date, in_future: { after_or_equal_to: :start_date, comparison: :gte, name: 'term[start_date]', message: "End date can't be before start date"}
+  validates :start_date, in_future: { after_or_equal_to: :end_date, comparison: :lte, name: 'term[end_date]', message: "start can't be after end date"}
   validate :status_integrity, if: :status_changed?
 
   def search_data
