@@ -7,7 +7,7 @@ class AccountsController < ApplicationController
 
   def update
     @user = User.find(current_user.id)
-    if @user.update(user_password_params)
+    if @user.update(user_params)
       redirect_to account_path, notice: "Your avatar has been updated successfully"
     else
       flash[:alert] = @user.errors.full_messages.to_sentence
