@@ -47,12 +47,6 @@ class Exam < ApplicationRecord
     end
   end
 
-  def start_date
-    date = self[:start_date]
-    return nil unless date
-    date.strftime("%d/%m/%Y")
-  end
-
   def toggle_status
     initialized? ? self.activate! : self.reinitialize!
   end

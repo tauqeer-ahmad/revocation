@@ -12,7 +12,7 @@
     <div class="form-group">
       <label class="col-sm-2 control-label">Date</label>
       <div class="col-sm-8">
-        <%= f.text_field :start_date, class: "form-control datepicker", required: true %>
+        <%= f.text_field :start_date, class: "form-control datepicker", value: datepicker_default_value(f.object.start_date) %>
       </div>
     </div>
   </div>
