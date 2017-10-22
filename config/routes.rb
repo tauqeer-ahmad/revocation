@@ -92,6 +92,7 @@ Revocation::Application.routes.draw do
     get :lock_account, to: 'administrator/home#lock_account'
     post :unlock_account, to: 'administrator/home#unlock_account'
     post :validate_field, to: 'administrator/home#validate_field'
+    get :global_search, to: 'administrator/home#global_search'
 
     resources :testimonials, only: [:index, :update, :destroy]
     resources :remarks, only: [:create]
@@ -224,6 +225,7 @@ Revocation::Application.routes.draw do
     scope module: :teacher do
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
+      get :global_search, to: 'home#global_search'
       root to: 'home#index'
 
       resources :attendance_sheets, only: [:index, :update, :destroy] do

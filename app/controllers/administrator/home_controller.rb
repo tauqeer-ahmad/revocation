@@ -44,6 +44,10 @@ class Administrator::HomeController < ApplicationController
     render json: params[:model].constantize.find_by("#{params[:attribute]}": params[:value]).to_json
   end
 
+  def global_search
+    @results = Teacher.search(params['global_search'], index_name: current_user.global_search_models)
+  end
+
   private
     def institution_params
       params.require(:institution).permit(:logo, :email, :phone_number, :fax_number, :address, :contact_description, :facebook_url, :twitter_url, :linkedin_url, :video_url, :latitude, :longitude)

@@ -26,6 +26,10 @@ class Klass < ApplicationRecord
     }
   end
 
+  def search_name
+    name
+  end
+
   def current_sections(term_id)
     sections.of_current_term(term_id)
   end
