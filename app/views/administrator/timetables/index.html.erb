@@ -46,6 +46,9 @@
               <li>
                 <a data-toggle="tab" href="#tab-3"><i class="fa fa-plus"></i> Add New TimeTable</a>
               </li>
+              <li>
+                <a data-toggle="tab" href="#tab-4"><i class="fa fa-breifcase"></i> Add Bulk TimeTable</a>
+              </li>
             </ul>
 
             <div class="tab-content">
@@ -113,6 +116,12 @@
               <div id="tab-3" class="tab-pane">
                 <div class="full-height-scroll">
                   <%= render 'form', timetable: @new_timetable %>
+                </div>
+              </div>
+
+              <div id="tab-4" class="tab-pane">
+                <div class="full-height-scroll">
+                  <%= render 'bulk_form' %>
                 </div>
               </div>
             </div>
