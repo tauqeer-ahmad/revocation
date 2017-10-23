@@ -328,4 +328,9 @@ Revocation::Application.routes.draw do
   end
   post :contact_us, to: 'home#contact_us'
   root to: 'home#index'
+
+  get '/404', to: 'error#not_found'
+  get '/500', to: 'error#server'
+
+  get '*path', to: 'error#not_found', constraints: { format: /(html|json|js)/ }
 end
