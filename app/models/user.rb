@@ -1,8 +1,10 @@
 class User < ApplicationRecord
   include GlobalParanoiable
 
+  EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   GENDERS = %w(Male Female)
   self.inheritance_column = :type_of
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
@@ -21,7 +23,9 @@ class User < ApplicationRecord
 
   validates :first_name, presence: { message: "First name field is required" }
   validates :last_name, presence: { message: "Last name field is required" }
-  validates :email, presence: { message: "First name field is required" }
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_FORMAT }
+
+  before_validation :set_default_email, if: Proc.new { self.email.blank? }
 
   def self.type_ofs
     %w(Administrator Teacher Student Guardian Supervisor)
@@ -58,4 +62,9 @@ class User < ApplicationRecord
 
     models.collect { |model| model.constantize.searchkick_index.name }
   end
+
+  private
+    def set_default_email
+      self.email = "default+#{Time.now.to_i}@revocation.pk"
+    end
 end

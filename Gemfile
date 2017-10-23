@@ -48,11 +48,13 @@ gem 'nested_form'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'paperclip'
 gem 'paranoia', '~> 2.2'
+gem 'rollbar'
 gem 'select2-rails'
 gem 'simple_form'
 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'searchkick'
+gem 'activerecord-sortable'
 
 gem 'active_model_serializers'

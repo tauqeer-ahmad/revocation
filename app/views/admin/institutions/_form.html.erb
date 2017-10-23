@@ -23,62 +23,62 @@
           <h5>Register an institution<small> Please fill the details correctly</small></h5>
         </div>
         <div class="ibox-content">
-          <%=  simple_form_for([:admin, @institution], validate: true, html: {class: "form-horizontal"}) do |f| %>
+          <%= form_for([:admin, @institution], validate: true, html: {class: "form-horizontal"}) do |f| %>
             <div class="form-group">
               <label class="col-sm-2 control-label">Institution Name</label>
               <div class="col-sm-10">
-                <%= f.input :name, label: false, validate: {presence: true}, input_html: { class: "form-control"} %>
+                <%= f.text_field :name, class: "form-control" %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Subdomain</label>
               <div class="col-sm-10">
-                <%= f.input :subdomain, label: false, input_html: { class: "form-control"}, validate: {presence: true}, disabled: f.object.persisted? %>
+                <%= f.text_field :subdomain, class: "form-control", disabled: f.object.persisted? %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Institute Location</label>
               <div class="col-sm-10">
-                <%= f.input :location, label: false, input_html: { class: "form-control"}, validate: {presence: true} %>
+                <%= f.text_field :location, class: "form-control" %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">City</label>
               <div class="col-sm-10">
-                <%= f.input :city, label: false, input_html: { class: "form-control"}, validate: {presence: true} %>
+                <%= f.text_field :city, class: "form-control" %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Country</label>
               <div class="col-sm-10">
-                <%= f.country_select :country, { priority_countries: ["Pk", "IN", "SA", "KE"], selected: "PK" },  label: false, input_html: { class: "form-control"}, as: :select, validate: {presence: true} %>
+                <%= f.country_select :country, { priority_countries: ["Pk", "IN", "SA", "KE"], selected: "PK" }, { class: "form-control"} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Sector</label>
               <div class="col-sm-10">
-                <%= f.input :sector, label: false, collection: Institution::SECTORS, input_html: { class: "form-control"}, prompt: "Select Sector", validate: {presence: true} %>
+                <%= f.select :sector, options_for_select(Institution::SECTORS), {prompt: "Select Sector"}, {class: "form-control"} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Level</label>
               <div class="col-sm-10">
-                <%= f.input :level, label: false, collection: Institution::LEVELS, input_html: { class: "form-control"}, prompt: "Select School Level", validate: {presence: true} %>
+                <%= f.select :level, options_for_select(Institution::LEVELS), {prompt: "Select School Level"}, { class: "form-control"} %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Description</label>
               <div class="col-sm-10">
-                <%= f.input :description, label: false, input_html: { class: "form-control"} %>
+                <%= f.text_field :description, class: "form-control" %>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Latitude and Longitude</label>
               <div class="col-sm-5">
-                <%= f.input :latitude, label: false, input_html: { class: "form-control"} %>
+                <%= f.text_field :latitude, class: "form-control" %>
               </div>
               <div class="col-sm-5">
-                <%= f.input :longitude, label: false, input_html: { class: "form-control"} %>
+                <%= f.text_field :longitude, class: "form-control" %>
               </div>
             </div>
             <div class="form-group">

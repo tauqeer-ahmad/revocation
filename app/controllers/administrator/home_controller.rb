@@ -41,7 +41,10 @@ class Administrator::HomeController < ApplicationController
 
 
   def validate_field
-    render json: params[:model].constantize.find_by("#{params[:attribute]}": params[:value]).to_json
+    record = params[:model].constantize.new("#{params[:attribute]}": params[:value])
+    record.valid?
+
+    render json: { message: record.errors["#{params[:attribute]}"].to_sentence }
   end
 
   def global_search

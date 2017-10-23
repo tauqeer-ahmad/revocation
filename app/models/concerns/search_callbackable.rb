@@ -5,6 +5,7 @@ module SearchCallbackable
     include Elasticsearch::Model
 
       after_create :index_document
+      after_update :index_document
       after_destroy :update_document
       after_restore :update_document
       after_real_destroy :delete_document

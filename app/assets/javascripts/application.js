@@ -18,8 +18,9 @@
 //= require peity/jquery.peity.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require inspinia.js
-//= require rails.validations
 //= require jquery_nested_form
+//= require rails.validations
+//= nested_form_validations
 //= require moment
 //= require datapicker/bootstrap-datepicker.js
 //= require bootstrap-datetimepicker
@@ -29,7 +30,9 @@
 //= require clipboard
 //= require fullcalendar
 //= require typeahead.min
+//= require sortable
 //= require_tree .
+
 
 toastr.options = {
   'closeButton': true,
