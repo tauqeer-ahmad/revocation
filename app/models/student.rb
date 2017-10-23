@@ -41,6 +41,10 @@ class Student < User
     }
   end
 
+  def search_name
+    full_name
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end

@@ -51,6 +51,16 @@ class User < ApplicationRecord
     resource_name
   end
 
+  def global_search_models
+    models = if self.administrator?
+               ADMIN_GLOBAL_SEARCH
+             elsif self.teacher?
+               TEACHER_GLOBAL_SEARCH
+             end
+
+    models.collect { |model| model.constantize.searchkick_index.name }
+  end
+
   private
     def set_default_email
       self.email = "default+#{Time.now.to_i}@revocation.pk"

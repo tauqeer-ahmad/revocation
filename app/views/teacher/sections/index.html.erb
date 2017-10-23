@@ -1,4 +1,4 @@
-<div class="ibox float-e-margins">
+<div class="ibox float-e-margins list-view">
   <div class="ibox-title">
     <h5>Sections</h5>
     <div class="ibox-tools">
@@ -33,7 +33,7 @@
               <td><%= section_subject_teachers.section.display_students_count %></td>
               <td>
                 <% if section_subject_teachers.section.incharge_id == current_user.id %>
-                  <%= link_to(managing_students_attendance_sheets_path(date: Date.today.strftime('%d-%m-%Y'), section_id: section_subject_teachers.section.id), class: "btn btn-success btn-outline btn-xs"){ icon_of('fa fa-users', " Today's Attendance") } %>
+                  <%= link_to(managing_students_attendance_sheets_path(date: Date.today.strftime('%d-%m-%Y'), section_id: section_subject_teachers.section.id), remote: true, class: "btn btn-success btn-outline btn-xs"){ icon_of('fa fa-users', " Today's Attendance") } %>
                 <% end %>
 
                 <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section_subject_teachers.section_id, subject: section_subject_teachers.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
@@ -51,4 +51,5 @@
 
 <% content_for :javascript do %>
   Assignment.init();
+  AttendanceSheet.init();
 <% end %>

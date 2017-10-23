@@ -27,4 +27,8 @@ class Subject < ApplicationRecord
       deleted_in_term_id: deleted_in_term_id,
     }
   end
+
+  def search_name
+    name
+  end
 end

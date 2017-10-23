@@ -51,6 +51,10 @@ class Exam < ApplicationRecord
     initialized? ? self.activate! : self.reinitialize!
   end
 
+  def search_name
+    name
+  end
+
   def self.exam_events(current_user, current_term)
     student_klass = current_user.klasses.last
     return unless student_klass
