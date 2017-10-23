@@ -1,6 +1,11 @@
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-9">
-    <h2>Exams</h2>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+      Exam Schedule
+    </h2>
     <ol class="breadcrumb">
       <li>
         <%= link_to 'Home', administrator_root_path %>
@@ -25,7 +30,7 @@
             <ul class="nav nav-tabs">
               <span class="pull-right small text-muted"><%= "#{@exam_timetables.count} Exams" %></span>
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-list"></i> Exam Schedule</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Add Schedule</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-plus"></i> Add Schedule</a></li>
               <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Bulk Schedules</a></li>
             </ul>
             <div class="tab-content">

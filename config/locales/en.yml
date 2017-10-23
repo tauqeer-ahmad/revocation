@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  errors:
+    messages:
+      in_future: "cannot be before the start date"

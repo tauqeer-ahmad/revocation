@@ -39,11 +39,9 @@ class Administrator::HomeController < ApplicationController
     redirect_to root_path
   end
 
-
   def validate_field
     record = params[:model].constantize.new("#{params[:attribute]}": params[:value])
-    record.valid?
-
+    record.validate_attribute(params[:attribute], params[:value])
     render json: { message: record.errors["#{params[:attribute]}"].to_sentence }
   end
 

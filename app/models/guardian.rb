@@ -32,6 +32,10 @@ class Guardian < User
   end
 
   def send_password
-    GuardianMailer.send_password(self, Institution.current, @password).deliver!
+    begin
+      GuardianMailer.send_password(self, Institution.current, @password).deliver!
+    rescue
+      logger.info "Password Email not sent for Guardian #{self.name}"
+    end
   end
 end

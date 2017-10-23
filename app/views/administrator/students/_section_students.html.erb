@@ -6,6 +6,7 @@
         <tr>
           <th>Avatar</th>
           <th>Name</th>
+          <th>Registration number</th>
           <th>Roll number</th>
           <th>Email</th>
           <th class='col-sm-3'>Actions</th>
@@ -22,6 +23,11 @@
             <td>
               <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
                 <%= student.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
+                <%= student.registration_number %>
               <% end %>
             </td>
             <td>

@@ -152,7 +152,7 @@ Revocation::Application.routes.draw do
       end
 
       resources :sections, only: [:index] do
-        resources :timetables, only: [:index, :edit, :create, :update, :destroy]
+        resources :timetables, only: [:index, :new, :edit, :create, :update, :destroy]
         resources :students do
           collection do
             get :bulk_view

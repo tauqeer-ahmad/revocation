@@ -83,11 +83,15 @@ module ApplicationHelper
   end
 
   def datetimepicker_default_value(value)
-    value && value.strftime('%d/%m/%Y%l-%M %p')
+    value && value.strftime('%d %B %Y %l-%M %p')
   end
 
   def datepicker_default_value(value)
-    value && value.strftime('%d/%m/%Y')
+    value && value.strftime('%d %B %Y')
+  end
+
+  def timepicker_default_value(value)
+    value && value.strftime('%l:%M %p')
   end
 
   def icon_of(klass, text = '')
