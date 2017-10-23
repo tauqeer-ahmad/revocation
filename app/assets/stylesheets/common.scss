@@ -509,12 +509,13 @@ td.attendance-radio {
 
 .field_with_errors {
   input, select {
-    border: 2px solid #fbc2c4;
-    color: #8a1f11;
+    border: 1px solid #ed5565;
+    color: #ed5565;
   }
 
   label.message {
-    color: #8a1f11;
+    color: #ed5565;
+    font-weight: normal;
     border: none;
     padding: 10px 0px;
     background: transparent;

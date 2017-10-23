@@ -3,21 +3,20 @@
     <h5>Teacher form <small> Please fill the details correctly</small></h5>
   </div>
   <div class='ibox-content'>
-    <%= simple_form_for([:administrator, teacher], validate: true, html: { class: 'form-horizontal' }) do |f| %>
-      <%= f.error_notification %>
+    <%= form_for([:administrator, teacher], validate: true, html: { class: 'form-horizontal' }) do |f| %>
 
       <div class='form-inputs'>
         <div class='form-group'>
           <div class='col-sm-4'>
-            <%= f.input :first_name, label: false, placeholder: 'First Name', input_html: { class: 'form-control' } %>
+            <%= f.text_field :first_name, placeholder: 'First Name', class: 'form-control' %>
           </div>
 
           <div class='col-sm-4'>
-            <%= f.input :last_name, label: false, placeholder: 'Last Name', input_html: { class: 'form-control' } %>
+            <%= f.text_field :last_name, placeholder: 'Last Name', class: 'form-control' %>
           </div>
 
           <div class='col-sm-4'>
-            <%= f.input :email, label: false, placeholder: 'Email', input_html: { class: 'form-control validate-field', data: { model: 'Teacher', field: 'email' } } %>
+            <%= f.email_field :email, placeholder: 'Email', validate: false, class: 'form-control validate-field', data: { model: 'Teacher', field: 'email' } %>
           </div>
         </div>
       </div>
@@ -25,15 +24,15 @@
       <div class='form-inputs'>
         <div class='form-group'>
           <div class='col-sm-4'>
-            <%= f.input :phone, label: false, placeholder: 'Phone', input_html: { class: 'form-control' } %>
+            <%= f.text_field :phone, placeholder: 'Phone', class: 'form-control' %>
           </div>
 
           <div class='col-sm-4'>
-            <%= f.input :qualification, label: false, placeholder: 'Qualification', input_html: { class: 'form-control' } %>
+            <%= f.text_field :qualification, placeholder: 'Qualification', class: 'form-control' %>
           </div>
 
           <div class='col-sm-4'>
-            <%= f.input :address, label: false, placeholder: 'Address', input_html: { class: 'form-control' } %>
+            <%= f.text_field :address, placeholder: 'Address', class: 'form-control' %>
           </div>
         </div>
       </div>
@@ -41,13 +40,13 @@
       <div class='form-inputs'>
         <div class='form-group'>
           <div class='col-sm-4'>
-            <%= f.input :profession, label: false, placeholder: 'Designation', input_html: { class: 'form-control' } %>
+            <%= f.text_field :profession, placeholder: 'Designation', class: 'form-control' %>
           </div>
 
           <div class='col-sm-4'>
             <label class='btn-bs-file btn btn-md btn-info'>
               Upload Image
-              <%= f.input :avatar, label: false, as: :file, input_html: { class: 'form-control' } %>
+              <%= f.file_field :avatar, class: 'form-control' %>
             </label>
           </div>
         </div>

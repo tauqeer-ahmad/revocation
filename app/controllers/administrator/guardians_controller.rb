@@ -22,7 +22,6 @@ class Administrator::GuardiansController < ApplicationController
     @guardian.password = password
     respond_to do |format|
       if @guardian.save
-        GuardianMailer.send_password(@guardian, Institution.current, password).deliver!
         format.html { redirect_to administrator_guardians_url, notice: 'Guardian was successfully created.' }
         format.json { render :show, status: :created, location: @guardian }
       else
