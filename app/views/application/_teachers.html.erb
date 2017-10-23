@@ -24,7 +24,7 @@
               <% subject = subject_teacher.subject %>
 
               <tr>
-                <td><%= link_to image_tag(teacher.avatar.url(:medium), width: 50, height: 50, class: 'img-circle'), administrator_teacher_path(teacher), class: 'btn-link' %></td>
+                <td><%= link_to image_tag(teacher&.avatar.url(:medium), width: 50, height: 50, class: 'img-circle'), administrator_teacher_path(teacher), class: 'btn-link' %></td>
                 <td><%= link_to teacher&.name, administrator_teacher_path(teacher), class: 'btn-link' %></td>
                 <td><%= teacher&.email %></td>
                 <td><%= subject&.name %></td>
