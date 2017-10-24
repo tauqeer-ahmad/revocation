@@ -11,7 +11,6 @@ class Timetable < ApplicationRecord
   validates :start_time, presence: { message: "Start time is required" }
   validates :end_time, presence: { message: "End time is required" }
   validates :subject_id, presence: { message: "Selection of a subject is required" }
-  validates :subject_id, uniqueness: { scope: [:section_id, :day_of_week], message: "Subject has already been added to timetable" }
 
   scope :by_day_of_week, -> {order(day_of_week: :asc).group_by(&:day_of_week)}
 
