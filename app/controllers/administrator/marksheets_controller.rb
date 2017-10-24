@@ -26,12 +26,12 @@ class Administrator::MarksheetsController < ApplicationController
   def create_marksheet
     @marksheet = Marksheet.create(marksheet_params)
     ExamMark.create(marks_params)
-    redirect_to existing_administrator_marksheets_path, notice: "Marksheet has been updated successfully"
+    redirect_to administrator_marksheets_path, notice: "Marksheet has been updated successfully"
   end
 
   def update_marksheet
     @marksheet.update(exam_mark_params)
-    redirect_to existing_administrator_marksheets_path, notice: "Marksheet has been updated successfully"
+    redirect_to administrator_marksheets_path, notice: "Marksheet has been updated successfully"
   end
 
   def edit
@@ -41,7 +41,7 @@ class Administrator::MarksheetsController < ApplicationController
   def destroy
     @marksheet.destroy
     respond_to do |format|
-      format.html { redirect_to existing_administrator_marksheets_path, notice: 'Exam mark was successfully destroyed.' }
+      format.html { redirect_to administrator_marksheets_path, notice: 'Exam mark was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
