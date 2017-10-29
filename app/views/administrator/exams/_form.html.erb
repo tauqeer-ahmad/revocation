@@ -1,4 +1,4 @@
-<%= nested_form_for([:administrator, exam], validate: false, html: {class: "form-horizontal"}) do |f| %>
+<%= nested_form_for([:administrator, exam], validate: true, html: {class: "form-horizontal"}) do |f| %>
   <%= f.hidden_field :klass_id %>
   <%= f.hidden_field :section_id %>
   <div class="form-inputs">
@@ -15,6 +15,16 @@
       <label class="col-sm-2 control-label">Date</label>
       <div class="col-sm-8">
         <%= f.text_field :start_date, class: "form-control datepicker", value: datepicker_default_value(f.object.start_date) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-inputs">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Percentage(%)</label>
+      <div class="col-sm-8">
+        <%= f.number_field :percentage, class: "form-control" %>
+        <small>percentage contribution to final results. Make sure all exams total percentage is 100%</small>
       </div>
     </div>
   </div>

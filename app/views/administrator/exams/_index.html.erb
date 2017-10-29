@@ -3,8 +3,10 @@
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
-          <th>#</th>
           <th>Name</th>
+          <th>Percentage %</th>
+          <th>Class</th>
+          <th>Section</th>
           <th>Date</th>
           <th>Comment</th>
           <th>Actions</th>
@@ -13,10 +15,14 @@
       <tbody>
         <% @exams.each_with_index do |exam, index| %>
           <tr>
-            <td><%= index.succ %></td>
             <td>
               <%= exam.name %>
             </td>
+            <td>
+              <%= exam.percentage %>
+            </td>
+            <td><%= exam.klass.name %></td>
+            <td><%= exam.section.name %></td>
             <td>
               <%= exam.start_date %>
             </td>

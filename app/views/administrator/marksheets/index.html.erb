@@ -29,15 +29,6 @@
             <div class="row">
               <div class="col-md-2">
                 <div class="form-group">
-                  <label style="margin-bottom: 5px;">Exam</label>
-                  <div class="input-group">
-                    <%= select_tag :exam_id, options_for_select(@exams.collect {|e| [ e.name, e.id ] }), class: "select2_dropdown", required: true %>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-2">
-                <div class="form-group">
                   <label style="margin-bottom: 5px;">Class</label>
                   <div class="input-group">
                     <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
@@ -51,6 +42,14 @@
                     <label style="margin-bottom: 5px;">Section</label>
                     <div class="input-group">
                       <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true %>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label style="margin-bottom: 5px;">Exam</label>
+                    <div class="input-group">
+                      <%= select_tag :exam_id, options_for_select([]), prompt: "Select Exam", class: "select2_dropdown selectable_exam", required: true %>
                     </div>
                   </div>
                 </div>
