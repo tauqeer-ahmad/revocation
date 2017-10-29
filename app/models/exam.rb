@@ -9,6 +9,8 @@ class Exam < ApplicationRecord
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
   belongs_to :term
+  belongs_to :klass
+  belongs_to :section
   has_many :exam_timetables, dependent: :destroy
   has_many :exam_marks
   has_many :marksheets
@@ -17,6 +19,8 @@ class Exam < ApplicationRecord
 
   accepts_nested_attributes_for :exam_timetables
 
+  validates :klass_id, presence: {message: "Class is a mandatory field"}
+  validates :section_id, presence: {message: "Section is a mandatory field"}
   validates :name, presence: {message: "Name feild is mandatory"}
   validates :start_date, presence: {message: "Start feild is mandatory"}
   validates :name, uniqueness: {scope: :term_id, message: "Name already exists."}
@@ -29,6 +33,8 @@ class Exam < ApplicationRecord
       name: name,
       start_date: start_date,
       term_id: term_id,
+      section_id: section_id,
+      klass_id: klass_id,
       status: status,
       deleted_at: deleted_at,
     }

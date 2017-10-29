@@ -193,7 +193,6 @@ Revocation::Application.routes.draw do
         end
         resources :exam_timetables do
           collection do
-            get :filter
             post :bulk_create
             get :bulk
           end
