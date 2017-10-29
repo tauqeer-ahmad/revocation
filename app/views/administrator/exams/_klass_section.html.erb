@@ -3,7 +3,7 @@
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <%= form_tag bulk_administrator_exam_exam_timetables_path(@exam), method: :get, remote: true do %>
+          <%= form_tag new_administrator_exam_path(), method: :get, remote: true do %>
             <div class="row selectable_parent">
               <div class="col-md-3">
                 <div class="form-group">
@@ -37,4 +37,4 @@
     </div>
   </div>
 </div>
-<div id="bulk_exam_timetables"></div>
+<div id="exams"></div>

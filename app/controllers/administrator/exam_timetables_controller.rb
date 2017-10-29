@@ -8,10 +8,6 @@ class Administrator::ExamTimetablesController < ApplicationController
     @new_exam_timetable = @exam.exam_timetables.new(term_id: current_term.id)
   end
 
-  def filter
-    @exam_timetables = @exam.exam_timetables.where(klass_id: params[:klass_id], section_id: params[:section_id]).by_paper_date
-  end
-
   def edit
   end
 

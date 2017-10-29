@@ -1,0 +1,6 @@
+$("#exams").html("<%= raw escape_javascript(render 'form', exam: @exam) %>");
+js_bind_timepicker()
+$(document).ready(function(){
+  ClientSideValidations.formBuilders['NestedForm::Builder'] = ClientSideValidations.formBuilders['ActionView::Helpers::FormBuilder'];
+})
+
