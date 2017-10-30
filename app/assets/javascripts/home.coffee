@@ -1,5 +1,6 @@
 bind_switch_term = ->
   $('#term-switch').on 'click', (e) ->
+    base_path = $(this).data('base-path')
     swal {
       title: 'Are you sure?'
       text: "You want to switch to Active Term!"
@@ -13,7 +14,7 @@ bind_switch_term = ->
     }, (confirmed) =>
       if confirmed
         $.ajax(
-            url: "/administrator/terms/#{$(this).data('active-term')}/update_selected_term"
+            url: "#{base_path}/#{$(this).data('active-term')}/update_selected_term"
             method: 'Put'
             dataType: 'JSON'
             success: =>

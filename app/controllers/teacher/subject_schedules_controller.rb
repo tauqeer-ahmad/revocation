@@ -1,6 +1,7 @@
 class Teacher::SubjectSchedulesController < ApplicationController
   before_action :set_subject_schedule, only: [:edit, :update, :destroy]
   before_action :set_edit_objects, only: [:edit]
+  before_action :validate_term, only: [:new, :edit, :create, :update, :destroy]
 
   def index
     @schedules = current_user.subject_schedules.of_term(current_term.id).includes(:teacher, :subject, :klass, :section, :term)

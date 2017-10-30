@@ -130,4 +130,8 @@ module ApplicationHelper
   def entity_status_class(entity)
     entity.initialized? ? 'btn-primary' : 'btn-warning'
   end
+
+  def term_switch_base_path
+    current_user.administrator? ? '/administrator/terms' : '/terms'
+  end
 end

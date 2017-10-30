@@ -2,6 +2,7 @@ class Teacher::AttendanceSheetsController < ApplicationController
   before_action :set_attendance_sheet, only: [:update, :destroy]
   before_action :set_section, only: :managing_students
   before_action :update_params, only: :update
+  before_action :validate_term, only: [:update, :destroy]
 
   def index
     @sections =  current_user.incharged_sections_list(current_term.id)
