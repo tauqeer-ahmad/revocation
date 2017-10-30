@@ -37,6 +37,7 @@ class Administrator::SectionsController < ApplicationController
         format.html { redirect_to administrator_sections_url(klass_id: @klass.id), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
+        set_form_data
         format.html { render :new }
         format.json { render json: @section.errors, status: :unprocessable_entity }
       end
@@ -49,6 +50,7 @@ class Administrator::SectionsController < ApplicationController
         format.html { redirect_to administrator_sections_url(klass_id: @klass.id), notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
       else
+        set_form_data
         format.html { render :edit }
         format.json { render json: @section.errors, status: :unprocessable_entity }
       end

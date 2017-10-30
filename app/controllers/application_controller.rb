@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   before_action :set_notices
   before_action :latest_notices
 
-
   add_flash_types :error
   layout :layout_by_resource
 
@@ -75,7 +74,7 @@ class ApplicationController < ActionController::Base
 
     @latest_notices = Notice.latest_notices(selected_user, active_term.id, current_user.type_of)
   end
-  
+
   def authenticate_access!
     redirect_to :root, alert: "You need to login before you continue." unless current_user.present?
   end

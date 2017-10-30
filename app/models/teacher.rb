@@ -13,6 +13,7 @@ class Teacher < User
   has_many :assignments
   has_many :question_papers
   has_many :subject_schedules
+  validates :phone, presence: { message: "Phone field is mandatory" }
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
@@ -30,6 +31,10 @@ class Teacher < User
     }
   end
 
+  def search_name
+    full_name
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -40,7 +45,11 @@ class Teacher < User
   end
 
   def send_password
-    TeacherMailer.send_password(self, Institution.current, @password).deliver!
+    begin
+      TeacherMailer.send_password(self, Institution.current, @password).deliver!
+    rescue
+      logger.info "Password Email not sent for Teacher #{self.name}"
+    end
   end
 
   def incharged_sections_list(current_term_id)

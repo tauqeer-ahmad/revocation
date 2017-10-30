@@ -18,4 +18,8 @@ class Teacher::HomeController < ApplicationController
 
     redirect_to root_path
   end
+
+  def global_search
+    @results = Teacher.search(params['global_search'], index_name: current_user.global_search_models)
+  end
 end

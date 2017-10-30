@@ -22,6 +22,10 @@ class Guardian < User
     }
   end
 
+  def search_name
+    full_name
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -32,6 +36,10 @@ class Guardian < User
   end
 
   def send_password
-    GuardianMailer.send_password(self, Institution.current, @password).deliver!
+    begin
+      GuardianMailer.send_password(self, Institution.current, @password).deliver!
+    rescue
+      logger.info "Password Email not sent for Guardian #{self.name}"
+    end
   end
 end

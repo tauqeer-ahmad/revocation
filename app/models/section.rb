@@ -22,11 +22,12 @@ class Section < ApplicationRecord
   has_many :subject_schedules, dependent: :destroy
 
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
+  accepts_nested_attributes_for :timetables, allow_destroy: true
 
-  validates :name, presence: {message: "Section name is required"}
-  validates :nickname, presence: {message: "Nickname is required"}
-  validates :incharge_id, presence: {message: "Selection of class incharge is required"}
-  validates :klass_id, presence: {message: "Selection of class is required"}
+  validates :name, presence: {message: "Section name is mandatory"}
+  validates :nickname, presence: {message: "Nickname is mandatory"}
+  validates :incharge_id, presence: {message: "Selection of class incharge is mandatory"}
+  validates :klass_id, presence: {message: "Selection of class is mandatory"}
 
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
 
@@ -55,7 +56,7 @@ class Section < ApplicationRecord
   end
 
   def get_teacher_by_subject(subject_id)
-    section_subject_teachers.by_subject_id(subject_id).last.teacher_id if subject_id
+    section_subject_teachers.by_subject_id(subject_id).last.teacher_id if subject_id.present?
   end
 
   def student_hash

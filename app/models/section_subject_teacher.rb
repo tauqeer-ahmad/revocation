@@ -6,7 +6,7 @@ class SectionSubjectTeacher < ApplicationRecord
 
   validates :subject_id, presence: {message: "Selection of subject is required"}
   validates :teacher_id, presence: {message: "Selection of teacher is required"}
-  validates :section_id, uniqueness: {scope: [:teacher_id, :subject_id, :klass_id , :term_id]}
+  validates :subject_id, uniqueness: {scope: :section_id, message: "You can't add two subjects for same section"}
 
   scope :by_subject_id,        -> (subject_id) { where(subject_id: subject_id) }
   scope :of_term,              -> (term_id)    { where(term_id: term_id) }

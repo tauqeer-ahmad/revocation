@@ -1,30 +1,70 @@
 module ApplicationHelper
-    def is_active_controller(controller_name)
-      params[:controller] == controller_name ? 'active' : nil
-    end
+  def is_active_controller(controller_name)
+    params[:controller] == controller_name ? 'active' : nil
+  end
 
-    def is_active_action(action_name)
-      params[:action] == action_name ? 'active' : nil
-    end
+  def is_active_action(action_name)
+    params[:action] == action_name ? 'active' : nil
+  end
 
-    def is_active_controller_action(controller_name, action_name)
-      is_active_controller(controller_name) && is_active_action(action_name)
-    end
+  def is_active_controller_action(controller_name, action_name)
+    is_active_controller(controller_name) && is_active_action(action_name)
+  end
 
-    def get_logout_path(user)
-      case user.type_of
-      when 'Administrator'
-        destroy_administrator_session_path
-      when 'Teacher'
-        destroy_teacher_session_path
-      when 'Student'
-        destroy_student_session_path
-      when 'Guardian'
-        destroy_guardian_session_path
-      when 'Supervisor'
-        destroy_admin_supervisor_session_path
-      end
+  def get_logout_path(user)
+    case user.type_of
+    when 'Administrator'
+      destroy_administrator_session_path
+    when 'Teacher'
+      destroy_teacher_session_path
+    when 'Student'
+      destroy_student_session_path
+    when 'Guardian'
+      destroy_guardian_session_path
+    when 'Supervisor'
+      destroy_admin_supervisor_session_path
     end
+  end
+
+  def admin_show_path(entity)
+    case entity.class.name
+    when 'Student'
+      administrator_section_student_path(entity.current_section(current_term), entity.id)
+    when 'Teacher'
+      administrator_teacher_path(entity)
+    when 'Guardian'
+      administrator_guardian_path(entity)
+    when 'Klass'
+      administrator_klasses_path(entity)
+    when 'Subject'
+      administrator_subject_path(entity)
+    when 'Exam'
+      administrator_exam_path(entity)
+    end
+  end
+
+  def teacher_show_path(entity)
+    return '#'
+
+    case entity.class.name
+    when 'Student'
+      section_student_path(entity.current_section(current_term), entity.id)
+    when 'Teacher'
+      teacher_path(entity)
+    when 'Guardian'
+      guardian_path(entity)
+    when 'Klass'
+      klasses_path(entity)
+    when 'Subject'
+      subject_path(entity)
+    when 'Exam'
+      exam_path(entity)
+    end
+  end
+
+  def show_path(entity)
+    current_user.administrator? ? admin_show_path(entity) : teacher_show_path(entity)
+  end
 
   def tab_item(name, url)
     opts = {}
@@ -83,11 +123,15 @@ module ApplicationHelper
   end
 
   def datetimepicker_default_value(value)
-    value && value.strftime('%d/%m/%Y%l-%M %p')
+    value && value.strftime('%d %B %Y %l-%M %p')
   end
 
   def datepicker_default_value(value)
-    value && value.strftime('%d/%m/%Y')
+    value && value.strftime('%d %B %Y')
+  end
+
+  def timepicker_default_value(value)
+    value && value.strftime('%l:%M %p')
   end
 
   def icon_of(klass, text = '')
@@ -133,5 +177,9 @@ module ApplicationHelper
 
   def term_switch_base_path
     current_user.administrator? ? '/administrator/terms' : '/terms'
+  end
+
+  def message_class_with_outline(administrator)
+    current_user == administrator && 'btn btn-success dim btn-xs disabled' || 'btn btn-outline btn-success dim btn-xs'
   end
 end

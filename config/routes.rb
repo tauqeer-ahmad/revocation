@@ -92,9 +92,12 @@ Revocation::Application.routes.draw do
     get :lock_account, to: 'administrator/home#lock_account'
     post :unlock_account, to: 'administrator/home#unlock_account'
     post :validate_field, to: 'administrator/home#validate_field'
+    get :global_search, to: 'administrator/home#global_search'
 
     resources :testimonials, only: [:index, :update, :destroy]
     resources :remarks, only: [:create]
+
+    resources :administrators, only: [:index], constraints: { format: /html/ }
 
     namespace :administrator do
       resources :admissions, only: [:index, :new]
@@ -152,7 +155,12 @@ Revocation::Application.routes.draw do
       end
 
       resources :sections, only: [:index] do
-        resources :timetables, only: [:index, :edit, :create, :update, :destroy]
+        resources :timetables, only: [:index, :new, :edit, :create, :update, :destroy] do
+          collection do
+            get :bulk
+            post :bulk_create
+          end
+        end
         resources :students do
           collection do
             get :bulk_view
@@ -226,6 +234,7 @@ Revocation::Application.routes.draw do
     scope module: :teacher do
       get :lock_account, to: 'home#lock_account'
       post :unlock_account, to: 'home#unlock_account'
+      get :global_search, to: 'home#global_search'
       root to: 'home#index'
 
       resources :attendance_sheets, only: [:index, :update, :destroy] do
@@ -334,4 +343,9 @@ Revocation::Application.routes.draw do
   end
   post :contact_us, to: 'home#contact_us'
   root to: 'home#index'
+
+  get '/404', to: 'error#not_found'
+  get '/500', to: 'error#server'
+
+  get '*path', to: 'error#not_found', constraints: { format: /(html|json|js)/ }
 end

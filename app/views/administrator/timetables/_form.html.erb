@@ -30,7 +30,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Start Time</label>
                 <div class="col-sm-10">
-                  <%= f.text_field :start_time, class: "form-control timepicker", required: true%>
+                  <%= f.text_field :start_time, class: "form-control timepicker", value: timepicker_default_value(f.object.start_time) %>
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">End Time</label>
                 <div class="col-sm-10">
-                  <%= f.text_field :end_time, class: "form-control timepicker", required: true %>
+                  <%= f.text_field :end_time, class: "form-control timepicker", value: timepicker_default_value(f.object.end_time) %>
                 </div>
               </div>
             </div>

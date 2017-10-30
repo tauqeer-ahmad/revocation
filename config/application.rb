@@ -13,5 +13,7 @@ module Revocation
     # -- all .rb files in that directory are automatically loaded.
     config.enable_dependency_loading = true
     config.autoload_paths << Rails.root.join('lib')
+    config.exceptions_app = self.routes
+    config.autoload_paths << Rails.root.join('app/validators/')
   end
 end
