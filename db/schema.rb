@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030083802) do
+ActiveRecord::Schema.define(version: 20171025122757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20171030083802) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "status"
     t.datetime "deleted_at"
+    t.string   "status"
     t.index ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
     t.index ["status"], name: "index_assignments_on_status", using: :btree
@@ -405,11 +405,13 @@ ActiveRecord::Schema.define(version: 20171030083802) do
     t.string   "access_token",           limit: 20
     t.datetime "deleted_at"
     t.integer  "deleted_in_term_id"
+    t.string   "username"
     t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["deleted_in_term_id"], name: "index_users_on_deleted_in_term_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["guardian_id"], name: "index_users_on_guardian_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
   add_foreign_key "assignments", "sections"

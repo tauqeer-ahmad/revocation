@@ -184,4 +184,8 @@ module ApplicationHelper
     return "result-even-subheader" if index.even?
     "result-odd-subheader"
   end
+
+  def message_class_with_outline(administrator)
+    current_user == administrator && 'btn btn-success dim btn-xs disabled' || 'btn btn-outline btn-success dim btn-xs'
+  end
 end
