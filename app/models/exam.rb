@@ -34,7 +34,7 @@ class Exam < ApplicationRecord
     {
       name: name,
       start_date: start_date,
-      term_iaqd: term_id,
+      term_id: term_id,
       section_id: section_id,
       klass_id: klass_id,
       status: status,

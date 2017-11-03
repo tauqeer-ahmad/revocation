@@ -194,6 +194,53 @@ textarea {
     text-align: center;
   }
 }
+.modal .large {
+  width: 95%;
+}
+
+.result-header {
+  background-color: #6981c5 !important;
+  color: white !important;
+}
+
+.result-total-row {
+  background-color: #e2e2e2 !important;
+}
+
+.gresult-total-row {
+  background-color: #6981c5 !important;
+  color: white !important;
+}
+
+.gresult-total {
+  font-weight: bold;
+}
+
+.result-percent-row {
+  background-color: #f5f7ea !important;
+  font-weight: bold;
+}
+
+
+.result-even-header {
+  background-color: #75d9ff !important;
+}
+
+.result-even-subheader {
+  background-color: #64e0d5 !important;
+  font-size: 10px;
+  font-weight: normal;
+}
+
+.result-odd-header {
+  background-color: #afe9ff !important;
+}
+
+.result-odd-subheader {
+  background-color: #cbf9f7 !important;
+  font-size: 10px;
+  font-weight: normal;
+}
 
 .navy-line {
   width: 60px;
