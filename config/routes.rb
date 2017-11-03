@@ -97,6 +97,8 @@ Revocation::Application.routes.draw do
     resources :testimonials, only: [:index, :update, :destroy]
     resources :remarks, only: [:create]
 
+    resources :administrators, only: [:index], constraints: { format: /html/ }
+
     namespace :administrator do
       resources :admissions, only: [:index, :new]
       resources :teachers do
