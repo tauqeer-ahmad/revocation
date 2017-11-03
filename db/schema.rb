@@ -92,9 +92,10 @@ ActiveRecord::Schema.define(version: 20171025122757) do
     t.integer  "section_id"
     t.integer  "student_id"
     t.integer  "marksheet_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.datetime "deleted_at"
+    t.decimal  "actual_obtained", precision: 5, scale: 2
     t.index ["deleted_at"], name: "index_exam_marks_on_deleted_at", using: :btree
     t.index ["exam_id"], name: "index_exam_marks_on_exam_id", using: :btree
     t.index ["klass_id"], name: "index_exam_marks_on_klass_id", using: :btree
@@ -134,7 +135,12 @@ ActiveRecord::Schema.define(version: 20171025122757) do
     t.datetime "updated_at",            null: false
     t.string   "status",     limit: 16
     t.datetime "deleted_at"
+    t.integer  "klass_id"
+    t.integer  "section_id"
+    t.float    "percentage"
     t.index ["deleted_at"], name: "index_exams_on_deleted_at", using: :btree
+    t.index ["klass_id"], name: "index_exams_on_klass_id", using: :btree
+    t.index ["section_id"], name: "index_exams_on_section_id", using: :btree
     t.index ["term_id"], name: "index_exams_on_term_id", using: :btree
   end
 
@@ -263,10 +269,10 @@ ActiveRecord::Schema.define(version: 20171025122757) do
     t.integer  "student_id"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.string   "roll_number", limit: 32
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "promoted",               default: false
+    t.integer  "roll_number"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "promoted",    default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|
@@ -381,7 +387,7 @@ ActiveRecord::Schema.define(version: 20171025122757) do
     t.string   "last_name",              limit: 50
     t.string   "address"
     t.string   "role",                   limit: 12
-    t.string   "roll_number",            limit: 12
+    t.integer  "roll_number"
     t.string   "qualification"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"

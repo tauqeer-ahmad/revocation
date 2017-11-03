@@ -12,6 +12,7 @@ class Section < ApplicationRecord
   has_many :section_students
   has_many :students, through: :section_students
   has_many :timetables, dependent: :destroy
+  has_many :exams, dependent: :destroy
   has_many :marksheets, dependent: :destroy
   has_many :exam_marks, dependent: :destroy
   has_many :exam_timetables, dependent: :destroy

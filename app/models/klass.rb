@@ -10,6 +10,7 @@ class Klass < ApplicationRecord
   belongs_to :institution
   has_many :sections
   has_many :exam_timetables
+  has_many :exams, dependent: :destroy
   has_many :marksheets
   has_many :exam_marks
   has_many :question_papers

@@ -131,6 +131,7 @@ Revocation::Application.routes.draw do
           end
           member do
             get :update_subjects
+            get :update_exams
           end
         end
       end
@@ -193,7 +194,6 @@ Revocation::Application.routes.draw do
         end
         resources :exam_timetables do
           collection do
-            get :filter
             post :bulk_create
             get :bulk
           end
@@ -249,6 +249,7 @@ Revocation::Application.routes.draw do
         end
         member do
           get :update_subjects
+          get :update_exams
         end
       end
 
