@@ -26,12 +26,12 @@ class Administrator::MarksheetsController < ApplicationController
   def create_marksheet
     @marksheet = Marksheet.create(marksheet_params)
     ExamMark.create(marks_params)
-    redirect_to administrator_marksheets_path, notice: "Marksheet has been updated successfully"
+    redirect_to administrator_marksheets_path(klass_id: @marksheet.klass_id, section_id: @marksheet.section_id, exam_id: @marksheet.exam_id, subject_id: @marksheet.subject_id), notice: "Marksheet has been updated successfully"
   end
 
   def update_marksheet
     @marksheet.update(exam_mark_params)
-    redirect_to administrator_marksheets_path, notice: "Marksheet has been updated successfully"
+    redirect_to administrator_marksheets_path(klass_id: @marksheet.klass_id, section_id: @marksheet.section_id, exam_id: @marksheet.exam_id, subject_id: @marksheet.subject_id), notice: "Marksheet has been updated successfully"
   end
 
   def edit

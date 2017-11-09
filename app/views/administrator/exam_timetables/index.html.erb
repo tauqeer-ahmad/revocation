@@ -35,46 +35,7 @@
             </ul>
             <div class="tab-content">
               <div id="tab-1" class="tab-pane active">
-                <div class=" animated fadeInRight">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="ibox">
-                        <div class="ibox-content">
-                          <%= form_tag filter_administrator_exam_exam_timetables_path(@exam), method: :get, remote: true do %>
-                            <div class="row">
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label style="margin-bottom: 5px;">Class</label>
-                                  <div class="input-group">
-                                    <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div id="subject_holder">
-                                <div class="col-md-3">
-                                  <div class="form-group">
-                                    <label style="margin-bottom: 5px;">Section</label>
-                                    <div class="input-group">
-                                      <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true %>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="col-md-2" style="margin-top: 20px;">
-                                  <center>
-                                    <button type="submit" class="btn btn-primary">View Timetable</button>
-                                  </center>
-                                </div>
-                              </div>
-                            </div>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="exam_timetables"></div>
+                <%= render 'index' %>
               </div>
 
               <div id="tab-2" class="tab-pane">

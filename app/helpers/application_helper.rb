@@ -143,12 +143,12 @@ module ApplicationHelper
 
   def calculate_percentage(value, total)
     return 0.0 if total.zero?
-    ((value.to_f / total) * 100).round(1)
+    '%.2f' % ((value.to_f / total) * 100)
   end
 
   def calculate_average(values, count)
     return 0.0 if count.zero?
-    (values.to_f/count.to_f).round(1)
+    '%.2f' % (values.to_f/count.to_f)
   end
 
   def display_collective_average(groud_id, term_id, exam_id, objects)
@@ -175,8 +175,19 @@ module ApplicationHelper
     entity.initialized? ? 'btn-primary' : 'btn-warning'
   end
 
+
   def term_switch_base_path
     current_user.administrator? ? '/administrator/terms' : '/terms'
+  end
+  
+  def select_result_header_class(index)
+    return "result-even-header" if index.even?
+    "result-odd-header"
+  end
+
+  def select_result_subheader_class(index)
+    return "result-even-subheader" if index.even?
+    "result-odd-subheader"
   end
 
   def message_class_with_outline(administrator)

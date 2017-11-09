@@ -1,9 +1,11 @@
-<%= form_for([:administrator, exam], validate: true, html: {class: "form-horizontal"}) do |f| %>
+<%= nested_form_for([:administrator, exam], validate: true, html: {class: "form-horizontal"}) do |f| %>
+  <%= f.hidden_field :klass_id %>
+  <%= f.hidden_field :section_id %>
   <div class="form-inputs">
     <div class="form-group">
       <label class="col-sm-2 control-label">Name</label>
       <div class="col-sm-8">
-        <%= f.text_field :name, class: "form-control", required: true %>
+        <%= f.text_field :name, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -19,12 +21,49 @@
 
   <div class="form-inputs">
     <div class="form-group">
+      <label class="col-sm-2 control-label">Percentage(%)</label>
+      <div class="col-sm-8">
+        <%= f.number_field :percentage, class: "form-control" %>
+        <small>percentage contribution to final results. Make sure all exams total percentage is 100%</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-inputs">
+    <div class="form-group">
       <label class="col-sm-2 control-label">Comment</label>
       <div class="col-sm-8">
         <%= f.text_area :comment, class: "form-control" %>
       </div>
     </div>
   </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Paper Date</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= f.fields_for :exam_timetables, @exam_timetables do |ff| %>
+        <tr>
+          <td>
+            <%= ff.hidden_field :klass_id %>
+            <%= ff.hidden_field :section_id %>
+            <%= ff.hidden_field :term_id %>
+            <%= ff.hidden_field :subject_id %>
+            <%= @subjects_hash[ff.object.subject_id] %>
+          </td>
+          <td><%= ff.text_field :paper_date, class: "form-control datepicker", placeholder: "Date", value: datepicker_default_value(ff.object.paper_date) %></td>
+          <td><%= ff.text_field :start_time, class: "form-control timepicker", placeholder: "Start Time", value: timepicker_default_value(ff.object.start_time) %></td>
+          <td><%= ff.text_field :end_time, class: "form-control timepicker", placeholder: "End Time", value: timepicker_default_value(ff.object.end_time) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <div class="form-group">
     <div class="col-sm-6 col-sm-offset-1">
