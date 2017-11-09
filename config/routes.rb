@@ -277,6 +277,12 @@ Revocation::Application.routes.draw do
           get :autocomplete
         end
       end
+
+      resources :terms, only: :index do
+        member do
+          put :update_selected_term
+        end
+      end
     end
   end
 

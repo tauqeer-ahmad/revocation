@@ -1,6 +1,7 @@
 class Teacher::QuestionPapersController < ApplicationController
   before_action :set_question_paper, only: [:edit, :update, :destroy]
   before_action :set_edit_objects, only: [:edit]
+  before_action :validate_term, only: [:new, :edit, :create, :update, :destroy]
 
   def index
     @question_papers = current_user.question_papers.of_term(current_term.id).includes(:teacher, :subject, :klass, :section, :exam, :term)

@@ -175,6 +175,11 @@ module ApplicationHelper
     entity.initialized? ? 'btn-primary' : 'btn-warning'
   end
 
+
+  def term_switch_base_path
+    current_user.administrator? ? '/administrator/terms' : '/terms'
+  end
+  
   def select_result_header_class(index)
     return "result-even-header" if index.even?
     "result-odd-header"
