@@ -47,8 +47,14 @@ Revocation::Application.routes.draw do
         resources :attendances, only: [:index]
         resources :assignments, only: [:index, :show]
       end
-    end
 
+      namespace :teacher do
+        resources :sections, only: :index
+        resources :attendance_sheets, only: :index
+        resources :attendances, only: :index
+        resources :assignments, only: [:index, :show]
+      end
+    end
   end
 
   namespace :admin do
