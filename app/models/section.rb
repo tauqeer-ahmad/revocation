@@ -5,6 +5,9 @@ class Section < ApplicationRecord
   belongs_to :term
   belongs_to :klass
   belongs_to :incharge, :class_name => "Teacher", :foreign_key => "incharge_id"
+  belongs_to :grading_system
+
+  has_many :grades, through: :grading_system
 
   has_many :section_subject_teachers, inverse_of: :section
   has_many :subjects, through: :section_subject_teachers
@@ -22,6 +25,7 @@ class Section < ApplicationRecord
   has_many :question_papers, dependent: :destroy
   has_many :subject_schedules, dependent: :destroy
 
+
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
   accepts_nested_attributes_for :timetables, allow_destroy: true
 
@@ -29,7 +33,9 @@ class Section < ApplicationRecord
   validates :nickname, presence: {message: "Nickname is mandatory"}
   validates :incharge_id, presence: {message: "Selection of class incharge is mandatory"}
   validates :klass_id, presence: {message: "Selection of class is mandatory"}
+  validates :grading_system_id, presence: {message: "Selection of grading system is mandatory"}
 
+  default_scope -> {order(created_at: :asc)}
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
 
   def incharge_name

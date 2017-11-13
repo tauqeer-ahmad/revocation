@@ -20,11 +20,6 @@
                   <label class="control-label">Total Marks</label>
                   <%= number_field_tag :total, nil, required: true, maxlength: 60, placeholder: 'Total Marks', class: 'form-control' %>
                 </div>
-
-                <div class='col-sm-6'>
-                  <label class="control-label">Passing Marks</label>
-                  <%= number_field_tag :passing_marks, nil, required: true, maxlength: 60, placeholder: 'Passing Marks', class: 'form-control' %>
-                </div>
               </div>
             </div>
             <table class="table table-bordered">
@@ -44,10 +39,10 @@
                     <td><%= student.roll_number %></td>
                     <td><%= student.name %></td>
                     <td>
-                    <%= number_field_tag 'students[][obtained]', nil, required: true, maxlength: 60, placeholder: 'Obtained Marks', class: 'form-control' %>
+                    <%= number_field_tag 'students[][obtained]', nil, required: true, maxlength: 60, step: :any, placeholder: 'Obtained Marks', class: 'form-control' %>
                     <%= hidden_field_tag 'students[][student_id]', student.id %>
                     </td>
-                    <td><%= text_field_tag 'students[][comment]', nil, maxlength: 60, placeholder: 'Remarks', class: 'form-control' %></td>
+                    <td><%= text_field_tag 'students[][comment]', nil, placeholder: 'Remarks', class: 'form-control' %></td>
                   </tr>
                 <% end %>
               </tbody>

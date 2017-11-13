@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @grading_system.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @grading_system.description %>
+</p>
+
+<%= link_to 'Edit', edit_grading_system_path(@grading_system) %> |
+<%= link_to 'Back', grading_systems_path %>

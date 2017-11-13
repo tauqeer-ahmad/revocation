@@ -106,6 +106,16 @@ Revocation::Application.routes.draw do
     resources :administrators, only: [:index], constraints: { format: /html/ }
 
     namespace :administrator do
+      resources :grading_systems do
+        member do
+          post :move
+        end
+      end
+      resources :grades, only: [] do
+        member do
+          post :move
+        end
+      end
       resources :admissions, only: [:index, :new]
       resources :teachers do
         collection do

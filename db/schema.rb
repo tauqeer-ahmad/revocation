@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025122757) do
+ActiveRecord::Schema.define(version: 20171113095307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20171025122757) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.datetime "deleted_at"
     t.string   "status"
+    t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
     t.index ["status"], name: "index_assignments_on_status", using: :btree
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20171025122757) do
   end
 
   create_table "exam_marks", force: :cascade do |t|
-    t.integer  "obtained"
+    t.decimal  "obtained",        precision: 5, scale: 2
     t.integer  "total"
     t.integer  "passing_marks"
     t.text     "comment"
@@ -142,6 +142,28 @@ ActiveRecord::Schema.define(version: 20171025122757) do
     t.index ["klass_id"], name: "index_exams_on_klass_id", using: :btree
     t.index ["section_id"], name: "index_exams_on_section_id", using: :btree
     t.index ["term_id"], name: "index_exams_on_term_id", using: :btree
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.string   "name"
+    t.float    "start_point"
+    t.float    "end_point"
+    t.integer  "points"
+    t.integer  "position",          null: false
+    t.integer  "grading_system_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["grading_system_id"], name: "index_grades_on_grading_system_id", using: :btree
+    t.index ["position"], name: "index_grades_on_position", using: :btree
+  end
+
+  create_table "grading_systems", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "position",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["position"], name: "index_grading_systems_on_position", using: :btree
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -291,10 +313,12 @@ ActiveRecord::Schema.define(version: 20171025122757) do
     t.integer  "term_id"
     t.integer  "klass_id"
     t.integer  "incharge_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.datetime "deleted_at"
+    t.integer  "grading_system_id"
     t.index ["deleted_at"], name: "index_sections_on_deleted_at", using: :btree
+    t.index ["grading_system_id"], name: "index_sections_on_grading_system_id", using: :btree
   end
 
   create_table "subject_schedules", force: :cascade do |t|
@@ -420,6 +444,7 @@ ActiveRecord::Schema.define(version: 20171025122757) do
   add_foreign_key "attendance_sheets", "terms"
   add_foreign_key "attendances", "attendance_sheets"
   add_foreign_key "attendances", "terms"
+  add_foreign_key "grades", "grading_systems"
   add_foreign_key "notes", "users"
   add_foreign_key "notices", "klasses"
   add_foreign_key "notices", "sections"

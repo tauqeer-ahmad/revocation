@@ -1,0 +1,19 @@
+<tr id="row-grade-<%= grade.id %>" class="selectable-row" data-role="grade<%= grade.id %>" data-move-url="<%= move_administrator_grade_url(grade) %>" data-position="<%= grade.position %>">
+  <td>
+    <a>
+      <i class="fa fa-arrows"></i>
+    </a>
+  </td>
+  <td>
+    <%= grade.name %>
+  </td>
+  <td>
+    <%= grade.start_point %>
+  </td>
+   <td>
+    <%= grade.end_point %>
+  </td>
+   <td>
+    <%= grade.points %>
+  </td>
+</tr>

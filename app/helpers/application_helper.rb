@@ -193,4 +193,26 @@ module ApplicationHelper
   def message_class_with_outline(administrator)
     current_user == administrator && 'btn btn-success dim btn-xs disabled' || 'btn btn-outline btn-success dim btn-xs'
   end
+
+  def get_obtained_marks(exams)
+    return "-" if exams.blank?
+    exams.collect(&:obtained).sum
+  end
+
+  def get_total_marks(exams)
+    return "-" if exams.blank?
+    exams.collect(&:total).sum
+  end
+  
+  def get_actual_marks(exams)
+    return "-" if exams.blank?
+    exams.collect(&:actual_obtained).sum
+  end
+
+  def assign_grade(percentage, grade_mappings)
+    return "-" if grade_mappings.blank?
+    grade = grade_mappings.select {|x| x === percentage.to_f}.values.first
+    return grade if grade.present?
+    "F"
+  end
 end
