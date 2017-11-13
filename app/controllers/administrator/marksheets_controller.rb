@@ -14,7 +14,7 @@ class Administrator::MarksheetsController < ApplicationController
       @exam_marks = @marksheet.exam_marks
       new_students = @students.pluck(:id) - @exam_marks.pluck(:student_id)
       new_students.each do |student_id|
-        @exam_marks << @marksheet.exam_marks.build(JSON.parse(@exam_marks.first.dup.to_json).merge!({obtained: nil, student_id: student_id}))
+        @exam_marks << @marksheet.exam_marks.build(obtained: nil, student_id: student_id, klass_id: params[:klass_id], section_id: params[:section_id], exam_id: params[:exam_id], subject_id: params[:subject_id])
       end
     else
       @exam = Exam.find(params[:exam_id])

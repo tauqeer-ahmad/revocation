@@ -2,9 +2,9 @@ bind_sortable = ->
   $('*[data-role=activerecord_sortable]').activerecord_sortable();
 
 (($) ->
-  window.AdminKlass || (window.AdminKlass = {})
+  window.Sortable || (window.Sortable = {})
 
-  AdminKlass.init = ->
+  Sortable.init = ->
     init_controls()
 
   init_controls = ->

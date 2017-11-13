@@ -16,11 +16,6 @@
                   <label class="control-label">Total Marks</label>
                   <%= number_field_tag :total, @exam_marks.first.total, required: true, maxlength: 60, placeholder: 'Total Marks', class: 'form-control' %>
                 </div>
-
-                <div class='col-sm-6'>
-                  <label class="control-label">Passing Marks</label>
-                  <%= number_field_tag :passing_marks, @exam_marks.first.passing_marks, required: true, maxlength: 60, placeholder: 'Passing Marks', class: 'form-control' %>
-                </div>
               </div>
             </div>
             <table class="table table-bordered">
@@ -40,9 +35,9 @@
                     <td><%= ff.object.student.roll_number %></td>
                     <td><%= ff.object.student.name %></td>
                     <td>
-                    <%= ff.number_field :obtained, required: true, maxlength: 60, placeholder: 'Obtained Marks', class: 'form-control' %>
+                    <%= ff.number_field :obtained, required: true, maxlength: 60, step: :any, value: ff.object.obtained.to_f, placeholder: 'Obtained Marks', class: 'form-control' %>
                     </td>
-                    <td><%= ff.text_field :comment, maxlength: 60, placeholder: 'Remarks', class: 'form-control' %></td>
+                    <td><%= ff.text_field :comment, placeholder: 'Remarks', class: 'form-control' %></td>
                   </tr>
                 <% end %>
               </tbody>

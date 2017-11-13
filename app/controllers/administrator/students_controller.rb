@@ -100,6 +100,15 @@ class Administrator::StudentsController < ApplicationController
     @exam_marks = @student.exam_marks
     @exam_grouped = @exam_marks.group_by(&:exam_id)
     @subject_grouped = @exam_marks.group_by(&:subject_id)
+    @section_grade_mappings = {}
+    @sections.each do |section|
+      grade_mappings = {}
+      section.grades.each do |grade|
+        grade_mappings[grade.start_point..grade.end_point] = grade.name
+      end
+      @section_grade_mappings[section.id] = grade_mappings
+    end
+
     render layout: false
   end
 

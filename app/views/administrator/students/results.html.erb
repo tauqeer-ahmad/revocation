@@ -44,9 +44,9 @@
                     <tr>
                       <th class="result-header">Result</th>
                       <% section.exams.each_with_index do |exam, index| %>
-                        <th colspan="5" class="text-center <%= select_result_header_class(index) %>"><%= exam.name %> <small>(<%= exam.percentage %>%) </small></th>
+                        <th colspan="6" class="text-center <%= select_result_header_class(index) %>"><%= exam.name %> <small>(<%= exam.percentage %>%) </small></th>
                       <% end %>
-                      <th colspan="5" class="text-center">
+                      <th colspan="6" class="text-center">
                         Grand Total
                         <small>(<%= section.exams.collect(&:percentage).sum %> Abs. Marks)</small>
                       </th>
@@ -58,11 +58,13 @@
                         <th class="text-center <%= select_result_subheader_class(index) %>">Total</th>
                         <th class="text-center <%= select_result_subheader_class(index) %>">Weightage</th>
                         <th class="text-center <%= select_result_subheader_class(index) %>">%</th>
+                        <th class="text-center <%= select_result_subheader_class(index) %>">Grade</th>
                         <th class="text-center <%= select_result_subheader_class(index) %>">Highest</th>
                       <% end %>
                       <th class="text-center result-total-row">Abs. Marks</th>
                       <th class="text-center result-total-row">Total</th>
                       <th class="text-center result-total-row">%</th>
+                      <th class="text-center result-total-row">Grade</th>
                       <th class="text-center result-total-row">Highest</th>
                     </tr>
                   </thead>
@@ -75,27 +77,31 @@
                           <td class="text-center"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:total) %></td>
                           <td class="text-center result-percent-row"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained) %></td>
                           <td class="text-center"><%= calculate_percentage(@exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained).to_f, exam.percentage.to_f) %></td>
+                          <td class="text-center"><%= assign_grade(calculate_percentage(@exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained).to_f, exam.percentage.to_f), @section_grade_mappings[section.id]) %></td>
                           <td class="text-center"><%= exam.exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max %></td>
                         <% end %>
 
                         <td class="text-center result-percent-row"><%= @exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f %></td>
                         <td class="text-center result-percent-row"><%= section.exams.collect(&:percentage).sum %></td>
                         <td class="text-center result-percent-row"><%= calculate_percentage(@exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f, section.exams.collect(&:percentage).sum) %></td>
+                        <td class="text-center"><%= assign_grade(calculate_percentage(@exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f, section.exams.collect(&:percentage).sum), @section_grade_mappings[section.id]) %></td>
                         <td class="text-center gresult-total-row"><%= section.exam_marks.where(subject_id: subject.id).group(:student_id).sum(:actual_obtained).values.max %></td>
                       </tr>
                     <% end %>
                     <tr>
                       <td class="text-center result-total-row">Total</td>
                       <% section.exams.each do |exam| %>
-                        <td class="text-center result-total-row"><%= @exam_grouped[exam.id].collect(&:obtained).sum %></td>
-                        <td class="text-center result-total-row"><%= @exam_grouped[exam.id].collect(&:total).sum  %></td>
-                        <td class="text-center gresult-total-row"><%= @exam_grouped[exam.id].collect(&:actual_obtained).sum.to_f %></td>
-                        <td class="text-center result-total-row"><%= calculate_percentage(@exam_grouped[exam.id].collect(&:actual_obtained).sum.to_f, exam.percentage*section.subjects.size) %></td>
+                        <td class="text-center result-total-row"><%= get_obtained_marks(@exam_grouped[exam.id]) %></td>
+                        <td class="text-center result-total-row"><%= get_total_marks(@exam_grouped[exam.id]) %></td>
+                        <td class="text-center gresult-total-row"><%= get_actual_marks(@exam_grouped[exam.id]) %></td>
+                        <td class="text-center result-total-row"><%= calculate_percentage(get_actual_marks(@exam_grouped[exam.id]), exam.percentage*section.subjects.size) %></td>
+                        <td class="text-center"><%= assign_grade(calculate_percentage(get_actual_marks(@exam_grouped[exam.id]), exam.percentage*section.subjects.size), @section_grade_mappings[section.id]) %></td>
                         <td class="text-center result-total-row"><%= exam.exam_marks.group(:student_id).sum(:obtained).values.max  %></td>
                       <% end %>
                       <td class="text-center gresult-total-row gresult-total"><%= @exam_marks.sum(:actual_obtained).to_f %></td>
                       <td class="text-center gresult-total-row gresult-total"><%= section.exams.collect(&:percentage).sum * section.subjects.size %></td>
                       <td class="text-center gresult-total-row gresult-total"><%= calculate_percentage(@exam_marks.sum(:actual_obtained).to_f, section.exams.collect(&:percentage).sum * section.subjects.size) %></td>
+                      <td class="text-center"><%= assign_grade(calculate_percentage(@exam_marks.sum(:actual_obtained).to_f, section.exams.collect(&:percentage).sum * section.subjects.size), @section_grade_mappings[section.id]) %></td>
                       <td class="text-center gresult-total-row gresult-total"><%= section.exam_marks.group(:student_id).sum(:actual_obtained).values.max %></td>
                     </tr>
                    </tbody>
