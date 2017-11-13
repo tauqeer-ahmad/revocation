@@ -96,17 +96,13 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def results
-    @sections = @student.sections.includes(:exams)
+    @section = @student.current_section(current_term.id)
     @exam_marks = @student.exam_marks
     @exam_grouped = @exam_marks.group_by(&:exam_id)
     @subject_grouped = @exam_marks.group_by(&:subject_id)
-    @section_grade_mappings = {}
-    @sections.each do |section|
-      grade_mappings = {}
-      section.grades.each do |grade|
-        grade_mappings[grade.start_point..grade.end_point] = grade.name
-      end
-      @section_grade_mappings[section.id] = grade_mappings
+    @grade_mappings = {}
+    @section.grades.each do |grade|
+      @grade_mappings[grade.start_point..grade.end_point] = grade.name
     end
 
     render layout: false
