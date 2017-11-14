@@ -110,7 +110,7 @@
                         <td class="text-center"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:total) %></td>
                         <td class="text-center result-percent-row"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained) %></td>
                         <td class="text-center"><%= calculate_percentage(@exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained).to_f, exam.percentage.to_f) %></td>
-                        <td class="text-center"><%= assign_grade(calculate_percentage(@exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained).to_f, exam.percentage.to_f), @grade_mappings) %></td>
+                        <td class="text-center"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:grade) %></td>
                         <td class="text-center"><%= exam.exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max %></td>
                       </tr>
                     <% end %>

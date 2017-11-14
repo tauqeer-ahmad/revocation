@@ -29,13 +29,36 @@ class ExamMark < ApplicationRecord
   def subject_name
     subject.name
   end
+  
+  def grade_map
+    self.section.grades
+    grade_mappings = {}
+    self.section.grades.each do |grade|
+      grade_mappings[grade.start_point..grade.end_point] = grade.name
+    end
+    grade_mappings
+  end
+
+  def calculate_percentage(value, total)
+    return 0.0 if total.zero?
+    '%.1f' % ((value.to_f / total) * 100)
+  end
+
+  def assign_grade(percentage, grade_mappings)
+    return "-" if grade_mappings.blank?
+    grade = grade_mappings.select {|x| x === percentage.to_f}.values.first
+    return grade if grade.present?
+    "F"
+  end
 
   private
 
   def update_actual_obtained
     if "obtained".in?(changed) || "total".in?(changed)
+      self.grade_map
       percentage = self.exam.percentage
       self.actual_obtained = ((self.obtained.to_f/self.total.to_f)*100) * (percentage.to_f/100)
+      self.grade = assign_grade(calculate_percentage(self.actual_obtained, self.exam.percentage.to_f), self.grade_map)
     end
   end
 end
