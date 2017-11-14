@@ -97,7 +97,7 @@ class Administrator::StudentsController < ApplicationController
 
   def results
     @section = @student.current_section(current_term.id)
-    @exam_marks = @student.exam_marks(section_id: @section.id)
+    @exam_marks = @student.exam_marks.where(section_id: @section.id, term_id: current_term.id)
     @exam_grouped = @exam_marks.group_by(&:exam_id)
     @subject_grouped = @exam_marks.group_by(&:subject_id)
     @grade_mappings = {}
