@@ -143,12 +143,12 @@ module ApplicationHelper
 
   def calculate_percentage(value, total)
     return 0.0 if total.zero?
-    '%.2f' % ((value.to_f / total) * 100)
+    '%.1f' % ((value.to_f / total) * 100)
   end
 
   def calculate_average(values, count)
     return 0.0 if count.zero?
-    '%.2f' % (values.to_f/count.to_f)
+    '%.1f' % (values.to_f/count.to_f)
   end
 
   def display_collective_average(groud_id, term_id, exam_id, objects)

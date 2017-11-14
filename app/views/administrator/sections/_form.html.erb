@@ -49,11 +49,11 @@
       <div class='form-group'>
         <div class='row'>
           <div class='col-sm-3 col-sm-offset-3'>
-            <%= sst.select :subject_id, options_for_select(@subjects.collect{|t| [t.name, t.id]}), {prompt: 'Select Subject'}, { class: 'form-control'} %>
+            <%= sst.select :subject_id, options_for_select(@subjects.collect{|t| [t.name, t.id]}, sst.object.subject_id), {prompt: 'Select Subject'}, { class: 'form-control'} %>
           </div>
 
           <div class='col-sm-3'>
-            <%= sst.select :teacher_id, options_for_select(@teachers.collect{|t| [t.name, t.id]}), {prompt: 'Select Teacher'}, { class: 'form-control'} %>
+            <%= sst.select :teacher_id, options_for_select(@teachers.collect{|t| [t.name, t.id]}, sst.object.teacher_id), {prompt: 'Select Teacher'}, { class: 'form-control'} %>
           </div>
 
           <div class='col-sm-1'>
