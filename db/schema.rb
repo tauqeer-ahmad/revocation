@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113095307) do
+ActiveRecord::Schema.define(version: 20171114135736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20171113095307) do
   end
 
   create_table "exam_marks", force: :cascade do |t|
-    t.decimal  "obtained",        precision: 5, scale: 2
+    t.decimal  "obtained",                   precision: 5, scale: 2
     t.integer  "total"
     t.integer  "passing_marks"
     t.text     "comment"
@@ -92,10 +92,11 @@ ActiveRecord::Schema.define(version: 20171113095307) do
     t.integer  "section_id"
     t.integer  "student_id"
     t.integer  "marksheet_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.datetime "deleted_at"
-    t.decimal  "actual_obtained", precision: 5, scale: 2
+    t.decimal  "actual_obtained",            precision: 5, scale: 2
+    t.string   "grade",           limit: 10
     t.index ["deleted_at"], name: "index_exam_marks_on_deleted_at", using: :btree
     t.index ["exam_id"], name: "index_exam_marks_on_exam_id", using: :btree
     t.index ["klass_id"], name: "index_exam_marks_on_klass_id", using: :btree
