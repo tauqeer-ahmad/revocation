@@ -26,108 +26,137 @@
               </div>
             </div>
           </p>
-          <table class='table table-bordered'>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Roll Number</th>
-                <th>Registration Number</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="text-info text-bold"><%= @student.name %></span></td>
-                <td><span class="text-info text-bold"><%= @student.roll_number %></span></td>
-                <td><span class="text-info text-bold">RG-Requires-33434</span></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class='modal-body form-horizontal'>
+            <div class='row'>
+              <div class='col-sm-12'>
+                <table class='table table-bordered'>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Roll Number</th>
+                      <th>Registration Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="text-info text-bold"><%= @student.name %></span></td>
+                      <td><span class="text-info text-bold"><%= @student.roll_number %></span></td>
+                      <td><span class="text-info text-bold"><%= @student.registration_number %></span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-          <div class="full-height-scroll">
-            <div class='table-responsive'>
-              <% @exam_marks.each do |exam_id, marks| %>
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <%= @exams[exam_id] %>
-                  </div>
-                  <div class="panel-body">
-                    <p class="text-black">Class: <span class="text-info text-bold"><%= marks.first.klass.name %></span></p>
-                    <p>Section: <span class="text-info text-bold"><%= marks.first.section.name %></span></p>
-
-                    <table class='table table-striped table-bordered'>
-                      <thead>
-                        <tr>
-                          <th>Subject</th>
-                          <th>Obtained</th>
-                          <th>Marks %</th>
-                          <th>Subject Average</th>
-                          <th>Total</th>
-                          <th>Passing</th>
-                          <th>Comment</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% marks.each do |mark| %>
-                          <tr>
-                            <td><%= mark.subject.name %></td>
-                            <td><%= mark.obtained %></td>
-                            <td><%= calculate_percentage(mark.obtained, mark.total) %></td>
-                            <td><%= display_collective_average(mark.subject_id, mark.term_id, exam_id, @subject_marks) %></td>
-                            <td><%= mark.total %></td>
-                            <td><%= mark.passing_marks %></td>
-                            <td><%= mark.comment %></td>
-                            <td><%= mark.display_status %></td>
-                          </tr>
-                        <% end %>
-                      </tbody>
-                    </table>
-
-                    <div class='row'>
-                      <div class='col-sm-12'>
-                        <table class='table'>
-                          <thead>
-                            <tr>
-                              <th>Total Marks</th>
-                              <th>Obtained Marks</th>
-                              <th>Marks Percentage</th>
-                              <th>Class Average</th>
-                              <th>Section Average</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td><span class="text-danger text-bold"><%= marks.sum(&:total) %></span></td>
-                              <td><span class="text-danger text-bold"><%= marks.sum(&:obtained) %></span></td>
-                              <td>
-                                <span class="text-danger text-bold"><%= calculate_percentage(marks.sum(&:obtained), marks.sum(&:total)) %></span>
-                              </td>
-                              <td>
-                                <span class="text-danger text-bold"><%= display_collective_average(marks.first.klass_id, marks.first.term_id, exam_id, @klass_marks) %></span>
-                              </td>
-                              <td>
-                                <span class="text-danger text-bold"><%= display_collective_average(marks.first.section_id, marks.first.term_id, exam_id, @section_marks) %></span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+            <div class="row">
+              <div class='ibox-content'>
+                <div class="full-height-scroll">
+                  <div class="full-height-scroll">
+                    <div class='table-responsive small'>
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h5 class="panel-title">
+                            Collective Result
+                          </h5>
+                        </div>
+                        <div class="panel-body">
+                          <table class='table table-striped table-bordered'>
+                            <thead>
+                              <tr>
+                                <th class="text-center result-even-header">Subject</th>
+                                <th class="text-center result-odd-header">Abs. Marks</th>
+                                <th class="text-center result-odd-header">Total</th>
+                                <th class="text-center result-odd-header">%</th>
+                                <th class="text-center result-odd-header">Grade</th>
+                                <th class="text-center result-odd-header">Highest</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% @section.subjects.each do |subject| %>
+                                <tr>
+                                  <td class="text-center result-odd-header"><%= subject.name %></td>
+                                  <td class="text-center result-percent-row"><%= @exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f %></td>
+                                  <td class="text-center result-percent-row"><%= @section.exams.collect(&:percentage).sum %></td>
+                                  <td class="text-center result-percent-row"><%= calculate_percentage(@exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f, @section.exams.collect(&:percentage).sum) %></td>
+                                  <td class="text-center"><%= assign_grade(calculate_percentage(@exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f, @section.exams.collect(&:percentage).sum), @grade_mappings) %></td>
+                                  <td class="text-center gresult-total-row"><%= @section.exam_marks.where(subject_id: subject.id).group(:student_id).sum(:actual_obtained).values.max %></td>
+                                </tr>
+                              <% end %>
+                              <tr>
+                                <td class="text-center">Total</td>
+                                <td class="text-center gresult-total-row gresult-total"><%= @exam_marks.sum(:actual_obtained).to_f %></td>
+                                <td class="text-center gresult-total-row gresult-total"><%= @section.exams.collect(&:percentage).sum * @section.subjects.size %></td>
+                                <td class="text-center gresult-total-row gresult-total"><%= calculate_percentage(@exam_marks.sum(:actual_obtained).to_f, @section.exams.collect(&:percentage).sum * @section.subjects.size) %></td>
+                                <td class="text-center"><%= assign_grade(calculate_percentage(@exam_marks.sum(:actual_obtained).to_f, @section.exams.collect(&:percentage).sum * @section.subjects.size), @grade_mappings) %></td>
+                                <td class="text-center gresult-total-row gresult-total"><%= @section.exam_marks.group(:student_id).sum(:actual_obtained).values.max %></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <% @section.exams.each_with_index do |exam, index| %>
+                    <div class="full-height-scroll">
+                      <div class='table-responsive small'>
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h5 class="panel-title">
+                              <%= exam.name %> <small>(<%= exam.percentage %>%) </small>
+                            </h5>
+                          </div>
+                          <div class="panel-body">
+                            <table class='table table-striped table-bordered'>
+                              <thead>
+                                <tr>
+                                  <th class="text-center result-even-header">Subject</th>
+                                  <th class="text-center result-odd-header">Obtained</th>
+                                  <th class="text-center result-odd-header">Total</th>
+                                  <th class="text-center result-odd-header">Weightage</th>
+                                  <th class="text-center result-odd-header">%</th>
+                                  <th class="text-center result-odd-header">Grade</th>
+                                  <th class="text-center result-odd-header">Highest</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <% @section.subjects.each do |subject| %>
+                                  <tr>
+                                    <td class="text-center result-odd-header"><%= subject.name %></td>
+                                    <td class="text-center"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:obtained) %></td>
+                                    <td class="text-center"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:total) %></td>
+                                    <td class="text-center result-percent-row"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained) %></td>
+                                    <td class="text-center"><%= calculate_percentage(@exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:actual_obtained).to_f, exam.percentage.to_f) %></td>
+                                    <td class="text-center"><%= @exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first.try(:grade) %></td>
+                                    <td class="text-center"><%= exam.exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max %></td>
+                                  </tr>
+                                <% end %>
+                                <tr>
+                                  <td class="text-center result-total-row">Total</td>
+                                  <td class="text-center result-total-row"><%= get_obtained_marks(@exam_grouped[exam.id]) %></td>
+                                  <td class="text-center result-total-row"><%= get_total_marks(@exam_grouped[exam.id]) %></td>
+                                  <td class="text-center gresult-total-row"><%= get_actual_marks(@exam_grouped[exam.id]) %></td>
+                                  <td class="text-center result-total-row"><%= calculate_percentage(get_actual_marks(@exam_grouped[exam.id]), exam.percentage*@section.subjects.size) %></td>
+                                  <td class="text-center"><%= assign_grade(calculate_percentage(get_actual_marks(@exam_grouped[exam.id]), exam.percentage*@section.subjects.size), @grade_mappings) %></td>
+                                  <td class="text-center result-total-row"><%= exam.exam_marks.group(:student_id).sum(:obtained).values.max  %></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
-              <% end if @exam_marks.present? %>
-              <% if @exam_marks.blank? %>
-                <div class="text-center animated fadeInDown">
-                  <div class="results-icon">
-                    <i class="fa fa-puzzle-piece"></i>
-                  </div>
-                  <div class="error-desc">
-                    Results are not available yet. You have to wait!
-                  </div>
-                </div>
-              <% end %>
+              </div>
             </div>
           </div>
+
+          <div class='modal-footer'>
+            <div class='col-md-12 text-center'>
+              <%= submit_tag 'Print', class: 'btn btn-info' %>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
