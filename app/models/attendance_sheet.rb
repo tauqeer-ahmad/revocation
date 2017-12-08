@@ -48,7 +48,12 @@ class AttendanceSheet < ApplicationRecord
     attendance_sheets = {}
     sheets = current_term.attendance_sheets.student.of_section(sections.map(&:first)).ordered.select(:id, :name, :present, :absent, :leave, :section_id)
     sheets = sheets.group_by { |entity| entity.name.to_date.strftime('%B-%Y') }
-    sheets.each do |key, value| attendance_sheets[key] = value.group_by { |entity| entity.section_id } end
+    sheets.each do |key, value|
+      attendance_sheets[key] = {}
+      attendance_sheets[key][:sections] = value.group_by { |entity| entity.section_id }
+      attendance_sheets[key][:year] = key.split('-').second
+      attendance_sheets[key][:month] = key.split('-').first
+    end
 
     attendance_sheets
   end
