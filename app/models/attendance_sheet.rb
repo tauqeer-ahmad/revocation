@@ -51,12 +51,14 @@ class AttendanceSheet < ApplicationRecord
     sheets = sheets.group_by { |entity| entity.name.to_date.strftime('%B-%Y') }
     sheets.each do |key, value|
       month_year = {}
-      month_year[:sections] = {}
+      month_year[:sections] = []
       section_data = value.group_by { |entity| entity.section_id }
 
       section_data.each do |section_id, data|
-        month_year[:sections][:section_id] = section_id
-        month_year[:sections][:attendances] = data
+        section = {}
+        section[:section_id] = section_id
+        section[:attendances] = data
+        month_year[:sections] << section
       end
 
       month_year[:year] = key.split('-').second
