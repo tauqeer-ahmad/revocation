@@ -176,6 +176,6 @@ module ApplicationHelper
   end
 
   def message_class_with_outline(administrator)
-    current_user == administrator && 'btn btn-success dim btn-xs disabled' || 'btn btn-outline btn-success dim btn-xs'
+    current_user == administrator && 'btn btn-success dim btn-xs invisible' || 'btn btn-outline btn-success dim btn-xs'
   end
 end

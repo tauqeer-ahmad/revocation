@@ -11,6 +11,9 @@ class User < ApplicationRecord
 
   has_many :notes, dependent: :destroy
   has_many :testimonials, dependent: :destroy
+  # has_many :messages, through: :conversations, source: :conversation
+  # has_many :messages, class_name: 'Message', foreign_key: :recipient_id
+  # has_many :sent_messages, class_name: 'Message', foreign_key: :sender_id
 
   has_attached_file :avatar,
                     styles: {

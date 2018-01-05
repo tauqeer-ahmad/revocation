@@ -1,0 +1,48 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-10'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Conversations
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>List</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class='wrapper wrapper-content'>
+  <div class='row'>
+    <div class='col-lg-3'>
+      <div class='ibox float-e-margins'>
+        <div class='ibox-content'>
+          <ul class='folder-list no-padding'>
+            <% @conversations.each do |conversation| %>
+              <li id='conversation_link_<%= conversation.id %>' class='conversation-selection-list <%= 'active' if conversation.id == @conversation.id %>'>
+                <%= link_to fetch_conversations_path(conversation_id: conversation.id), remote: true do %>
+                  <%= image_tag(conversation.second_user(current_user).avatar.url(:medium), width: 50, height: 50, class: 'img-rounded m-r-sm') %>
+
+                  <strong><%= conversation.second_user(current_user).name %></strong>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+
+          <div class='clearfix'></div>
+        </div>
+      </div>
+    </div>
+
+    <%= render 'messages', messages: @messages %>
+  </div>
+</div>
+

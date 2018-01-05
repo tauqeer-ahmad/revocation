@@ -63,5 +63,11 @@
             current_field.removeClass('error-field')
             span_field.addClass('hide')
 
+bind_conversation_scroll = ->
+  if $('.chat-message').length
+    $('.chat-message').last()[0].scrollIntoView(false);
+
 $ ->
   validate_field()
+  bind_conversation_scroll()
+

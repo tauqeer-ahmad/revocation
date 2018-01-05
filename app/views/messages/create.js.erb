@@ -1,0 +1,6 @@
+toastr.success('Message sent successfully!');
+
+$('.message-modal').modal('hide');
+
+$('#conversation-<%= params[:conversation_id] %> .chat-discussion').append("<%= escape_javascript(render('conversations/message', message: @message)) %>");
+$('#message-<%= @message.id %>')[0].scrollIntoView(false);

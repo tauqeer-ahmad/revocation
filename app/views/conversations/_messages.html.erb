@@ -1,0 +1,35 @@
+<% conversation = messages.first.conversation %>
+<% second_user = conversation.second_user(current_user) %>
+
+<div class='col-lg-9 animated fadeInRight messages-container'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <div class='ibox float-e-margins'>
+        <div class='ibox-title m-b-sm'>
+          <h5>
+            <%= second_user.name %>
+            <%= content_tag :small, "(#{second_user.type_of})" %>
+          </h5>
+        </div>
+
+        <div id='conversation-<%= conversation.id %>'>
+          <div class='chat-discussion'>
+            <% messages.each do |message| %>
+              <%= render 'message', message: message %>
+            <% end %>
+          </div>
+
+          <%= form_for conversation.messages.build, url: conversation_messages_path(conversation), remote: true, html: { class: 'form-horizontal' } do |f| %>
+
+            <div class='input-group m-t-sm'>
+              <%= f.text_area :body, required: true, maxlength: 250, placeholder: 'Type message...', class: 'form-control' %>
+              <span class='input-group-btn'>
+                <%= f.submit 'Send!', class: 'btn btn-lg btn-primary send-grp-btn' %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
