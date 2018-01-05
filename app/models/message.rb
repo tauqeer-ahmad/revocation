@@ -6,6 +6,10 @@ class Message < ApplicationRecord
 
   validates :body, :status, :conversation_id, presence: true
 
+  after_save do
+    conversation.update_attribute(:updated_at, Time.now)
+  end
+
   aasm column: :status, whiny_transitions: false do
     state :read
     state :unread

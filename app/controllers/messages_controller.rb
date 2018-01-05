@@ -26,14 +26,11 @@ class MessagesController < ApplicationController
     if conversation_id < 0
       recipient_id = params[:recipient_id]
 
-      conversation = Conversation.find_by(sender_id: current_user.id, recipient_id: recipient_id) ||
-                     Conversation.find_by(sender_id: recipient_id, recipient_id: current_user.id)
-
+      conversation = Conversation.between(current_user.id, recipient_id)
       conversation ||= Conversation.create(sender_id: current_user.id, recipient_id: recipient_id)
+
       conversation_id = conversation.id
     end
-
-    # return render json: params
 
     @message = Message.new(message_params)
     @message.user_id = current_user.id

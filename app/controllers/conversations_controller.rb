@@ -1,6 +1,6 @@
 class ConversationsController < ApplicationController
   def index
-    @conversations = Conversation.user_conversation(current_user.id).includes(:sender)
+    @conversations = Conversation.user_conversation(current_user.id).includes(:sender).latest
 
     @conversation = if params[:conversation_id].present?
       Conversation.find(params[:conversation_id])

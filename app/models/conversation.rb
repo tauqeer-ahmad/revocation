@@ -11,9 +11,7 @@ class Conversation < ApplicationRecord
   validates :sender_id, :recipient_id, :status, presence: true
   validates :sender_id, uniqueness: { scope: :recipient_id }
 
-  # scope :between, -> (sender_id, recipient_id) do
-  #   where("(conversations.sender_id = ? AND conversations.recipient_id =?) OR (conversations.sender_id = ? AND conversations.recipient_id =?)", sender_id,recipient_id, recipient_id, sender_id)
-  # end
+  scope :latest, -> { order(updated_at: :desc) }
 
   aasm column: :status, whiny_transitions: false do
     state :read
@@ -29,7 +27,7 @@ class Conversation < ApplicationRecord
   end
 
   def self.between(sender_id, recipient_id)
-    where("(conversations.sender_id = ? AND conversations.recipient_id = ?) OR (conversations.sender_id = ? AND conversations.recipient_id = ?)", sender_id, recipient_id, recipient_id, sender_id)
+    where("(conversations.sender_id = ? AND conversations.recipient_id = ?) OR (conversations.sender_id = ? AND conversations.recipient_id = ?)", sender_id, recipient_id, recipient_id, sender_id).first
   end
 
   def self.user_conversation(user_id)
