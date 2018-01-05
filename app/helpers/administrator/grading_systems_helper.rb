@@ -1,0 +1,2 @@
+module Administrator::GradingSystemsHelper
+end

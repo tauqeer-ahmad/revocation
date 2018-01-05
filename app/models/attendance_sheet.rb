@@ -40,4 +40,33 @@ class AttendanceSheet < ApplicationRecord
   def self.monthly_grouped
     group_by { |entity| entity.name.to_date.strftime('%B-%y') }
   end
+
+  def self.api_hash(params, current_user, current_term)
+    sections =  current_user.incharged_sections_list(current_term.id)
+    sections =  sections.select { |section_id, name| section_id == params[:section_id].to_i } if params[:section_id].present?
+
+    attendance_sheets = {}
+    attendance_sheets['month_year'] = []
+    sheets = current_term.attendance_sheets.student.of_section(sections.map(&:first)).ordered.select(:id, :name, :present, :absent, :leave, :section_id)
+    sheets = sheets.group_by { |entity| entity.name.to_date.strftime('%B-%Y') }
+    sheets.each do |key, value|
+      month_year = {}
+      month_year[:sections] = []
+      section_data = value.group_by { |entity| entity.section_id }
+
+      section_data.each do |section_id, data|
+        section = {}
+        section[:section_id] = section_id
+        section[:attendances] = data
+        month_year[:sections] << section
+      end
+
+      month_year[:year] = key.split('-').second
+      month_year[:month] = key.split('-').first
+
+      attendance_sheets['month_year'] << month_year
+    end
+
+    attendance_sheets
+  end
 end

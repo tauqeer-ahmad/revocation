@@ -9,17 +9,23 @@ class Exam < ApplicationRecord
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:name]
 
   belongs_to :term
+  belongs_to :klass
+  belongs_to :section
   has_many :exam_timetables, dependent: :destroy
-  has_many :exam_marks
-  has_many :marksheets
-  has_many :question_papers
-  has_many :notices, as: :noticeable
+  has_many :exam_marks, dependent: :destroy
+  has_many :marksheets, dependent: :destroy
+  has_many :question_papers, dependent: :destroy
+  has_many :notices, as: :noticeable, dependent: :destroy
 
   accepts_nested_attributes_for :exam_timetables
 
+  validates :klass_id, presence: {message: "Class is a mandatory field"}
+  validates :section_id, presence: {message: "Section is a mandatory field"}
   validates :name, presence: {message: "Name feild is mandatory"}
   validates :start_date, presence: {message: "Start feild is mandatory"}
-  validates :name, uniqueness: {scope: :term_id, message: "Name already exists."}
+  validates :name, uniqueness: {scope: [:term_id, :section_id], message: "Name already exists."}
+  validates :percentage, presence: {message: "Percentage is a mandatory field."}
+  validates :percentage, inclusion: { in: 0..100, message: "The percentage must be between 0 and 100" }
 
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
   scope :of_class_and_term, -> (klass_id, term_id) { includes(exam_timetables: :subject).where(exam_timetables: {klass_id: klass_id, term_id: term_id}) }
@@ -29,6 +35,8 @@ class Exam < ApplicationRecord
       name: name,
       start_date: start_date,
       term_id: term_id,
+      section_id: section_id,
+      klass_id: klass_id,
       status: status,
       deleted_at: deleted_at,
     }

@@ -1,0 +1,97 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Academic Periods
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', root_path %>
+      </li>
+      <li class='active'>
+        <strong>Academic Periods List</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div id='left-section' class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <h2>Academic Periods</h2>
+          <div class="clients-list">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-braille"></i> Academic Periods </a></li>
+            </ul>
+            <div class="tab-content full-height-scroll">
+              <div id="tab-1" class="tab-pane active">
+                <%= render partial: 'shared/search_box', locals: {path: terms_path} %>
+                <div class="ibox"></div>
+                <div class='row m-b-lg'>
+                  <div class="col-md-2 col-md-offset-3">
+                    <div class="widget style1 yellow-border">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <h3 class="font-bold text-center">Initialized</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget style1 lazur-border">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <h3 class="font-bold text-center">Active</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="widget style1 navy-border">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <h3 class="font-bold text-center">Complete</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <% @terms.each do |term| %>
+                    <div class="col-lg-3">
+                      <div class="contact-box <%= term_class(term) %>">
+                        <div class="text-center">
+                          <div class="m-t-xs font-bold"><%= term.name %></div>
+                          <div class="m-t-xs"><%= term.display_term_duration %></div>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="m-t-xs text-center">
+                        <%= link_to "#", class: "term-box-modal btn btn-outline btn-warning dim btn-xs", data: { toggle: 'tooltip', placement: 'top'}, title: 'Switch', "data-term-id" => term.id do %>
+                          <i class="fa fa-arrows-alt"></i>
+                        <% end %>
+                      </div>
+                    </div>
+                    <%= render 'term_options_modal', term: term %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  animate_contact_box()
+  AdministratorTerm.init()
+<% end %>
+

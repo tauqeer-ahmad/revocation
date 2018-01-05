@@ -1,6 +1,7 @@
 class Teacher::AssignmentsController < ApplicationController
   before_action :set_assignment, only: [:edit, :update, :destroy, :status_update, :show]
   before_action :set_class_section_subject, only: [:index, :edit, :new]
+  before_action :validate_term, only: [:edit, :new, :create, :update, :destroy, :status_update]
 
   def index
     @assignments = current_user.assignments.of_section(@section.id).of_subject(@subject.id).ordered

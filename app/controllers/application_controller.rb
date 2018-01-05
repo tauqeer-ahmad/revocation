@@ -79,6 +79,10 @@ class ApplicationController < ActionController::Base
     redirect_to :root, alert: "You need to login before you continue." unless current_user.present?
   end
 
+  def validate_term
+    redirect_to :root, error: "Data Prior to current term cannot be altered." if current_user.teacher? && current_term != active_term
+  end
+
   def paranoia_condition(entity)
     return {_or: [{deleted_at: nil}, {deleted_in_term_id: {gt: Current.term&.id}}]} if entity.name.in?(PARANOIA_TERM_CONDITION_MODELS)
     return {deleted_at: nil}

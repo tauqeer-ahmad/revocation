@@ -1,7 +1,7 @@
 class Administrator::SectionsController < ApplicationController
   before_action :check_current_term
   before_action :set_klass, except: [:index]
-  before_action :set_section, only: [:show, :edit, :update, :destroy, :update_subjects]
+  before_action :set_section, only: [:show, :edit, :update, :destroy, :update_subjects, :update_exams]
   before_action :set_form_data, only: [:new, :edit]
 
   def index
@@ -70,6 +70,11 @@ class Administrator::SectionsController < ApplicationController
     render json: @subjects.map { |subject| subject.as_json(:only => [:id, :name]) }
   end
 
+  def update_exams
+    @exams = @section.exams.active
+    render json: @exams.map { |exam,| exam.as_json(:only => [:id, :name]) }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_section
@@ -78,7 +83,7 @@ class Administrator::SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:name, :nickname, :incharge_id, section_subject_teachers_attributes: [:id, :subject_id, :teacher_id, :klass_id, :term_id, :_destroy])
+      params.require(:section).permit(:name, :nickname, :incharge_id, :grading_system_id, section_subject_teachers_attributes: [:id, :subject_id, :teacher_id, :klass_id, :term_id, :_destroy])
     end
 
     def set_klass

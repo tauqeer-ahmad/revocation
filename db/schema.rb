@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20171031113031) do
   end
 
   create_table "exam_marks", force: :cascade do |t|
-    t.integer  "obtained"
+    t.decimal  "obtained",                   precision: 5, scale: 2
     t.integer  "total"
     t.integer  "passing_marks"
     t.text     "comment"
@@ -104,9 +104,11 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.integer  "section_id"
     t.integer  "student_id"
     t.integer  "marksheet_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.datetime "deleted_at"
+    t.decimal  "actual_obtained",            precision: 5, scale: 2
+    t.string   "grade",           limit: 10
     t.index ["deleted_at"], name: "index_exam_marks_on_deleted_at", using: :btree
     t.index ["exam_id"], name: "index_exam_marks_on_exam_id", using: :btree
     t.index ["klass_id"], name: "index_exam_marks_on_klass_id", using: :btree
@@ -146,8 +148,35 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.datetime "updated_at",            null: false
     t.string   "status",     limit: 16
     t.datetime "deleted_at"
+    t.integer  "klass_id"
+    t.integer  "section_id"
+    t.float    "percentage"
     t.index ["deleted_at"], name: "index_exams_on_deleted_at", using: :btree
+    t.index ["klass_id"], name: "index_exams_on_klass_id", using: :btree
+    t.index ["section_id"], name: "index_exams_on_section_id", using: :btree
     t.index ["term_id"], name: "index_exams_on_term_id", using: :btree
+  end
+
+  create_table "grades", force: :cascade do |t|
+    t.string   "name"
+    t.float    "start_point"
+    t.float    "end_point"
+    t.integer  "points"
+    t.integer  "position",          null: false
+    t.integer  "grading_system_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["grading_system_id"], name: "index_grades_on_grading_system_id", using: :btree
+    t.index ["position"], name: "index_grades_on_position", using: :btree
+  end
+
+  create_table "grading_systems", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "position",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["position"], name: "index_grading_systems_on_position", using: :btree
   end
 
   create_table "institutions", force: :cascade do |t|
@@ -287,10 +316,10 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.integer  "student_id"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.string   "roll_number", limit: 32
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "promoted",               default: false
+    t.integer  "roll_number"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "promoted",    default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|
@@ -309,10 +338,12 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.integer  "term_id"
     t.integer  "klass_id"
     t.integer  "incharge_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.datetime "deleted_at"
+    t.integer  "grading_system_id"
     t.index ["deleted_at"], name: "index_sections_on_deleted_at", using: :btree
+    t.index ["grading_system_id"], name: "index_sections_on_grading_system_id", using: :btree
   end
 
   create_table "subject_schedules", force: :cascade do |t|
@@ -405,7 +436,7 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.string   "last_name",              limit: 50
     t.string   "address"
     t.string   "role",                   limit: 12
-    t.string   "roll_number",            limit: 12
+    t.integer  "roll_number"
     t.string   "qualification"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -440,6 +471,7 @@ ActiveRecord::Schema.define(version: 20171031113031) do
   add_foreign_key "attendances", "terms"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
+  add_foreign_key "grades", "grading_systems"
   add_foreign_key "notes", "users"
   add_foreign_key "notices", "klasses"
   add_foreign_key "notices", "sections"

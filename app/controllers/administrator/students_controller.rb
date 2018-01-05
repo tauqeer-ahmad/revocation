@@ -96,12 +96,15 @@ class Administrator::StudentsController < ApplicationController
   end
 
   def results
-    @exam_marks = @student.exam_marks.includes(:subject, :klass, :section).group_by(&:exam_id)
-    @all_exam_marks = ExamMark.where(section_id: @student.sections.ids).to_a
-    @klass_marks = @all_exam_marks.group_by(&:klass_id)
-    @section_marks = @all_exam_marks.group_by(&:section_id)
-    @subject_marks = @all_exam_marks.group_by(&:subject_id)
-    @exams = Exam.pluck(:id, :name).to_h
+    @section = @student.current_section(current_term.id)
+    @exam_marks = @student.exam_marks.where(section_id: @section.id, term_id: current_term.id)
+    @exam_grouped = @exam_marks.group_by(&:exam_id)
+    @subject_grouped = @exam_marks.group_by(&:subject_id)
+    @grade_mappings = {}
+    @section.grades.each do |grade|
+      @grade_mappings[grade.start_point..grade.end_point] = grade.name
+    end
+
     render layout: false
   end
 

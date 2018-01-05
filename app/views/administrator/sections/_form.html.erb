@@ -16,6 +16,15 @@
       </div>
     </div>
   </div>
+  
+  <div class='form-inputs'>
+    <div class='form-group'>
+      <label class='col-sm-2 control-label'>Nickname</label>
+      <div class='col-sm-10'>
+         <%= f.select :grading_system_id, options_for_select(GradingSystem.pluck(:name, :id)), {prompt: 'Select Grading System'}, { class: 'form-control select2_dropdown'} %>
+      </div>
+    </div>
+  </div>
 
   <div class='form-inputs'>
     <div class='form-group'>
@@ -40,11 +49,11 @@
       <div class='form-group'>
         <div class='row'>
           <div class='col-sm-3 col-sm-offset-3'>
-            <%= sst.select :subject_id, options_for_select(@subjects.collect{|t| [t.name, t.id]}), {prompt: 'Select Subject'}, { class: 'form-control'} %>
+            <%= sst.select :subject_id, options_for_select(@subjects.collect{|t| [t.name, t.id]}, sst.object.subject_id), {prompt: 'Select Subject'}, { class: 'form-control'} %>
           </div>
 
           <div class='col-sm-3'>
-            <%= sst.select :teacher_id, options_for_select(@teachers.collect{|t| [t.name, t.id]}), {prompt: 'Select Teacher'}, { class: 'form-control'} %>
+            <%= sst.select :teacher_id, options_for_select(@teachers.collect{|t| [t.name, t.id]}, sst.object.teacher_id), {prompt: 'Select Teacher'}, { class: 'form-control'} %>
           </div>
 
           <div class='col-sm-1'>

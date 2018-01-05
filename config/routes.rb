@@ -54,8 +54,14 @@ Revocation::Application.routes.draw do
         resources :attendances, only: [:index]
         resources :assignments, only: [:index, :show]
       end
-    end
 
+      namespace :teacher do
+        resources :sections, only: :index
+        resources :attendance_sheets, only: :index
+        resources :attendances, only: :index
+        resources :assignments, only: [:index, :show]
+      end
+    end
   end
 
   namespace :admin do
@@ -107,6 +113,16 @@ Revocation::Application.routes.draw do
     resources :administrators, only: [:index], constraints: { format: /html/ }
 
     namespace :administrator do
+      resources :grading_systems do
+        member do
+          post :move
+        end
+      end
+      resources :grades, only: [] do
+        member do
+          post :move
+        end
+      end
       resources :admissions, only: [:index, :new]
       resources :teachers do
         collection do
@@ -138,6 +154,7 @@ Revocation::Application.routes.draw do
           end
           member do
             get :update_subjects
+            get :update_exams
           end
         end
       end
@@ -200,7 +217,6 @@ Revocation::Application.routes.draw do
         end
         resources :exam_timetables do
           collection do
-            get :filter
             post :bulk_create
             get :bulk
           end
@@ -256,6 +272,7 @@ Revocation::Application.routes.draw do
         end
         member do
           get :update_subjects
+          get :update_exams
         end
       end
 
@@ -275,6 +292,12 @@ Revocation::Application.routes.draw do
       resources :notices, only: :index do
         collection do
           get :autocomplete
+        end
+      end
+
+      resources :terms, only: :index do
+        member do
+          put :update_selected_term
         end
       end
     end

@@ -2,6 +2,7 @@ class Teacher::SectionsController < ApplicationController
   before_action :check_current_term, only: :index
   before_action :set_klass, only: :update_sections
   before_action :set_section, only: :update_subjects
+  before_action :validate_term, only: [:update_sections, :update_subjects]
 
   def index
     @section_subject_teachers = current_user.section_subject_teachers.of_term(current_term.id).includes(:subject, section: :klass)

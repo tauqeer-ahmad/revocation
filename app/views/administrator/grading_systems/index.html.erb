@@ -1,0 +1,54 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+      Grade Management
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>Grades</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div id='left-section' class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <h2>Grading Systems</h2>
+          <div>
+            <ul class="nav nav-tabs">
+              <span class="pull-right small text-muted"><%= "#{@grading_systems.count} Exams" %></span>
+              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-list"></i>Grading Systems</a></li>
+              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-plus"></i> Add New</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="tab-1" class="tab-pane active">
+                <%= render 'index' %>
+              </div>
+
+              <div id="tab-2" class="tab-pane">
+                <div class="full-height-scroll">
+                  <%= render 'form', grading_system: @new_grading_system %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  Sortable.init();
+<% end %>

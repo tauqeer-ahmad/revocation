@@ -160,6 +160,11 @@
               <i class='fa fa-th' aria-hidden='true'></i> Tabulation Sheet
             <% end %>
           </li>
+          <li class='<%= is_active_controller('administrator/grading_systems') %>'>
+            <%= link_to administrator_grading_systems_path do %>
+              <i class='fa fa-balance-scale' aria-hidden='true'></i> Grade Management
+            <% end %>
+          </li>
         </ul>
       </li>
 
