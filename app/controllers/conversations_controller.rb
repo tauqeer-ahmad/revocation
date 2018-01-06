@@ -9,10 +9,16 @@ class ConversationsController < ApplicationController
     end
 
     @messages = @conversation.messages.includes(:user)
+
+    @conversation.update_column(:status, 'read')
+    @messages.secondary(current_user.id).update_all(status: 'read')
   end
 
   def fetch
     @conversation = Conversation.find(params[:conversation_id])
     @messages = @conversation.messages.includes(:user)
+
+    @conversation.update_column(:status, 'read')
+    @messages.secondary(current_user.id).update_all(status: 'read')
   end
 end

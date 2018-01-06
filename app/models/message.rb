@@ -6,8 +6,10 @@ class Message < ApplicationRecord
 
   validates :body, :status, :conversation_id, presence: true
 
+  scope :secondary, -> (user_id) { where.not(user_id: user_id) }
+
   after_save do
-    conversation.update_attribute(:updated_at, Time.now)
+    conversation.update_attributes(updated_at: Time.now, status: 'unread')
   end
 
   aasm column: :status, whiny_transitions: false do
