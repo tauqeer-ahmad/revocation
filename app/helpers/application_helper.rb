@@ -179,7 +179,7 @@ module ApplicationHelper
   def term_switch_base_path
     current_user.administrator? ? '/administrator/terms' : '/terms'
   end
-  
+
   def select_result_header_class(index)
     return "result-even-header" if index.even?
     "result-odd-header"
@@ -203,7 +203,7 @@ module ApplicationHelper
     return "-" if exams.blank?
     exams.collect(&:total).sum
   end
-  
+
   def get_actual_marks(exams)
     return "-" if exams.blank?
     exams.collect(&:actual_obtained).sum
@@ -214,5 +214,11 @@ module ApplicationHelper
     grade = grade_mappings.select {|x| x === percentage.to_f}.values.first
     return grade if grade.present?
     "F"
+  end
+
+  def prettify_users(users)
+    users.map do |x|
+      [x.name_and_role, x.id]
+    end
   end
 end

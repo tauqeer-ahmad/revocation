@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :check_selected_student, unless: :devise_controller?
   before_action :set_notices
   before_action :latest_notices
+  before_action :set_all_users, unless: :devise_controller?
 
   add_flash_types :error
   layout :layout_by_resource
@@ -90,6 +91,10 @@ class ApplicationController < ActionController::Base
 
   def autocomplete_query(entity, fields, clause = {})
     entity.search(params[:search], fields: fields, load: false, misspellings: {below: 5}, limit: 10, where: clause.merge!(paranoia_condition(entity)))
+  end
+
+  def set_all_users
+    @all_users = User.select(:id, :first_name, :last_name, :type_of)
   end
 
   private
