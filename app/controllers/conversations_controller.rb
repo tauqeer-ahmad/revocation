@@ -1,6 +1,6 @@
 class ConversationsController < ApplicationController
   def index
-    @conversations = Conversation.user_conversation(current_user.id).includes(:sender).latest
+    @conversations = Conversation.user_conversation(current_user.id, current_term.id).includes(:sender).latest
 
     @conversation = if params[:conversation_id].present?
       Conversation.find(params[:conversation_id])
@@ -8,10 +8,12 @@ class ConversationsController < ApplicationController
       @conversations.first
     end
 
-    @messages = @conversation.messages.includes(:user)
+    if @conversation.present?
+      @messages = @conversation.messages.includes(:user)
 
-    @conversation.update_column(:status, 'read')
-    @messages.secondary(current_user.id).update_all(status: 'read')
+      @conversation.update_column(:status, 'read')
+      @messages.secondary(current_user.id).update_all(status: 'read') if @messages.present?
+    end
   end
 
   def fetch

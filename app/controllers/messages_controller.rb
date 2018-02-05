@@ -26,8 +26,8 @@ class MessagesController < ApplicationController
     if conversation_id < 0
       recipient_id = params[:recipient_id]
 
-      conversation = Conversation.between(current_user.id, recipient_id)
-      conversation ||= Conversation.create(sender_id: current_user.id, recipient_id: recipient_id)
+      conversation = Conversation.between(current_user.id, recipient_id, current_term.id)
+      conversation ||= Conversation.create(sender_id: current_user.id, term_id: current_term.id, recipient_id: recipient_id)
 
       conversation_id = conversation.id
     end

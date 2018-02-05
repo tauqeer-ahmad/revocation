@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031113031) do
+ActiveRecord::Schema.define(version: 20180205132242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.datetime "deleted_at"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "term_id"
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
     t.index ["sender_id", "recipient_id"], name: "index_conversations_on_sender_id_and_recipient_id", using: :btree
     t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
@@ -316,10 +317,10 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.integer  "student_id"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.integer  "roll_number"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "promoted",    default: false
+    t.string   "roll_number", limit: 32
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "promoted",               default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|
@@ -436,7 +437,7 @@ ActiveRecord::Schema.define(version: 20171031113031) do
     t.string   "last_name",              limit: 50
     t.string   "address"
     t.string   "role",                   limit: 12
-    t.integer  "roll_number"
+    t.string   "roll_number",            limit: 12
     t.string   "qualification"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -469,9 +470,9 @@ ActiveRecord::Schema.define(version: 20171031113031) do
   add_foreign_key "attendance_sheets", "terms"
   add_foreign_key "attendances", "attendance_sheets"
   add_foreign_key "attendances", "terms"
+  add_foreign_key "grades", "grading_systems"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
-  add_foreign_key "grades", "grading_systems"
   add_foreign_key "notes", "users"
   add_foreign_key "notices", "klasses"
   add_foreign_key "notices", "sections"

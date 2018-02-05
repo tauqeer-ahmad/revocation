@@ -21,30 +21,42 @@
 </div>
 
 <div class='wrapper wrapper-content'>
-  <div class='row'>
-    <div class='col-lg-3'>
-      <div class='ibox float-e-margins'>
-        <div class='ibox-content'>
-          <ul class='folder-list no-padding'>
-            <% @conversations.each do |conversation| %>
-              <% unread_messages_count = conversation.messages.secondary(current_user.id).unread.count %>
-              <li id='conversation_link_<%= conversation.id %>' class='conversation-selection-list <%= 'active' if conversation.id == @conversation.id %>'>
-                <%= link_to fetch_conversations_path(conversation_id: conversation.id), remote: true do %>
-                  <%= image_tag(conversation.second_user(current_user).avatar.url(:medium), width: 50, height: 50, class: 'img-rounded m-r-sm') %>
+  <% if @conversations.present? %>
+    <div class='row'>
+      <div class='col-lg-3'>
+        <div class='ibox float-e-margins'>
+          <div class='ibox-content'>
+            <ul class='folder-list no-padding'>
+              <% @conversations.each do |conversation| %>
+                <% unread_messages_count = conversation.messages.secondary(current_user.id).unread.count %>
+                <li id='conversation_link_<%= conversation.id %>' class='conversation-selection-list <%= 'active' if conversation.id == @conversation.id %>'>
+                  <%= link_to fetch_conversations_path(conversation_id: conversation.id), remote: true do %>
+                    <%= image_tag(conversation.second_user(current_user).avatar.url(:medium), width: 50, height: 50, class: 'img-rounded m-r-sm') %>
 
-                  <strong><%= conversation.second_user(current_user).name %></strong>
-                  <%= content_tag :small, unread_messages_count, class: 'label label-primary m-l-xs' unless unread_messages_count.zero? %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
+                    <strong><%= conversation.second_user(current_user).name %></strong>
+                    <%= content_tag :small, unread_messages_count, class: 'label label-primary m-l-xs' unless unread_messages_count.zero? %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
 
-          <div class='clearfix'></div>
+            <div class='clearfix'></div>
+          </div>
+        </div>
+      </div>
+
+      <%= render 'messages', messages: @messages %>
+    </div>
+  <% else %>
+    <div class='row'>
+      <div class='col-lg-12'>
+        <div class='ibox float-e-margins'>
+          <div class='ibox-content text-center'>
+            <h5 class='no-margins'>There are no conversations, yet.</h5>
+          </div>
         </div>
       </div>
     </div>
-
-    <%= render 'messages', messages: @messages %>
-  </div>
+  <% end %>
 </div>
 

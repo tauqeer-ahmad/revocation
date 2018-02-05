@@ -8,7 +8,7 @@ class Conversation < ApplicationRecord
   has_many :users, through: :messages
 
   validates :sender_id, :recipient_id, :status, presence: true
-  validates :sender_id, uniqueness: { scope: :recipient_id }
+  validates :sender_id, uniqueness: { scope: [:recipient_id, :term_id] }
 
   scope :latest, -> { order(updated_at: :desc) }
 
@@ -25,12 +25,12 @@ class Conversation < ApplicationRecord
     end
   end
 
-  def self.between(sender_id, recipient_id)
-    where("(conversations.sender_id = ? AND conversations.recipient_id = ?) OR (conversations.sender_id = ? AND conversations.recipient_id = ?)", sender_id, recipient_id, recipient_id, sender_id).first
+  def self.between(sender_id, recipient_id, term_id)
+    where("(conversations.sender_id = ? AND conversations.recipient_id = ?) OR (conversations.sender_id = ? AND conversations.recipient_id = ?)", sender_id, recipient_id, recipient_id, sender_id).where(term_id: term_id).first
   end
 
-  def self.user_conversation(user_id)
-    where('recipient_id = ? OR sender_id = ?', user_id, user_id)
+  def self.user_conversation(user_id, term_id)
+    where('recipient_id = ? OR sender_id = ?', user_id, user_id).where(term_id: term_id)
   end
 
   def last_message
