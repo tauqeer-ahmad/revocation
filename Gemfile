@@ -33,6 +33,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'aasm'
 gem 'apartment'
+gem 'awesome_print'
 gem 'bootstrap-sass'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'ckeditor'

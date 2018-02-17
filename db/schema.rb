@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114135736) do
+ActiveRecord::Schema.define(version: 20180205132242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20171114135736) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "status"
     t.datetime "deleted_at"
+    t.string   "status"
     t.index ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
     t.index ["status"], name: "index_assignments_on_status", using: :btree
@@ -78,6 +78,19 @@ ActiveRecord::Schema.define(version: 20171114135736) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "sender_id",                       null: false
+    t.integer  "recipient_id",                    null: false
+    t.string   "status",       default: "unread", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "term_id"
+    t.index ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
+    t.index ["sender_id", "recipient_id"], name: "index_conversations_on_sender_id_and_recipient_id", using: :btree
+    t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
   end
 
   create_table "exam_marks", force: :cascade do |t|
@@ -228,6 +241,18 @@ ActiveRecord::Schema.define(version: 20171114135736) do
     t.index ["term_id"], name: "index_marksheets_on_term_id", using: :btree
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text     "body",                               null: false
+    t.string   "status",          default: "unread", null: false
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
+
   create_table "notes", force: :cascade do |t|
     t.string   "heading",     limit: 100,                     null: false
     t.text     "description"
@@ -292,10 +317,10 @@ ActiveRecord::Schema.define(version: 20171114135736) do
     t.integer  "student_id"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.integer  "roll_number"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "promoted",    default: false
+    t.string   "roll_number", limit: 32
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "promoted",               default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|
@@ -412,7 +437,7 @@ ActiveRecord::Schema.define(version: 20171114135736) do
     t.string   "last_name",              limit: 50
     t.string   "address"
     t.string   "role",                   limit: 12
-    t.integer  "roll_number"
+    t.string   "roll_number",            limit: 12
     t.string   "qualification"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -446,6 +471,8 @@ ActiveRecord::Schema.define(version: 20171114135736) do
   add_foreign_key "attendances", "attendance_sheets"
   add_foreign_key "attendances", "terms"
   add_foreign_key "grades", "grading_systems"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "notes", "users"
   add_foreign_key "notices", "klasses"
   add_foreign_key "notices", "sections"

@@ -42,6 +42,12 @@
         <% end %>
       </li>
 
+      <li class='<%= is_active_controller('conversations') %>'>
+        <%= link_to conversations_path do %>
+          <i class='fa fa-wechat'></i> <span class='nav-label'>Conversations</span>
+        <% end %>
+      </li>
+
       <li class='<%= is_active_controller('administrators') %>'>
         <%= link_to administrators_path do %>
           <i class='fa fa-user-secret'></i> <span class='nav-label'>Administrators</span>
@@ -164,12 +170,12 @@
 
       <li class="<%= is_active_controller('administrator/notice_board') %>">
         <%= link_to administrator_notices_path do %>
-          <i class="fa fa-sticky-note"></i> <span class="nav-label">Notice Board</span>
+          <i class='fa fa-bell-o'></i> <span class='nav-label'>Notice Board</span>
         <% end %>
       </li>
       <li class="<%= is_active_controller('administrator/pin_board') %>">
         <%= link_to administrator_pin_board_path do %>
-          <i class='fa fa-sticky-note'></i> <span class='nav-label'>Pin Board</span>
+          <i class='fa fa-sticky-note-o'></i> <span class='nav-label'>Pin Board</span>
         <% end %>
       </li>
 

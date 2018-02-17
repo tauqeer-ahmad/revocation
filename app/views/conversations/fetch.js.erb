@@ -1,0 +1,5 @@
+$(".messages-container").replaceWith("<%= raw escape_javascript(render 'messages', messages: @messages, conversation: @conversation) %>");
+
+$('li.conversation-selection-list').removeClass('active');
+$("li#conversation_link_<%= @conversation.id %>").addClass('active');
+$('.chat-message').last()[0].scrollIntoView(false);
