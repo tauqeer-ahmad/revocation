@@ -44,7 +44,7 @@
       <li class='dropdown'>
         <%= link_to conversations_path, class: 'dropdown-toggle count-info' do %>
           <i class='fa fa-envelope'></i>
-          <span class='label label-danger'><%= Conversation.user_conversation(current_user.id, current_term.id).unread.count %></span>
+          <span class='label label-danger'><%= unread_messages_count %></span>
         <% end %>
       </li>
       <% unless current_user.supervisor? %>
