@@ -4,9 +4,6 @@
       format: 'DD MMMM YYYY'
       showTodayButton: true
       sideBySide: true
-      widgetPositioning:
-        horizontal: 'left'
-        vertical: 'bottom'
     $(this).on 'dp.hide', (e) ->
       form = $(this).parents('form[data-client-side-validations]')
       if form.length > 0
@@ -16,9 +13,6 @@
   $('body').on 'focus', '.datetimepicker', ->
     $(this).datetimepicker
       format: 'DD MMMM YYYY LT'
-      widgetPositioning:
-        horizontal: 'left'
-        vertical: 'bottom'
     $(this).on 'dp.hide', (e) ->
       form = $(this).parents('form[data-client-side-validations]')
       if form.length > 0
