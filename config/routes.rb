@@ -2,8 +2,15 @@ require 'api_version'
 Revocation::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
-  namespace :api, constraints: { format: 'json' } do
+  resources :conversations, only: [:index, :show] do
+    resources :messages
 
+    collection do
+      get :fetch
+    end
+  end
+
+  namespace :api, constraints: { format: 'json' } do
     scope module: :v1, constraints: ApiVersion.new(version: 'v1', default: true) do
       scope module: :devise do
         devise_for :students, skip: [:sessions]

@@ -34,7 +34,7 @@ class Api::V1::BaseController < ActionController::API
   def current_term
     @current_term ||= Term.active_term
   end
-  
+
   def record_not_found
     render json: { message: 'Record not found' }, status: 404
   end

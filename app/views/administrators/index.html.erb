@@ -39,7 +39,7 @@
                   </p>
 
                   <div class='m-t-xs text-center'>
-                    <%= link_to '#', class: message_class_with_outline(administrator) do %>
+                    <%= link_to '#', data: { toggle: 'modal', target: "#create-message-#{administrator.id}" }, class: message_class_with_outline(administrator) do %>
                       <i class="fa fa-envelope"></i> Message
                     <% end %>
                   </div>
@@ -47,9 +47,43 @@
               </div>
             <% end %>
           </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<% @administrators.each do |administrator| %>
+  <div id='create-message-<%= administrator.id %>' class='modal message-modal' aria-hidden='true'>
+    <div class="modal-dialog">
+      <div class="modal-content animated flipInY">
+        <div class="modal-header text-center">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h3 class="modal-title">Message</h3>
+        </div>
+
+        <%= form_for :message, url: conversation_messages_path(conversation_id: '-1'), remote: true, html: { class: 'form-horizontal' } do |f| %>
+          <%= hidden_field_tag :recipient_id, administrator.id %>
+
+          <div class='modal-body text-center'>
+            <div class='row'>
+              <div class='col-sm-10 col-sm-offset-1'>
+                <div class='form-group'>
+                  <%= f.text_area :body, rows: 4, required: true, maxlength: 250, placeholder: 'Type message...', class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class='modal-footer'>
+            <div class='text-center'>
+              <%= button_tag class: 'btn btn-lg btn-info' do %>
+                <i class='fa fa-plus'></i> Send Message!
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

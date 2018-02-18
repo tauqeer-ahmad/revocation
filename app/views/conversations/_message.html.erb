@@ -1,0 +1,12 @@
+<div id='message-<%= message.id %>' class='chat-message <%= message.user == current_user && 'right' || 'left' %>'>
+  <%= image_tag message.user.avatar.url(:medium), width: 50, height: 50, class: 'message-avatar img-rounded' %>
+
+  <div class='message'>
+    <%= link_to message.user.name, '#', class: 'message-author' %>
+    <span class='message-date'><%= message.created_at.strftime('%a, %d %b %Y %l:%M %p') %></span>
+
+    <span class='message-content'>
+      <%= message.body %>
+    </span>
+  </div>
+</div>
