@@ -6,8 +6,8 @@ class Api::V1::Student::ExamsController < Api::V1::Student::StudentBaseControlle
   end
 
   def results
-    @exam = @exams.includes(exam_marks: [:subject, :section, :klass]).first
-    render json: @exam, serializer: ExamResultsSerializer, student_id: current_user.id
+    @results = current_user.results_json(current_term)
+    render json: @results, status: :ok
   end
 
   def show

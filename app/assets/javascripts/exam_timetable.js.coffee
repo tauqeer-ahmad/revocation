@@ -77,6 +77,9 @@ bind_exam_klass_section_change = ->
 
 default_parent = ->
   $('.selectable_parent')
+
+bind_nested_form_error = ->
+  ClientSideValidations.formBuilders['NestedForm::Builder'] = ClientSideValidations.formBuilders['ActionView::Helpers::FormBuilder'];
 (($) ->
   window.ExamEditTimetable || (window.ExamEditTimetable = {})
 
@@ -86,4 +89,5 @@ default_parent = ->
   init_controls = ->
     load_sections(default_parent())
     bind_exam_klass_section_change()
+    bind_nested_form_error()
 ).call(this)

@@ -1,5 +1,5 @@
 class Api::V1::Guardian::ExamsController < Api::V1::Guardian::GuardianBaseController
-  before_action :set_exam, only: [:show, :results]
+  before_action :set_exam, only: [:show]
 
   def index
     @exams = current_term.exams.includes(exam_timetables: [:subject, :klass])
@@ -7,8 +7,8 @@ class Api::V1::Guardian::ExamsController < Api::V1::Guardian::GuardianBaseContro
   end
 
   def results
-    @exam = @exams.eager_load(exam_marks: [:subject, :section, :klass]).where("exam_marks.student_id =?", selected_user.id).first
-    render json: @exam, serializer: ExamResultsSerializer
+    @results = selected_user.results_json(current_term)
+    render json: @results, status: :ok
   end
 
   def show

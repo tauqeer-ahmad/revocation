@@ -79,4 +79,96 @@ class Student < User
     existing_roll_numbers = section_student.section.section_students.pluck(:roll_number)
     errors.add(:roll_number, "Roll number already assigned for this section") if self.roll_number.in?(existing_roll_numbers)
   end
+
+  def results_json(current_term)
+    response = {collective: {results: [], total: {}}, exam_results: []}
+    section = self.current_section(current_term.id)
+    exam_marks = self.exam_marks.where(section_id: section.id, term_id: current_term.id)
+    exam_grouped = exam_marks.group_by(&:exam_id)
+    subject_grouped = exam_marks.group_by(&:subject_id)
+    grade_mappings = {}
+    section.grades.each do |grade|
+      grade_mappings[grade.start_point..grade.end_point] = grade.name
+    end
+
+    section.subjects.each do |subject|
+      result = {}
+      percentage_sum = section.exams.collect(&:percentage).sum
+      actual_obtained_marks = exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f
+      result[:subject] = subject.name
+      result[:abs_marks] = exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f
+      result[:total] = section.exams.collect(&:percentage).sum
+      result[:percentage] = calculate_percentage(actual_obtained_marks, percentage_sum)
+      result[:grade] = assign_grade(calculate_percentage(actual_obtained_marks, percentage_sum), grade_mappings)
+      result[:heighest] = section.exam_marks.where(subject_id: subject.id).group(:student_id).sum(:actual_obtained).values.max
+      response[:collective][:results] << result
+    end
+    total = {}
+    total[:abs_marks] = exam_marks.sum(:actual_obtained).to_f
+    total[:total] = section.exams.collect(&:percentage).sum * section.subjects.size
+    total[:percentage] = calculate_percentage(total[:abs_marks], total[:total])
+    total[:grade] = assign_grade(total[:percentage], grade_mappings)
+    total[:highest] = section.exam_marks.group(:student_id).sum(:actual_obtained).values.max
+    response[:collective][:total] = total
+
+    exam_results = []
+    section.exams.each_with_index do |exam, index|
+      exam_result = {exam_name: exam.name, exam_percentage: exam.percentage, results: [], total: {}}
+      section.subjects.each do |subject|
+        result = {}
+        subject_exam = exam_grouped[exam.id].to_a.select{|e| e.subject_id == subject.id}.first
+        result[:subject] = subject.name
+        result[:obtained] = subject_exam.try(:obtained)
+        result[:total] = subject_exam.try(:total)
+        result[:actual_obtained] = subject_exam.try(:actual_obtained)
+        result[:percentage] = calculate_percentage(result[:weightage], exam.percentage.to_f)
+        result[:grade] = subject_exam.try(:grade)
+        result[:heighest] = exam.exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max
+        exam_result[:results] << result
+      end
+      exam_result[:total][:obtained] = get_obtained_marks(exam_grouped[exam.id])
+      exam_result[:total][:total] = get_total_marks(exam_grouped[exam.id])
+      exam_result[:total][:actual_obtained] = get_actual_marks(exam_grouped[exam.id])
+      exam_result[:total][:percentage] = calculate_percentage(exam_result[:total][:actual_obtained], exam.percentage*section.subjects.size)
+      exam_result[:total][:grade] = assign_grade(exam_result[:total][:percentage], grade_mappings)
+      exam_result[:total][:heighest] = exam.exam_marks.group(:student_id).sum(:obtained).values.max
+
+      exam_results << exam_result
+    end
+    response[:exam_results] = exam_results
+    response
+  end
+
+  def calculate_percentage(value, total)
+    return 0.0 if total.zero?
+    '%.1f' % ((value.to_f / total) * 100)
+  end
+
+  def calculate_average(values, count)
+    return 0.0 if count.zero?
+    '%.1f' % (values.to_f/count.to_f)
+  end
+
+  def assign_grade(percentage, grade_mappings)
+    return "-" if grade_mappings.blank?
+    grade = grade_mappings.select {|x| x === percentage.to_f}.values.first
+    return grade if grade.present?
+    "F"
+  end
+
+  def get_obtained_marks(exams)
+    return "-" if exams.blank?
+    exams.collect(&:obtained).sum
+  end
+
+  def get_total_marks(exams)
+    return "-" if exams.blank?
+    exams.collect(&:total).sum
+  end
+
+  def get_actual_marks(exams)
+    return "-" if exams.blank?
+    exams.collect(&:actual_obtained).sum
+  end
+
 end

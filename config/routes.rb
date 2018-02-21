@@ -34,7 +34,7 @@ Revocation::Application.routes.draw do
 
       namespace :student do
         resources :exams, only: [:index, :show] do
-          member do
+          collection do
             get :results
           end
         end
@@ -45,7 +45,7 @@ Revocation::Application.routes.draw do
 
       namespace :guardian do
         resources :exams, only: [:index, :show] do
-          member do
+          collection do
             get :results
           end
         end

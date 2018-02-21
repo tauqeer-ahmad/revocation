@@ -25,28 +25,26 @@
     <div id='left-section' class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <h2>Exam Schedule For <strong><%= @exam.name %></strong></h2>
-          <div>
-            <ul class="nav nav-tabs">
-              <span class="pull-right small text-muted"><%= "#{@exam_timetables.count} Exams" %></span>
-              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-list"></i> Exam Schedule</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-plus"></i> Add Schedule</a></li>
-              <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Bulk Schedules</a></li>
-            </ul>
-            <div class="tab-content">
-              <div id="tab-1" class="tab-pane active">
-                <%= render 'index' %>
-              </div>
+          <h2>Exam Schedule For <strong><%= @exam.name %></strong> <span class="label label-success"><%= @exam.klass.name %></span> <span class="label label-primary"><%= @exam.section.name %></span> </h2>
+          <ul class="nav nav-tabs">
+            <span class="pull-right small text-muted"><%= "#{@exam_timetables.count} Exams" %></span>
+            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-list"></i> Exam Schedule</a></li>
+            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-plus"></i> Add Schedule</a></li>
+            <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-briefcase"></i> Bulk Schedules</a></li>
+          </ul>
+          <div class="tab-content">
+            <div id="tab-1" class="tab-pane active">
+              <%= render 'index' %>
+            </div>
 
-              <div id="tab-2" class="tab-pane">
-                <div class="full-height-scroll">
-                  <%= render 'new_exam_timetable', exam_timetable: @new_exam_timetable %>
-                </div>
+            <div id="tab-2" class="tab-pane">
+              <div class="full-height-scroll">
+                <%= render 'new_exam_timetable', exam_timetable: @new_exam_timetable %>
               </div>
-              <div id="tab-3" class="tab-pane">
-                <div class="full-height-scroll">
-                  <%= render 'bulk_timetables' %>
-                </div>
+            </div>
+            <div id="tab-3" class="tab-pane">
+              <div class="full-height-scroll">
+                <%= render 'bulk_timetables' %>
               </div>
             </div>
           </div>

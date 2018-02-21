@@ -3,45 +3,45 @@
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Add a new exam timetables <small> Please fill the details correctly</small></h5>
+          <h5>Add/Update exam schedule <small> Please fill the details correctly</small></h5>
         </div>
         <div class="ibox-content">
-          <% if params[:section_id].present? %>
-            <%= nested_form_for([:administrator, @exam], url: bulk_create_administrator_exam_exam_timetables_path(@exam), method: :post,  html: {class: "form-horizontal"}, validate: true) do |f| %>
-              <table class="table table-bordered">
-                <thead>
+          <div class="ibox-content">
+          <h2>Exam Schedule For <strong><%= @exam.name %></strong> <span class="label label-success"><%= @exam.klass.name %></span> <span class="label label-primary"><%= @exam.section.name %></span> </h2>
+          <%= nested_form_for([:administrator, @exam], url: bulk_create_administrator_exam_exam_timetables_path(@exam), method: :post,  html: {class: "form-horizontal"}, validate: true) do |f| %>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Paper Date</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :exam_timetables, @exam_timetables do |ff| %>
                   <tr>
-                    <th>Subject</th>
-                    <th>Paper Date</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+                    <td>
+                      <%= ff.hidden_field :klass_id, value: @exam.klass_id %>
+                      <%= ff.hidden_field :section_id, value: @exam.section_id %>
+                      <%= ff.hidden_field :term_id %>
+                      <%= ff.hidden_field :subject_id %>
+                      <%= @subjects_hash[ff.object.subject_id] %>
+                    </td>
+                    <td><%= ff.text_field :paper_date, class: "form-control datepicker", placeholder: "Date", value: datepicker_default_value(ff.object.paper_date) %></td>
+                    <td><%= ff.text_field :start_time, class: "form-control timepicker", placeholder: "Start Time", value: timepicker_default_value(ff.object.start_time) %></td>
+                    <td><%= ff.text_field :end_time, class: "form-control timepicker", placeholder: "End Time", value: timepicker_default_value(ff.object.end_time) %></td>
                   </tr>
-                </thead>
-                <tbody>
-                  <%= f.fields_for :exam_timetables, @exam_timetables do |ff| %>
-                    <tr>
-                      <td>
-                        <%= ff.hidden_field :klass_id %>
-                        <%= ff.hidden_field :section_id %>
-                        <%= ff.hidden_field :term_id %>
-                        <%= ff.hidden_field :subject_id %>
-                        <%= @subjects_hash[ff.object.subject_id] %>
-                      </td>
-                      <td><%= ff.text_field :paper_date, class: "form-control datepicker", placeholder: "Date", value: datepicker_default_value(ff.object.paper_date) %></td>
-                      <td><%= ff.text_field :start_time, class: "form-control timepicker", placeholder: "Start Time", value: timepicker_default_value(ff.object.start_time) %></td>
-                      <td><%= ff.text_field :end_time, class: "form-control timepicker", placeholder: "End Time", value: timepicker_default_value(ff.object.end_time) %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-              <div class='clearfix'></div>
+                <% end %>
+              </tbody>
+            </table>
+            <div class='clearfix'></div>
 
-                <div class='row'>
-                  <div class='col-sm-12'>
-                    <%= submit_tag 'Submit', class: 'btn btn-primary pull-right' %>
-                  </div>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <%= submit_tag 'Submit', class: 'btn btn-primary pull-right' %>
                 </div>
-            <% end %>
+              </div>
           <% end %>
         </div>
       </div>
