@@ -113,7 +113,7 @@ bind_modal_select2 = ->
   $('.select2_dropdown_modal').select2
     theme: 'bootstrap'
     width: '100%'
-    dropdownParent: $('.modal-downdown')
+    dropdownCssClass: "increasedzindexclass",
 
 $ ->
   bind_destroy_alert()
