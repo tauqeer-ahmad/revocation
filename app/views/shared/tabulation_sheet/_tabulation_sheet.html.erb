@@ -1,0 +1,30 @@
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div>
+          <div class="clients-list no-scroll no-fixed-height">
+            <ul class="nav nav-tabs">
+              <% @results.each_with_index do |(exam_name, results), index| %>
+                <li class="<%= get_active_tab_class(index) %>"><a data-toggle="tab" href="#<%= [exam_name, index].join('_') %>"> <%= exam_name.humanize %> <small>(<%= results[:exam_percentage] %> %)</small></a></li>
+              <% end if @results %>
+            </ul>
+            <div class="tab-content">
+              <% @results.each_with_index do |(exam_name, results), index| %>
+                <div id="<%= [exam_name, index].join('_') %>" class="tab-pane <%= get_active_tab_class(index) %>">
+                  <div class=" animated fadeInRight">
+                    <div class="row">
+                      <div class="col-sm-12">
+                      </div>
+                    </div>
+                  </div>
+                  <%= render 'shared/tabulation_sheet/exam_mark_sheet', results: results %>
+                </div>
+              <% end if @results %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

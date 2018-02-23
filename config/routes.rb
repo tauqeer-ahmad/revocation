@@ -274,6 +274,7 @@ Revocation::Application.routes.draw do
           get :update_sections
         end
         member do
+          get :tabulation_sheet
           get :update_subjects
           get :update_exams
         end

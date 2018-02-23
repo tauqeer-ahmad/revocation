@@ -1,7 +1,7 @@
 class Teacher::SectionsController < ApplicationController
   before_action :check_current_term, only: :index
   before_action :set_klass, only: :update_sections
-  before_action :set_section, only: [:show, :update_subjects]
+  before_action :set_section, only: [:show, :update_subjects, :tabulation_sheet]
   before_action :validate_term, only: [:update_sections, :update_subjects]
 
   def index
@@ -21,6 +21,12 @@ class Teacher::SectionsController < ApplicationController
   def update_subjects
     @subjects  = SectionSubjectTeacher.includes(:subject).term_teacher_section(current_term.id, current_user.id, @section.id).collect(&:subject)
     render json: @subjects.map { |subject| subject.as_json(:only => [:id, :name]) }
+  end
+
+  def tabulation_sheet
+    @section_id = params[:id]
+
+    @results = @section.create_tabulation_sheet
   end
 
   private
