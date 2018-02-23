@@ -4,8 +4,7 @@
       <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
         <i class='fa fa-arrow-left'></i>
       <% end %>
-
-      Sections
+      <span class="label label-success"><%= @section.klass.name %></span> <span class="label label-primary"><%= @section.name %></span>
     </h2>
 
     <ol class='breadcrumb'>
@@ -15,6 +14,10 @@
 
       <li>
         <%= link_to 'Sections', sections_path %>
+      </li>
+
+      <li>
+        <%= link_to @section.name, section_path(@section) %>
       </li>
 
       <li class='active'>
