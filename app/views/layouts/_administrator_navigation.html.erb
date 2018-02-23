@@ -155,8 +155,8 @@
             <% end %>
           </li>
 
-          <li class='<%= is_active_controller_action('administrator/marksheets', 'generate_tabulation_sheet') %> <%= is_active_controller_action('administrator/marksheets', 'tabulation_sheet') %>'>
-            <%= link_to generate_tabulation_sheet_administrator_marksheets_path do %>
+          <li class='<%= is_active_controller_action('administrator/marksheets', 'tabulation_sheet') %>'>
+            <%= link_to tabulation_sheet_administrator_marksheets_path do %>
               <i class='fa fa-th' aria-hidden='true'></i> Tabulation Sheet
             <% end %>
           </li>

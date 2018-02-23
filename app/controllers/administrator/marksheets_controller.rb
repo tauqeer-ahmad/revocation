@@ -46,17 +46,17 @@ class Administrator::MarksheetsController < ApplicationController
     end
   end
 
-  def generate_tabulation_sheet
-    @exams = Exam.of_current_term(current_term.id)
-    @klasses = Klass.all
-  end
-
   def tabulation_sheet
-    @klass = Klass.find(params[:klass_id])
-    @section = Section.includes(:subjects).find(params[:section_id])
-    @subjects = @section.subjects
-    @exam = Exam.find(params[:exam_id])
-    @exam_marks = ExamMark.by_klass_section_exam(params[:exam_id], params[:klass_id], params[:section_id]).includes(:student).group_by(&:student_id)
+    @klasses = Klass.all
+    @klass_id = params[:klass_id]
+    @section_id = params[:section_id]
+
+    @results = []
+
+    if params[:section_id].present?
+      @section = Section.includes(:subjects).find(params[:section_id])
+      @results = @section.create_tabulation_sheet
+    end
   end
 
   private

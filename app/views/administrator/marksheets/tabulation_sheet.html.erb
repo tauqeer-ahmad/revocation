@@ -25,45 +25,36 @@
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <%= form_tag tabulation_sheet_administrator_marksheets_path, method: :get, remote: true do %>
+          <%= form_tag tabulation_sheet_administrator_marksheets_path, method: :get do %>
             <div class="row">
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label style="margin-bottom: 5px;">Exam</label>
-                  <div class="input-group">
-                    <%= select_tag :exam_id, options_for_select(@exams.collect {|e| [ e.name, e.id ] }), class: "select2_dropdown", required: true %>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label style="margin-bottom: 5px;">Class</label>
                   <div class="input-group">
-                    <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
+                    <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }, @klass_id), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
                   </div>
                 </div>
               </div>
 
               <div id="subject_holder">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label style="margin-bottom: 5px;">Section</label>
                     <div class="input-group">
-                      <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true %>
+                      <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true, data: {selected: @section_id} %>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="col-md-3" style="margin-top: 20px;">
-                  <center>
-                    <button type="submit" class="btn btn-sm btn-block btn-primary">Display</button>
-                  </center>
-                </div>
+              <div class="col-md-3" style="margin-top: 20px;">
+                <center>
+                  <button type="submit" class="btn btn-sm btn-block btn-primary">Display</button>
+                </center>
               </div>
             </div>
           <% end %>
-          <div id="tabulation_sheet"></div>
+          <%= render partial: 'tabulation_sheet' %>
         </div>
       </div>
     </div>

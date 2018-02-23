@@ -1,38 +1,28 @@
-<div id="tabulation_sheet" class='wrapper wrapper-content animated fadeInRight'>
-  <div class='row'>
-    <div class='col-lg-12'>
-      <div class='ibox float-e-margins'>
-        <div class='ibox-title'>
-          <h5>Tabulation Sheet</h5>
-        </div>
-
-        <div class='clearfix'></div>
-
-        <div class='ibox-content'>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th class='text-center'>
-                  Students <i class="fa fa-arrow-down"></i> | Subjects <i class="fa fa-arrow-right"></i>
-                </th>
-                <% @subjects.each do |subject| %>
-                  <th class='text-center'><%= subject.name %></th>
-                <% end %>
-                <th class='text-center'>Obtained/Total Marks</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @exam_marks.each do |student_id, exam_marks| %>
-                <tr>
-                  <td class='text-center'><%= @exam_marks[student_id].first.student.name %></td>
-                  <% @subjects.each do |subject| %>
-                    <td class='text-center'><%= display_obtained_marks(exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:obtained), exam_marks.group_by(&:subject_id)[subject.id].try(:first).try(:total)) %></td>
-                  <% end %>
-                  <td class='text-center'><%= display_obtained_marks(exam_marks.collect{|x| x.obtained.to_f}.sum, exam_marks.collect{|x| x.total.to_f}.sum) %>  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div>
+          <div class="clients-list no-scroll no-fixed-height">
+            <ul class="nav nav-tabs">
+              <% @results.each_with_index do |(exam_name, results), index| %>
+                <li class="<%= get_active_tab_class(index) %>"><a data-toggle="tab" href="#<%= [exam_name, index].join('_') %>"> <%= exam_name.humanize %> <small>(<%= results[:exam_percentage] %> %)</small></a></li>
+              <% end if @results %>
+            </ul>
+            <div class="tab-content">
+              <% @results.each_with_index do |(exam_name, results), index| %>
+                <div id="<%= [exam_name, index].join('_') %>" class="tab-pane <%= get_active_tab_class(index) %>">
+                  <div class=" animated fadeInRight">
+                    <div class="row">
+                      <div class="col-sm-12">
+                      </div>
+                    </div>
+                  </div>
+                  <%= render 'exam_mark_sheet', results: results %>
+                </div>
+              <% end if @results %>
+            </div>
+          </div>
         </div>
       </div>
     </div>

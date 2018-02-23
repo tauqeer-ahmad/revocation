@@ -73,4 +73,32 @@ class Section < ApplicationRecord
   def self.all_sections_list
     includes(:klass).collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
   end
+
+  def create_tabulation_sheet
+    response = {}
+    section_subjects = self.subjects
+    subject_names = section_subjects.collect(&:name)
+    exams.each do |exam|
+      response[exam.name] = {exam_percentage: exam.percentage, subject_names: subject_names, results: []} if response[exam.name].blank?
+      results = []
+      self.students.each do |student|
+        student_marks_grouped = exam.exam_marks.where(student_id: student.id).group_by(&:subject_id)
+        result = {student_name: student.name, subject_marks: []}
+        section_subjects.each do |subject|
+          marks = student_marks_grouped[subject.id]
+          subject_mark = {subject.name => {obtained: '', total: '', actual_obtained: '', grade: ''}}
+          marks.each do |mark|
+            subject_mark[subject.name][:obtained] = mark.obtained.to_f
+            subject_mark[subject.name][:total] = mark.total
+            subject_mark[subject.name][:actual_obtained] = mark.actual_obtained.to_f
+            subject_mark[subject.name][:grade] = mark.grade
+          end if marks.present?
+          result[:subject_marks] << subject_mark
+        end
+        results << result
+      end
+      response[exam.name][:results] = results
+    end
+    response
+  end
 end

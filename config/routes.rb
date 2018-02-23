@@ -56,7 +56,11 @@ Revocation::Application.routes.draw do
       end
 
       namespace :teacher do
-        resources :sections, only: :index
+        resources :sections, only: :index do
+          member do
+            get :tabulation_sheet
+          end
+        end
         resources :attendance_sheets, only: :index
         resources :attendances, only: :index
         resources :assignments, only: [:index, :show]
@@ -227,7 +231,6 @@ Revocation::Application.routes.draw do
         collection do
           get :build_marksheet
           post :create_marksheet
-          get :generate_tabulation_sheet
           get :tabulation_sheet
         end
         member do
