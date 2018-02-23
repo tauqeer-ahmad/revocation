@@ -1,0 +1,141 @@
+<div class='modal-header'>
+  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h4 class='modal-title text-center'>Acadamic Results</h4>
+  <div class='text-center'>
+    <div class="btn-group">
+      <%= button_tag 'COPY', type: :button, class: 'clipboard-btn btn btn-primary btn-sm btn-outline', 'data-clipboard-action': 'copy', 'data-clipboard-target': '#results .modal-body' %>
+      <%= button_tag 'EXCEL', type: :button, class: 'btn btn-primary btn-sm btn-outline' %>
+      <%= button_tag 'PDF', type: :button, class: 'btn btn-primary btn-sm btn-outline' %>
+    </div>
+  </div>
+</div>
+
+<div class='modal-body form-horizontal'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <table class='table table-bordered'>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Roll Number</th>
+            <th>Registration Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="text-info text-bold"><%= @student.name %></span></td>
+            <td><span class="text-info text-bold"><%= @student.roll_number %></span></td>
+            <td><span class="text-info text-bold"><%= @student.registration_number %></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<div class="row">
+  <div class='ibox-content'>
+    <div class="full-height-scroll">
+      <div class="full-height-scroll">
+        <div class='table-responsive small'>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5 class="panel-title">
+                Collective Result
+              </h5>
+            </div>
+            <div class="panel-body">
+              <table class='table table-striped table-bordered'>
+                <thead>
+                  <tr>
+                    <th class="text-center result-even-header">Subject</th>
+                    <th class="text-center result-odd-header">Abs. Marks</th>
+                    <th class="text-center result-odd-header">Total</th>
+                    <th class="text-center result-odd-header">%</th>
+                    <th class="text-center result-odd-header">Grade</th>
+                    <th class="text-center result-odd-header">Highest</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @results[:collective][:results].each do |result| %>
+                    <tr>
+                      <td class="text-center result-odd-header"><%= result[:subject] %></td>
+                      <td class="text-center result-percent-row"><%= result[:abs_marks] %></td>
+                      <td class="text-center result-percent-row"><%= result[:total] %></td>
+                      <td class="text-center result-percent-row"><%= result[:percentage] %></td>
+                      <td class="text-center"><%= result[:grade] %></td>
+                      <td class="text-center gresult-total-row"><%= result[:heighest] %></td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <td class="text-center">Total</td>
+                    <td class="text-center gresult-total-row gresult-total"><%= @results[:collective][:total][:abs_marks] %></td>
+                    <td class="text-center gresult-total-row gresult-total"><%= @results[:collective][:total][:total] %></td>
+                    <td class="text-center gresult-total-row gresult-total"><%= @results[:collective][:total][:percentage] %></td>
+                    <td class="text-center"><%= @results[:collective][:total][:grade] %></td>
+                    <td class="text-center gresult-total-row gresult-total"><%= @results[:collective][:total][:highest] %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% @results[:exam_results].each do |exam_result| %>
+        <div class="full-height-scroll">
+          <div class='table-responsive small'>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h5 class="panel-title">
+                  <%= exam_result[:exam_name] %> <small>(<%= exam_result[:exam_percentage] %>%) </small>
+                </h5>
+              </div>
+              <div class="panel-body">
+                <table class='table table-striped table-bordered'>
+                  <thead>
+                    <tr>
+                      <th class="text-center result-even-header">Subject</th>
+                      <th class="text-center result-odd-header">Obtained</th>
+                      <th class="text-center result-odd-header">Total</th>
+                      <th class="text-center result-odd-header">Weightage</th>
+                      <th class="text-center result-odd-header">%</th>
+                      <th class="text-center result-odd-header">Grade</th>
+                      <th class="text-center result-odd-header">Highest</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% exam_result[:results].each do |result| %>
+                      <tr>
+                        <td class="text-center result-odd-header"><%= result[:subject] %></td>
+                        <td class="text-center"><%= result[:obtained] %></td>
+                        <td class="text-center"><%= result[:total] %></td>
+                        <td class="text-center result-percent-row"><%= result[:actual_obtained] %></td>
+                        <td class="text-center"><%= result[:percentage] %></td>
+                        <td class="text-center"><%= result[:grade] %></td>
+                        <td class="text-center"><%= result[:heighest] %></td>
+                      </tr>
+                    <% end %>
+                    <tr>
+                      <td class="text-center result-total-row">Total</td>
+                      <td class="text-center result-total-row"><%= exam_result[:total][:obtained] %></td>
+                      <td class="text-center result-total-row"><%= exam_result[:total][:total] %></td>
+                      <td class="text-center gresult-total-row"><%= exam_result[:total][:actual_obtained] %></td>
+                      <td class="text-center result-total-row"><%= exam_result[:total][:percentage] %></td>
+                      <td class="text-center"><%= exam_result[:total][:grade] %></td>
+                      <td class="text-center result-total-row"><%= exam_result[:total][:heighest] %></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class='modal-footer'>
+  <div class='col-md-12 text-center'>
+    <%= submit_tag 'Print', class: 'btn btn-info' %>
+  </div>
+</div>

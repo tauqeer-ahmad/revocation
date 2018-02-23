@@ -269,13 +269,21 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :sections, only: [:index] do
+      resources :sections, only: [:index, :show] do
         collection do
           get :update_sections
         end
         member do
           get :update_subjects
           get :update_exams
+        end
+        resources :students, only: [:index] do
+          member do
+            get :results
+          end
+          collection do
+            get :autocomplete
+          end
         end
       end
 

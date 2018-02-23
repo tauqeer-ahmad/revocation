@@ -121,7 +121,7 @@ class Student < User
         result[:obtained] = subject_exam.try(:obtained)
         result[:total] = subject_exam.try(:total)
         result[:actual_obtained] = subject_exam.try(:actual_obtained)
-        result[:percentage] = calculate_percentage(result[:weightage], exam.percentage.to_f)
+        result[:percentage] = calculate_percentage(result[:actual_obtained], exam.percentage)
         result[:grade] = subject_exam.try(:grade)
         result[:heighest] = exam.exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max
         exam_result[:results] << result

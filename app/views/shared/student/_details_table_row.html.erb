@@ -1,0 +1,26 @@
+<td class="client-avatar">
+  <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
+    <%=image_tag student.avatar.url(:thumb), alt: "Image" %>
+  <% end %>
+</td>
+<td>
+  <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
+    <%= student.name %>
+  <% end %>
+</td>
+<td>
+  <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
+    <%= student.registration_number %>
+  <% end %>
+</td>
+<td>
+  <%= link_to "#student-#{student.id}", "data-toggle" => "tab", marker: "student-#{student.id}", class: "client-link selected-data-row" do %>
+    <%= student.roll_number %>
+  <% end %>
+</td>
+
+<td>
+  <span class="contact-type"><i class="fa fa-envelope"></i></span>
+  <%= student.email %>
+</td>
+

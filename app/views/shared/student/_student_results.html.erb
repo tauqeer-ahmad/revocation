@@ -1,4 +1,4 @@
-<%= link_to results_administrator_student_path(student), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal' } do %>
+<%= link_to get_result_path(current_user, student, section), class: "btn btn-outline btn-primary btn-xs", title: 'Results', data: { target: "#results-#{student.id}", toggle: 'modal' } do %>
   <i class='fa fa-bar-chart' data-toggle='tooltip' title='Results' data-placement='top'></i> <%= text %>
 <% end %>
 

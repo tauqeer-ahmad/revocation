@@ -221,4 +221,9 @@ module ApplicationHelper
       [x.name_and_role, x.id]
     end
   end
+
+  def get_result_path(current_user, student, section={})
+    return results_administrator_student_path(student) if current_user.administrator?
+    return results_section_student_path(section, student) if current_user.teacher?
+  end
 end
