@@ -5,19 +5,27 @@
         <i class='fa fa-arrow-left'></i>
       <% end %>
 
-      Attendances
+      Pin Board
     </h2>
 
     <ol class='breadcrumb'>
       <li>
-        <%= link_to 'Home', root_path %>
+        <%= link_to 'Home', administrator_root_path %>
       </li>
 
       <li class='active'>
-        <strong>List</strong>
+        <strong>Notes</strong>
       </li>
     </ol>
   </div>
 </div>
 
-<%= render partial: 'shared/attendance_sheets/index', locals: { path: managing_students_attendance_sheets_path } %>
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <%= render 'note_create_form' %>
+    </div>
+  </div>
+
+  <%= render 'notes', notes: current_user.notes %>
+</div>

@@ -1,2 +1,79 @@
-<h1>Teacher::Home#index</h1>
-<p>Find me in app/views/teacher/home/index.html.erb</p>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-3">
+      <%= link_to [:sections] do %>
+        <div class="widget dashboard-style lazur-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-users fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Sections</span>
+              <h2 class="font-bold"><%= @rolling[:sections] %></h2>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-lg-3">
+      <%= link_to [:subject_schedules] do %>
+        <div class="widget dashboard-style red-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-leanpub fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Subject Schedules</span>
+              <h2 class="font-bold"><%= @rolling[:subject_schedules] %></h2>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-lg-3">
+      <%= link_to [:sections] do %>
+        <div class="widget dashboard-style yellow-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-cubes fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Assignments</span>
+              <h2 class="font-bold"><%= @rolling[:assignments] %></h2>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-lg-3">
+      <%= link_to [:question_papers] do %>
+        <div class="widget dashboard-style blue-bg">
+          <div class="row">
+            <div class="col-xs-4">
+              <i class="fa fa-table fa-5x"></i>
+            </div>
+
+            <div class="col-xs-8 text-right">
+              <span>Question Papers</span>
+              <h2 class="font-bold"><%= @rolling[:question_papers] %></h2>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row m-t-sm">
+    <div class='col-md-12'>
+      <%= render 'note_create_form' %>
+    </div>
+  </div>
+
+  <%= render 'notes', notes: current_user.notes %>
+</div>

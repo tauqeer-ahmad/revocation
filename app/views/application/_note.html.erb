@@ -8,7 +8,7 @@
       <i class="fa fa-edit "></i>
     <% end %>
 
-    <%= link_to administrator_pin_board_path(note_id: note.id), data: { behavior: 'ajax-delete', object: 'Note' } do %>
+    <%= link_to pin_board_path(note_id: note.id), data: { behavior: 'ajax-delete', object: 'Note' } do %>
       <i class="fa fa-trash-o "></i>
     <% end %>
   </div>
@@ -22,7 +22,7 @@
         <h4 class="modal-title">Edit Note</h4>
       </div>
 
-      <%= form_for note, url: administrator_pin_board_path(note_id: note.id), method: :put, remote: true, html: { class: 'form-inline update-note-form' } do |f| %>
+      <%= form_for note, url: pin_board_path(note_id: note.id), method: :put, remote: true, html: { class: 'form-inline update-note-form' } do |f| %>
         <div class='modal-body text-center'>
           <div class="input-group">
             <div class='row'>
