@@ -1,28 +1,33 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
   <div class="sidebar-collapse">
     <ul class="nav metismenu" id="side-menu">
-      <li class="nav-header">
-        <div class="dropdown profile-element">
-          <span>
-            <img alt="image" class="img-circle" src="<%= image_url 'profile_small.jpg' %>"/>
-          </span>
-          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-            <span class="clear">
-              <span class="block m-t-xs">
-              <strong class="font-bold"><%= current_user.name %></strong>
-              </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+      <li class='nav-header'>
+        <div class='dropdown profile-element'>
+          <a data-toggle='dropdown' class='dropdown-toggle no-bg' href='#'>
+            <%= image_tag current_user.avatar.url(:thumb), width: 70, height: 70, class: 'img-circle' %>
+
+            <span class='clear'>
+              <span class='block m-t-xs'>
+                <strong class='font-bold'><%= current_user.name %></strong>
+              </span>
+
+              <span class='text-muted text-xs block'>
+                <%= current_user.class.name.capitalize %> <b class='caret'></b>
+              </span>
             </span>
           </a>
-          <ul class="dropdown-menu animated fadeInRight m-t-xs">
-            <li><%= link_to "Account", account_path %></li>
-            <li class="divider"></li>
-            <li><a href="">Logout</a>
-            </li>
+
+          <ul class='dropdown-menu animated fadeInRight m-t-xs'>
+            <li><%= link_to 'Account', account_path %></li>
+            <li><%= link_to 'Notice Board', notices_path %></li>
+
+            <li class='divider'></li>
+
+            <li><%= link_to 'Logout', get_logout_path(current_user), method: :delete %></li>
           </ul>
         </div>
-        <div class="logo-element">
-          RC+
-        </div>
+
+        <div class='logo-element'>RC+</div>
       </li>
 
       <li class="<%= is_active_controller('teacher/home') %>">
@@ -34,6 +39,12 @@
       <li class='<%= is_active_controller('teacher/terms') %>'>
         <%= link_to terms_path do %>
           <i class='fa fa-graduation-cap'></i> <span class='nav-label'>Academic Periods</span>
+        <% end %>
+      </li>
+
+      <li class='<%= is_active_controller('conversations') %>'>
+        <%= link_to conversations_path do %>
+          <i class='fa fa-wechat'></i> <span class='nav-label'>Conversations</span>
         <% end %>
       </li>
 
@@ -64,6 +75,18 @@
           <% end %>
         </li>
       <% end %>
+
+      <li class="<%= is_active_controller('teacher/notices') %>">
+        <%= link_to notices_path do %>
+          <i class='fa fa-bell-o'></i> <span class='nav-label'>Notice Board</span>
+        <% end %>
+      </li>
+
+      <li class="<%= is_active_controller('pin_board') %>">
+        <%= link_to pin_board_path do %>
+          <i class='fa fa-sticky-note-o'></i> <span class='nav-label'>Pin Board</span>
+        <% end %>
+      </li>
 
       <li>
         <%= link_to '#', data: { toggle: 'modal', target: '#feedback-modal' }, id: 'feedback-model-trigger' do %>
