@@ -4,10 +4,10 @@ class Teacher::QuestionPapersController < ApplicationController
   before_action :validate_term, only: [:new, :edit, :create, :update, :destroy]
 
   def index
-    @question_papers = current_user.question_papers.of_term(current_term.id).includes(:teacher, :subject, :klass, :section, :exam, :term)
-    @klasses = current_user.my_klasses
-    @sections, @subjects = [], []
-    @exams = current_term.exams.pluck(:name, :id)
+    @question_papers = current_user.question_papers
+                                   .of_term(current_term.id)
+                                   .includes(:teacher, :subject, :klass, :section, :exam, :term)
+                                   .group_by { |question_paper| question_paper.section.name }
   end
 
   def new
