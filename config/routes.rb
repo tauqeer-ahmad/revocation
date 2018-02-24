@@ -34,7 +34,7 @@ Revocation::Application.routes.draw do
 
       namespace :student do
         resources :exams, only: [:index, :show] do
-          collection do
+          member do
             get :results
           end
         end
@@ -45,7 +45,7 @@ Revocation::Application.routes.draw do
 
       namespace :guardian do
         resources :exams, only: [:index, :show] do
-          collection do
+          member do
             get :results
           end
         end
@@ -56,11 +56,7 @@ Revocation::Application.routes.draw do
       end
 
       namespace :teacher do
-        resources :sections, only: :index do
-          member do
-            get :tabulation_sheet
-          end
-        end
+        resources :sections, only: :index
         resources :attendance_sheets, only: :index
         resources :attendances, only: :index
         resources :assignments, only: [:index, :show]
@@ -77,6 +73,7 @@ Revocation::Application.routes.draw do
   authenticated :admin_supervisor do
     root to: 'admin/home#index'
 
+    resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
     resources :remarks, only: [:index, :update, :destroy]
 
     namespace :admin do
@@ -103,6 +100,8 @@ Revocation::Application.routes.draw do
   }
 
   authenticated :administrator do
+    resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
+
     root to: 'administrator/home#index', as: :administrator_root
     get :configuration, to: 'administrator/home#configuration'
     post :save_configuration, to: 'administrator/home#save_configuration'
@@ -231,6 +230,7 @@ Revocation::Application.routes.draw do
         collection do
           get :build_marksheet
           post :create_marksheet
+          get :generate_tabulation_sheet
           get :tabulation_sheet
         end
         member do
@@ -256,6 +256,7 @@ Revocation::Application.routes.draw do
 
   authenticated :teacher do
     resources :testimonials, only: [:create]
+    resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
 
     scope module: :teacher do
       get :lock_account, to: 'home#lock_account'
@@ -269,22 +270,13 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :sections, only: [:index, :show] do
+      resources :sections, only: [:index] do
         collection do
           get :update_sections
         end
         member do
-          get :tabulation_sheet
           get :update_subjects
           get :update_exams
-        end
-        resources :students, only: [:index] do
-          member do
-            get :results
-          end
-          collection do
-            get :autocomplete
-          end
         end
       end
 
@@ -317,6 +309,7 @@ Revocation::Application.routes.draw do
 
   authenticated :student do
     resources :testimonials, only: [:create]
+    resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
 
     scope module: :student do
       get :lock_account, to: 'home#lock_account'
@@ -345,6 +338,7 @@ Revocation::Application.routes.draw do
 
   authenticated :guardian do
     resources :testimonials, only: [:create]
+    resource :pin_board, controller: :pin_board, only: [:show, :create, :update, :destroy]
 
     scope module: :guardian do
       get :lock_account, to: 'home#lock_account'
