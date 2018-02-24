@@ -2,6 +2,12 @@ class Teacher::HomeController < ApplicationController
   layout 'empty', only: [:lock_account]
 
   def index
+    @rolling = {
+      sections: current_user.sections.count,
+      subject_schedules: current_user.subject_schedules.count,
+      assignments: current_user.assignments.count,
+      question_papers: current_user.question_papers.count,
+    }
   end
 
   def lock_account
