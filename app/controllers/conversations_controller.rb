@@ -9,7 +9,7 @@ class ConversationsController < ApplicationController
     end
 
     if @conversation.present?
-      @messages = @conversation.messages.includes(:user)
+      @messages = @conversation.messages.includes(:user).order(:created_at)
 
       @conversation.update_column(:status, 'read')
       @messages.secondary(current_user.id).update_all(status: 'read') if @messages.present?
