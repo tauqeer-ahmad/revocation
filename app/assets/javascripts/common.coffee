@@ -67,7 +67,13 @@ bind_conversation_scroll = ->
   if $('.chat-message').length
     $('.chat-message').last()[0].scrollIntoView(false);
 
+bind_ajax_requests_props = ->
+  $('a[data-remote]').on 'ajax:beforeSend', (e, data, status, xhr) ->
+    # If needed.
+  $('a[data-remote]').on 'ajax:success', (e, data, status, xhr) ->
+    $('[data-toggle="tooltip"]').tooltip()
+
 $ ->
   validate_field()
   bind_conversation_scroll()
-
+  bind_ajax_requests_props()
