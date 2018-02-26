@@ -226,4 +226,16 @@ module ApplicationHelper
     return results_administrator_student_path(student) if current_user.administrator?
     return results_section_student_path(section, student) if current_user.teacher?
   end
+
+  def display_section_incharge(section, current_user)
+    if section.incharge_id != current_user.id
+      content_tag(:span, class: 'label label-primary') do
+        section.incharge_name
+      end
+    else
+      content_tag(:span, class: 'label label-success') do
+        "You"
+      end
+    end
+  end
 end

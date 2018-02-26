@@ -58,6 +58,10 @@ class Section < ApplicationRecord
     klass.name
   end
 
+  def display_name
+    name.humanize
+  end
+
   def title_with_klass
     [klass.name, name].join(' - ')
   end
