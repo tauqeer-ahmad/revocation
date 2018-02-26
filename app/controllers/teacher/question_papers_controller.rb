@@ -13,8 +13,7 @@ class Teacher::QuestionPapersController < ApplicationController
   def new
     @question_paper = QuestionPaper.new
     @klasses = current_user.my_klasses
-    @sections, @subjects = [], []
-    @exams = current_term.exams.pluck(:name, :id)
+    @sections, @subjects, @exams = [], [], []
   end
 
   def edit

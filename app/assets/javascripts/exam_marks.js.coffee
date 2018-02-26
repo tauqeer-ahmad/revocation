@@ -11,8 +11,12 @@ jQuery ->
     section_id = $('.selectable_section :selected').val()
     return false unless section_id
     $('.selectable_subject').empty()
+    specific = $('.selectable_section').data('specific')
+    params = "klass_id=#{klass_id}&section_id=#{section_id}"
+    if specific
+      params = "klass_id=#{klass_id}&section_id=#{section_id}&specific=#{specific}"
 
-    $.ajax "/administrator/classes/#{klass_id}/sections/#{section_id}/update_subjects",
+    $.ajax "/utilities/update_subjects?#{params}",
       type: 'GET'
       dataType: 'json'
       data: []
@@ -34,7 +38,7 @@ jQuery ->
     return false unless section_id
     $('.selectable_exam').empty()
 
-    $.ajax "/administrator/classes/#{klass_id}/sections/#{section_id}/update_exams",
+    $.ajax "/utilities/update_exams?klass_id=#{klass_id}&section_id=#{section_id}",
       type: 'GET'
       dataType: 'json'
       data: []
@@ -56,8 +60,12 @@ jQuery ->
     $('.selectable_section').empty()
     $('.selectable_subject').empty()
     $('.selectable_exam').empty()
+    specific = $('.selectable_section').data('specific')
+    params = "klass_id=#{klass_id}"
+    if specific
+      params = "klass_id=#{klass_id}&specific=#{specific}"
 
-    $.ajax "/administrator/classes/#{klass_id}/update_sections",
+    $.ajax "/utilities/update_sections?#{params}",
       type: 'GET'
       dataType: 'json'
       data: []

@@ -59,7 +59,7 @@
 
                           <td> <span class="contact-type"><i class="fa fa-envelope"> </i></span> <%= student.email %></td>
                           <td>
-                            <%= render 'administrator/students/student_results', student: student, text: "Academic Performance" %>
+                            <%= render 'shared/student/student_results', student: student, text: "Academic Performance", section: @section%>
                           </td>
                           <td>
                             <div class="i-checks">

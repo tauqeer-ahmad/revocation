@@ -147,17 +147,12 @@ Revocation::Application.routes.draw do
           get :autocomplete
         end
         member do
-          get :update_sections
           post :move
         end
 
         resources :sections, only: [:new, :edit, :show, :update, :create, :destroy] do
           collection do
             get :fetch
-          end
-          member do
-            get :update_subjects
-            get :update_exams
           end
         end
       end
@@ -246,11 +241,7 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :student_promotions, only: [:index, :create] do
-        collection do
-          get :list_students
-        end
-      end
+      resources :student_promotions, only: [:index, :create]
     end
   end
 
@@ -369,6 +360,14 @@ Revocation::Application.routes.draw do
   resource :account, only: [:show, :update] do
     member do
       put :update_password
+    end
+  end
+
+  resources :utilities, only: [] do
+    collection do
+      get :update_sections
+      get :update_subjects
+      get :update_exams
     end
   end
   post :contact_us, to: 'home#contact_us'

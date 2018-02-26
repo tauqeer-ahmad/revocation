@@ -26,7 +26,6 @@
 <%= render 'bulk_form' %>
 
 <% content_for :javascript do %>
-  ExamTimetable.init();
   js_bind_timepicker();
   ClientSideValidations.formBuilders['NestedForm::Builder'] = ClientSideValidations.formBuilders['ActionView::Helpers::FormBuilder'];
 <% end %>

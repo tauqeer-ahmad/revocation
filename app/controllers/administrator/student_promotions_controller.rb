@@ -3,13 +3,16 @@ class Administrator::StudentPromotionsController < ApplicationController
     @initialized_term = Term.initialized.first
     return redirect_to(administrator_terms_path, alert: "Please create a new initialized term ") if @initialized_term.blank?
     return redirect_to(administrator_terms_path, alert: "Please switch to Active term to perfom promotions") unless current_term.active?
-  end
-
-  def list_students
-    @section = current_term.sections.where(id: params[:section_id]).first
-    @promotion_term = Term.initialized.first
-    @promotion_section = @promotion_term.sections.find(params[:promotion_section_id])
-    @students = @section.students.promotable
+    @klass_id = params[:klass_id]
+    @section_id = params[:section_id]
+    @promotion_klass_id = params[:promotion_klass_id]
+    @promotion_section_id = params[:promotion_section_id]
+    if params[:section_id].present? && params[:promotion_section_id].present?
+      @section = current_term.sections.where(id: params[:section_id]).first
+      @promotion_term = Term.initialized.first
+      @promotion_section = @promotion_term.sections.find(params[:promotion_section_id])
+      @students = @section.students.promotable
+    end
   end
 
   def create

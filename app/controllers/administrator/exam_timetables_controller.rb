@@ -14,7 +14,7 @@ class Administrator::ExamTimetablesController < ApplicationController
     existing_timetables = @exam.exam_timetables.collect(&:subject_id)
     new_subjects = @subjects_hash.keys - existing_timetables
     new_subjects.each do |new_subject|
-      @exam_timetables << @exam.exam_timetables.build(klass_id: @exam.klass_id, section_id: @exam.section_id, term_id: current_term.id, subject_id: new_subject)
+      @exam.exam_timetables.build(klass_id: @exam.klass_id, section_id: @exam.section_id, term_id: current_term.id, subject_id: new_subject)
     end
   end
 

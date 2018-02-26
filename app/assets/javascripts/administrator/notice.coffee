@@ -5,7 +5,8 @@ bind_class_change = ->
       $('#notice_section_id').empty()
       return $('#notice_subject_id').empty()
 
-    $.ajax "/administrator/classes/#{klass_id}/update_sections",
+
+    $.ajax "/utilities/update_sections?klass_id=#{klass_id}",
       type: 'GET'
       dataType: 'json'
       data: []

@@ -3,7 +3,12 @@ load_promotion_sections = ->
   return unless klass_id
   $('.selectable_promotion_section').empty()
 
-  $.ajax "/administrator/classes/#{klass_id}/update_sections?initialized=true",
+  specific = $('.selectable_section').data('specific')
+  params = "klass_id=#{klass_id}&initialized=true"
+  if specific
+    params = "klass_id=#{klass_id}&initialized=true&specific=#{specific}"
+
+  $.ajax "/utilities/update_sections?#{params}",
     type: 'GET'
     dataType: 'json'
     data: []
@@ -52,6 +57,14 @@ bind_promotions_section_load =->
   $('.selectable_promotion_klass').change ->
     load_promotion_sections()
 
+enable_all_checked =->
+  $('body').on 'ifChecked', '#select_all', ->
+    $('.select_all_checkbox').iCheck 'check'
+    return
+  $('body').on 'ifUnchecked', '#select_all', ->
+    $('.select_all_checkbox').iCheck 'uncheck'
+    return
+
 (($) ->
   window.StudentPromotion || (window.StudentPromotion = {})
 
@@ -59,10 +72,9 @@ bind_promotions_section_load =->
     init_controls()
 
   init_controls = ->
+    enable_ichecks()
+    enable_all_checked()
     bind_sweet_alert_for_enrollment()
-    setTimeout ->
-      auto_load_promotable_students()
-    , 1000
     load_promotion_sections()
     bind_promotions_section_load()
 ).call(this)

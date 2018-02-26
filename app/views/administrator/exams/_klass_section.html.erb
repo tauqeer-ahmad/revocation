@@ -9,7 +9,7 @@
                 <div class="form-group">
                   <label style="margin-bottom: 5px;">Class</label>
                   <div class="input-group">
-                    <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }), prompt: "Select Class", class: "select2_dropdown selectable_exam_klass", required: true %>
+                    <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
                   </div>
                 </div>
               </div>
@@ -19,7 +19,7 @@
                   <div class="form-group">
                     <label style="margin-bottom: 5px;">Section</label>
                     <div class="input-group">
-                      <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_exam_section", disabled:false, required: true, data: {selected: params[:section_id]} %>
+                      <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true, data: {selected: params[:section_id]} %>
                     </div>
                   </div>
                 </div>

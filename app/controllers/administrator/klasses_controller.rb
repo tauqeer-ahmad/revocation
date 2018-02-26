@@ -1,5 +1,5 @@
 class Administrator::KlassesController < ApplicationController
-  before_action :set_klass, only: [:show, :edit, :update, :destroy, :update_sections]
+  before_action :set_klass, only: [:show, :edit, :update, :destroy]
 
   def index
     @klasses = Klass.lookup params[:search], {order: {position: :asc}}
@@ -58,12 +58,6 @@ class Administrator::KlassesController < ApplicationController
   def bulk_insert
     Klass.create(bulk_klass_params)
     redirect_to administrator_klasses_path
-  end
-
-  def update_sections
-    term_id = params[:initialized].present? ? Term.initialized.first.id : current_term.id
-    @sections  = @klass.sections.of_current_term(term_id)
-    render json: @sections.map { |section| section.as_json(:only => [:id, :name]) }
   end
 
   def autocomplete
