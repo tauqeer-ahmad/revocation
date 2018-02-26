@@ -2,7 +2,7 @@
   <div class='form-group'>
     <label class='col-md-1 control-label m-t-xs'>Class</label>
     <div class='col-md-11'>
-      <%= f.select :klass_id, @klasses, { prompt: 'Select Class' }, class: 'select2_dropdown form-control', required: true %>
+      <%= f.select :klass_id, @klasses, { prompt: 'Select Class' }, class: 'select2_dropdown form-control selectable_klass', required: true, data: {specific: true} %>
     </div>
   </div>
 </div>
@@ -11,7 +11,7 @@
   <div class='form-group'>
     <label class='col-md-1 control-label m-t-xs'>Section</label>
     <div class='col-md-11'>
-      <%= f.select :section_id, @sections, { prompt: 'Select Section' }, class: 'select2_dropdown form-control', required: true %>
+      <%= f.select :section_id, @sections, { prompt: 'Select Section' }, class: 'select2_dropdown form-control selectable_section', required: true, data: {specific: true} %>
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
   <div class='form-group'>
     <label class='col-md-1 control-label m-t-xs'>Subject</label>
     <div class='col-md-11'>
-      <%= f.select :subject_id, @subjects, { prompt: 'Select Subject' }, class: 'select2_dropdown', required: true %>
+      <%= f.select :subject_id, @subjects, { prompt: 'Select Subject' }, class: 'select2_dropdown selectable_subject', required: true, data: {specific: true} %>
     </div>
   </div>
 </div>

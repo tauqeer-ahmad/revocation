@@ -261,15 +261,7 @@ Revocation::Application.routes.draw do
         end
       end
 
-      resources :sections, only: [:index] do
-        collection do
-          get :update_sections
-        end
-        member do
-          get :update_subjects
-          get :update_exams
-        end
-      end
+      resources :sections, only: [:index]
 
       resources :assignments, only: [:new, :edit, :create, :update, :destroy, :show] do
         collection do
