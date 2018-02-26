@@ -195,7 +195,7 @@ Revocation::Application.routes.draw do
         end
       end
       resources :students, only: [] do
-        collection do
+        member do
           get :results
         end
 

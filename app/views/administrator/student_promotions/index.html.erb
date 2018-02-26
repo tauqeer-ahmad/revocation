@@ -94,7 +94,7 @@
             </div>
 
           <% end %>
-          <%= render 'list_students' %>
+          <%= render 'list_students' if @section.present? %>
         </div>
       </div>
     </div>
