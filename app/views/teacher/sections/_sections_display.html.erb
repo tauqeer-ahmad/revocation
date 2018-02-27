@@ -47,7 +47,7 @@
                             <%= link_to(list_assignments_path(section.id, section_subject.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
                           </td>
                         </tr>
-                      <% end %>
+                      <% end if @section_subjects[section.id].present?%>
                     </tbody>
                   </table>
                 </div>

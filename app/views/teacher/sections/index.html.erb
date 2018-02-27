@@ -22,32 +22,44 @@
   </div>
 </div>
 
-<div class="wrapper wrapper-content">
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="ibox float-e-margins">
-        <div class="ibox-content">
-          <div class="file-manager">
-          <h5>Class Selection</h5>
-          <div class="hr-line-dashed"></div>
-          <ul class="folder-list no-padding">
-            <% @klasses.each_with_index do |klass, index| %>
-              <li id="klass_link_<%= klass.id %>" class='klass-selection-list <%= "active" if klass.id == @klass.id %>'>
-                <%= link_to fetch_sections_path(klass_id: klass.id), remote: true do %>
-                  <i class="fa fa-cubes"></i><%= klass.name %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-          <div class="clearfix"></div>
+<% if @klasses.present? %>
+  <div class="wrapper animated wrapper-content">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="ibox float-e-margins">
+          <div class="ibox-content">
+            <div class="file-manager">
+            <h5>Class Selection</h5>
+            <div class="hr-line-dashed"></div>
+            <ul class="folder-list no-padding">
+              <% @klasses.each_with_index do |klass, index| %>
+                <li id="klass_link_<%= klass.id %>" class='klass-selection-list <%= "active" if klass.id == @klass.id %>'>
+                  <%= link_to fetch_sections_path(klass_id: klass.id), remote: true do %>
+                    <i class="fa fa-cubes"></i><%= klass.name %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'sections_display', sections: @sections, klass: @klass %>
+  </div>
+
+  <%= render 'assignments_modal' %>
+<% else %>
+  <div class="wrapper animated wrapper-content">
+    <div class="row">
+      <div class="middle-box text-center animated fadeInDown">
+        <div class="error-desc">
+          No sections are associated yet. You can contact your administration!
         </div>
       </div>
     </div>
   </div>
-  <%= render 'sections_display', sections: @sections, klass: @klass %>
-</div>
-
-<%= render 'assignments_modal' %>
+<% end %>
 
 <% content_for :javascript do %>
   Assignment.init();
