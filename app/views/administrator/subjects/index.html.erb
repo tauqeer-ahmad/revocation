@@ -50,7 +50,7 @@
                         <% @subjects.each_with_index do |subject, index| %>
                           <tr>
                             <td><%= index.succ %></td>
-                            <td>
+                            <td style='color: <%= subject.color %>;'>
                               <%= subject.name %>
                             </td>
                             <td>
