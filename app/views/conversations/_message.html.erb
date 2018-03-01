@@ -3,7 +3,17 @@
 
   <div class='message'>
     <%= link_to message.user.name, '#', class: 'message-author' %>
-    <span class='message-date'><%= message.created_at.strftime('%a, %d %b %Y %l:%M %p') %></span>
+    <span class='message-date'>
+      <%= message.created_at.strftime('%a, %d %b %Y %l:%M %p') %>
+
+      <% if message.user == current_user && message.read? %>
+        <span class="fa-stack fa-lg text-info">
+          <i class="fa fa-check fa-stack-1x" style="margin-left:4px"></i>
+          <i class="fa fa-check fa-inverse fa-stack-1x" style="margin-left:-3px;"></i>
+          <i class="fa fa-check  fa-stack-1x" style="margin-left:-4px"></i>
+        </span>
+      <% end %>
+    </span>
 
     <span class='message-content'>
       <%= message.body %>

@@ -24,4 +24,8 @@ class Message < ApplicationRecord
       transitions to: :unread
     end
   end
+
+  def self.unread_count(user_id, term_id)
+    joins(:conversation).where("((conversations.sender_id = ? AND user_id != ?) OR (conversations.recipient_id = ? AND user_id != ?)) AND messages.status = ? AND conversations.term_id = ?", user_id, user_id, user_id, user_id, 'unread', term_id).count
+  end
 end

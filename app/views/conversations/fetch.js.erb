@@ -2,4 +2,5 @@ $(".messages-container").replaceWith("<%= raw escape_javascript(render 'messages
 
 $('li.conversation-selection-list').removeClass('active');
 $("li#conversation_link_<%= @conversation.id %>").addClass('active');
+$("li#conversation_link_<%= @conversation.id %>").find('#messages-count').html('')
 $('.chat-message').last()[0].scrollIntoView(false);
