@@ -131,9 +131,9 @@
             <% end %>
           </li>
 
-          <li class='<%= is_active_controller_action('administrator/attendance_sheets', 'index') %> <%= is_active_controller_action('administrator/attendance_sheets', 'managing_students') %>'>
-            <%= link_to administrator_attendance_sheets_path do %>
-              <i class='fa fa-users' aria-hidden='true'></i> Students
+          <li class='<%= is_active_controller_action('administrator/student_attendances', 'index')%>'>
+            <%= link_to administrator_student_attendances_path do %>
+              <i class='fa fa-users' aria-hidden='true'></i> Student
             <% end %>
           </li>
         </ul>

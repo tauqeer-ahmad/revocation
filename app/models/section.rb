@@ -24,10 +24,12 @@ class Section < ApplicationRecord
   has_many :assignments, dependent: :destroy
   has_many :question_papers, dependent: :destroy
   has_many :subject_schedules, dependent: :destroy
+  has_many :student_attendances, dependent: :destroy
 
 
   accepts_nested_attributes_for :section_subject_teachers, allow_destroy: true
   accepts_nested_attributes_for :timetables, allow_destroy: true
+  accepts_nested_attributes_for :student_attendances, allow_destroy: true
 
   validates :name, presence: {message: "Section name is mandatory"}
   validates :nickname, presence: {message: "Nickname is mandatory"}
@@ -55,7 +57,7 @@ class Section < ApplicationRecord
   end
 
   def klass_name
-    klass.name
+    klass.name.humanize
   end
 
   def display_name

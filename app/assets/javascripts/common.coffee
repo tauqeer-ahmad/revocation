@@ -73,7 +73,17 @@ bind_ajax_requests_props = ->
   $('a[data-remote]').on 'ajax:success', (e, data, status, xhr) ->
     $('[data-toggle="tooltip"]').tooltip()
 
+bind_attendance_date_field = ->
+  date = new Date()
+  today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  $('.attendance-date-field').datepicker
+    format: 'dd-mm-yyyy'
+    autoclose: true
+    todayHighlight: true
+  $('.attendance-date-field').datepicker('setDate', today)
+
 $ ->
   validate_field()
   bind_conversation_scroll()
   bind_ajax_requests_props()
+  bind_attendance_date_field()

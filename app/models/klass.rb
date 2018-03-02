@@ -15,6 +15,7 @@ class Klass < ApplicationRecord
   has_many :exam_marks
   has_many :question_papers
   has_many :subject_schedules
+  has_many :student_attendances
 
   validates :name, presence: { message: 'Class name is mandatory' }
   validates :code, presence: { message: 'Class code is mandatory' }

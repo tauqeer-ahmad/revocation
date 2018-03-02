@@ -1,0 +1,91 @@
+<div id="new_student_attandances" class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <div class='ibox float-e-margins'>
+        <div class='ibox-title'>
+          <h5>
+            Mark attendance
+          </h5>
+          <span class='label label-primary'><%= @section.klass_name %></span>
+          <span class='label label-info'><%= @section.display_name %></span>
+          <span class='label label-warning'><%= @date %></span>
+        </div>
+
+        <div class='clearfix'></div>
+
+        <div class='ibox-content'>
+          <%= nested_form_for @section, url: administrator_student_attendances_path, method: :post, class: 'form-horizontal' do |f| %>
+            <%= hidden_field_tag :section_id, @section.id %>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th width="12%">
+                    Date
+                  </th>
+                  <th width="12%">Roll Number</th>
+                  <th width="25%">Student Name</th>
+                  <th class="text-center" width="5%">
+                    late?
+                  </th>
+                  <th width="2%">
+                    P
+                  </th>
+                  <th width="2%">
+                    L
+                  </th>
+                  <th width="2%">
+                    A
+                  </th>
+                  <th>Remarks</th>
+                   <th width="7%">
+                    SMS Alert
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :student_attendances, @attendances do |at|%>
+                  <tr>
+                    <td>
+                      <%= at.hidden_field :day %>
+                      <%= at.hidden_field :student_id %>
+                      <%= format_date(at.object.day) %>
+                    </td>
+                    <td><%= @grouped_students[at.object.student_id].first.roll_number %></td>
+                    <td><%= @grouped_students[at.object.student_id].first.name %></td>
+                    <td class="text-center">
+                      <%= at.check_box :late, {}, "true", "false" %>
+                    </td>
+                    <td>
+                      <%= at.radio_button :status, 'present', checked: true %>
+                    </td>
+                    <td>
+                      <%= at.radio_button :status, 'absent' %>
+                    </td>
+                    <td>
+                      <%= at.radio_button :status, 'leave' %>
+                    </td>
+                    <td>
+                      <%= at.text_field :remarks, class: 'form-control', placeholder: "Remarks (if any)"%>
+                    </td>
+                    <td class="text-center">
+                      <%= at.check_box :send_sms, {}, "true", "false" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class='clearfix'></div>
+
+            <div class='form-group text-center'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <%= f.submit 'Mark Attendance', class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
