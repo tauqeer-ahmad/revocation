@@ -57,7 +57,7 @@ bind_promotions_section_load =->
   $('.selectable_promotion_klass').change ->
     load_promotion_sections()
 
-enable_all_checked =->
+@enable_all_checked =->
   $('body').on 'ifChecked', '#select_all', ->
     $('.select_all_checkbox').iCheck 'check'
     return

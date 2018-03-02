@@ -16,29 +16,31 @@
         <div class='ibox-content'>
           <%= nested_form_for @section, url: administrator_student_attendances_path, method: :post, class: 'form-horizontal' do |f| %>
             <%= hidden_field_tag :section_id, @section.id %>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th width="12%">
-                    Date
-                  </th>
                   <th width="12%">Roll Number</th>
                   <th width="25%">Student Name</th>
                   <th class="text-center" width="5%">
                     late?
                   </th>
-                  <th width="2%">
+                  <th width="2%" class="text-center">
                     P
                   </th>
-                  <th width="2%">
+                  <th width="2%" class="text-center">
                     L
                   </th>
-                  <th width="2%">
+                  <th width="2%" class="text-center">
                     A
                   </th>
                   <th>Remarks</th>
-                   <th width="7%">
-                    SMS Alert
+                  <th width="7%">
+                    <div class="i-checks">
+                      <label>
+                        <%= check_box_tag 'select_all', false, false %>
+                        SMS
+                      </label>
+                    </div>
                   </th>
                 </tr>
               </thead>
@@ -48,27 +50,36 @@
                     <td>
                       <%= at.hidden_field :day %>
                       <%= at.hidden_field :student_id %>
-                      <%= format_date(at.object.day) %>
+                      <%= @grouped_students[at.object.student_id].first.roll_number %>
                     </td>
-                    <td><%= @grouped_students[at.object.student_id].first.roll_number %></td>
                     <td><%= @grouped_students[at.object.student_id].first.name %></td>
                     <td class="text-center">
-                      <%= at.check_box :late, {}, "true", "false" %>
+                      <div class="i-checks">
+                        <%= at.check_box :late, {}, "true", "false" %>
+                      </div>
                     </td>
-                    <td>
-                      <%= at.radio_button :status, 'present', checked: true %>
+                    <td class="text-center">
+                      <div class="i-checks">
+                        <%= at.radio_button :status, 'present', checked: true %>
+                      </div>
                     </td>
-                    <td>
-                      <%= at.radio_button :status, 'absent' %>
+                    <td class="text-center">
+                      <div class="i-checks">
+                        <%= at.radio_button :status, 'absent' %>
+                      </div>
                     </td>
-                    <td>
-                      <%= at.radio_button :status, 'leave' %>
+                    <td class="text-center">
+                      <div class="i-checks">
+                        <%= at.radio_button :status, 'leave' %>
+                      </div>
                     </td>
                     <td>
                       <%= at.text_field :remarks, class: 'form-control', placeholder: "Remarks (if any)"%>
                     </td>
                     <td class="text-center">
-                      <%= at.check_box :send_sms, {}, "true", "false" %>
+                      <div class="i-checks">
+                        <%= at.check_box :send_sms, {class: 'select_all_checkbox'}, "true", "false" %>
+                      </div>
                     </td>
                   </tr>
                 <% end %>
