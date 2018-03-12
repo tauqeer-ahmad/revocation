@@ -59,3 +59,5 @@ gem 'searchkick'
 gem 'activerecord-sortable'
 
 gem 'active_model_serializers'
+gem "chartkick"
+gem 'groupdate'
