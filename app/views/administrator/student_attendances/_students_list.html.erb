@@ -55,7 +55,7 @@
                     <td><%= @grouped_students[at.object.student_id].first.name %></td>
                     <td class="text-center">
                       <div class="i-checks">
-                        <%= at.check_box :late, {class: "check_late_#{at.object.student_id}"}, "true", "false" %>
+                        <%= at.check_box :late, {class: "check_late_#{at.object.student_id}", disabled: at.object.status != 'present' }, "true", "false" %>
                       </div>
                     </td>
                     <td class="text-center">

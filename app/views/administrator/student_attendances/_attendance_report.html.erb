@@ -17,7 +17,7 @@
         <% @formated_results.each_with_index do |(month, records), index| %>
           <div id="tab-<%= index %>" class="tab-pane <% if index == 0 %> active <% end %>">
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <%= pie_chart(@month_statistics[month], width: "100%", height: "250px", adapter: "highcharts", library: {
                       title: { text: "Attendance Report"},
                       tooltip: {
@@ -39,7 +39,7 @@
                 ) %>
               </div>
               
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <%= pie_chart(@month_late_statistics[month], width: "100%", height: "250px", adapter: "highcharts", library: {
                       title: { text: "Late Comings Report"},
                       tooltip: {
