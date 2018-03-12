@@ -55,12 +55,12 @@
                     <td><%= @grouped_students[at.object.student_id].first.name %></td>
                     <td class="text-center">
                       <div class="i-checks">
-                        <%= at.check_box :late, {}, "true", "false" %>
+                        <%= at.check_box :late, {class: "check_late_#{at.object.student_id}"}, "true", "false" %>
                       </div>
                     </td>
                     <td class="text-center">
                       <div class="i-checks">
-                        <%= at.radio_button :status, 'present', checked: true %>
+                        <%= at.radio_button :status, 'present', checked: true, class: "attendance_radio", data: {late_checkbox_class: ".check_late_#{at.object.student_id}"} %>
                       </div>
                     </td>
                     <td class="text-center">

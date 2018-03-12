@@ -6,6 +6,7 @@
   $('.i-checks').iCheck
     checkboxClass: 'icheckbox_square-green'
     radioClass: 'iradio_square-green'
+    disabledClass: 'disabled'
 
 @enable_autocomplete = (route) ->
   engine = new Bloodhound(

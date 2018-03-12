@@ -1,6 +1,6 @@
 class StudentAttendance < ApplicationRecord
   include SearchWrapper
-  include SearchCallbackable
+  include SearchCallbackableWithoutParanoia
 
   belongs_to :section
   belongs_to :student
