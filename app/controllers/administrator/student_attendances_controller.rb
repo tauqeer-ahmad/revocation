@@ -1,11 +1,14 @@
 class Administrator::StudentAttendancesController < ApplicationController
   def index
-    start_range, end_range = StudentAttendance.get_report_dates(params[:start_range], params[:end_range])
-    where_clause = {term_id: current_term.id, day: start_range...end_range}
-    where_clause[:section_id] = params[:section_id].to_i if params[:section_id].present?
+    where_clause = {term_id: current_term.id}
+    if params[:start_range].present? && params[:end_range].present?
+      start_range, end_range = StudentAttendance.get_report_dates(params[:start_range], params[:end_range])
+      where_clause[:day] = start_range...end_range
+    end
     @attendances = []
-    @section = Section.find(params[:section_id])
     if params[:section_id].present?
+      where_clause[:section_id] = params[:section_id].to_i if params[:section_id].present?
+      @section = Section.find(params[:section_id])
       @attendances = StudentAttendance.lookup '', {where: where_clause, order: {day: :asc}}
     end
 
