@@ -30,3 +30,39 @@
  *= require custom
  *= require_directory ./student
  */
+
+$primary: #1ab394;
+$success: #1c84c6;
+$info: #23c6c8;
+$danger: #ed5565;
+$warning: #f8ac59;
+
+.attendance-table {
+  td {
+    font-weight: bold;
+  }
+
+  td.absent {
+    background-color: $danger;
+  }
+
+  td.leave {
+    background-color: $warning;
+  }
+
+  span.present {
+    color: $primary;
+  }
+
+  span.absent {
+    color: #fff;
+  }
+
+  span.leave {
+    color: #fff;
+  }
+
+  td.late_coming span{
+    color: $success;
+  }
+}

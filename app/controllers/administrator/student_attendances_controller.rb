@@ -1,39 +1,46 @@
 class Administrator::StudentAttendancesController < ApplicationController
+  layout "pdf", only: [:report]
   def index
-    where_clause = {term_id: current_term.id}
-    if params[:start_range].present? && params[:end_range].present?
-      start_range, end_range = StudentAttendance.get_report_dates(params[:start_range], params[:end_range])
-      where_clause[:day] = start_range...end_range
-    end
-    @attendances = []
-    if params[:section_id].present?
-      where_clause[:section_id] = params[:section_id].to_i if params[:section_id].present?
-      @section = Section.find(params[:section_id])
-      @attendances = StudentAttendance.lookup '', {where: where_clause, order: {day: :asc}}
-    end
+    @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
+  end
 
-    @month_statistics = {}
-    @month_late_statistics = {}
-    @month_grouped = @attendances.group_by { |m| m.day.beginning_of_month }
-    @formated_results = {}
-    @month_grouped.each_with_index do |(month, records), index|
-      key = [Date::MONTHNAMES[month.month], month.year].join('-')
-      if start_range.to_date == end_range.to_date
-        key = [start_range.strftime("%d %b, %Y")]
-      elsif month.month == start_range.month
-        key = [start_range.strftime("%d %b, %Y"), month.end_of_month.strftime("%d %b, %Y")].join(' - ')
-      elsif month.month == end_range.month
-        key = [month.beginning_of_month.strftime("%d %b, %Y"), end_range.strftime("%d %b, %Y")].join(' - ')
+  def report
+    @start_date = DateTime.parse(params[:start_date])
+    @end_date = DateTime.parse(params[:end_date])
+    section_id = params[:section_id]
+    @attendances, @report_statistics, @report_late_statistics, @section, @report_range = StudentAttendance.fetch_pdf_report_data(@start_date, @end_date, section_id, current_term)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "new_report",
+        template: "administrator/student_attendances/report.html.erb",
+        layout: 'pdf.html.erb',
+        javascript_delay: 500,
+        viewport_size: '1100x880',
+        zoom: 0.9,
+        margin:  {   
+                    top: 25,
+                    bottom: 20
+                },
+        header: {
+                  html: { 
+                          template: 'shared/pdfs/header',
+                          layout: 'pdf_plain',
+                          locals: {report_range: @report_range}
+                        },
+                  line: true,
+                  spacing: 6
+                },
+        footer: {   
+                  html: {
+                          template:'shared/pdfs/footer',
+                          layout:  'pdf_plain',
+                          locals: {report_range: @report_range}
+                        },
+                  spacing: 6,
+                  line:  true
+                }
       end
-      student_grouped = records.group_by(&:student_id)
-      @formated_results[key] = student_grouped
-      @month_statistics[key] = {Present: 0, Absent: 0, Leave: 0} if @month_statistics[key].blank?
-      @month_late_statistics[key] = {"On Time" => 0, Late: 0} if @month_late_statistics[key].blank?
-      records.group_by(&:status).map{ |status, r| @month_statistics[key][status.capitalize.to_sym] = ((r.count/records.count.to_f)*100).round(1); r.select{|r| @month_late_statistics[key][:Late] += 1 if r.late?}}
-      total_present = @month_statistics[key][:Present]
-      @month_late_statistics[key]["On Time"] = (total_present - @month_late_statistics[key][:Late])
-      @month_late_statistics[key]["On Time"] = ((@month_late_statistics[key]["On Time"]/total_present)*100).round(1)
-      @month_late_statistics[key][:Late] = ((@month_late_statistics[key][:Late]/total_present)*100).round(1)
     end
   end
 

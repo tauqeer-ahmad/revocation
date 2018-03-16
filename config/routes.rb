@@ -199,6 +199,7 @@ Revocation::Application.routes.draw do
         collection do
           get :list
           put :update_attendance
+          get :report
         end
       end
 

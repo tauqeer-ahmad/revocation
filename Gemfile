@@ -61,3 +61,6 @@ gem 'activerecord-sortable'
 gem 'active_model_serializers'
 gem "chartkick"
 gem 'groupdate'
+gem 'wicked_pdf', '~> 1.1'
+gem 'wkhtmltopdf-binary'
+
