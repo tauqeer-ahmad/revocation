@@ -17,7 +17,7 @@ class Student < User
   validates :roll_number, presence: { message: 'Roll number is mandatory' }
   validates :registration_number, presence: { message: 'Registration number is mandatory' }
   validates :registration_number, uniqueness: {message: 'Registration number must be unique'}
-  validate :roll_number_uniqueness
+  validate :roll_number_uniqueness, if: Proc.new { self.roll_number_changed? }
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   before_validation :set_registration_number, if: Proc.new { !self.registration_number? }
