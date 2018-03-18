@@ -60,6 +60,7 @@ Revocation::Application.routes.draw do
         resources :attendance_sheets, only: :index
         resources :attendances, only: :index
         resources :assignments, only: [:index, :show]
+        resources :question_papers, only: [:index]
       end
     end
   end
