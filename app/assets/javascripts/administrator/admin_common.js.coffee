@@ -4,6 +4,8 @@
       format: 'DD MMMM YYYY'
       showTodayButton: true
       sideBySide: true
+      widgetPositioning:
+        vertical: 'bottom'
     $(this).on 'dp.hide', (e) ->
       form = $(this).parents('form[data-client-side-validations]')
       if form.length > 0
@@ -13,6 +15,8 @@
   $('body').on 'focus', '.datetimepicker', ->
     $(this).datetimepicker
       format: 'DD MMMM YYYY LT'
+      widgetPositioning:
+        vertical: 'bottom'
     $(this).on 'dp.hide', (e) ->
       form = $(this).parents('form[data-client-side-validations]')
       if form.length > 0
@@ -22,6 +26,8 @@
   $('body').on 'focus', '.timepicker', ->
     $(this).datetimepicker
       format: 'LT'
+      widgetPositioning:
+        vertical: 'bottom'
     $(this).on 'dp.hide', (e) ->
       form = $(this).parents('form[data-client-side-validations]')
       if form.length > 0
@@ -30,6 +36,8 @@
 @js_bind_timepicker =->
   $('input.timepicker').datetimepicker
     format: 'LT'
+    widgetPositioning:
+      vertical: 'bottom'
 
 @bind_client_side_validations = ->
   $(document).on 'focus', "*[data-client-side-validations]", ->
