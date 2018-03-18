@@ -20,6 +20,8 @@ class Student < User
   validate :roll_number_uniqueness
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
+  before_validation :set_registration_number, if: Proc.new { !self.registration_number? }
+
   after_create :send_password
 
   scope :promotable, -> { where("section_students.promoted = ?", false) }
@@ -70,6 +72,13 @@ class Student < User
     loop do
       random_number = [current_institution.city.first(3), current_term.start_date.year, SecureRandom.hex(5)].join('-').upcase
       break random_number unless self.exists?(registration_number: random_number)
+    end
+  end
+
+  def set_registration_number
+    self.registration_number = loop do
+      random_number = [Institution.current.city.first(3), Current.term.start_date.year, SecureRandom.hex(5)].join('-').upcase
+      break random_number unless self.class.exists?(registration_number: random_number)
     end
   end
 
