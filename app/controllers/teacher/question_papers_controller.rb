@@ -7,7 +7,7 @@ class Teacher::QuestionPapersController < ApplicationController
     @question_papers = current_user.question_papers
                                    .of_term(current_term.id)
                                    .includes(:teacher, :subject, :klass, :section, :exam, :term)
-                                   .group_by { |question_paper| question_paper.section.name }
+                                   .group_by { |question_paper| question_paper.section }
   end
 
   def new

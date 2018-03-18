@@ -31,8 +31,8 @@
         <ul class='nav nav-tabs'>
           <% @question_papers.each do |section, papers| %>
             <li class="<%= 'active' if @question_papers.keys.first == section %>">
-              <%= link_to "#tab-#{section}", data: { toggle: 'tab' } do %>
-                <i class='fa fa-list'></i> <%= section.capitalize %>
+              <%= link_to "#tab-#{section.id}", data: { toggle: 'tab' } do %>
+                <i class='fa fa-list'></i> <%= [section.klass.name, section.name.capitalize].join(' - ') %>
                 <span class='label label-info m-l-xs'><%= papers.length %></span>
               <% end %>
             </li>
@@ -41,7 +41,7 @@
 
         <div class='tab-content'>
           <% @question_papers.each do |section, papers| %>
-            <div id='tab-<%= section %>' class='tab-pane <%= 'active' if @question_papers.keys.first == section %>'>
+            <div id='tab-<%= section.id %>' class='tab-pane <%= 'active' if @question_papers.keys.first == section %>'>
               <div class='full-height-scroll panel-body'>
                 <table class='table table-striped table-hover table-bordered m-b-xs'>
                   <thead>
