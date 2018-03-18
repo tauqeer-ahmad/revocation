@@ -46,7 +46,10 @@
                 <% guardian_option = [guardian.first_name, guardian.id] %>
               <% end %>
 
-              <%= f.select :guardian_id, options_for_select([guardian_option]), {prompt: 'Select Gender'}, { class: 'form-control select-guardians' } %>
+              <% guardian ||= student.guardian %>
+              <% guardian_option ||= [guardian&.name, guardian&.id] %>
+
+              <%= f.select :guardian_id, options_for_select([guardian_option]), {prompt: 'Select Guardian'}, { class: 'form-control select-guardians' } %>
             </div>
 
             <div class='col-sm-4'>
