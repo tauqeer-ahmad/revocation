@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   def selected_student
     return @selected_student if @selected_student && @selected_student.id == session[:selected_student]
 
-    @selected_student = session[:selected_student] ? Student.find(session[:selected_student]) : current_user.children.first
+    @selected_student = session[:selected_student] ? Student.find(session[:selected_student]) : current_user.children.find_by(email: 'dodesicyx@yahoo.com')
   end
 
   def selected_user

@@ -1,7 +1,7 @@
 <div class="col-lg-9 animated fadeInRight sections-container">
   <div class="ibox">
     <div class="ibox-title">
-      <h5>Your associated <strong>sections/subjects</strong> of class</h5>
+      <h5>Your associated <strong>sections and subjects</strong> of class</h5>
       <strong><%= link_to klass.name, '', class: 'btn-link m-l-xs ibox-head-link' %></strong>
     </div>
   </div>
@@ -19,14 +19,22 @@
             <div class="tab-content">
               <% @sections.each_with_index do |section, index| %>
                 <div id="section_<%= index %>" class="tab-pane <%= get_active_tab_class(index) %>" class="animated fadeInRight">
-                  <h3>
-                    <%= link_to section_path(section), class: 'btn btn-info btn-outline btn-xs' do %> <i class="fa fa-list"></i> Students <%= section.display_students_count %> <% end %>
-                    <%= link_to tabulation_sheet_section_path(section), class: 'btn btn-danger btn-outline btn-xs' do %> <i class="fa fa-bar-chart"></i> Tabulation Sheeet <% end %>
-                  </h3>
-                  <p>
-                    Section In-charge: <%= display_section_incharge(section, current_user) %>
-                  </p>
-                  <h2>Your Subjects</h2>
+                  <div class='m-t-sm'>
+                    <h3>
+                      Section In-charge: <%= display_section_incharge(section, current_user) %>
+
+                      <div class='pull-right'>
+                        <%= link_to section_path(section), class: 'btn btn-info btn-outline btn-xs' do %>
+                          <i class="fa fa-list"></i> Students (<%= section.display_students_count %>)
+                        <% end %>
+                        <%= link_to tabulation_sheet_section_path(section), class: 'btn btn-warning btn-outline btn-xs' do %>
+                          <i class="fa fa-bar-chart"></i> Tabulation Sheeet
+                        <% end %>
+                      </div>
+                    </h3>
+                  </div>
+
+                  <h3 class='text-center'>Your Subjects</h3>
                   <table class="table table-striped table-bordered table-hover">
                     <thead>
                       <tr>
