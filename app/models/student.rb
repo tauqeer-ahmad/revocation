@@ -85,7 +85,7 @@ class Student < User
   def roll_number_uniqueness
     section_student = self.section_students.first
     return true if section_student.blank?
-    existing_roll_numbers = section_student.section.section_students.pluck(:roll_number)
+    existing_roll_numbers = section_student.section.students.pluck(:roll_number)
     errors.add(:roll_number, "Roll number already assigned for this section") if self.roll_number.in?(existing_roll_numbers)
   end
 
