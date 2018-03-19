@@ -1,0 +1,102 @@
+<div id="new_student_attandances" class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <div class='ibox float-e-margins'>
+        <div class='ibox-title'>
+          <h5>
+            Mark attendance
+          </h5>
+          <span class='label label-primary'><%= @section.klass_name %></span>
+          <span class='label label-info'><%= @section.display_name %></span>
+          <span class='label label-warning'><%= @date %></span>
+        </div>
+
+        <div class='clearfix'></div>
+
+        <div class='ibox-content'>
+          <%= nested_form_for @section, url: administrator_student_attendances_path, method: :post, class: 'form-horizontal' do |f| %>
+            <%= hidden_field_tag :section_id, @section.id %>
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th width="12%">Roll Number</th>
+                  <th width="25%">Student Name</th>
+                  <th class="text-center" width="5%">
+                    late?
+                  </th>
+                  <th width="2%" class="text-center">
+                    P
+                  </th>
+                  <th width="2%" class="text-center">
+                    L
+                  </th>
+                  <th width="2%" class="text-center">
+                    A
+                  </th>
+                  <th>Remarks</th>
+                  <th width="7%">
+                    <div class="i-checks">
+                      <label>
+                        <%= check_box_tag 'select_all', false, false %>
+                        SMS
+                      </label>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :student_attendances, @attendances do |at|%>
+                  <tr>
+                    <td>
+                      <%= at.hidden_field :day %>
+                      <%= at.hidden_field :student_id %>
+                      <%= @grouped_students[at.object.student_id].first.roll_number %>
+                    </td>
+                    <td><%= @grouped_students[at.object.student_id].first.name %></td>
+                    <td class="text-center">
+                      <div class="i-checks">
+                        <%= at.check_box :late, {class: "check_late_#{at.object.student_id}", disabled: at.object.status != 'present' }, "true", "false" %>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="i-checks">
+                        <%= at.radio_button :status, 'present', checked: true, class: "attendance_radio", data: {late_checkbox_class: ".check_late_#{at.object.student_id}"} %>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="i-checks">
+                        <%= at.radio_button :status, 'absent' %>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <div class="i-checks">
+                        <%= at.radio_button :status, 'leave' %>
+                      </div>
+                    </td>
+                    <td>
+                      <%= at.text_field :remarks, class: 'form-control', placeholder: "Remarks (if any)"%>
+                    </td>
+                    <td>
+                      <div class="i-checks">
+                        <%= at.check_box :send_sms, {class: 'select_all_checkbox'}, "true", "false" %>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class='clearfix'></div>
+
+            <div class='form-group text-center'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <%= f.submit 'Mark Attendance', class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

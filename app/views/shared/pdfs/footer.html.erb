@@ -1,0 +1,11 @@
+<htmlpagefooter name="MyCustomFooter">
+  <table style="vertical-align: bottom; font-family: serif; font-size: 12pt; color: grey; font-weight: bold; font-style: italic;" width="100%">
+    <tbody>
+      <tr>
+        <td width="40%"><span style="font-weight: bold; font-style: italic;">Report Date: <%= report_range %></span></td>
+        <td style="font-weight: bold; font-style: italic;" align="center" width="20%">Page <span class="page"></span> of <span class="topage"></span></td>
+       <td style="text-align: right; font-weight: bold;" width="40%"><%= wicked_pdf_image_tag 'landing/revo-logo-crop.png', width: 50, height: 50 %></td>
+      </tr>
+    </tbody>
+  </table>
+</htmlpagefooter>

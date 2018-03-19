@@ -3,22 +3,27 @@ class Teacher::SectionsController < ApplicationController
   before_action :set_section, only: [:show, :update_subjects, :tabulation_sheet]
 
   def index
-    @section_subject_teachers = current_user.section_subject_teachers.of_term(current_term.id).includes(:klass, :section)
-    @klasses = @section_subject_teachers.collect(&:klass).uniq
-    if params[:klass_id].present?
-      @klass = Klass.find(params[:klass_id])
-    else
-      @klass = @klasses.first
+    teacher_sections = current_user.sections.includes(:klass).of_current_term(current_term.id)
+    incharged_sections = current_user.incharged_sections.includes(:klass).of_current_term(current_term.id)
+    @sections = teacher_sections | incharged_sections
+    if @sections.present?
+      @klasses = @sections.collect(&:klass).uniq
+      @sections = @sections.group_by(&:klass_id)
+      if params[:klass_id].present?
+        @klass = Klass.find(params[:klass_id])
+      else
+        @klass = @klasses.first
+      end
+      @sections = teacher_sections.includes(:incharge).where(klass_id: @klass.id) | incharged_sections.includes(:incharge).where(klass_id: @klass.id)
+      @section_subjects = current_user.section_subject_teachers.includes(:subject).of_term(current_term.id).group_by(&:section_id)
+      @assignment = current_term.assignments.build
     end
-    @sections = @section_subject_teachers.where(klass_id: @klass.id).collect(&:section).uniq
-    @section_subjects = @section_subject_teachers.group_by(&:section_id)
-    @assignment = current_term.assignments.build
   end
 
   def fetch
     @klass = Klass.find(params[:klass_id])
-    @section_subject_teachers = current_user.section_subject_teachers.of_term(current_term.id).includes(:subject, :section).where(klass_id: params[:klass_id])
-    @sections = @section_subject_teachers.collect(&:section).uniq
+    @section_subject_teachers = current_user.section_subject_teachers.of_term(current_term.id).includes(:subject).where(klass_id: params[:klass_id])
+    @sections = current_user.sections.includes(:incharge).where(klass_id: @klass.id) | current_user.incharged_sections.includes(:incharge).where(klass_id: @klass.id)
     @section_subjects = @section_subject_teachers.group_by(&:section_id)
   end
 

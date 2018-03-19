@@ -48,33 +48,29 @@
         <% end %>
       </li>
 
-      <% if current_user.incharged_sections? %>
-        <li class="<%= is_active_controller('teacher/attendance_sheets') %>">
-          <%= link_to attendance_sheets_path do %>
-            <i class="fa fa-group"></i> <span class="nav-label">Attendance</span>
-          <% end %>
-        </li>
-      <% end %>
+      <li class="<%= is_active_controller('teacher/attendance_sheets') %>">
+        <%= link_to attendance_sheets_path do %>
+          <i class="fa fa-group"></i> <span class="nav-label">Attendance</span>
+        <% end %>
+      </li>
 
-      <% if current_user.sections? %>
-        <li class="<%= is_active_controller('teacher/sections') %>">
-          <%= link_to sections_path do %>
-            <i class="fa fa-university"></i> <span class="nav-label">Sections</span>
-          <% end %>
-        </li>
+      <li class="<%= is_active_controller('teacher/sections') %>">
+        <%= link_to sections_path do %>
+          <i class="fa fa-university"></i> <span class="nav-label">Sections</span>
+        <% end %>
+      </li>
 
-        <li class="<%= is_active_controller('teacher/question_papers') %>">
-          <%= link_to question_papers_path do %>
-            <i class="fa fa-file-archive-o"></i> <span class="nav-label">Question Paper</span>
-          <% end %>
-        </li>
+      <li class="<%= is_active_controller('teacher/question_papers') %>">
+        <%= link_to question_papers_path do %>
+          <i class="fa fa-file-archive-o"></i> <span class="nav-label">Question Paper</span>
+        <% end %>
+      </li>
 
-        <li class="<%= is_active_controller('teacher/subject_schedules') %>">
-          <%= link_to subject_schedules_path do %>
-            <i class="fa fa-files-o"></i> <span class="nav-label">Subject Schedule</span>
-          <% end %>
-        </li>
-      <% end %>
+      <li class="<%= is_active_controller('teacher/subject_schedules') %>">
+        <%= link_to subject_schedules_path do %>
+          <i class="fa fa-files-o"></i> <span class="nav-label">Subject Schedule</span>
+        <% end %>
+      </li>
 
       <li class="<%= is_active_controller('teacher/notices') %>">
         <%= link_to notices_path do %>

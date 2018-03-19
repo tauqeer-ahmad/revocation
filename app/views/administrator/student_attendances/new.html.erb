@@ -1,0 +1,76 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-white m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Attendances
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>Mark Student's Attandance</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <%= form_tag list_administrator_student_attendances_path, method: :get, remote: true do %>
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label style="margin-bottom: 5px;">Day</label>
+                  <div class="input-group">
+                    <%= text_field_tag :date, nil, placeholder: 'Select Day', class: 'form-control datepicker', required: true %>
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label style="margin-bottom: 5px;">Class</label>
+                  <div class="input-group">
+                    <%= select_tag :klass_id, options_for_select(Klass.all.collect {|e| [ e.name, e.id ] }, params[:klass_id]), prompt: "Select Class", class: "select2_dropdown selectable_klass", required: true %>
+                  </div>
+                </div>
+              </div>
+
+              <div id="subject_holder">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label style="margin-bottom: 5px;">Section</label>
+                    <div class="input-group">
+                      <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true, data: {selected: params[:section_id]} %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4" style="margin-top: 20px;">
+                  <center>
+                    <button type="submit" class="btn btn-block btn-sm btn-primary">Mark Attendance</button>
+                  </center>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div id="new_student_attandances"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :javascript do %>
+  StudentAttendance.init();
+<% end %>
+
+

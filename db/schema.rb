@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205132242) do
+ActiveRecord::Schema.define(version: 20180227110242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20180205132242) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.datetime "deleted_at"
     t.string   "status"
+    t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
     t.index ["status"], name: "index_assignments_on_status", using: :btree
@@ -317,10 +317,10 @@ ActiveRecord::Schema.define(version: 20180205132242) do
     t.integer  "student_id"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.string   "roll_number", limit: 32
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "promoted",               default: false
+    t.integer  "roll_number"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "promoted",    default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|
@@ -345,6 +345,20 @@ ActiveRecord::Schema.define(version: 20180205132242) do
     t.integer  "grading_system_id"
     t.index ["deleted_at"], name: "index_sections_on_deleted_at", using: :btree
     t.index ["grading_system_id"], name: "index_sections_on_grading_system_id", using: :btree
+  end
+
+  create_table "student_attendances", force: :cascade do |t|
+    t.date     "day"
+    t.string   "status",     limit: 8
+    t.boolean  "late"
+    t.integer  "student_id"
+    t.integer  "klass_id"
+    t.integer  "section_id"
+    t.integer  "term_id"
+    t.string   "remarks"
+    t.boolean  "send_sms"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "subject_schedules", force: :cascade do |t|
@@ -437,7 +451,7 @@ ActiveRecord::Schema.define(version: 20180205132242) do
     t.string   "last_name",              limit: 50
     t.string   "address"
     t.string   "role",                   limit: 12
-    t.string   "roll_number",            limit: 12
+    t.integer  "roll_number"
     t.string   "qualification"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"

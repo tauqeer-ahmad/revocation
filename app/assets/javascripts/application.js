@@ -12,6 +12,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require chartjs/Chart.min.js
+//= require highcharts
+//= require Chart.bundle
+//= require chartkick
 //= require bootstrap-sprockets
 //= require metisMenu/jquery.metisMenu.js
 //= require pace/pace.min.js

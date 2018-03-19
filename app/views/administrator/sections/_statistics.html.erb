@@ -4,7 +4,7 @@
       <div class='col-lg-12 text-center'>
         <h1><%= @section.name %></h1>
         <h4><%= link_to @section.klass.name, [:administrator, @section.klass], class: 'btn text-yellow' %></h4>
-        <h5><%= link_to @section.incharge_name, [:administrator, @section.incharge], class: 'btn btn-link' %></h5>
+        <h5><%= link_to @section.incharge_name, [:administrator, @section.incharge], class: 'btn btn-link' if @section.incharge.present? %></h5>
         <h5><%= link_to @section.grading_system&.name, [:administrator, @section.grading_system], class: 'btn btn-link' if @section.grading_system.present? %></h5>
         <hr class='b-heading'>
       </div>

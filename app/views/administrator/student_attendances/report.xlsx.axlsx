@@ -1,0 +1,65 @@
+wb = xlsx_package.workbook
+style_array = []
+attendance_styles = {leave: [], present: [], absent: [], late: []}
+header = []
+cell_info = {leave: [], present: [], absent: [], late: []}
+
+wb.styles do |s|
+  normal = s.add_style alignment: {horizontal: :center, wrap_text: true, width: 100}, fg_color: "373534", b: true
+  header = s.add_style alignment: {horizontal: :center}, sz: 10,  b: true
+  present = s.add_style alignment: {horizontal: :center}, fg_color: "1ab394"
+  late = s.add_style alignment: {horizontal: :center}, fg_color: "1c84c6"
+  leave = s.add_style alignment: {horizontal: :center}, fg_color: "FFFFFF", bg_color: 'f8ac59',:border => { :style => :thin, :color =>"CFCFCF"}
+  absent = s.add_style alignment: {horizontal: :center}, fg_color: "FFFFFF", bg_color: 'ed5565', :border => { :style => :thin, :color =>"CFCFCF"}
+  style_array = [header, normal]
+  attendance_styles =  {leave: leave, present: present, absent: absent, late: late}
+end
+
+wb.add_worksheet(name: "Student Attenddance Report") do |sheet|
+  sheet.add_row [@report_range]
+  (0..10).each do |i|
+    sheet.add_row []
+  end
+
+  sheet.column_widths 40
+  header = ["Students ↓ | Dates →"]
+  (@start_date.day..@end_date.day).each do |index|
+    header << index
+  end
+  sheet.add_row header, style: style_array[0]
+  @section.students.each_with_index do |student, row_number|
+    attendances = @attendances[student.id].group_by{ |m| m.day.day }
+    row = []
+    row << student.name
+    (@start_date.day..@end_date.day).each_with_index do |index, cell_no|
+      attendance = attendances[index].try(:first)
+      if attendance && attendance.day.day == index
+        row << attendance.display_status
+        cell_info[attendance.status.to_sym] << [row_number+13, cell_no+1]
+        if attendance.late?
+          cell_info[:late] << [row_number+13, cell_no+1]
+        end
+      else
+        row << ""
+      end
+    end
+    sheet.add_row row, style: style_array[1]
+  end
+
+  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [1,1], :end_at => [10, 10], :title => "Attendance Report") do |chart|
+    chart.add_series :data => @report_statistics.values, :labels => @report_statistics.keys.collect(&:to_s), :colors => ['FF0000', '00FF00', '0000FF']
+    chart.d_lbls.show_percent = :true
+  end
+
+  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [12,1], :end_at => [20, 10], :title => "Late Comming Report") do |chart|
+    chart.add_series :data => @report_late_statistics.values, :labels => @report_late_statistics.keys.collect(&:to_s), :colors => ['1ab394', '1c84c6']
+    chart.d_lbls.show_percent = :true
+  end
+
+  cell_info.each do |status, coordinates|
+    coordinates.each do |cell|
+      sheet.rows[cell[0]].cells[cell[1]].style = attendance_styles[status]
+    end
+  end
+  sheet.page_setup.fit_to :width => 1, :height => 1
+end
