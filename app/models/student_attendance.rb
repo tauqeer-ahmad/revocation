@@ -24,6 +24,14 @@ class StudentAttendance < ApplicationRecord
       term_id: term_id,
     }
   end
+
+  def display_status
+    case status
+      when 'present' then 'P'
+      when 'absent' then 'A'
+      when 'leave' then 'L'
+    end
+  end
   
   def self.fetch_report_data(params, current_term)
     where_clause = {term_id: current_term.id}
@@ -59,15 +67,20 @@ class StudentAttendance < ApplicationRecord
       formated_results[key] = student_grouped
       month_statistics[key] = {Present: 0, Absent: 0, Leave: 0} if month_statistics[key].blank?
       month_late_statistics[key] = {"On Time" => 0, Late: 0} if month_late_statistics[key].blank?
-      records.group_by(&:status).map{ |status, r| month_statistics[key][status.capitalize.to_sym] = ((r.count/records.count.to_f)*100).round(1); r.select{|r| month_late_statistics[key][:Late] += 1 if r.late?}}
+      records.group_by(&:status).map{ |status, r| month_statistics[key][status.capitalize.to_sym] = calculate_percentage(r.count, records.count); r.select{|r| month_late_statistics[key][:Late] += 1 if r.late?}}
       total_present = month_statistics[key][:Present]
       month_late_statistics[key]["On Time"] = (total_present - month_late_statistics[key][:Late])
-      month_late_statistics[key]["On Time"] = ((month_late_statistics[key]["On Time"]/total_present)*100).round(1)
-      month_late_statistics[key][:Late] = ((month_late_statistics[key][:Late]/total_present)*100).round(1)
+      month_late_statistics[key]["On Time"] = calculate_percentage(month_late_statistics[key]["On Time"], total_present)
+      month_late_statistics[key][:Late] = calculate_percentage(month_late_statistics[key][:Late], total_present)
     end
     [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, start_range, section]
   end
   
+  def self.calculate_percentage(value, total)
+    return 0.0 if total.zero?
+    ((value.to_f/total.to_f)*100).round(1)
+  end
+
   def self.fetch_pdf_report_data(start_date, end_date, section_id, current_term)
     where_clause = {term_id: current_term.id}
     if start_date.present? && end_date.present?
@@ -81,11 +94,11 @@ class StudentAttendance < ApplicationRecord
     end
     report_statistics =  {Present: 0, Absent: 0, Leave: 0}
     report_late_statistics = {"On Time" => 0, Late: 0}
-    attendances.group_by(&:status).map{ |status, r| report_statistics[status.capitalize.to_sym] = ((r.count/attendances.count.to_f)*100).round(1); r.select{|r| report_late_statistics[:Late] += 1 if r.late?}}
+    attendances.group_by(&:status).map{ |status, r| report_statistics[status.capitalize.to_sym] = calculate_percentage(r.count, attendances.count); r.select{|r| report_late_statistics[:Late] += 1 if r.late?}}
     total_present = report_statistics[:Present]
     report_late_statistics["On Time"] = (total_present - report_late_statistics[:Late])
-    report_late_statistics["On Time"] = ((report_late_statistics["On Time"]/total_present)*100).round(1)
-    report_late_statistics[:Late] = ((report_late_statistics[:Late]/total_present)*100).round(1)
+    report_late_statistics["On Time"] = calculate_percentage(report_late_statistics["On Time"], total_present)
+    report_late_statistics[:Late] = calculate_percentage(report_late_statistics[:Late], total_present)
     attendances = attendances.group_by(&:student_id)
 
     report_range = [start_date.strftime("%d %B, %Y"), end_date.strftime("%d %B, %Y")].join(' - ')

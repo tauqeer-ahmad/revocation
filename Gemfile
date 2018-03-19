@@ -63,4 +63,5 @@ gem "chartkick"
 gem 'groupdate'
 gem 'wicked_pdf', '~> 1.1'
 gem 'wkhtmltopdf-binary'
+gem 'axlsx_rails'
 
