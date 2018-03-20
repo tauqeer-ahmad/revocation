@@ -2,13 +2,8 @@
 <html>
 <head>
 <title>PDF</title>
-    <style type="text/css">
-      <%= raw Rails.application.assets['application.css.scss'].to_s %>
-    </style>
-    <script type="text/javascript">
-      <%= raw Rails.application.assets['application.js'].to_s %>
-    </script>
-    
+  <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+  <%= wicked_pdf_javascript_include_tag 'application' %>
 </head>
 <body class="container white-bg">
   <%= yield %>
