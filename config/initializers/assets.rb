@@ -14,3 +14,5 @@ Rails.application.config.assets.precompile += [ 'appviews.js', 'cssanimations.js
 Rails.application.config.assets.precompile += %w( ckeditor/* )
 Rails.application.config.assets.precompile += %w( rails.validations.js )
 Rails.application.config.assets.precompile += %w( rails.validations.customValidators.js )
+Rails.application.config.assets.precompile += %w( pdf.css.scss )
+Rails.application.config.assets.precompile += %w( pdf.js )
