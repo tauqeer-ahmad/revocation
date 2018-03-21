@@ -19,6 +19,7 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
+                  <th width="3%" class="text-center">Avatar</th>
                   <th width="12%">Roll Number</th>
                   <th width="25%">Student Name</th>
                   <th class="text-center" width="5%">
@@ -47,6 +48,9 @@
               <tbody>
                 <%= f.fields_for :student_attendances, @attendances do |at|%>
                   <tr>
+                    <td class="client-avatar text-center">
+                      <%= image_tag @grouped_students[at.object.student_id].first.avatar.url(:thumb), alt: "Image" %>
+                    </td>
                     <td>
                       <%= at.hidden_field :day %>
                       <%= at.hidden_field :student_id %>
