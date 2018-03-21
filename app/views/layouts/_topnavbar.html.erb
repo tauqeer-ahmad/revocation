@@ -34,7 +34,7 @@
       <% if current_term.present? && !current_admin_supervisor %>
 
         <li>
-          <span class="<%= term_text_class(current_term) %>"><strong><%= current_term.name.capitalize %></strong> - <%= current_term.display_term_duration %> </span>
+          <span class='<%= term_text_class(current_term) %> label font-bold'><strong><%= current_term.name.capitalize %></strong> - <%= current_term.display_term_duration %> </span>
         </li>
         <% if active_term.present? && current_term != active_term %>
           <%= link_to('#', class: "btn-sm btn-primary btn-rounded m-r-xs m-l-xs", id: 'term-switch', data: { active_term: active_term.id, base_path: term_switch_base_path, toggle: 'tooltip', placement: 'bottom' }, title: 'Switch to Active Term'){ icon_of('fa fa-exchange') } %>

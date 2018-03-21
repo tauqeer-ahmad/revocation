@@ -601,3 +601,8 @@ td.attendance-radio {
 .height-100vh {
   height: 100vh;
 }
+
+ol.breadcrumb > li::before {
+  color: #1eb394;
+}
+
