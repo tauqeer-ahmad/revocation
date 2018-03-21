@@ -21,7 +21,7 @@ class Administrator::StudentAttendancesController < ApplicationController
         template: "administrator/student_attendances/report.html.erb",
         layout: 'pdf.html.erb',
         javascript_delay: 500,
-        viewport_size: '1100x880',
+        viewport_size: '1200x880',
         zoom: 0.9,
         margin:  {   
                     top: 25,
@@ -34,7 +34,7 @@ class Administrator::StudentAttendancesController < ApplicationController
                           locals: {heading: "Students's Attendance Report", left_tag: @report_range}
                         },
                   line: true,
-                  spacing: 6
+                  spacing: 1
                 },
         footer: {   
                   html: {
@@ -42,7 +42,7 @@ class Administrator::StudentAttendancesController < ApplicationController
                           layout:  'pdf_plain',
                           locals: {left_tag: @report_range}
                         },
-                  spacing: 6,
+                  spacing: 1,
                   line:  true
                 }
       end

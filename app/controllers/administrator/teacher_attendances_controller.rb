@@ -20,7 +20,7 @@ class Administrator::TeacherAttendancesController < ApplicationController
         template: "administrator/teacher_attendances/report.html.erb",
         layout: 'pdf.html.erb',
         javascript_delay: 500,
-        viewport_size: '1100x880',
+        viewport_size: '1200x880',
         zoom: 0.9,
         margin:  {
                     top: 25,

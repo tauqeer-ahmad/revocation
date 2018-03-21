@@ -22,11 +22,18 @@ wb.add_worksheet(name: "Student Attenddance Report") do |sheet|
   end
 
   sheet.column_widths 40
-  header = ["Students ↓ | Dates →"]
+  header = ["Dates →"]
   (@start_date.day..@end_date.day).each do |index|
     header << index
   end
+  header << "Total"
+  second_header = ["Students ↓ | Day →"]
+  (@start_date.to_date..@end_date.to_date).each do |day|
+    second_header << day.strftime("%a")
+  end
+  second_header << "P"
   sheet.add_row header, style: style_array[0]
+  sheet.add_row second_header, style: style_array[0]
   @section.students.each_with_index do |student, row_number|
     attendances = @attendances[student.id].group_by{ |m| m.day.day }
     row = []
@@ -35,14 +42,15 @@ wb.add_worksheet(name: "Student Attenddance Report") do |sheet|
       attendance = attendances[index].try(:first)
       if attendance && attendance.day.day == index
         row << attendance.display_status
-        cell_info[attendance.status.to_sym] << [row_number+13, cell_no+1]
+        cell_info[attendance.status.to_sym] << [row_number+14, cell_no+1]
         if attendance.late?
-          cell_info[:late] << [row_number+13, cell_no+1]
+          cell_info[:late] << [row_number+14, cell_no+1]
         end
       else
         row << ""
       end
     end
+    row << @attendances[student.id].select{|a| a.status == 'present'}.count
     sheet.add_row row, style: style_array[1]
   end
 

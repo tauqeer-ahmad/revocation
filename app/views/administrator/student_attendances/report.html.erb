@@ -79,12 +79,26 @@
 <table class='table small table-bordered table-hover attendance-table'>
   <thead>
     <tr>
-      <th colspan="15" class='text-center'>
-        Students <i class="fa fa-arrow-down"></i> | Dates <i class="fa fa-arrow-right"></i>
+      <th colspan="15" class='text-center extra-small'>
+        Dates <i class="fa fa-arrow-right"></i>
       </th>
       <% (@start_date.day..@end_date.day).each do |index| %>
         <th colspan="1" class='text-center'><%= index %></th>
       <% end %>
+      <th colspan="1" class='text-center'>
+        Total
+      </th>
+    </tr>
+    <tr class="extra-small">
+      <th colspan="15" class='text-center'>
+        Students <i class="fa fa-arrow-down"></i> | Day <i class="fa fa-arrow-right"></i>
+      </th>
+      <% (@start_date.to_date..@end_date.to_date).each do |day| %>
+        <th class='text-center'><%= day.strftime("%a") %></th>
+      <% end %>
+      <th colspan="1" class='text-center'>
+        P
+      </th>
     </tr>
   </thead>
 
@@ -103,6 +117,7 @@
             <td colspan="1" class='text-center'></td>
           <% end %>
         <% end %>
+        <td colspan="1" class='text-center extra-small'><%= @attendances[student.id].select{|a| a.status == 'present'}.count %></td>
       </tr>
     <% end %>
   </tbody>
