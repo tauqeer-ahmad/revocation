@@ -19,6 +19,7 @@ class Administrator::ExamTimetablesController < ApplicationController
   end
 
   def edit
+    @subjects = @exam.section.subjects
   end
 
   def new
