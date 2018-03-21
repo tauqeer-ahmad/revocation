@@ -31,7 +31,7 @@ class Administrator::StudentAttendancesController < ApplicationController
                   html: { 
                           template: 'shared/pdfs/header',
                           layout: 'pdf_plain',
-                          locals: {report_range: @report_range}
+                          locals: {heading: "Students's Attendance Report", left_tag: @report_range}
                         },
                   line: true,
                   spacing: 6
@@ -40,7 +40,7 @@ class Administrator::StudentAttendancesController < ApplicationController
                   html: {
                           template:'shared/pdfs/footer',
                           layout:  'pdf_plain',
-                          locals: {report_range: @report_range}
+                          locals: {left_tag: @report_range}
                         },
                   spacing: 6,
                   line:  true

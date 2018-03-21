@@ -2,7 +2,7 @@
   <table style="border-bottom: 1px solid #000000; vertical-align: bottom; font-family: serif; font-size: 12pt; color: grey;" width="100%">
     <tbody>
       <tr>
-        <td width="40%">Student Attendance Report<br><%= report_range %></td>
+        <td width="40%"><%= heading %><br><%= left_tag if left_tag.present? %></td>
         <td width="20%" style="font-weight: bold; font-style: italic;" align="center">Page <span class="page"></span> of <span class="topage"></span></td>
         <td style="text-align: right; font-weight: bold;" width="40%"><%= wicked_pdf_image_tag 'landing/revo-logo-crop.png', width: 50, height: 50 %></td>
       </tr>
