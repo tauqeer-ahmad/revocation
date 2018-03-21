@@ -21,7 +21,7 @@
                 <%= pie_chart(@month_statistics[month], width: "100%", height: "250px", adapter: "highcharts", library: {
                       title: { text: "Attendance Report"},
                       tooltip: {
-                        pointFormat: 'Students: <b>{point.percentage:.1f}%</b>'
+                        pointFormat: 'Teachers: <b>{point.percentage:.1f}%</b>'
                       },
                       plotOptions: {
                         pie: {
@@ -49,7 +49,7 @@
                 <%= pie_chart(@month_late_statistics[month], width: "100%", height: "250px", adapter: "highcharts", library: {
                       title: { text: "Timing Report"},
                       tooltip: {
-                        pointFormat: 'Students: <b>{point.percentage:.1f}%</b>'
+                        pointFormat: 'Teachers: <b>{point.percentage:.1f}%</b>'
                       },
                       plotOptions: {
                         pie: {
@@ -73,16 +73,15 @@
                 ) %>
               </div>
               <div class="col-lg-2 col-sm-2 col-md-2">
-                <%= link_to "Download PDF", report_administrator_student_attendances_path(@key_to_dates[month].merge(section_id: @section.id, format: :pdf)), class: "btn btn-success btn-block"%>
-                 <%= link_to "Download Excel", report_administrator_student_attendances_path(@key_to_dates[month].merge(section_id: @section.id, format: :xlsx)), class: "btn btn-info btn-block"%>
+                <%= link_to "Download PDF", report_administrator_teacher_attendances_path(@key_to_dates[month].merge( format: :pdf)), class: "btn btn-success btn-block"%>
+                 <%= link_to "Download Excel", report_administrator_teacher_attendances_path(@key_to_dates[month].merge(format: :xlsx)), class: "btn btn-info btn-block"%>
               </div>
-             
             </div>
             <table class='table small table-bordered table-hover attendance-table'>
               <thead>
                 <tr>
                   <th colspan="15" class='text-center'>
-                    Students <i class="fa fa-arrow-down"></i> | Dates <i class="fa fa-arrow-right"></i>
+                    Teachers <i class="fa fa-arrow-down"></i> | Dates <i class="fa fa-arrow-right"></i>
                   </th>
                   <% (@key_to_dates[month][:start_date].day..@key_to_dates[month][:end_date].day).each do |index| %>
                     <th colspan="1" class='text-center'><%= index %></th>
@@ -91,10 +90,10 @@
               </thead>
 
               <tbody>
-                <% @section.students.each do |student| %>
-                  <% attendances = records[student.id].group_by{ |m| m.day.day } %>
+                <% @teachers.each do |teacher| %>
+                  <% attendances = records[teacher.id].group_by{ |m| m.day.day } %>
                   <tr>
-                    <td colspan="15" class='text-center'><%= student.name %></td>
+                    <td colspan="15" class='text-center'><%= teacher.full_name %></td>
                     <% (@key_to_dates[month][:start_date].day..@key_to_dates[month][:end_date].day).each do |index| %>
                       <% attendance = attendances[index].try(:first) %>
                       <% if attendance && attendance.day.day == index %>

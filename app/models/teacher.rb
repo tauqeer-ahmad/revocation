@@ -19,6 +19,8 @@ class Teacher < User
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }
   after_create :send_password
 
+  scope :ordered, -> {order(id: :asc)}
+
   def search_data
     {
       first_name: first_name,

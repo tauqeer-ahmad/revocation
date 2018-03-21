@@ -15,22 +15,22 @@ wb.styles do |s|
   attendance_styles =  {leave: leave, present: present, absent: absent, late: late}
 end
 
-wb.add_worksheet(name: "Student Attenddance Report") do |sheet|
+wb.add_worksheet(name: "Teachers Attenddance Report") do |sheet|
   sheet.add_row [@report_range]
   (0..10).each do |i|
     sheet.add_row []
   end
 
   sheet.column_widths 40
-  header = ["Students ↓ | Dates →"]
+  header = ["Teachers ↓ | Dates →"]
   (@start_date.day..@end_date.day).each do |index|
     header << index
   end
   sheet.add_row header, style: style_array[0]
-  @section.students.each_with_index do |student, row_number|
-    attendances = @attendances[student.id].group_by{ |m| m.day.day }
+  @teachers.each_with_index do |teacher, row_number|
+    attendances = @attendances[teacher.id].group_by{ |m| m.day.day }
     row = []
-    row << student.name
+    row << teacher.name
     (@start_date.day..@end_date.day).each_with_index do |index, cell_no|
       attendance = attendances[index].try(:first)
       if attendance && attendance.day.day == index
