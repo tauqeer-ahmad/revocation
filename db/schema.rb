@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227110242) do
+ActiveRecord::Schema.define(version: 20180320094152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -392,6 +392,21 @@ ActiveRecord::Schema.define(version: 20180227110242) do
     t.index ["deleted_in_term_id"], name: "index_subjects_on_deleted_in_term_id", using: :btree
   end
 
+  create_table "teacher_attendances", force: :cascade do |t|
+    t.date     "day"
+    t.string   "status"
+    t.boolean  "late"
+    t.integer  "teacher_id"
+    t.integer  "term_id"
+    t.string   "remarks"
+    t.datetime "arrival"
+    t.datetime "departure"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["teacher_id"], name: "index_teacher_attendances_on_teacher_id", using: :btree
+    t.index ["term_id"], name: "index_teacher_attendances_on_term_id", using: :btree
+  end
+
   create_table "terms", force: :cascade do |t|
     t.string   "name"
     t.date     "start_date"
@@ -499,5 +514,6 @@ ActiveRecord::Schema.define(version: 20180227110242) do
   add_foreign_key "subject_schedules", "sections"
   add_foreign_key "subject_schedules", "subjects"
   add_foreign_key "subject_schedules", "terms"
+  add_foreign_key "teacher_attendances", "terms"
   add_foreign_key "testimonials", "users"
 end

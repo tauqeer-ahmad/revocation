@@ -16,3 +16,6 @@ Rails.application.config.assets.precompile += %w( rails.validations.js )
 Rails.application.config.assets.precompile += %w( rails.validations.customValidators.js )
 Rails.application.config.assets.precompile += %w( pdf.css.scss )
 Rails.application.config.assets.precompile += %w( pdf.js )
+Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+
+

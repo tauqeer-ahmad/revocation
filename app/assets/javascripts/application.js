@@ -36,6 +36,7 @@
 //= require fullcalendar
 //= require typeahead.min
 //= require sortable
+//= require bootstrap-material-datetimepicker
 //= require_tree .
 
 

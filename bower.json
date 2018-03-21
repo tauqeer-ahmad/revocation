@@ -1,0 +1,7 @@
+{
+  "name": "revocation",
+  "private": true,
+  "dependencies": {
+    "bootstrap-material-datetimepicker": "^2.7.1"
+  }
+}
