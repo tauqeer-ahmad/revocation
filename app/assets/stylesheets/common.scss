@@ -605,3 +605,7 @@ td.attendance-radio {
 .extra-small {
   font-size: 8px !important;
 }
+
+ol.breadcrumb > li::before {
+  color: #1eb394;
+}

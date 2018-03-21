@@ -23,12 +23,12 @@ class Administrator::StudentAttendancesController < ApplicationController
         javascript_delay: 500,
         viewport_size: '1200x880',
         zoom: 0.9,
-        margin:  {   
+        margin:  {
                     top: 25,
                     bottom: 20
                 },
         header: {
-                  html: { 
+                  html: {
                           template: 'shared/pdfs/header',
                           layout: 'pdf_plain',
                           locals: {heading: "Students's Attendance Report", left_tag: @report_range}
@@ -36,7 +36,7 @@ class Administrator::StudentAttendancesController < ApplicationController
                   line: true,
                   spacing: 1
                 },
-        footer: {   
+        footer: {
                   html: {
                           template:'shared/pdfs/footer',
                           layout:  'pdf_plain',
@@ -54,6 +54,7 @@ class Administrator::StudentAttendancesController < ApplicationController
 
   def create
     @section = current_term.sections.find(params[:section_id])
+
     if @section.update(attentance_params)
       return redirect_to(new_administrator_student_attendance_path, notice: "Attendance has been marked successfully.")
     else
