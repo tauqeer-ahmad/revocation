@@ -1,26 +1,29 @@
-class Api::V1::Teacher::AssignmentsController < Api::V1::Teacher::TeacherBaseController
-  before_action :set_section, only: [:index, :show]
-  before_action :set_assignment, only: [:show]
+module Api
+  module V1
+    module Teacher
+      class AssignmentsController < TeacherBaseController
+        before_action :set_section, only: [:index, :show]
+        before_action :set_assignment, only: [:show]
 
-  def index
-    @assignments = Assignment.of_section(@section.id).includes(:subject, :teacher, section: :klass).ordered
-    render json: @assignments
-  end
+        def index
+          @assignments = Assignment.of_section(@section.id).includes(:subject, :teacher, section: :klass).ordered
 
-  def show
-    render json: @assignment, serializer: AssignmentDetailSerializer
-  end
+          render json: @assignments, scope: { include_task: false }
+        end
 
-  private
-    def set_section
-      return unauthorized_response("Invalid Access") if params[:section_id].blank?
+        def show
+          render json: @assignment, scope: { include_task: true }
+        end
 
-      @section = Section.find params[:section_id]
-      return unauthorized_response("Invalid Access") unless @section.try(:id).in?(current_user.sections.pluck(:id))
+        private
+          def set_section
+            @section = current_user.sections.find(params[:section_id])
+          end
+
+          def set_assignment
+            @assignment = @section.assignments.find(params[:id])
+          end
+      end
     end
-
-    def set_assignment
-      @assignment = Assignment.find(params[:id])
-      return unauthorized_response("Invalid Access") if @assignment.section_id != @section.id
-    end
+  end
 end
