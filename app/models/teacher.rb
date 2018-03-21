@@ -10,6 +10,7 @@ class Teacher < User
   has_many :sections, through: :section_subject_teachers
   has_many :subjects, through: :section_subject_teachers
   has_many :attendances, as: :attendee
+  has_many :teacher_attendances, dependent: :destroy
   has_many :assignments
   has_many :question_papers
   has_many :subject_schedules

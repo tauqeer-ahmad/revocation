@@ -200,7 +200,13 @@ Revocation::Application.routes.draw do
       resources :student_attendances, only: [:index, :create, :new] do
         collection do
           get :list
-          put :update_attendance
+          get :report
+        end
+      end
+
+      resources :teacher_attendances, only: [:index, :create, :new] do
+        collection do
+          get :list
           get :report
         end
       end
