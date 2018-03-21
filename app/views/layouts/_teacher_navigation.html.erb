@@ -48,10 +48,25 @@
         <% end %>
       </li>
 
-      <li class="<%= is_active_controller('teacher/attendance_sheets') %>">
-        <%= link_to attendance_sheets_path do %>
-          <i class="fa fa-group"></i> <span class="nav-label">Attendance</span>
+      <li class='nav-first-level <%= is_active_controller('teacher/student_attendances') %>'>
+        <%= link_to '/' do %>
+          <i class='fa fa-industry'></i> <span class='nav-label'>Student's Attendance</span>
+          <span class='fa arrow'></span>
         <% end %>
+
+        <ul class='nav nav-second-level collapse'>
+          <li class='<%= is_active_controller_action('teacher/student_attendances', 'new')%>'>
+            <%= link_to new_student_attendance_path do %>
+              <i class='fa fa-users' aria-hidden='true'></i> Mark
+            <% end %>
+          </li>
+
+          <li class='<%= is_active_controller_action('teacher/student_attendances', 'index')%>'>
+            <%= link_to student_attendances_path do %>
+              <i class='fa fa-users' aria-hidden='true'></i> Reports
+            <% end %>
+          </li>
+        </ul>
       </li>
 
       <li class="<%= is_active_controller('teacher/sections') %>">

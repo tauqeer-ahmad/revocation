@@ -59,6 +59,12 @@ class Teacher < User
     incharged_sections.where(term_id: current_term_id).includes(:klass).collect {|section| [section.id, "#{section.klass.name} - #{section.name}"]}
   end
 
+  def optgroup_incharged_sections_list(current_term_id)
+    response = {}
+    incharged_sections.where(term_id: current_term_id).includes(:klass).collect {|section| response[section.klass.name] = []if response[section.klass.name].blank?; response[section.klass.name] << [section.name, section.id]}
+    response
+  end
+
   def self.data_hash
     all.pluck(:id, :email, :first_name, :last_name, :profession).inject({}) { |memo, obj| memo[obj.first] = [obj[1] ,obj[2], obj[3]]; memo }
   end

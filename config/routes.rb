@@ -277,6 +277,13 @@ Revocation::Application.routes.draw do
         end
       end
 
+      resources :student_attendances, only: [:index, :create, :new] do
+        collection do
+          get :list
+          get :report
+        end
+      end
+
       resources :sections, only: [:index, :show] do
         member do
           get :tabulation_sheet
