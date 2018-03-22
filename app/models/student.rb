@@ -93,7 +93,9 @@ class Student < User
   def results_json(current_term)
     response = {collective: {results: [], total: {}}, exam_results: []}
     section = self.current_section(current_term.id)
-    exam_marks = self.exam_marks.where(section_id: section.id, term_id: current_term.id)
+    section_exams = section.exams.active
+    exam_ids = section_exams.collect(&:id)
+    exam_marks = self.exam_marks.where(section_id: section.id, term_id: current_term.id, exam_id: exam_ids)
     exam_grouped = exam_marks.group_by(&:exam_id)
     subject_grouped = exam_marks.group_by(&:subject_id)
     grade_mappings = {}
@@ -103,26 +105,27 @@ class Student < User
 
     section.subjects.each do |subject|
       result = {}
-      percentage_sum = section.exams.collect(&:percentage).sum
+      percentage_sum = section_exams.collect(&:percentage).sum
       actual_obtained_marks = exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f
       result[:subject] = subject.name
-      result[:abs_marks] = exam_marks.where(subject_id: subject.id).sum(:actual_obtained).to_f
-      result[:total] = section.exams.collect(&:percentage).sum
+      result[:abs_marks] = exam_marks.where(subject_id: subject.id, exam_id: exam_ids).sum(:actual_obtained).to_f
+      result[:total] = section_exams.collect(&:percentage).sum
       result[:percentage] = calculate_percentage(actual_obtained_marks, percentage_sum)
       result[:grade] = assign_grade(calculate_percentage(actual_obtained_marks, percentage_sum), grade_mappings)
-      result[:heighest] = section.exam_marks.where(subject_id: subject.id).group(:student_id).sum(:actual_obtained).values.max
+      result[:heighest] = section.exam_marks.where(subject_id: subject.id, exam_id: exam_ids).group(:student_id).sum(:actual_obtained).values.max
       response[:collective][:results] << result
     end
     total = {}
-    total[:abs_marks] = exam_marks.sum(:actual_obtained).to_f
-    total[:total] = section.exams.collect(&:percentage).sum * section.subjects.size
+    total[:abs_marks] = exam_marks.where(exam_id: exam_ids).sum(:actual_obtained).to_f
+    total[:total] = section_exams.collect(&:percentage).sum * section.subjects.size
     total[:percentage] = calculate_percentage(total[:abs_marks], total[:total])
     total[:grade] = assign_grade(total[:percentage], grade_mappings)
-    total[:highest] = section.exam_marks.group(:student_id).sum(:actual_obtained).values.max
+    total[:highest] = section.exam_marks.where(exam_id: exam_ids).group(:student_id).sum(:actual_obtained).values.max
     response[:collective][:total] = total
 
     exam_results = []
-    section.exams.each_with_index do |exam, index|
+    section_exams.each_with_index do |exam, index|
+      section_exam_marks = exam.exam_marks
       exam_result = {exam_name: exam.name, exam_percentage: exam.percentage, results: [], total: {}}
       section.subjects.each do |subject|
         result = {}
@@ -133,7 +136,7 @@ class Student < User
         result[:actual_obtained] = subject_exam.try(:actual_obtained)
         result[:percentage] = calculate_percentage(result[:actual_obtained], exam.percentage)
         result[:grade] = subject_exam.try(:grade)
-        result[:heighest] = exam.exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max
+        result[:heighest] = section_exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max
         exam_result[:results] << result
       end
       exam_result[:total][:obtained] = get_obtained_marks(exam_grouped[exam.id])
@@ -141,7 +144,7 @@ class Student < User
       exam_result[:total][:actual_obtained] = get_actual_marks(exam_grouped[exam.id])
       exam_result[:total][:percentage] = calculate_percentage(exam_result[:total][:actual_obtained], exam.percentage*section.subjects.size)
       exam_result[:total][:grade] = assign_grade(exam_result[:total][:percentage], grade_mappings)
-      exam_result[:total][:heighest] = exam.exam_marks.group(:student_id).sum(:obtained).values.max
+      exam_result[:total][:heighest] = section_exam_marks.group(:student_id).sum(:obtained).values.max
 
       exam_results << exam_result
     end
