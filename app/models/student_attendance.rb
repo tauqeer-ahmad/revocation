@@ -9,6 +9,7 @@ class StudentAttendance < ApplicationRecord
 
   scope :of_day, -> (date) {where(day: date)}
   scope :ordered, -> {order(student_id: :asc)}
+  scope :of_student_and_term, -> (student_id, term_id) { where(student_id: student_id, term_id: term_id) }
 
   searchkick index_name: tenant_index_name
 
@@ -17,12 +18,20 @@ class StudentAttendance < ApplicationRecord
       day: day,
       klass_name: klass.name,
       klass_id: klass_id,
-      student_id: student_id,  
+      student_id: student_id,
       section_id: section_id,
       section_name: section.name,
       sutdent_name: student.full_name,
       term_id: term_id,
     }
+  end
+
+  def self.for_month_and_year(month, year)
+    return if month.blank? || year.blank?
+
+    date = Date.new(year.to_i, month.to_i)
+
+    where('day >= ? AND day <= ?', date.beginning_of_month, date.end_of_month)
   end
 
   def display_status
@@ -32,7 +41,7 @@ class StudentAttendance < ApplicationRecord
       when 'leave' then 'L'
     end
   end
-  
+
   def self.fetch_report_data(params, current_term)
     where_clause = {term_id: current_term.id}
     if params[:start_range].present? && params[:end_range].present?
@@ -75,7 +84,7 @@ class StudentAttendance < ApplicationRecord
     end
     [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, start_range, section]
   end
-  
+
   def self.calculate_percentage(value, total)
     return 0.0 if total.zero?
     ((value.to_f/total.to_f)*100).round(1)
@@ -108,7 +117,7 @@ class StudentAttendance < ApplicationRecord
   def search_name
     "Student Attendance #{klass.name} - #{section.name}"
   end
-  
+
   def self.get_report_dates(start_date, end_date)
     [Date.parse(start_date).beginning_of_day, Date.parse(end_date).end_of_day]
   end

@@ -18,6 +18,15 @@ class Attendance < ApplicationRecord
     all
   end
 
+  def self.for_month_and_year(month, year)
+    return if month.blank? || year.blank?
+
+    date = Date.new(year.to_i, month.to_i)
+
+    joins(:attendance_sheet)
+    .where('attendance_sheets.name >= ? AND attendance_sheets.name <= ?', date.beginning_of_month, date.end_of_month)
+  end
+
   def get_attendance_color
     case status
       when 'present' then '#1ab394'

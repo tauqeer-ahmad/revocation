@@ -1,15 +1,27 @@
-class Api::V1::Teacher::AttendancesController < Api::V1::Teacher::TeacherBaseController
-  before_action :validate_params
+module Api
+  module V1
+    module Teacher
+      class AttendancesController < TeacherBaseController
+        before_action :set_section
+        before_action :set_student
 
-  def index
-    @attendances = @attendance_sheet.attendances
-    render json: @attendances
-  end
+        def index
+          @attendances = @section.student_attendances
+                                 .for_month_and_year(params[:month], params[:year])
+                                 .of_student_and_term(@student.id, current_term.id)
 
-  private
+          render json: @attendances
+        end
 
-    def validate_params
-      @attendance_sheet = AttendanceSheet.find params[:attendance_sheet_id]
-      return unauthorized_response("Invalid Access") if @attendance_sheet.blank?
+        private
+          def set_section
+            @section = current_user.sections.find(params[:section_id])
+          end
+
+          def set_student
+           @student = @section.students.find(params[:student_id])
+          end
+      end
     end
+  end
 end

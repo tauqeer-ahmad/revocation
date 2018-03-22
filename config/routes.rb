@@ -63,11 +63,12 @@ Revocation::Application.routes.draw do
 
           resources :students, only: [:index] do
             get :results
+
+            resources :attendances, only: [:index]
           end
         end
 
         resources :attendance_sheets, only: :index
-        resources :attendances, only: :index
       end
     end
   end
