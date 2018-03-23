@@ -7,6 +7,7 @@ class TeacherAttendance < ApplicationRecord
 
   scope :of_day, -> (date) {where(day: date)}
   scope :ordered, -> {order(teacher_id: :asc)}
+  scope :of_term, -> (term_id) { where(term_id: term_id) }
 
   searchkick index_name: tenant_index_name
 
@@ -16,6 +17,14 @@ class TeacherAttendance < ApplicationRecord
       teacher_id: teacher_id,
       term_id: term_id,
     }
+  end
+
+  def self.for_month_and_year(month, year)
+    return if month.blank? || year.blank?
+
+    date = Date.new(year.to_i, month.to_i)
+
+    where('day >= ? AND day <= ?', date.beginning_of_month, date.end_of_month)
   end
 
   def display_status

@@ -69,6 +69,8 @@ Revocation::Application.routes.draw do
         end
 
         resources :attendance_sheets, only: :index
+
+        get :attendances, controller: :attendances, action: :myself
       end
     end
   end
