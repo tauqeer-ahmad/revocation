@@ -55,8 +55,10 @@ jQuery ->
           $(".selectable_exam > [value=#{selected}]").prop('selected', true);
 
   load_sections = (klass_id = 0, section_selector = 0) ->
+    section_selector = $('.selectable_section') unless section_selector.length
     klass_id = $('.selectable_klass :selected').val() unless klass_id.length
     return false unless klass_id
+
     section_selector.empty()
     $('.selectable_subject').empty()
     $('.selectable_exam').empty()
