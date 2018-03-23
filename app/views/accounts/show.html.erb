@@ -1,6 +1,6 @@
 <div class="row wrapper border-bottom white-bg page-heading">
   <div class="col-lg-10">
-    <h2>Account</h2>
+    <h2>Account <%= content_tag :span, current_user.email, class: 'label label-primary' %></h2>
     <ol class="breadcrumb">
       <li>
         <%= link_to 'Home', root_path %>
@@ -12,6 +12,7 @@
     </ol>
   </div>
 </div>
+
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-lg-8">
