@@ -54,13 +54,15 @@ jQuery ->
         if selected
           $(".selectable_exam > [value=#{selected}]").prop('selected', true);
 
-  load_sections = ->
-    klass_id = $('.selectable_klass :selected').val()
+  load_sections = (klass_id = 0, section_selector = 0) ->
+    console.log 'Klass value'
+    console.log klass_id
+    klass_id = $('.selectable_klass :selected').val() unless klass_id.length
     return false unless klass_id
-    $('.selectable_section').empty()
+    section_selector.empty()
     $('.selectable_subject').empty()
     $('.selectable_exam').empty()
-    specific = $('.selectable_section').data('specific')
+    specific = section_selector.data('specific')
     params = "klass_id=#{klass_id}"
     if specific
       params = "klass_id=#{klass_id}&specific=#{specific}"
@@ -72,22 +74,28 @@ jQuery ->
       error: (jqXHR, textStatus, errorThrown) ->
         console.log("AJAX Error: #{textStatus}")
       success: (data, textStatus, jqXHR) ->
-        $('.selectable_section').empty()
+        section_selector.empty()
         $('.selectable_subject').empty()
         $('.selectable_exam').empty()
         i = 0
+
         while i < data.length
-          $('.selectable_section').append(new Option(data[i].name, data[i].id))
+          section_selector.append(new Option(data[i].name, data[i].id))
           i++
-        selected = $('.selectable_section').data('selected')
+        selected = section_selector.data('selected')
         if selected
-          $(".selectable_section > [value=#{selected}]").prop('selected', true);
+          section_selector.children().find("[value=#{selected}]").prop('selected', true);
+          # $(".selectable_section > [value=#{selected}]").prop('selected', true);
         load_subjects()
         load_exams()
 
   load_sections()
+
   $('.selectable_klass').change ->
-    load_sections()
+    klass_id = $(this).val()
+    section_selector = $(this).closest('.row').children().find('.selectable_section')
+
+    load_sections(klass_id, section_selector) if klass_id.length
 
   $('.selectable_section').change ->
     load_subjects()
