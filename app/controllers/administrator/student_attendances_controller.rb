@@ -1,7 +1,18 @@
 class Administrator::StudentAttendancesController < ApplicationController
   layout "pdf", only: [:report]
+  before_action :set_term_date_ranges, only: [:index, :single]
+  before_action :verify_date_range, only: [:index, :single]
+
   def index
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
+  end
+
+  def single
+    @student = Student.find(params[:student_id])
+
+    @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
+
+    @section = @student.current_section(current_term.id)
   end
 
   def report
@@ -85,5 +96,21 @@ class Administrator::StudentAttendancesController < ApplicationController
       params[:section][:student_attendances_attributes][key] = values.merge!({term_id: @section.term_id, section_id: @section.id, klass_id: @section.klass_id})
     end
     params.require(:section).permit(student_attendances_attributes: [:id, :day, :late, :status, :remarks, :send_sms, :term_id, :student_id, :section_id, :klass_id])
+  end
+
+  def set_term_date_ranges
+    gon.start_date = current_term.start_date.strftime('%m/%d/%Y')
+    gon.end_date = current_term.end_date.strftime('%m/%d/%Y')
+  end
+
+  def verify_date_range
+    return if params[:start_range].blank? || params[:end_range].blank?
+
+    start_date = Date.parse(params[:start_range])
+    end_date = Date.parse(params[:end_range])
+
+    if start_date < current_term.start_date || end_date > current_term.end_date
+      return redirect_back(fallback_location: root_path, alert: 'Invalid DateRange Given.')
+    end
   end
 end

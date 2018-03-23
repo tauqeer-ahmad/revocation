@@ -44,21 +44,30 @@ class StudentAttendance < ApplicationRecord
 
   def self.fetch_report_data(params, current_term)
     where_clause = {term_id: current_term.id}
+    where_clause[:student_id] = params[:student_id] if params[:student_id].present?
+
     if params[:start_range].present? && params[:end_range].present?
       start_range, end_range = StudentAttendance.get_report_dates(params[:start_range], params[:end_range])
       where_clause[:day] = start_range...end_range
     end
-    attendances = []
-    if params[:section_id].present?
-      where_clause[:section_id] = params[:section_id].to_i if params[:section_id].present?
-      section = Section.find(params[:section_id])
-      attendances = StudentAttendance.lookup '', {where: where_clause, order: {day: :asc}}
+
+    section = if params[:section_id].present?
+      where_clause[:section_id] = params[:section_id]
+      Section.find(params[:section_id])
     end
+
+    attendances = if params[:start_range].present? && params[:end_range].present?
+      StudentAttendance.lookup '', { where: where_clause, order: { day: :asc } }
+    else
+      []
+    end
+
     month_statistics = {}
     month_late_statistics = {}
     month_grouped = attendances.group_by { |m| m.day.beginning_of_month }
     formated_results = {}
     key_to_dates = {}
+
     month_grouped.each_with_index do |(month, records), index|
       key = [Date::MONTHNAMES[month.month], month.year].join('-')
       key_to_dates[key] = {start_date: month.beginning_of_month, end_date: month.end_of_month}
@@ -72,6 +81,7 @@ class StudentAttendance < ApplicationRecord
         key = [month.beginning_of_month.strftime("%d %b, %Y"), end_range.strftime("%d %b, %Y")].join(' - ')
         key_to_dates[key] = {start_date: month.beginning_of_month, end_date: end_range}
       end
+
       student_grouped = records.group_by(&:student_id)
       formated_results[key] = student_grouped
       month_statistics[key] = {Present: 0, Absent: 0, Leave: 0} if month_statistics[key].blank?
@@ -82,6 +92,7 @@ class StudentAttendance < ApplicationRecord
       month_late_statistics[key]["On Time"] = calculate_percentage(month_late_statistics[key]["On Time"], total_present)
       month_late_statistics[key][:Late] = calculate_percentage(month_late_statistics[key][:Late], total_present)
     end
+
     [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, start_range, section]
   end
 

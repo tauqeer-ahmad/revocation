@@ -1,0 +1,66 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Attendance Report
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>Student's Attandance Report</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="ibox">
+        <div class="ibox-content">
+          <%= form_tag single_attendance_administrator_student_attendances_path, method: :get do %>
+            <%= hidden_field_tag :student_id, @student.id %>
+            <%= hidden_field_tag :klass_id, @student.current_section(current_term.id).klass_id %>
+            <%= hidden_field_tag :student_id, @student.current_section(current_term.id).id %>
+
+            <div class="row">
+              <div id="subject_holder">
+                <div class="col-md-3">
+                  <%= date_field_tag :start_range, params[:start_range], class: "hide start_range" %>
+                  <%= date_field_tag :end_range, params[:end_range], class: "hide end_range" %>
+                  <div class="form-group">
+                    <label style="margin-bottom: 5px;">Date Range</label>
+
+                    <div class="input-group">
+                      <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                        <span></span> <b class="caret"></b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-2" style="margin-top: 20px;">
+                <center>
+                  <button type="submit" class="btn btn-block btn-sm btn-primary">View Report</button>
+                </center>
+              </div>
+            </div>
+          <% end %>
+
+          <div id="student_attendance_report">
+             <%= render 'attendance_report' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

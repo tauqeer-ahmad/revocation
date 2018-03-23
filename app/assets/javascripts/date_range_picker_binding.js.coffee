@@ -23,6 +23,8 @@ bind_predefined_range_picker = ->
     startDate: start
     endDate: end
     showDropdowns: true
+    minDate: gon.start_date
+    maxDate: gon.end_date
     ranges:
       'Today': [
         moment()
@@ -49,6 +51,3 @@ bind_predefined_range_picker = ->
 
 $(window).load ->
   bind_predefined_range_picker()
-
-
-
