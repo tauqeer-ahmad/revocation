@@ -112,7 +112,7 @@ class Student < User
       result[:total] = section_exams.collect(&:percentage).sum
       result[:percentage] = calculate_percentage(actual_obtained_marks, percentage_sum)
       result[:grade] = assign_grade(calculate_percentage(actual_obtained_marks, percentage_sum), grade_mappings)
-      result[:heighest] = section.exam_marks.where(subject_id: subject.id, exam_id: exam_ids).group(:student_id).sum(:actual_obtained).values.max
+      result[:highest] = section.exam_marks.where(subject_id: subject.id, exam_id: exam_ids).group(:student_id).sum(:actual_obtained).values.max
       response[:collective][:results] << result
     end
     total = {}
@@ -136,7 +136,7 @@ class Student < User
         result[:actual_obtained] = subject_exam.try(:actual_obtained)
         result[:percentage] = calculate_percentage(result[:actual_obtained], exam.percentage)
         result[:grade] = subject_exam.try(:grade)
-        result[:heighest] = section_exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max
+        result[:highest] = section_exam_marks.where(subject_id: subject.id).pluck(:actual_obtained).max
         exam_result[:results] << result
       end
       exam_result[:total][:obtained] = get_obtained_marks(exam_grouped[exam.id])
@@ -144,7 +144,7 @@ class Student < User
       exam_result[:total][:actual_obtained] = get_actual_marks(exam_grouped[exam.id])
       exam_result[:total][:percentage] = calculate_percentage(exam_result[:total][:actual_obtained], exam.percentage*section.subjects.size)
       exam_result[:total][:grade] = assign_grade(exam_result[:total][:percentage], grade_mappings)
-      exam_result[:total][:heighest] = section_exam_marks.group(:student_id).sum(:obtained).values.max
+      exam_result[:total][:highest] = section_exam_marks.group(:student_id).sum(:obtained).values.max
 
       exam_results << exam_result
     end
