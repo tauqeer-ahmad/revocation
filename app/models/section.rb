@@ -84,7 +84,7 @@ class Section < ApplicationRecord
     response = {}
     section_subjects = self.subjects
     subject_names = section_subjects.collect(&:name)
-    exams.each do |exam|
+    exams.active.each do |exam|
       response[exam.name] = {exam_percentage: exam.percentage, subject_names: subject_names, results: []} if response[exam.name].blank?
       results = []
       self.students.each do |student|
