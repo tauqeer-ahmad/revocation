@@ -1,9 +1,9 @@
-<div class="wrapper wrapper-content  animated fadeInRight">
+<div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-sm-12">
       <div class="ibox">
         <div>
-          <div class="clients-list no-scroll no-fixed-height">
+          <div class="clients-list no-fixed-height">
             <ul class="nav nav-tabs">
               <% @results.each_with_index do |(exam_name, results), index| %>
                 <li class="<%= get_active_tab_class(index) %>"><a data-toggle="tab" href="#<%= [exam_name.parameterize, index].join('-') %>"> <%= exam_name.humanize %> <small>(<%= results[:exam_percentage] %> %)</small></a></li>

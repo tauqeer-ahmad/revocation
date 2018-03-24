@@ -29,7 +29,7 @@ class ExamMark < ApplicationRecord
   def subject_name
     subject.name
   end
-  
+
   def grade_map
     self.section.grades
     grade_mappings = {}
