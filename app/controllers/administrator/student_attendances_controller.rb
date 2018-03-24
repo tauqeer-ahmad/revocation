@@ -1,7 +1,7 @@
 class Administrator::StudentAttendancesController < ApplicationController
   layout "pdf", only: [:report]
   before_action :set_term_date_ranges, only: [:index, :single]
-  before_action :verify_date_range, only: [:index, :single]
+  before_action :verify_date_range, only: [:index, :single, :report]
 
   def index
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
@@ -16,13 +16,12 @@ class Administrator::StudentAttendancesController < ApplicationController
   end
 
   def report
-    @start_date = DateTime.parse(params[:start_date]).beginning_of_day
-    @end_date = DateTime.parse(params[:end_date]).end_of_day
+    @start_date = DateTime.parse(params[:start_range]).beginning_of_day
+    @end_date = DateTime.parse(params[:start_range]).end_of_day
     section_id = params[:section_id]
     @attendances, @report_statistics, @report_late_statistics, @section, @report_range = StudentAttendance.fetch_pdf_report_data(@start_date, @end_date, section_id, current_term)
     return redirect_back(fallback_location: root_path, alert: "No Results found") if @attendances.blank?
     respond_to do |format|
-      format.html
       format.xlsx {
         response.headers['Content-Disposition'] = "attachment; filename=#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx"
       }
