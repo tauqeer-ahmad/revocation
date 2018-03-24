@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180320094152) do
+ActiveRecord::Schema.define(version: 20180322224628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20180320094152) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.datetime "deleted_at"
     t.string   "status"
+    t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
     t.index ["status"], name: "index_assignments_on_status", using: :btree
@@ -237,7 +237,6 @@ ActiveRecord::Schema.define(version: 20180320094152) do
     t.index ["klass_id"], name: "index_marksheets_on_klass_id", using: :btree
     t.index ["section_id"], name: "index_marksheets_on_section_id", using: :btree
     t.index ["subject_id"], name: "index_marksheets_on_subject_id", using: :btree
-    t.index ["term_id", "exam_id", "klass_id", "section_id", "subject_id"], name: "marksheet_combined_index", unique: true, using: :btree
     t.index ["term_id"], name: "index_marksheets_on_term_id", using: :btree
   end
 
@@ -317,10 +316,10 @@ ActiveRecord::Schema.define(version: 20180320094152) do
     t.integer  "student_id"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.string   "roll_number", limit: 32
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.boolean  "promoted",               default: false
+    t.integer  "roll_number"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "promoted",    default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|
@@ -466,7 +465,7 @@ ActiveRecord::Schema.define(version: 20180320094152) do
     t.string   "last_name",              limit: 50
     t.string   "address"
     t.string   "role",                   limit: 12
-    t.string   "roll_number",            limit: 12
+    t.integer  "roll_number"
     t.string   "qualification"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
