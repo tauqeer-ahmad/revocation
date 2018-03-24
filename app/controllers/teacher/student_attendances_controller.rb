@@ -14,7 +14,7 @@ class Teacher::StudentAttendancesController < ApplicationController
     respond_to do |format|
       format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = "attachment; filename='#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx'"
+        response.headers['Content-Disposition'] = "attachment; filename=#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx"
       }
       format.pdf do
         render pdf: "#{@section.klass_name} - #{@section.name} - #{@report_range}",

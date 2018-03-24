@@ -12,7 +12,7 @@ class Administrator::TeacherAttendancesController < ApplicationController
     respond_to do |format|
       format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = "attachment; filename='Teacher Attendance Report - #{@report_range}.xlsx'"
+        response.headers['Content-Disposition'] = "attachment; filename=Teacher Attendance Report - #{@report_range}.xlsx"
       }
       format.pdf do
         render pdf: "Teacher's Attendance Report - #{@report_range}",
