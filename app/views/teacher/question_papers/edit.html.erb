@@ -1,9 +1,47 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Question Papers
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', root_path %>
+      </li>
+
+      <li>
+        <%= link_to 'List', [:question_papers] %>
+      </li>
+
+      <li>
+        <%= link_to @question_paper.subject.name, '#' %>
+      </li>
+
+      <li>
+        <%= link_to @question_paper.exam.name, '#' %>
+      </li>
+
+      <li class='active'>
+        <strong>Edit</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
 <div class='wrapper wrapper-content animated fadeInRight'>
   <div class='row'>
     <div class='col-sm-12'>
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5><%= @question_paper.klass.name %>-<%= @question_paper.section.name %> Question Paper for <%= @question_paper.subject.name %></h5>
+          <h5>
+            <%= @question_paper.klass.name %> - <%= @question_paper.section.name %> Question Paper for
+            <span class='label label-default pull-right'><%= @question_paper.exam.name %></span>
+            <span class='label label-warning pull-right' style='background-color: <%= @question_paper.subject.color %>'><%= @question_paper.subject.name %></span>
+          </h5>
           <div class="ibox-tools">
             <a class="collapse-link">
               <i class="fa fa-chevron-up"></i>
@@ -19,11 +57,13 @@
         <div class="ibox-content">
           <%= form_for(@question_paper, html: { class: "form-vertical", id: "question-paper-form" }) do |f| %>
             <%= render partial: 'teacher/question_papers/form_content', locals: {f: f} %>
-            <hr/>
-            <div class= 'row m-t-lg'>
-              <div class='col-md-11'>
-                <%= submit_tag "Publish", class: "btn btn-success m-l-md pull-right" %>
-                <%= link_to 'Back', question_papers_path, class: 'btn btn-info pull-right' %>
+            <hr class='b-heading'>
+
+            <div class='form-group text-center'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <%= submit_tag 'Update', class: 'btn btn-lg btn-primary' %>
+                </div>
               </div>
             </div>
           <% end %>

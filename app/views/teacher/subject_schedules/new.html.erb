@@ -41,10 +41,12 @@
           <%= form_for(@schedule, html: { class: "form-vertical", id: "schedule-form" }) do |f| %>
             <%= render partial: 'teacher/subject_schedules/form_content', locals: {f: f} %>
             <hr/>
-            <div class= 'row m-t-lg'>
-              <div class='col-md-11'>
-                <%= submit_tag "Publish", class: "btn btn-success m-l-md pull-right" %>
-                <%= link_to 'Back', subject_schedules_path, class: 'btn btn-info pull-right' %>
+
+            <div class='form-group text-center'>
+              <div class='row'>
+                <div class='col-sm-12'>
+                  <%= submit_tag 'Create', class: 'btn btn-lg btn-primary' %>
+                </div>
               </div>
             </div>
           <% end %>

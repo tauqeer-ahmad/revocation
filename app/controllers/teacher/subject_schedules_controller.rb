@@ -4,9 +4,10 @@ class Teacher::SubjectSchedulesController < ApplicationController
   before_action :validate_term, only: [:new, :edit, :create, :update, :destroy]
 
   def index
-    @schedules = current_user.subject_schedules.of_term(current_term.id).includes(:teacher, :subject, :klass, :section, :term)
-    @klasses = current_user.my_klasses
-    @sections, @subjects = [], []
+    @subject_schedules = current_user.subject_schedules
+                             .of_term(current_term.id)
+                             .includes(:teacher, :subject, :klass, :section, :term)
+                             .group_by { |subject_schedule| subject_schedule.section }
   end
 
   def new
