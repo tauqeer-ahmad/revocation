@@ -1,6 +1,7 @@
 class Administrator::TeacherAttendancesController < ApplicationController
   layout "pdf", only: [:report]
   before_filter :verify_date_range, only: [:index, :report]
+  before_action :set_term_date_ranges, only: [:index]
   def index
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @teachers = TeacherAttendance.fetch_report_data(params, current_term)
   end
@@ -82,6 +83,11 @@ class Administrator::TeacherAttendancesController < ApplicationController
       params[:term][:teacher_attendances_attributes][key] = values.merge!({term_id: current_term.id})
     end
     params.require(:term).permit(teacher_attendances_attributes: [:id, :day, :late, :status, :remarks, :term_id, :teacher_id, :arrival, :departure])
+  end
+
+  def set_term_date_ranges
+    gon.start_date = current_term.start_date.strftime('%m/%d/%Y')
+    gon.end_date = current_term.end_date.strftime('%m/%d/%Y')
   end
 
   def verify_date_range

@@ -1,6 +1,8 @@
 class Teacher::StudentAttendancesController < ApplicationController
   layout "pdf", only: [:report]
+  before_action :set_term_date_ranges, only: [:index]
   before_filter :verify_date_range, only: [:index, :report]
+
   def index
     @section_optgroup = current_user.optgroup_incharged_sections_list(current_term.id)
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
@@ -87,6 +89,11 @@ class Teacher::StudentAttendancesController < ApplicationController
       params[:section][:student_attendances_attributes][key] = values.merge!({term_id: @section.term_id, section_id: @section.id, klass_id: @section.klass_id})
     end
     params.require(:section).permit(student_attendances_attributes: [:id, :day, :late, :status, :remarks, :send_sms, :term_id, :student_id, :section_id, :klass_id])
+  end
+
+  def set_term_date_ranges
+    gon.start_date = current_term.start_date.strftime('%m/%d/%Y')
+    gon.end_date = current_term.end_date.strftime('%m/%d/%Y')
   end
 
   def verify_date_range
