@@ -106,7 +106,7 @@ class Administrator::StudentsController < ApplicationController
     return redirect_back(fallback_location: root_path, alert: "No Results found") if @results.blank?
     respond_to do |format|
       format.xlsx {
-        response.headers['Content-Disposition'] = "attachment; filename='Marksheet - #{@student.name}.xlsx'"
+        response.headers['Content-Disposition'] = "attachment; filename=Marksheet - #{@student.name}.xlsx"
       }
       format.pdf do
         render pdf: "Marksheet - #{@student.name}",

@@ -227,6 +227,11 @@ module ApplicationHelper
     return results_section_student_path(section, student) if current_user.teacher?
   end
 
+  def get_result_report_path(current_user, student, format, section={})
+    return results_report_administrator_student_path(student, format: format) if current_user.administrator?
+    return results_report_section_student_path(section, student, format: format) if current_user.teacher?
+  end
+
   def display_section_incharge(section, current_user)
     if section.incharge_id != current_user.id
       content_tag(:span, class: 'label label-primary') do

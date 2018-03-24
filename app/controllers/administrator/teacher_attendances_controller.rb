@@ -1,18 +1,20 @@
 class Administrator::TeacherAttendancesController < ApplicationController
   layout "pdf", only: [:report]
+  before_filter :verify_date_range, only: [:index, :report]
+  before_action :set_term_date_ranges, only: [:index]
   def index
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @teachers = TeacherAttendance.fetch_report_data(params, current_term)
   end
 
   def report
-    @start_date = DateTime.parse(params[:start_date]).beginning_of_day
-    @end_date = DateTime.parse(params[:end_date]).end_of_day
+    @start_date = DateTime.parse(params[:start_range]).beginning_of_day
+    @end_date = DateTime.parse(params[:end_range]).end_of_day
     @attendances, @report_statistics, @report_late_statistics, @report_range, @teachers = TeacherAttendance.fetch_pdf_report_data(@start_date, @end_date, current_term)
     return redirect_back(fallback_location: root_path, alert: "No Results found") if @attendances.blank?
     respond_to do |format|
       format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = "attachment; filename='Teacher Attendance Report - #{@report_range}.xlsx'"
+        response.headers['Content-Disposition'] = "attachment; filename=Teacher Attendance Report - #{@report_range}.xlsx"
       }
       format.pdf do
         render pdf: "Teacher's Attendance Report - #{@report_range}",
@@ -81,5 +83,21 @@ class Administrator::TeacherAttendancesController < ApplicationController
       params[:term][:teacher_attendances_attributes][key] = values.merge!({term_id: current_term.id})
     end
     params.require(:term).permit(teacher_attendances_attributes: [:id, :day, :late, :status, :remarks, :term_id, :teacher_id, :arrival, :departure])
+  end
+
+  def set_term_date_ranges
+    gon.start_date = current_term.start_date.strftime('%m/%d/%Y')
+    gon.end_date = current_term.end_date.strftime('%m/%d/%Y')
+  end
+
+  def verify_date_range
+    return if params[:start_range].blank? || params[:end_range].blank?
+
+    start_date = Date.parse(params[:start_range])
+    end_date = Date.parse(params[:end_range])
+
+    if start_date < current_term.start_date || end_date > current_term.end_date
+      return redirect_back(fallback_location: root_path, alert: 'Invalid DateRange Given.')
+    end
   end
 end

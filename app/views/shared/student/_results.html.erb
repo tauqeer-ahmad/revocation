@@ -3,8 +3,8 @@
   <h4 class='modal-title text-center'>Marksheet </h4>
   <div class='text-center'>
     <div class="btn-group">
-      <%= link_to 'EXCEL', results_report_administrator_student_path(@student, format: :xlsx), class: 'btn btn-primary btn-sm btn-outline' %>
-      <%= link_to 'PDF', results_report_administrator_student_path(@student, format: :pdf), class: 'btn btn-primary btn-sm btn-outline' %>
+      <%= link_to 'EXCEL', get_result_report_path(current_user, @student, :xlsx, section), class: 'btn btn-primary btn-sm btn-outline' %>
+      <%= link_to 'PDF', get_result_report_path(current_user, @student, :pdf, section), class: 'btn btn-primary btn-sm btn-outline' %>
     </div>
   </div>
 </div>
@@ -25,7 +25,7 @@
               Class: <span class="label label-info"><%= @student.current_section(current_term.id).klass.name %></span>
             </h4>
             <h4>
-              Section: <span class="label label-warning">asdada asdada <%= @student.current_section(current_term.id).name %></span>
+              Section: <span class="label label-warning"><%= @student.current_section(current_term.id).name %></span>
             </h4>
           </div>
         </div>
