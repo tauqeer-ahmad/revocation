@@ -132,4 +132,26 @@ class StudentAttendance < ApplicationRecord
   def self.get_report_dates(start_date, end_date)
     [Date.parse(start_date).beginning_of_day, Date.parse(end_date).end_of_day]
   end
+
+  def get_attendance_color
+    case status
+      when 'present' then '#1ab394'
+      when 'absent' then '#ed5565'
+      when 'leave' then '#f8ac59'
+    end
+  end
+
+  def self.attendance_events(current_user, current_term)
+    attendances = self.of_student_and_term(current_user.id, current_term.id)
+
+    attendances.collect do |attendance|
+      {
+        title: ['Attendance: ', attendance.status.capitalize].join,
+        start: attendance.day.to_s,
+        color: attendance.get_attendance_color,
+        className: ['text-center', 'attendance-event'],
+        allDay: true,
+      }
+    end
+  end
 end

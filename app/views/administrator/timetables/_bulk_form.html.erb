@@ -3,8 +3,12 @@
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
         <div class="ibox-title">
-          <h5>Add a timetables for <%= @section.name%> <small> Please fill the details correctly</small></h5>
+          <h5>
+            Add a timetables for <%= @section.name %>
+            <small>Please fill the details correctly</small>
+          </h5>
         </div>
+
         <div class="ibox-content">
           <%= nested_form_for([:administrator, @section], url: bulk_create_administrator_section_timetables_path(@section), method: :post,  html: {class: "form-horizontal"}, validate: true) do |f| %>
             <div class="row">
@@ -24,6 +28,7 @@
                 Actions
               </div>
             </div>
+
             <%= f.fields_for :timetables do |ff| %>
               <div class="row timetable_fields">
                 <div class="col-sm-3">
@@ -45,18 +50,22 @@
                 </div>
               </div>
             <% end %>
-            <p class="m-t">
-              <%= f.link_to_add "Add new timetable", :timetables, class: "btn btn-sm btn-success" %>
-            </p>
 
-           <div class='clearfix'></div>
-
-            <div class='row'>
-              <div class='col-sm-12'>
-                <%= submit_tag 'Submit', class: 'btn btn-primary pull-right' %>
+            <div class='row text-center'>
+              <div class='col-sm-12 m-b-md'>
+                <%= f.link_to_add :timetables, class: 'btn btn-sm btn-info m-t-lg' do %>
+                  <i class='fa fa-plus'></i> Add new timetable
+                <% end %>
               </div>
             </div>
 
+           <div class='clearfix'></div>
+
+            <div class='row text-center'>
+              <div class='col-sm-12'>
+                <%= submit_tag 'Submit', class: 'btn btn-primary btn-lg' %>
+              </div>
+            </div>
           <% end %>
         </div>
       </div>

@@ -2,7 +2,7 @@ class Student::HomeController < ApplicationController
   layout 'empty', only: [:lock_account]
 
   def index
-    gon.attendance_events = Attendance.attendance_events(current_user, current_term)
+    gon.attendance_events = StudentAttendance.attendance_events(current_user, current_term)
 
     gon.assignment_events = Assignment.assignment_events(current_user, current_term)
 

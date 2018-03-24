@@ -58,7 +58,7 @@
               <li>
                 <%= link_to notice_path(notice) do %>
                   <div>
-                    <i class='fa fa-bell-o fa-fw'></i><%= notice.title.truncate(25) %>
+                    <i class='fa fa-bell-o fa-fw'></i> <%= notice.title.truncate(25) %>
                     <span class='pull-right text-muted small'><%= time_ago_in_words(notice.created_at) %></span>
                   </div>
                 <% end %>

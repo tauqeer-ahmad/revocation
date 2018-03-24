@@ -1,71 +1,37 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-10">
-    <h2>Class Routine</h2>
-    <ol class="breadcrumb">
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-10'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Timetable
+    </h2>
+
+    <ol class='breadcrumb'>
       <li>
         <%= link_to 'Home', root_path %>
       </li>
-      <li class="active">
-        <strong>Class Routine</strong>
+
+      <li class='active'>
+        <strong>List</strong>
       </li>
     </ol>
   </div>
 </div>
 
-<div class="wrapper wrapper-content  animated fadeInRight">
-  <div class="row">
-    <div id='left-section' class="col-sm-12">
-      <div class="ibox">
-        <div class="ibox-content">
-          <h2>Section TimeTable : <strong><%= @section.klass_name %></strong> - <strong><%= @section.name %></strong></h2>
-
-          <div class="timetables-list">
-            <div class="tab-content">
-              <div id="tab-1" class="tab-pane active">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="panel panel-default" data-collapsed="0">
-                      <div class="panel-body">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
-                          <tbody>
-                            <% Timetable::DAYS.each do |day, name| %>
-                              <tr>
-                                <td class="timetabe-day-cell vertical-middle"><%= name %></td>
-                                <td>
-                                  <% @timetables[day].each do |timetable| %>
-                                    <div class="col-xs-3">
-                                      <div class="custom_timetable-widget gray-bg">
-                                        <ul class="list-unstyled">
-                                          <li>
-                                            <span class="fa fa-book"></span>
-                                            <%= timetable.subject_name %>
-                                          </li>
-                                          <li>
-                                            <span class="fa fa-clock-o"></span>
-                                            <%= timetable.timings %>
-                                          </li>
-                                          <li>
-                                            <span class="fa fa-user"></span>
-                                            <%= timetable.teacher_name %>
-                                          </li>
-                                        </ul>
-                                      </div>
-                                    </div>
-                                  <% end if @timetables[day].present? %>
-                                </td>
-                              </tr>
-                            <% end %>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<div class='wrapper wrapper-content  animated fadeInRight'>
+  <div class='row'>
+    <div id='left-section' class='col-sm-12'>
+      <div class='ibox'>
+        <div class='ibox-content'>
+          <div id='timetable-calendar'></div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  Timetable.init();
+<% end %>
