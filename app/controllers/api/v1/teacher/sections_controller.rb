@@ -13,7 +13,6 @@ class Api::V1::Teacher::SectionsController < Api::V1::Teacher::TeacherBaseContro
 
   private
     def set_section
-      @section = current_term.sections.where(id: params[:id]).last
-      return record_not_found if @section.blank?
+      @section = current_term.sections.find(params[:section_id])
     end
 end

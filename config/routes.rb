@@ -57,6 +57,8 @@ Revocation::Application.routes.draw do
 
       namespace :teacher do
         resources :sections, only: [:index] do
+          get :tabulation_sheet
+
           resources :question_papers, only: [:index]
           resources :subject_schedules, only: [:index]
           resources :assignments, only: [:index, :show]
