@@ -7,7 +7,7 @@ wb.styles do |s|
   style_array = [header, normal]
 end
 
-wb.add_worksheet(name: "Student Details}") do |sheet|
+wb.add_worksheet(name: "Student Details") do |sheet|
   header = ["Name", "Roll Number", "Registration Number", "Class", "Section"]
   sheet.add_row header, style: style_array[0]
   student_details = [@student.name, @student.roll_number, @student.registration_number, @student.current_section(current_term.id).klass.name, @student.current_section(current_term.id).name]
