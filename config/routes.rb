@@ -307,6 +307,7 @@ Revocation::Application.routes.draw do
         resources :students, only: [:index] do
           member do
             get :results
+            get :results_report
           end
           collection do
             get :autocomplete

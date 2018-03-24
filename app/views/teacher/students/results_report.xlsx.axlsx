@@ -1,0 +1,41 @@
+wb = xlsx_package.workbook
+style_array = []
+wb.styles do |s|
+  normal = s.add_style alignment: {horizontal: :center, wrap_text: true, width: 100}, fg_color: "373534", b: true
+  header = s.add_style alignment: {horizontal: :center}, sz: 10,  b: true
+
+  style_array = [header, normal]
+end
+
+wb.add_worksheet(name: "Student Details") do |sheet|
+  header = ["Name", "Roll Number", "Registration Number", "Class", "Section"]
+  sheet.add_row header, style: style_array[0]
+  student_details = [@student.name, @student.roll_number, @student.registration_number, @student.current_section(current_term.id).klass.name, @student.current_section(current_term.id).name]
+  sheet.add_row student_details, style: style_array[1]
+end
+
+wb.add_worksheet(name: "Collective Marksheet") do |sheet|
+  header = ["Subject", "Abs. Marks", "Total", "Percentage", "Grade", "Highest"]
+  sheet.add_row header, style: style_array[0]
+
+  @results[:collective][:results].each do |result|
+    row = [result[:subject], result[:abs_marks], result[:total], result[:percentage], result[:grade], result[:highest]]
+    sheet.add_row row, style: style_array[1]
+  end
+  total_row = ["Total", @results[:collective][:total][:abs_marks], @results[:collective][:total][:total], @results[:collective][:total][:percentage], @results[:collective][:total][:grade], @results[:collective][:total][:highest]]
+  sheet.add_row total_row, style: style_array[1]
+end
+
+@results[:exam_results].each do |exam_result|
+  wb.add_worksheet(name: "#{exam_result[:exam_name]} - #{exam_result[:exam_percentage]}%") do |sheet|
+    header = ["Subject", "Obtained", "Total", "Weightage", "Percentage", "Grade", "Highest"]
+    sheet.add_row header, style: style_array[0]
+
+    exam_result[:results].each do |result|
+      row = [result[:subject], result[:obtained], result[:total], result[:actual_obtained], result[:percentage], result[:grade], result[:highest]]
+      sheet.add_row row, style: style_array[1]
+    end
+    total_row = ["Total", exam_result[:total][:obtained], exam_result[:total][:total], exam_result[:total][:actual_obtained], exam_result[:total][:percentage], exam_result[:total][:grade], exam_result[:total][:highest]]
+    sheet.add_row total_row, style: style_array[1]
+  end
+end
