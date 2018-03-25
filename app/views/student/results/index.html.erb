@@ -1,12 +1,20 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-10">
-    <h2>Exam Report</h2>
-    <ol class="breadcrumb">
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-10'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Exam Report
+    </h2>
+
+    <ol class='breadcrumb'>
       <li>
         <%= link_to 'Home', root_path %>
       </li>
-      <li class="active">
-        <strong>Results</strong>
+
+      <li class='active'>
+        <strong>List</strong>
       </li>
     </ol>
   </div>
@@ -26,6 +34,7 @@
               </div>
             </div>
           </p>
+
           <div class='modal-body form-horizontal'>
             <div class='row'>
               <div class='col-sm-12'>
@@ -35,6 +44,8 @@
                       <th>Name</th>
                       <th>Roll Number</th>
                       <th>Registration Number</th>
+                      <th>Class</th>
+                      <th>Section</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -42,6 +53,8 @@
                       <td><span class="text-info text-bold"><%= @student.name %></span></td>
                       <td><span class="text-info text-bold"><%= @student.roll_number %></span></td>
                       <td><span class="text-info text-bold"><%= @student.registration_number %></span></td>
+                      <td><span class="text-info text-bold"><%= @section.klass_name %></span></td>
+                      <td><span class="text-info text-bold"><%= @section.name %></span></td>
                     </tr>
                   </tbody>
                 </table>
