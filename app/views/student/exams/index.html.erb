@@ -1,12 +1,20 @@
-<div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-9">
-    <h2>Exams</h2>
-    <ol class="breadcrumb">
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Exams
+    </h2>
+
+    <ol class='breadcrumb'>
       <li>
         <%= link_to 'Home', root_path %>
       </li>
-      <li class="active">
-        <strong>Exams List</strong>
+
+      <li class='active'>
+        <strong>List</strong>
       </li>
     </ol>
   </div>
@@ -17,9 +25,7 @@
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <h2>Exams List</h2>
           <div class="clients-list">
-            <%= render partial: 'shared/search_box', locals: {path: exams_path} %>
             <div class="full-height-scroll">
               <div class="table-responsive">
                 <table class="table table-striped table-hover table-bordered">
@@ -32,6 +38,7 @@
                       <th>Actions</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     <% @exams.each_with_index do |exam, index| %>
                       <tr>
