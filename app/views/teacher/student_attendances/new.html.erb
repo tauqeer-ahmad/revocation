@@ -31,7 +31,7 @@
                 <div class="form-group">
                   <label style="margin-bottom: 5px;">Day</label>
                   <div class="input-group">
-                    <%= text_field_tag :date, nil, placeholder: 'Select Day', class: 'form-control datepicker', required: true %>
+                    <%= text_field_tag :date, params[:date], placeholder: 'Select Day', class: 'form-control datepicker', required: true %>
                     </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@
                 <div class="form-group">
                   <label style="margin-bottom: 5px;">Section</label>
                   <div class="input-group">
-                    <%= select_tag :section_id, grouped_options_for_select(@section_optgroup), prompt: "Select Section", class: "select2_dropdown selectable_section", disabled:false, required: true, data: {selected: params[:section_id]} %>
+                    <%= select_tag :section_id, grouped_options_for_select(@section_optgroup, params[:section_id]), prompt: "Select Section", class: "select2_dropdown", disabled:false, required: true, data: {selected: params['section_id']} %>
                   </div>
                 </div>
               </div>
