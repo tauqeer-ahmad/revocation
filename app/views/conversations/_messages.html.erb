@@ -23,7 +23,7 @@
               <%= form_for conversation.messages.build, url: conversation_messages_path(conversation), remote: true, html: { class: 'form-horizontal' } do |f| %>
 
                 <div class='input-group m-t-sm'>
-                  <%= f.text_area :body, required: true, maxlength: 250, placeholder: 'Type message...', class: 'form-control' %>
+                  <%= f.text_area :body, required: true, maxlength: 250, placeholder: 'Type message...', class: 'form-control message-textarea' %>
                   <span class='input-group-btn'>
                     <%= f.submit 'Send!', class: 'btn btn-lg btn-primary send-grp-btn' %>
                   </span>

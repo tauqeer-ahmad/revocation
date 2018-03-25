@@ -33,12 +33,13 @@
             <ul class='folder-list no-padding'>
               <% @conversations.each do |conversation| %>
                 <% unread_messages_count = conversation.messages.secondary(current_user.id).unread.count %>
+                <% second_user = conversation.second_user(current_user) %>
 
                 <li id='conversation_link_<%= conversation.id %>' class='conversation-selection-list <%= 'active' if conversation.id == @conversation.id %>'>
                   <%= link_to fetch_conversations_path(conversation_id: conversation.id), remote: true do %>
-                    <%= image_tag(conversation.second_user(current_user).avatar.url(:medium), width: 50, height: 50, class: 'img-rounded m-r-sm') %>
+                    <%= image_tag(second_user.avatar.url(:medium), width: 50, height: 50, class: 'img-rounded m-r-sm') %>
 
-                    <strong><%= conversation.second_user(current_user).name %></strong>
+                    <strong><%= second_user.name %></strong>
                     <%= content_tag :small, unread_messages_count, id: 'messages-count', class: 'label label-danger pull-right m-l-xs' unless unread_messages_count.zero? %>
                   <% end %>
                 </li>
@@ -65,3 +66,10 @@
   <% end %>
 </div>
 
+<script>
+  $('.message-textarea').keypress(function(e){
+    if (!e.shiftKey && e.which == 13) {
+      $(this).closest('form').submit();
+    }
+  });
+</script>
