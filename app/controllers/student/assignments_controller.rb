@@ -3,7 +3,9 @@ class Student::AssignmentsController < ApplicationController
   before_action :set_assignment, only: :show
 
   def index
-    @assignments = Assignment.of_section(params[:section_id]).includes(:subject, section: :klass).active.ordered
+    @assignments = Assignment.of_section(params[:section_id])
+                             .includes(:subject, section: :klass).active.ordered
+                             .group_by { |assignment| assignment.subject }
   end
 
   def show
