@@ -37,24 +37,80 @@
 
           <div class='modal-body form-horizontal'>
             <div class='row'>
-              <div class='col-sm-12'>
-                <table class='table table-bordered'>
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Roll Number</th>
-                      <th>Registration Number</th>
-                      <th>Class</th>
-                      <th>Section</th>
-                    </tr>
-                  </thead>
+              <div class='col-sm-8'>
+                <div class='profile-image'>
+                  <%= image_tag @student.avatar.url(:thumb), class: 'm-b-md', alt:'profile' %>
+                </div>
+
+                <div class='profile-info'>
+                  <div>
+                    <div>
+                      <h2 class='no-margins'>
+                        <%= @student.name %>
+                      </h2>
+
+                      <h4>
+                        Class:
+                        <span class='label label-info'>
+                          <%= @student.current_section(current_term.id).klass.name %>
+                        </span>
+                      </h4>
+
+                      <h4>
+                        Section:
+                        <span class='label label-warning'>
+                          <%= @student.current_section(current_term.id).name %>
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class='col-sm-4'>
+                <table class='table small m-b-xs'>
                   <tbody>
                     <tr>
-                      <td><span class="text-info text-bold"><%= @student.name %></span></td>
-                      <td><span class="text-info text-bold"><%= @student.roll_number %></span></td>
-                      <td><span class="text-info text-bold"><%= @student.registration_number %></span></td>
-                      <td><span class="text-info text-bold"><%= @section.klass_name %></span></td>
-                      <td><span class="text-info text-bold"><%= @section.name %></span></td>
+                      <td>
+                        <strong>Roll Number</strong>
+                      </td>
+                      <td>
+                        <strong><%= @student.roll_number %></strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                          <strong>Registration Number</strong>
+                      </td>
+                      <td>
+                          <strong><%= @student.registration_number %></strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Total Percentage</strong>
+                      </td>
+                      <td>
+                        <strong><%= @results[:collective][:total][:percentage] %> %</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Grade</strong>
+                      </td>
+                      <td>
+                        <strong><%= @results[:collective][:total][:grade] %></strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Total Obtained</strong>
+                      </td>
+                      <td>
+                        <strong>
+                          <%= @results[:collective][:total][:abs_marks] %> / <%= @results[:collective][:total][:total] %>
+                        </strong>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -109,6 +165,9 @@
                       </div>
                     </div>
                   </div>
+
+                  <hr class='b-heading'>
+
                   <% @section.exams.each_with_index do |exam, index| %>
                     <div class="full-height-scroll">
                       <div class='table-responsive small'>
