@@ -92,7 +92,11 @@
                   </tr>
                   <tr class="extra-small">
                     <th colspan="15" class='text-center'>
-                      Students <i class="fa fa-arrow-down"></i> | Day <i class="fa fa-arrow-right"></i>
+                      <% if params[:student_id].blank?  %>
+                        Students <i class="fa fa-arrow-down"></i>
+                        |
+                      <% end %>
+                      Days <i class="fa fa-arrow-right"></i>
                     </th>
                     <% (@key_to_dates[month][:start_date].to_date..@key_to_dates[month][:end_date].to_date).each do |day| %>
                       <th class='text-center'><%= day.strftime("%a") %></th>
