@@ -15,8 +15,9 @@ class Teacher::StudentAttendancesController < ApplicationController
     @attendances, @report_statistics, @report_late_statistics, @section, @report_range = StudentAttendance.fetch_pdf_report_data(@start_date, @end_date, section_id, current_term)
     return redirect_back(fallback_location: root_path, alert: "No Results found") if @attendances.blank?
     respond_to do |format|
+      format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = "attachment; filename=#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx\""
       }
       format.pdf do
         render pdf: "#{@section.klass_name} - #{@section.name} - #{@report_range}",

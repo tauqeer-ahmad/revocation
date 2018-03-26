@@ -17,13 +17,14 @@ class Administrator::StudentAttendancesController < ApplicationController
 
   def report
     @start_date = DateTime.parse(params[:start_range]).beginning_of_day
-    @end_date = DateTime.parse(params[:start_range]).end_of_day
+    @end_date = DateTime.parse(params[:end_range]).end_of_day
     section_id = params[:section_id]
     @attendances, @report_statistics, @report_late_statistics, @section, @report_range = StudentAttendance.fetch_pdf_report_data(@start_date, @end_date, section_id, current_term)
     return redirect_back(fallback_location: root_path, alert: "No Results found") if @attendances.blank?
     respond_to do |format|
+      format.html
       format.xlsx {
-        response.headers['Content-Disposition'] = "attachment; filename=#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx\""
       }
       format.pdf do
         render pdf: "#{@section.klass_name} - #{@section.name} - #{@report_range}",
