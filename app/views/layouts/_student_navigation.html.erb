@@ -51,14 +51,14 @@
           <i class="fa fa-tasks"></i> <span class="nav-label">Assignments</span>
         <% end %>
       </li>
+      <li class="<%= is_active_controller('student/exams') %>">
+        <%= link_to exams_path do %>
+          <i class="fa fa-list-alt" aria-hidden="true"></i> Exams
+        <% end %>
+      </li>
       <li class="<%= is_active_controller_action('student/results', 'index') %>">
         <%= link_to results_path do %>
           <i class="fa fa-bar-chart"></i> <span class="nav-label">Results</span>
-        <% end %>
-      </li>
-      <li class="<%= is_active_controller('student/exams') %>">
-        <%= link_to exams_path do %>
-          <i class="fa fa-list-alt" aria-hidden="true"></i> Exam List
         <% end %>
       </li>
       <li>
