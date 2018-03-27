@@ -33,30 +33,37 @@
                   <%= ff.text_field :name, class: "form-control", placeholder: "Grade Name" %>
                 </div>
                 <div class="col-sm-2">
-                  <%= ff.number_field :start_point, class: "form-control", placeholder: "Start Point(%)" %>
+                  <%= ff.number_field :start_point, class: "form-control", placeholder: "Start Point (%)" %>
                 </div>
                 <div class="col-sm-2">
-                  <%= ff.number_field :end_point, class: "form-control", placeholder: "End Point(%)" %>
+                  <%= ff.number_field :end_point, class: "form-control", placeholder: "End Point (%)" %>
                 </div>
                 <div class="col-sm-2">
                   <%= ff.number_field :points, class: "form-control", placeholder: "Grade Points" %>
                 </div>
                 <div class="col-sm-2">
                   <%= ff.link_to_remove do %>
-                    <i class="btn btn-danger fa fa-trash"></i>
+                    <i class="btn btn-danger btn-lg fa fa-trash pull-left"></i>
                   <% end %>
                 </div>
               </div>
             <% end %>
-            <p class="m-t">
-              <%= f.link_to_add "Add new grade", :grades, class: "btn btn-sm btn-success" %>
-            </p>
 
-            <div class="form-group">
-              <div class="col-sm-6 col-sm-offset-1">
-                <%= f.submit class: "btn btn-lg btn-primary pull-right" do %>
-                  <i class="fa fa-check">&nbsp;Submit</i>
+            <div class='row text-center'>
+              <div class='col-sm-12'>
+                <%= f.link_to_add :grades, class: 'btn btn-info m-t-md' do %>
+                  <i class='fa fa-plus'></i> Add new grade
                 <% end %>
+              </div>
+            </div>
+
+            <div class="form-group m-t-md">
+              <div class='row text-center'>
+                <div class="col-sm-12">
+                  <%= f.submit class: "btn btn-lg btn-primary" do %>
+                    <i class="fa fa-check">&nbsp;Submit</i>
+                  <% end %>
+                </div>
               </div>
             </div>
           <% end %>

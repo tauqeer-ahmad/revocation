@@ -27,13 +27,13 @@
         <div class="ibox-content">
           <%= form_tag administrator_teacher_attendances_path, method: :get do %>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <%= date_field_tag :start_range, params[:start_range], class: "hide start_range" %>
                 <%= date_field_tag :end_range, params[:end_range], class: "hide end_range" %>
                 <div class="form-group">
                   <label style="margin-bottom: 5px;">Date Range</label>
                   <div class="input-group">
-                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                    <div id="reportrange" class="pull-right daterangepicker-field">
                       <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
                       <span></span> <b class="caret"></b>
                     </div>
@@ -41,9 +41,9 @@
                 </div>
               </div>
 
-              <div class="col-md-3" style="margin-top: 20px;">
+              <div class="col-md-2 m-t-md">
                 <center>
-                  <button type="submit" class="btn btn-block btn-sm btn-primary">View Report</button>
+                  <button type="submit" class="btn btn-block btn-primary">View Report</button>
                 </center>
               </div>
             </div>

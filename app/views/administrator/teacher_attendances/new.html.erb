@@ -36,22 +36,21 @@
                 </div>
               </div>
 
-              <div class="col-md-4" style="margin-top: 20px;">
+              <div class="col-md-2 m-t-md">
                 <center>
-                  <button type="submit" class="btn btn-block btn-sm btn-primary">Mark Attendance</button>
+                  <button type="submit" class="btn btn-block btn-primary">Mark Attendance</button>
                 </center>
               </div>
             </div>
           <% end %>
 
-          <div id="new_teachers_attandances">
-          </div>
-
+          <div id="new_teachers_attandances"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <% content_for :javascript do %>
   TeacherAttendance.init();
   enable_ichecks();

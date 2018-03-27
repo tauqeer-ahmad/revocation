@@ -11,6 +11,7 @@
       <li>
         <%= link_to 'Home', administrator_root_path %>
       </li>
+
       <li class='active'>
         <strong>Lookup</strong>
       </li>
@@ -23,51 +24,46 @@
     <div id='left-section' class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <h2>Student Lookup</h2>
-          <div>
-            <div class=" animated fadeInRight">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="ibox">
-                    <div class="ibox-content">
-                      <%= form_tag lookup_administrator_students_path, method: :get do %>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label style="margin-bottom: 5px;">Keyword</label>
-                              <%= text_field_tag :keyword, params[:keyword], placeholder: 'search by name,email..', class: "form-control" %>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label style="margin-bottom: 5px;">Class</label>
-                              <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }, params[:klass_id]), prompt: "Select Class", class: "select2_dropdown selectable_klass form-control" %>
-                            </div>
-                          </div>
+          <div class="animated fadeInRight">
+            <div class="row">
+              <div class="col-sm-12">
+                <%= form_tag lookup_administrator_students_path, method: :get do %>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label style="margin-bottom: 5px;">Keyword</label>
+                        <%= text_field_tag :keyword, params[:keyword], placeholder: 'search by name,email..', class: "form-control" %>
+                      </div>
+                    </div>
 
-                          <div id="subject_holder">
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <label style="margin-bottom: 5px;">Section</label>
-                                <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section form-control", disabled:false, data: {selected: params[:section_id]} %>
-                              </div>
-                            </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label style="margin-bottom: 5px;">Class</label>
+                        <%= select_tag :klass_id, options_for_select(@klasses.collect {|e| [ e.name, e.id ] }, params[:klass_id]), prompt: "Select Class", class: "select2_dropdown selectable_klass form-control" %>
+                      </div>
+                    </div>
 
-                            <div class="col-md-2" style="margin-top: 20px;">
-                              <center>
-                                <button type="submit" class="btn btn-primary">Lookup</button>
-                              </center>
-                            </div>
-                          </div>
+                    <div id="subject_holder">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label style="margin-bottom: 5px;">Section</label>
+                          <%= select_tag :section_id, options_for_select([]), prompt: "Select Section", class: "select2_dropdown selectable_section form-control", disabled:false, data: {selected: params[:section_id]} %>
                         </div>
-                      <% end %>
+                      </div>
+
+                      <div class="col-md-2" style="margin-top: 20px;">
+                        <center>
+                          <button type="submit" class="btn btn-primary btn-block">Lookup</button>
+                        </center>
+                      </div>
                     </div>
                   </div>
-                </div>
+                <% end %>
               </div>
             </div>
           </div>
         </div>
+
         <%= render 'search' %>
       </div>
     </div>
