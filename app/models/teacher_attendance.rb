@@ -56,9 +56,12 @@ class TeacherAttendance < ApplicationRecord
       if start_range.to_date == end_range.to_date
         key = [start_range.strftime("%d %b, %Y")]
         key_to_dates[key] = {start_date: start_range, end_date: end_range}
-      elsif month.month == start_range.month
+      elsif month.month == start_range.month && end_range.month == month.month
         key = [start_range.strftime("%d %b, %Y"), end_range.strftime("%d %b, %Y")].join(' - ')
         key_to_dates[key] = {start_date: start_range, end_date: end_range}
+      elsif month.month == start_range.month && end_range.month != month.month
+        key = [start_range.strftime("%d %b, %Y"), month.end_of_month.strftime("%d %b, %Y")].join(' - ')
+        key_to_dates[key] = {start_date: start_range, end_date: month.end_of_month}
       elsif month.month == end_range.month
         key = [month.beginning_of_month.strftime("%d %b, %Y"), end_range.strftime("%d %b, %Y")].join(' - ')
         key_to_dates[key] = {start_date: month.beginning_of_month, end_date: end_range}
