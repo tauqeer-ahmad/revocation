@@ -614,3 +614,8 @@ ol.breadcrumb > li::before {
   border: 2px solid #1bb394;
   border-radius: 50%;
 }
+
+.col-centered {
+  float: none !important;
+  margin: 0 auto !important;
+}

@@ -10,7 +10,13 @@ class Administrator::StudentAttendancesController < ApplicationController
   def single
     @student = Student.find(params[:student_id])
 
-    @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
+    @formated_results,
+    @key_to_dates,
+    @month_statistics,
+    @month_late_statistics,
+    @attendances,
+    @start_range,
+    @end_range = StudentAttendance.fetch_report_data_for_single(params, current_term.id, @student.id)
 
     @section = @student.current_section(current_term.id)
   end

@@ -48,7 +48,7 @@
                           <td><%= section_subject.subject.name %></td>
                           <td>
                             <% if section.incharge_id == current_user.id %>
-                              <%= link_to(new_student_attendance_path(date: Date.today.strftime('%d %B %Y'), section_id: section.id), class: "btn btn-success btn-outline btn-xs"){ icon_of('fa fa-users', "Mark Today's Attendance") } %>
+                              <%= link_to(new_student_attendance_path(date: Date.today.strftime('%d %B %Y'), section_id: section.id), class: "btn btn-success btn-outline btn-xs"){ icon_of('fa fa-users', " Mark Today's Attendance") } %>
                             <% end %>
                             <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section.id, subject: section_subject.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
 

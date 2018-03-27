@@ -294,6 +294,7 @@ Revocation::Application.routes.draw do
         collection do
           get :list
           get :report
+          get 'students/:student_id', action: :single, as: :single_attendance
         end
       end
 

@@ -8,6 +8,20 @@ class Teacher::StudentAttendancesController < ApplicationController
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
   end
 
+  def single
+    @student = current_user.students.find(params[:student_id])
+
+    @formated_results,
+    @key_to_dates,
+    @month_statistics,
+    @month_late_statistics,
+    @attendances,
+    @start_range,
+    @end_range = StudentAttendance.fetch_report_data_for_single(params, current_term.id, @student.id)
+
+    @section = @student.current_section(current_term.id)
+  end
+
   def report
     @start_date = DateTime.parse(params[:start_range]).beginning_of_day
     @end_date = DateTime.parse(params[:end_range]).end_of_day

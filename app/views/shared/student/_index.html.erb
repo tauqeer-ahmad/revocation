@@ -34,6 +34,12 @@
                 <% end %>
               <% end %>
 
+              <% if current_user.teacher? %>
+                <%= link_to single_attendance_student_attendances_path(student), class: 'btn btn-outline btn-warning dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Attendnace' do %>
+                  <i class='fa fa-check-square-o'></i>
+                <% end %>
+              <% end %>
+
               <%= render 'shared/student/student_results', student: student, text: "", section: @section %>
             </td>
           </tr>

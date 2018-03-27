@@ -10,7 +10,7 @@
 
     <ol class='breadcrumb'>
       <li>
-        <%= link_to 'Home', administrator_root_path %>
+        <%= link_to 'Home', root_path %>
       </li>
 
       <li class='active'>
@@ -25,7 +25,7 @@
     <div class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <%= form_tag single_attendance_administrator_student_attendances_path, method: :get do %>
+          <%= form_tag single_attendance_student_attendances_path, method: :get do %>
             <%= hidden_field_tag :student_id, @student.id %>
             <%= hidden_field_tag :klass_id, @student.current_section(current_term.id).klass_id %>
             <%= hidden_field_tag :student_id, @student.current_section(current_term.id).id %>
