@@ -5,18 +5,16 @@ set_range_picker_value = (start, end) ->
   return
 
 bind_predefined_range_picker = ->
-  start = moment().subtract(29, 'days')
-  end = moment()
+  start = moment(gon.start_date)
+  end = moment(gon.start_date).add(29, 'days')
 
   start_range = $('.start_range').val()
   end_range = $('.end_range').val()
 
   if start_range
-    console.log "World"
     start = moment(start_range)
 
   if end_range
-    console.log "hello"
     end = moment(end_range)
 
   $('#reportrange').daterangepicker {
