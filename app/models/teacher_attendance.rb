@@ -67,8 +67,8 @@ class TeacherAttendance < ApplicationRecord
       formated_results[key] = teacher_grouped
       month_statistics[key] = {Present: 0, Absent: 0, Leave: 0} if month_statistics[key].blank?
       month_late_statistics[key] = {"On Time" => 0, Late: 0} if month_late_statistics[key].blank?
-      records.group_by(&:status).map{ |status, r| month_statistics[key][status.capitalize.to_sym] = calculate_percentage(r.count, records.count); r.select{|r| month_late_statistics[key][:Late] += 1 if r.late?}}
-      total_present = month_statistics[key][:Present]
+      total_present = 0
+      records.group_by(&:status).map{ |status, r| month_statistics[key][status.capitalize.to_sym] = calculate_percentage(r.count, records.count); total_present += r.count if status == "present"; r.select{|r| month_late_statistics[key][:Late] += 1 if r.late?}}
       month_late_statistics[key]["On Time"] = (total_present - month_late_statistics[key][:Late])
       month_late_statistics[key]["On Time"] = calculate_percentage(month_late_statistics[key]["On Time"], total_present)
       month_late_statistics[key][:Late] = calculate_percentage(month_late_statistics[key][:Late], total_present)
@@ -88,8 +88,8 @@ class TeacherAttendance < ApplicationRecord
 
     report_statistics =  {Present: 0, Absent: 0, Leave: 0}
     report_late_statistics = {"On Time" => 0, Late: 0}
-    attendances.group_by(&:status).map{ |status, r| report_statistics[status.capitalize.to_sym] = calculate_percentage(r.count, attendances.count); r.select{|r| report_late_statistics[:Late] += 1 if r.late?}}
-    total_present = report_statistics[:Present]
+    total_present = 0
+    attendances.group_by(&:status).map{ |status, r| report_statistics[status.capitalize.to_sym] = calculate_percentage(r.count, attendances.count); total_present += r.count if status == "present"; r.select{|r| report_late_statistics[:Late] += 1 if r.late?}}
     report_late_statistics["On Time"] = (total_present - report_late_statistics[:Late])
     report_late_statistics["On Time"] = calculate_percentage(report_late_statistics["On Time"], total_present)
     report_late_statistics[:Late] = calculate_percentage(report_late_statistics[:Late], total_present)
