@@ -3,7 +3,6 @@
     <div class="ibox-title">
       <h5>All sections of class</h5>
       <strong><%= link_to klass.name, [:administrator, klass], class: 'btn-link m-l-xs ibox-head-link' %></strong>
-      <%= link_to 'Add a new section', new_administrator_klass_section_path(klass), class: 'btn btn-primary btn-xs pull-right' %>
     </div>
   </div>
 
@@ -40,14 +39,8 @@
         </div>
       <% end %>
 
-      <% if sections.blank? %>
-        <div class="middle-box text-center animated fadeInDown">
-          <%= link_to 'Add a new section', new_administrator_klass_section_path(klass), class: 'btn btn-primary' %>
-
-          <div class="error-desc">
-            No sections are created yet. You can add section right now!
-          </div>
-        </div>
+      <%= link_to new_administrator_klass_section_path(klass), class: 'file-box add-link-plus text-navy' do %>
+        <i class="fa fa-plus"></i>
       <% end %>
     </div>
   </div>
