@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?, :current_term, :active_term, :selected_student
 
   before_action :set_current_term
+  before_action :set_current_term_ranges
   before_action :check_locked_account
   before_action :check_selected_student, unless: :devise_controller?
   before_action :set_notices
@@ -54,6 +55,11 @@ class ApplicationController < ActionController::Base
 
   def set_current_term
     Current.term = current_term
+  end
+
+  def set_current_term_ranges
+    gon.start_date = current_term.start_date.strftime('%m/%d/%Y')
+    gon.end_date = current_term.end_date.strftime('%m/%d/%Y')
   end
 
   def active_term

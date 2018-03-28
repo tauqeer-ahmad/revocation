@@ -31,6 +31,8 @@
     $(this).datetimepicker
       format: 'DD MMMM YYYY'
       sideBySide: true
+      minDate: gon.start_date
+      maxDate: gon.end_date
       widgetPositioning:
         vertical: 'bottom'
     $(this).on 'dp.hide', (e) ->
