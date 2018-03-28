@@ -1,11 +1,37 @@
-<hr class='b-heading'>
-
 <div class='row'>
-  <div class='col-sm-3 col-centered text-center'>
-    <h1><%= student.name %></h1>
-    <h2><%= image_tag student.avatar.url(:thumb), class: 'img-rounded' %></h2>
-    <h3><i><%= student.email %></i></h3>
-    <h3><%= student.phone %></h3>
+  <div class="col-md-4">
+    <div class="profile-image">
+      <%= image_tag student.avatar.url(:thumb), class: 'img-circle circle-border' %>
+    </div>
+
+    <div class="profile-info m-t-md">
+      <div>
+        <div>
+          <h2 class="no-margins"><%= student.name %></h2>
+          <h4><%= student.email %></h4>
+          <small><%= student.phone %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-sm-4 m-t-md text-center'>
+    <table class='table small m-b-xs text-left'>
+      <tbody>
+        <tr>
+          <td><strong>Class</strong></td>
+          <td class='text-right'><strong><%= student.current_section(current_term.id).klass_name %></strong></td>
+        </tr>
+
+        <tr>
+          <td><strong>Section</strong></td>
+          <td class='text-right'><strong><%= student.current_section(current_term.id).name %></strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class='col-sm-4 m-t-md text-center'>
     <table class='table small m-b-xs text-left'>
       <tbody>
         <tr>
@@ -21,5 +47,3 @@
     </table>
   </div>
 </div>
-
-<hr class='b-heading'>

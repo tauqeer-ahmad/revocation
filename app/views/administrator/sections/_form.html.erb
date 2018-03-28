@@ -19,7 +19,7 @@
 
   <div class='form-inputs'>
     <div class='form-group'>
-      <label class='col-sm-2 control-label'>Nickname</label>
+      <label class='col-sm-2 control-label'>Select Grading System</label>
       <div class='col-sm-10'>
          <%= f.select :grading_system_id, options_for_select(GradingSystem.pluck(:name, :id)), {prompt: 'Select Grading System'}, { class: 'form-control select2_dropdown'} %>
       </div>
@@ -28,7 +28,7 @@
 
   <div class='form-inputs'>
     <div class='form-group'>
-      <label class='col-sm-2 control-label'>Select Section Incharge</label>
+      <label class='col-sm-2 control-label'>Select Incharge</label>
       <div class='col-sm-10'>
         <%= f.select :incharge_id, options_for_select(@teachers.collect{|t| [t.name, t.id]}, f.object.incharge_id), {prompt: 'Select Section Incharge'}, { class: 'form-control select2_dropdown'} %>
       </div>
@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <hr>
+    <hr class='b-heading'>
   <% end %>
 
   <div class='clearfix'></div>
