@@ -58,6 +58,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_current_term_ranges
+    return if current_term.blank?
+
     gon.start_date = current_term.start_date.strftime('%m/%d/%Y')
     gon.end_date = current_term.end_date.strftime('%m/%d/%Y')
   end
