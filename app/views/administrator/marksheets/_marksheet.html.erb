@@ -4,7 +4,6 @@
       <div class='ibox float-e-margins'>
         <div class='ibox-title'>
           <h5>Add Marks Students <small> Please fill the details correctly</small></h5>
-          <%= link_to "PDF Template new", build_marksheet_administrator_marksheets_path(section_id: @section.id, klass_id: @klass.id, exam_id: @exam.id, subject_id: @subject.id, format: :pdf) %>
         </div>
 
         <div class='clearfix'></div>
@@ -20,6 +19,11 @@
                 <div class='col-sm-6'>
                   <label class="control-label">Total Marks</label>
                   <%= number_field_tag :total, nil, required: true, maxlength: 60, placeholder: 'Total Marks', class: 'form-control' %>
+                </div>
+                <div class='col-sm-6'>
+                  <div>Download marksheets templates for teachers to fill marks data</div>
+                  <%= link_to "PDF Template", build_marksheet_administrator_marksheets_path(section_id: @section.id, klass_id: @klass.id, exam_id: @exam.id, subject_id: @subject.id, format: :pdf), class: "btn btn-primary btn-sm -control" %>
+                  <%= link_to "Excel Template", build_marksheet_administrator_marksheets_path(section_id: @section.id, klass_id: @klass.id, exam_id: @exam.id, subject_id: @subject.id, format: :xlsx), class: "btn btn-info btn-sm form-" %>
                 </div>
               </div>
             </div>

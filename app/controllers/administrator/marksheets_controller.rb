@@ -24,6 +24,11 @@ class Administrator::MarksheetsController < ApplicationController
     respond_to do |format|
       format.js
       format.xlsx {
+        @teacher = @section.section_subject_teachers.where(subject_id: @subject.id).last.teacher
+        @grouped_marks = {}
+        if @marksheet.present?
+          @grouped_marks = @exam_marks.group_by(&:student_id)
+        end
         response.headers['Content-Disposition'] = "attachment; filename=\"#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx\""
       }
       format.pdf do

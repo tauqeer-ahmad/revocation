@@ -19,7 +19,7 @@
                 <div class='col-sm-6'>
                   <div>Download marksheets templates for teachers to fill marks data</div>
                   <%= link_to "PDF Template", build_marksheet_administrator_marksheets_path(section_id: @marksheet.section_id, klass_id: @marksheet.klass_id, exam_id: @marksheet.exam_id, subject_id: @marksheet.subject_id, format: :pdf), class: "btn btn-primary btn-sm -control" %>
-                  <%= link_to "Excel Template", build_marksheet_administrator_marksheets_path(section_id: @marksheet.section_id, klass_id: @marksheet.klass_id, exam_id: @marksheet.exam_id, subject_id: @marksheet.subject_id, format: :pdf), class: "btn btn-info btn-sm form-" %>
+                  <%= link_to "Excel Template", build_marksheet_administrator_marksheets_path(section_id: @marksheet.section_id, klass_id: @marksheet.klass_id, exam_id: @marksheet.exam_id, subject_id: @marksheet.subject_id, format: :xlsx), class: "btn btn-info btn-sm form-" %>
                 </div>
               </div>
             </div>
