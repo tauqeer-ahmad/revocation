@@ -29,7 +29,7 @@ class Administrator::MarksheetsController < ApplicationController
         if @marksheet.present?
           @grouped_marks = @exam_marks.group_by(&:student_id)
         end
-        response.headers['Content-Disposition'] = "attachment; filename=\"#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx\""
+        response.headers['Content-Disposition'] = "attachment; filename=\"Marksheet #{@section.klass_name}-#{@section.name}-#{@exam.name}.xlsx\""
       }
       format.pdf do
         @teacher = @section.section_subject_teachers.where(subject_id: @subject.id).last.teacher
