@@ -120,20 +120,20 @@
 
       <li class='nav-first-level <%= is_active_controller('administrator/student_attendances') %>'>
         <%= link_to '/' do %>
-          <i class='fa fa-industry'></i> <span class='nav-label'>Student's Attendance</span>
+          <i class='fa fa-check-square-o'></i> <span class='nav-label'>Student's Attendance</span>
           <span class='fa arrow'></span>
         <% end %>
 
         <ul class='nav nav-second-level collapse'>
           <li class='<%= is_active_controller_action('administrator/student_attendances', 'new')%>'>
             <%= link_to new_administrator_student_attendance_path do %>
-              <i class='fa fa-users' aria-hidden='true'></i> Mark
+              <i class='fa fa-check-square-o' aria-hidden='true'></i> Mark
             <% end %>
           </li>
 
           <li class='<%= is_active_controller_action('administrator/student_attendances', 'index')%>'>
             <%= link_to administrator_student_attendances_path do %>
-              <i class='fa fa-users' aria-hidden='true'></i> Reports
+              <i class='fa fa-pie-chart' aria-hidden='true'></i> Reports
             <% end %>
           </li>
         </ul>
@@ -141,20 +141,20 @@
 
       <li class='nav-first-level <%= is_active_controller('administrator/teacher_attendances') %>'>
         <%= link_to '/' do %>
-          <i class='fa fa-industry'></i> <span class='nav-label'>Teacher's Attendance</span>
+          <i class='fa fa-check-square-o'></i> <span class='nav-label'>Teacher's Attendance</span>
           <span class='fa arrow'></span>
         <% end %>
 
         <ul class='nav nav-second-level collapse'>
           <li class='<%= is_active_controller_action('administrator/teacher_attendances', 'new')%>'>
             <%= link_to new_administrator_teacher_attendance_path do %>
-              <i class='fa fa-users' aria-hidden='true'></i> Mark
+              <i class='fa fa-check-square-o' aria-hidden='true'></i> Mark
             <% end %>
           </li>
 
           <li class='<%= is_active_controller_action('administrator/teacher_attendances', 'index')%>'>
             <%= link_to administrator_teacher_attendances_path do %>
-              <i class='fa fa-users' aria-hidden='true'></i> Reports
+              <i class='fa fa-pie-chart' aria-hidden='true'></i> Reports
             <% end %>
           </li>
         </ul>
