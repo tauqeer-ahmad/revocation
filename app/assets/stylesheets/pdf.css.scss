@@ -4,8 +4,32 @@
 @import "base/variables";
 @import "base/mixins";
 
+// INSPINIA Theme Elements
+@import "base/typography";
+@import "base/navigation";
+@import "base/top_navigation";
+@import "base/buttons";
 @import "base/badgets_labels";
+@import "base/elements";
+@import "base/sidebar";
 @import "base/base";
+@import "base/pages";
+@import "base/chat";
+@import "base/metismenu";
+@import "base/spinners";
+
+// Landing page
+@import "base/landing";
+
+// RTL Support
+@import "base/rtl";
+
+// INSPINIA Skins
+@import "base/skins";
+@import "base/md-skin";
+
+// Media query style
+@import "base/media";
 
 @import "common";
 
@@ -48,3 +72,6 @@ $warning: #f8ac59;
 .extra-small {
   font-size: 8px !important;
 }
+thead { display: table-header-group }
+tfoot { display: table-row-group }
+tr { page-break-inside: avoid }

@@ -1,0 +1,90 @@
+<div class='row border-bottom pdf_page_heading '>
+  <div class='col-lg-12'>
+    <h2 class="pdf_heading">
+      Student Marksheet <small> Please fill the details correctly</small>
+    </h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4 col-sm-4 col-md-4">
+    <div class="">
+      <h2>
+        Exam <%= @exam.name %>
+      </h2>
+      <ul class="list-unstyled m-t-md">
+        <li>
+          <label>Class:</label>
+          <%= @klass.name %>
+        </li>
+        <li>
+          <label>Section:</label>
+          <%= @section.name %>
+        </li>
+        <li>
+          <label>Subject:</label>
+          <%= @subject.name %>
+        </li>
+         <li>
+          <label>Academic Period:</label>
+            <%= current_term.display_term_duration %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-6 col-sm-6 col-md-6">
+    <div class=" ">
+      <h2>
+        Subject Teacher
+      </h2>
+      <ul class="list-unstyled m-t-md">
+        <li>
+          <label>Name:</label>
+          <%= @teacher.full_name %>
+        </li>
+         <li>
+          <label>Email:</label>
+          <%= @teacher.email %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class='col-sm-12'>
+    <%= nested_form_for @marksheet, url: update_marksheet_administrator_marksheet_path(@marksheet), :html => {class: 'form-horizontal'}, method: :put do |f| %>
+      <div class='form-inputs'>
+        <div class='form-group'>
+          <label class="control-label">Total Marks: <%= @exam_marks.first.total %></label>
+        </div>
+      </div>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th width="3%" class="text-center">Avatar</th>
+            <th>Roll Number</th>
+            <th>Student Name</th>
+            <th>
+              Obtained Marks
+            </th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= f.fields_for :exam_marks do |ff| %>
+            <tr>
+              <td class="client-avatar text-center">
+                <%= wicked_pdf_image_tag ff.object.student.avatar.url(:thumb), alt: "Image" %>
+              </td>
+              <td><%= ff.object.student.roll_number %></td>
+              <td><%= ff.object.student.name %></td>
+              <td>
+                <%= ff.object.obtained.to_f %>
+              </td>
+              <td><%= ff.object.comment %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

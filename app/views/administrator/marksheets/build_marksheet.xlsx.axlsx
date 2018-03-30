@@ -1,0 +1,31 @@
+wb = xlsx_package.workbook
+style_array = []
+header = []
+
+wb.styles do |s|
+  normal = s.add_style alignment: {horizontal: :center}
+  header = s.add_style alignment: {horizontal: :center}, b: true
+  header_colored = s.add_style alignment: {horizontal: :center}, b: true, fg_color: "FFFFFF", bg_color: '1ab394',:border => { :style => :thin, :color =>"CFCFCF"}
+  style_array = [header, normal, header_colored]
+end
+
+wb.add_worksheet(name: "Student Mark Sheet") do |sheet|
+  sheet.column_widths 40
+  info_header = ["Class", "Section", "exam", "Subject", "Teacher", "Teacher email"]
+  info_row = [@klass.name, @section.name, @exam.name, @subject.name, @teacher.full_name, @teacher.email]
+
+  sheet.add_row info_header, style: style_array[0]
+  sheet.add_row info_row, style: style_array[1]
+
+  (0..2).each do |i|
+    sheet.add_row []
+  end
+  sheet.add_row ["Total Marks", 0], style: style_array[0]
+  sheet.add_row ["Registration Number", "Roll Number", "Student Name", "Obtained Marks", "Remarks"], style: style_array[2]
+
+  @students.each do |student|
+    subject_marks = @grouped_marks[student.id]&.first
+    row = [student.registration_number, student.roll_number, student.full_name, subject_marks&.obtained, subject_marks&.comment]
+    sheet.add_row row, style: style_array[1]
+  end
+end

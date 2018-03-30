@@ -9,6 +9,9 @@ class Administrator::MarksheetsController < ApplicationController
   def build_marksheet
     @section = Section.find(params[:section_id])
     @students = @section.students
+    @exam = Exam.find(params[:exam_id])
+    @subject = Subject.find(params[:subject_id])
+    @klass = @section.klass
     @marksheet = Marksheet.existing_marksheet(current_term.id, params[:exam_id], params[:klass_id], params[:section_id], params[:subject_id]).first
     if @marksheet.present?
       @exam_marks = @marksheet.exam_marks
@@ -16,10 +19,50 @@ class Administrator::MarksheetsController < ApplicationController
       new_students.each do |student_id|
         @exam_marks << @marksheet.exam_marks.build(obtained: nil, student_id: student_id, klass_id: params[:klass_id], section_id: params[:section_id], exam_id: params[:exam_id], subject_id: params[:subject_id])
       end
-    else
-      @exam = Exam.find(params[:exam_id])
-      @subject = Subject.find(params[:subject_id])
-      @klass = @section.klass
+    end
+
+    respond_to do |format|
+      format.js
+      format.xlsx {
+        @teacher = @section.section_subject_teachers.where(subject_id: @subject.id).last.teacher
+        @grouped_marks = {}
+        if @marksheet.present?
+          @grouped_marks = @exam_marks.group_by(&:student_id)
+        end
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@section.klass_name} - #{@section.name} - #{@report_range}.xlsx\""
+      }
+      format.pdf do
+        @teacher = @section.section_subject_teachers.where(subject_id: @subject.id).last.teacher
+        render pdf: "Marksheet #{@section.klass.name}-#{@section.name}-#{@exam.name}",
+        disposition: 'attachment',
+        template: "administrator/marksheets/marksheet_pdf.html.erb",
+        layout: 'pdf.html.erb',
+        javascript_delay: 500,
+        viewport_size: '595x842',
+        zoom: 0.9,
+        margin:  {
+                    top: 25,
+                    bottom: 20
+                },
+        header: {
+                  html: {
+                          template: 'shared/pdfs/header',
+                          layout: 'pdf_plain',
+                          locals: {heading: "Marksheet", left_tag: @section.name}
+                        },
+                  line: true,
+                  spacing: 1
+                },
+        footer: {
+                  html: {
+                          template:'shared/pdfs/footer',
+                          layout:  'pdf_plain',
+                          locals: {left_tag: "Created At: #{Time.now.strftime('%d %B %Y %l-%M %p')}"}
+                        },
+                  spacing: 1,
+                  line:  true
+                }
+      end
     end
   end
 

@@ -12,7 +12,7 @@
         Class: <strong><%= @section.klass_name %></strong>
       </li>
 
-      <li class='active'>
+      <li>
          Section: <strong><%= @section.name %></strong>
       </li>
     </ol>
@@ -89,6 +89,9 @@
         Total
       </th>
     </tr>
+  </thead>
+
+  <tbody>
     <tr class="extra-small">
       <th colspan="15" class='text-center'>
         Students <i class="fa fa-arrow-down"></i> | Day <i class="fa fa-arrow-right"></i>
@@ -100,9 +103,6 @@
         P
       </th>
     </tr>
-  </thead>
-
-  <tbody>
     <% @section.students.each do |student| %>
       <% attendances = @attendances[student.id].group_by{ |m| m.day.day } %>
       <tr>
