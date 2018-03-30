@@ -19,15 +19,22 @@
             <div class="tab-content">
               <% @sections.each_with_index do |section, index| %>
                 <div id="section_<%= index %>" class="tab-pane <%= get_active_tab_class(index) %>" class="animated fadeInRight">
-                  <div class='m-t-sm'>
+                  <div class='m-t-sm m-b-md'>
                     <h3>
                       Section In-charge: <%= display_section_incharge(section, current_user) %>
 
                       <div class='pull-right'>
+                        <% if section.incharge_id == current_user.id %>
+                          <%= link_to new_student_attendance_path(date: Date.today.strftime('%d %B %Y'), section_id: section.id), class: 'btn btn-warning btn-outline btn-xs' do %>
+                            <i class="fa fa-check-square-o"></i> Mark Today's Attendance
+                          <% end %>
+                        <% end %>
+
                         <%= link_to section_path(section), class: 'btn btn-info btn-outline btn-xs' do %>
                           <i class="fa fa-list"></i> Students (<%= section.display_students_count %>)
                         <% end %>
-                        <%= link_to tabulation_sheet_section_path(section), class: 'btn btn-warning btn-outline btn-xs' do %>
+
+                        <%= link_to tabulation_sheet_section_path(section), class: 'btn btn-primary btn-outline btn-xs' do %>
                           <i class="fa fa-bar-chart"></i> Tabulation Sheeet
                         <% end %>
                       </div>
@@ -47,9 +54,6 @@
                         <tr>
                           <td><%= section_subject.subject.name %></td>
                           <td>
-                            <% if section.incharge_id == current_user.id %>
-                              <%= link_to(new_student_attendance_path(date: Date.today.strftime('%d %B %Y'), section_id: section.id), class: "btn btn-warning btn-outline btn-xs"){ icon_of('fa fa-check-square-o', " Mark Today's Attendance") } %>
-                            <% end %>
                             <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section.id, subject: section_subject.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
 
                             <%= link_to(list_assignments_path(section.id, section_subject.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
