@@ -20,7 +20,7 @@
                   <label class="control-label">Total Marks</label>
                   <%= number_field_tag :total, nil, required: true, maxlength: 60, placeholder: 'Total Marks', class: 'form-control' %>
                 </div>
-                <div class='col-sm-6'>
+                <div class='col-sm-6 template_btn_container'>
                   <div>Download marksheets templates for teachers to fill marks data</div>
                   <%= link_to "PDF Template", build_marksheet_administrator_marksheets_path(section_id: @section.id, klass_id: @klass.id, exam_id: @exam.id, subject_id: @subject.id, format: :pdf), class: "btn btn-primary btn-sm -control" %>
                   <%= link_to "Excel Template", build_marksheet_administrator_marksheets_path(section_id: @section.id, klass_id: @klass.id, exam_id: @exam.id, subject_id: @subject.id, format: :xlsx), class: "btn btn-info btn-sm form-" %>
