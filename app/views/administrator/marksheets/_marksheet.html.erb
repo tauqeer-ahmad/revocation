@@ -4,6 +4,7 @@
       <div class='ibox float-e-margins'>
         <div class='ibox-title'>
           <h5>Add Marks Students <small> Please fill the details correctly</small></h5>
+          <%= link_to "PDF Template new", build_marksheet_administrator_marksheets_path(section_id: @section.id, klass_id: @klass.id, exam_id: @exam.id, subject_id: @subject.id, format: :pdf) %>
         </div>
 
         <div class='clearfix'></div>
@@ -22,9 +23,10 @@
                 </div>
               </div>
             </div>
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped">
               <thead>
                 <tr>
+                  <th width="3%" class="text-center">Avatar</th>
                   <th>Roll Number</th>
                   <th>Student Name</th>
                   <th>
@@ -36,6 +38,9 @@
               <tbody>
                 <% @students.each  do |student| %>
                   <tr>
+                    <td class="client-avatar text-center">
+                      <%= image_tag student.avatar.url(:thumb), alt: "Image" %>
+                    </td>
                     <td><%= student.roll_number %></td>
                     <td><%= student.name %></td>
                     <td>
