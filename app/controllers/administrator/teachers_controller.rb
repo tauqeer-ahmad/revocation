@@ -1,5 +1,5 @@
 class Administrator::TeachersController < ApplicationController
-  before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :attendance]
 
   def index
     @teachers = Teacher.lookup params[:search]
@@ -59,6 +59,10 @@ class Administrator::TeachersController < ApplicationController
 
   def autocomplete
     render json: autocomplete_query(Teacher, ["first_name", "last_name"]).map{|teacher| {search: [teacher.first_name, ' ', teacher.last_name].join}}
+  end
+
+  def attendance
+    @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range = TeacherAttendance.fetch_teacher_report_data(params, current_term, @teacher)
   end
 
   private

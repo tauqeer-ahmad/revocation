@@ -103,6 +103,57 @@ class TeacherAttendance < ApplicationRecord
     [attendances, report_statistics, report_late_statistics, report_range, teachers]
   end
 
+  def self.fetch_teacher_report_data(params, current_term, teacher)
+    attendances = []
+    where_clause = {term_id: current_term.id, teacher_id: teacher.id}
+    start_date = params[:start_range]
+    end_date = params[:end_range]
+
+    if start_date.blank? && end_date.blank?
+      start_date = current_term.start_date.to_s
+      end_date = current_term.end_date.to_s
+    end
+
+    if start_date.present? && end_date.present?
+      start_range, end_range = TeacherAttendance.get_report_dates(start_date, end_date)
+      where_clause[:day] = start_range...end_range
+      attendances = TeacherAttendance.lookup '', {where: where_clause, order: {day: :asc}}
+    end
+
+    month_statistics = {}
+    month_late_statistics = {}
+    month_grouped = attendances.group_by { |m| m.day.beginning_of_month }
+    formated_results = {}
+    key_to_dates = {}
+    month_grouped.each_with_index do |(month, records), index|
+      key = [Date::MONTHNAMES[month.month], month.year].join('-')
+      key_to_dates[key] = {start_date: month.beginning_of_month, end_date: month.end_of_month}
+      if start_range.to_date == end_range.to_date
+        key = [start_range.strftime("%d %b, %Y")]
+        key_to_dates[key] = {start_date: start_range, end_date: end_range}
+      elsif month.month == start_range.month && end_range.month == month.month
+        key = [start_range.strftime("%d %b, %Y"), end_range.strftime("%d %b, %Y")].join(' - ')
+        key_to_dates[key] = {start_date: start_range, end_date: end_range}
+      elsif month.month == start_range.month && end_range.month != month.month
+        key = [start_range.strftime("%d %b, %Y"), month.end_of_month.strftime("%d %b, %Y")].join(' - ')
+        key_to_dates[key] = {start_date: start_range, end_date: month.end_of_month}
+      elsif month.month == end_range.month
+        key = [month.beginning_of_month.strftime("%d %b, %Y"), end_range.strftime("%d %b, %Y")].join(' - ')
+        key_to_dates[key] = {start_date: month.beginning_of_month, end_date: end_range}
+      end
+
+      formated_results[key] = records
+      month_statistics[key] = {Present: 0, Absent: 0, Leave: 0} if month_statistics[key].blank?
+      month_late_statistics[key] = {"On Time" => 0, Late: 0} if month_late_statistics[key].blank?
+      total_present = 0
+      records.group_by(&:status).map{ |status, r| month_statistics[key][status.capitalize.to_sym] = calculate_percentage(r.count, records.count); total_present += r.count if status == "present"; r.select{|r| month_late_statistics[key][:Late] += 1 if r.late?}}
+      month_late_statistics[key]["On Time"] = (total_present - month_late_statistics[key][:Late])
+      month_late_statistics[key]["On Time"] = calculate_percentage(month_late_statistics[key]["On Time"], total_present)
+      month_late_statistics[key][:Late] = calculate_percentage(month_late_statistics[key][:Late], total_present)
+    end
+    [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, start_range]
+  end
+
   def search_name
     self.teacher.full_name
   end

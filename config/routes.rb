@@ -141,6 +141,9 @@ Revocation::Application.routes.draw do
       end
       resources :admissions, only: [:index, :new]
       resources :teachers do
+        member do
+          get :attendance
+        end
         collection do
           post :bulk_insert
           get :autocomplete
