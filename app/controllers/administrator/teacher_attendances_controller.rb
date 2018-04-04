@@ -10,7 +10,6 @@ class Administrator::TeacherAttendancesController < ApplicationController
     @start_date = DateTime.parse(params[:start_range]).beginning_of_day
     @end_date = DateTime.parse(params[:end_range]).end_of_day
     @attendances, @report_statistics, @report_late_statistics, @report_range, @teachers = TeacherAttendance.fetch_pdf_report_data(@start_date, @end_date, current_term)
-    return redirect_back(fallback_location: root_path, alert: "No Results found") if @attendances.blank?
     respond_to do |format|
       format.html
       format.xlsx {

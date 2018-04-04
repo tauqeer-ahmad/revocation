@@ -63,7 +63,6 @@ class Administrator::TeachersController < ApplicationController
 
   def attendance
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @report_range, @start_date, @end_date = TeacherAttendance.fetch_teacher_report_data(params, current_term, @teacher)
-    return redirect_back(fallback_location: root_path, alert: "No Results found") if @attendances.blank?
     respond_to do |format|
       format.html
       format.pdf do
