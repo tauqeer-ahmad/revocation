@@ -1,6 +1,7 @@
 class TeacherAttendance < ApplicationRecord
   include SearchWrapper
   include SearchCallbackableWithoutParanoia
+  include Attendance
 
   belongs_to :term
   belongs_to :teacher
@@ -38,9 +39,16 @@ class TeacherAttendance < ApplicationRecord
   def self.fetch_report_data(params, current_term)
     attendances = []
     where_clause = {term_id: current_term.id}
-    if params[:start_range].present? && params[:end_range].present?
+    start_date = params[:start_range]
+    end_date = params[:end_range]
+
+    if start_date.blank? && end_date.blank?
+      start_date, end_date = get_initial_report_dates(current_term)
+    end
+
+    if start_date.present? && end_date.present?
       teachers = Teacher.ordered
-      start_range, end_range = TeacherAttendance.get_report_dates(params[:start_range], params[:end_range])
+      start_range, end_range = TeacherAttendance.get_report_dates(start_date, end_date)
       where_clause[:day] = start_range...end_range
       attendances = TeacherAttendance.lookup '', {where: where_clause, order: {day: :asc}}
     end
@@ -110,8 +118,7 @@ class TeacherAttendance < ApplicationRecord
     end_date = params[:end_range]
 
     if start_date.blank? && end_date.blank?
-      start_date = current_term.start_date.to_s
-      end_date = current_term.end_date.to_s
+      start_date, end_date = get_initial_report_dates(current_term)
     end
 
     if start_date.present? && end_date.present?
