@@ -91,6 +91,10 @@ module ApplicationHelper
     date.to_date.strftime("%d %B, %Y")
   end
 
+  def time_format(t)
+    t.in_time_zone.strftime('%-I:%M %p') if t
+  end
+
   def render_time(t, format=nil)
     if t
       if format
