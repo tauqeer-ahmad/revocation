@@ -70,7 +70,7 @@ class Administrator::TeachersController < ApplicationController
         disposition: 'attachment',
         template: "shared/teacher/_attendance_report.html.erb",
         layout: 'pdf.html.erb',
-        javascript_delay: 1000,
+        javascript_delay: 2000,
         viewport_size: '1200x880',
         zoom: 0.9,
         margin:  {
