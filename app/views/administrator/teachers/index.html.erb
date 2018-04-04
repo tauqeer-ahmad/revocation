@@ -51,6 +51,9 @@
                           <%= link_to [:administrator, teacher], class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
                             <i class="fa fa-eye"></i>
                           <% end %>
+                          <%= link_to attendance_administrator_teacher_path(teacher), class: "btn btn-outline btn-warning dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Attendance' do %>
+                            <i class="fa fa-check-square-o"></i>
+                          <% end %>
                           <%= link_to edit_administrator_teacher_path(teacher), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
                             <i class="fa fa-pencil-square-o"></i>
                           <% end %>
