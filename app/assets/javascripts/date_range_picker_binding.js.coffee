@@ -5,9 +5,15 @@ set_range_picker_value = (start, end) ->
   return
 
 bind_predefined_range_picker = ->
-  start = moment(gon.start_date)
-  start = moment(gon.end_date).startOf('month') if moment(gon.end_date).startOf('month') >= moment(gon.start_date)
+  start =  moment(gon.end_date).startOf('month')
   end = moment(gon.end_date)
+  today = moment()
+  if today >  moment(gon.start_date) && today < moment(gon.end_date)
+    start = moment().startOf('month')
+    end = moment()
+
+  start = moment(gon.start_date) if start < moment(gon.start_date)
+  end = moment(gon.end_date) if end > moment(gon.end_date)
 
   start_range = $('.start_range').val()
   end_range = $('.end_range').val()
