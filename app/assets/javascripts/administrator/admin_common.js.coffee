@@ -26,6 +26,17 @@
       okText: "Select"
       switchOnClick: true
 
+@bind_term_datepicker = ->
+  $('body').on 'focus', '.term_datepicker', ->
+    $(this).datetimepicker
+      format: 'DD MMMM YYYY'
+      sideBySide: true
+      widgetPositioning:
+        vertical: 'bottom'
+    $(this).on 'dp.hide', (e) ->
+      form = $(this).parents('form[data-client-side-validations]')
+      if form.length > 0
+        $(this).data('changed', true).isValid(form[0].ClientSideValidations.settings.validators)
 @bind_datepicker = ->
   $('body').on 'focus', '.datepicker', ->
     $(this).datetimepicker
@@ -80,3 +91,4 @@ $ ->
   bind_client_side_validations()
   bind_material_datepicker()
   bind_material_timepicker()
+  bind_term_datepicker()
