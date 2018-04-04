@@ -1,6 +1,7 @@
 class StudentAttendance < ApplicationRecord
   include SearchWrapper
   include SearchCallbackableWithoutParanoia
+  include Attendance
 
   belongs_to :section
   belongs_to :student
@@ -46,8 +47,15 @@ class StudentAttendance < ApplicationRecord
     where_clause = {term_id: current_term.id}
     where_clause[:student_id] = params[:student_id] if params[:student_id].present?
 
-    if params[:start_range].present? && params[:end_range].present?
-      start_range, end_range = StudentAttendance.get_report_dates(params[:start_range], params[:end_range])
+    start_date = params[:start_range]
+    end_date = params[:end_range]
+
+    if start_date.blank? && end_date.blank?
+      start_date, end_date = get_initial_report_dates(current_term)
+    end
+
+    if start_date.present? && end_date.present?
+      start_range, end_range = StudentAttendance.get_report_dates(start_date, end_date)
       where_clause[:day] = start_range...end_range
     end
 
@@ -100,31 +108,23 @@ class StudentAttendance < ApplicationRecord
   end
 
   def self.fetch_report_data_for_single(params, term_id, student_id)
-    return {} if params[:start_range].blank? || params[:end_range].blank?
-
     where_clause = {
       term_id: term_id,
       student_id: student_id,
     }
+    current_term = Term.find(term_id)
 
-    start_range, end_range = StudentAttendance.get_report_dates(params[:start_range], params[:end_range])
+    start_date = params[:start_range]
+    end_date = params[:end_range]
+
+    if start_date.blank? && end_date.blank?
+      start_date, end_date = get_initial_report_dates(current_term)
+    end
+
+    start_range, end_range = StudentAttendance.get_report_dates(start_date, end_date)
     where_clause[:day] = start_range...end_range
 
-    # if params[:start_range].present? && params[:end_range].present?
-    #   start_range, end_range = StudentAttendance.get_report_dates(params[:start_range], params[:end_range])
-    #   where_clause[:day] = start_range...end_range
-    # end
-
-    # section = if params[:section_id].present?
-    #   where_clause[:section_id] = params[:section_id]
-    #   Section.find(params[:section_id])
-    # end
-
     attendances = StudentAttendance.lookup '', { where: where_clause, order: { day: :asc } }
-    # attendances = if params[:start_range].present? && params[:end_range].present?
-    # else
-    #   []
-    # end
 
     month_statistics = {}
     month_late_statistics = {}
