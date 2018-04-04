@@ -84,8 +84,7 @@ jQuery ->
           i++
         selected = section_selector.data('selected')
         if selected
-          section_selector.children().find("[value=#{selected}]").prop('selected', true);
-          # $(".selectable_section > [value=#{selected}]").prop('selected', true);
+          $(".selectable_section > [value=#{selected}]").prop('selected', true);
         load_subjects()
         load_exams()
 
