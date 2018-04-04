@@ -165,7 +165,7 @@ class StudentAttendance < ApplicationRecord
       month_late_statistics[key][:Late] = calculate_percentage(month_late_statistics[key][:Late], total_present)
     end
 
-    [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, start_range]
+    [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, end_range]
   end
 
   def self.calculate_percentage(value, total)

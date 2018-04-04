@@ -85,7 +85,7 @@ class TeacherAttendance < ApplicationRecord
       month_late_statistics[key]["On Time"] = calculate_percentage(month_late_statistics[key]["On Time"], total_present)
       month_late_statistics[key][:Late] = calculate_percentage(month_late_statistics[key][:Late], total_present)
     end
-    [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, start_range, teachers]
+    [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, end_range, teachers]
   end
 
   def self.fetch_pdf_report_data(start_date, end_date, current_term)
@@ -120,12 +120,10 @@ class TeacherAttendance < ApplicationRecord
     if start_date.blank? && end_date.blank?
       start_date, end_date = get_initial_report_dates(current_term)
     end
-
-    if start_date.present? && end_date.present?
-      start_range, end_range = TeacherAttendance.get_report_dates(start_date, end_date)
-      where_clause[:day] = start_range...end_range
-      attendances = TeacherAttendance.lookup '', {where: where_clause, order: {day: :asc}}
-    end
+    start_range, end_range = TeacherAttendance.get_report_dates(start_date, end_date)
+    where_clause[:day] = start_range...end_range
+    attendances = TeacherAttendance.lookup '', {where: where_clause, order: {day: :asc}}
+    report_range = [start_range.strftime("%d %B, %Y"), end_range.strftime("%d %B, %Y")].join(' - ')
 
     month_statistics = {}
     month_late_statistics = {}
@@ -158,7 +156,7 @@ class TeacherAttendance < ApplicationRecord
       month_late_statistics[key]["On Time"] = calculate_percentage(month_late_statistics[key]["On Time"], total_present)
       month_late_statistics[key][:Late] = calculate_percentage(month_late_statistics[key][:Late], total_present)
     end
-    [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, start_range, start_range]
+    [formated_results, key_to_dates, month_statistics, month_late_statistics, attendances, report_range, start_date, end_date]
   end
 
   def search_name
