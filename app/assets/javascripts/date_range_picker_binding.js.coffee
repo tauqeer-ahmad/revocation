@@ -6,7 +6,8 @@ set_range_picker_value = (start, end) ->
 
 bind_predefined_range_picker = ->
   start = moment(gon.start_date)
-  end = moment(gon.start_date).add(29, 'days')
+  start = moment(gon.end_date).startOf('month') if moment(gon.end_date).startOf('month') >= moment(gon.start_date)
+  end = moment(gon.end_date)
 
   start_range = $('.start_range').val()
   end_range = $('.end_range').val()
