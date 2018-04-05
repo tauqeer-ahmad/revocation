@@ -42,26 +42,31 @@
                   </div>
 
                   <h3 class='text-center'>Your Subjects</h3>
-                  <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th> Subject </th>
-                        <th> Actions </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% @section_subjects[section.id].each_with_index do |section_subject, index| %>
-                        <tr>
-                          <td><%= section_subject.subject.name %></td>
-                          <td>
-                            <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section.id, subject: section_subject.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
+                  <% @section_subjects[section.id].each_with_index do |section_subject, index| %>
+                    <div class="file-box">
+                      <div class="file">
+                        <%= link_to "#", class: 'btn-link' do %>
+                          <span class="corner"></span>
+                          <div class="icon border-line">
+                            <i class="fa fa-book"></i>
+                          </div>
+                          <div class="file-name text-center">
+                            <%= section_subject.subject.name %>
+                            <br>
+                            <small>Students: <%= section.display_students_count %></small>
+                            <br>
 
-                            <%= link_to(list_assignments_path(section.id, section_subject.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
-                          </td>
-                        </tr>
-                      <% end if @section_subjects[section.id].present?%>
-                    </tbody>
-                  </table>
+                            <div class="row m-t-xs text-center">
+                              <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section.id, subject: section_subject.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
+                            </div>
+                            <div class="row m-t-xs text-center">
+                              <%= link_to(list_assignments_path(section.id, section_subject.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end if @section_subjects[section.id].present?%>
                 </div>
               <% end %>
             </div>
