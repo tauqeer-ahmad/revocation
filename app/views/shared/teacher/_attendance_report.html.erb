@@ -29,7 +29,7 @@
           </div>
           <% if request.format.html? %>
             <div class="col-md-4">
-              <%= link_to 'Download PDF', attendance_administrator_teacher_path(@teacher, format: :pdf, start_range: @start_date, end_range: @end_date), class: 'btn btn-success btn-block' %>
+              <%= link_to 'Download PDF', single_teacher_attendance_report_link(@start_date, @end_date, :pdf, @teacher), class: 'btn btn-success btn-block' %>
             </div>
           <% end %>
         </div>

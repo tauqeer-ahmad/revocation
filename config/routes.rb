@@ -343,6 +343,7 @@ Revocation::Application.routes.draw do
           put :update_selected_term
         end
       end
+      resources :attendances, only: [:index]
     end
   end
 

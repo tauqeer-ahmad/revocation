@@ -236,6 +236,11 @@ module ApplicationHelper
     return results_report_section_student_path(section, student, format: format) if current_user.teacher?
   end
 
+  def single_teacher_attendance_report_link(start_range, end_range, format, teacher = {})
+    return attendance_administrator_teacher_path(teacher, format: format, start_range: start_range, end_range: end_range) if current_user.administrator?
+    return attendances_path(format: format, start_range: start_range, end_range: end_range) if current_user.teacher?
+  end
+
   def display_section_incharge(section, current_user)
     if section.incharge_id != current_user.id
       content_tag(:span, class: 'label label-primary') do

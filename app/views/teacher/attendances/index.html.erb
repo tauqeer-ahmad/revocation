@@ -1,0 +1,53 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Your Attendance
+    </h2>
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>Report</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="ibox">
+  <div class="ibox-content">
+    <%= form_tag attendances_path, method: :get do %>
+      <div class="row">
+        <div id="subject_holder">
+          <div class="col-md-3">
+            <%= date_field_tag :start_range, params[:start_range], class: "hide start_range" %>
+            <%= date_field_tag :end_range, params[:end_range], class: "hide end_range" %>
+            <div class="form-group">
+              <label style="margin-bottom: 5px;">Date Range</label>
+
+              <div class="input-group">
+                <div id="reportrange" class="pull-right daterangepicker-field">
+                  <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                  <span></span> <b class="caret"></b>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 m-t-md">
+          <center>
+            <button type="submit" class="btn btn-block btn-primary">View Report</button>
+          </center>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render 'shared/teacher/attendance_report' %>
