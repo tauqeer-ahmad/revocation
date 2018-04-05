@@ -74,4 +74,13 @@ $warning: #f8ac59;
 }
 thead { display: table-header-group }
 tfoot { display: table-row-group }
-.page-break { display:block; clear:both; page-break-after:always; }
+tr { page-break-inside: avoid }
+.no-break:before {
+  display: block;
+  clear: both;
+  overflow: hidden;
+}
+.no-break {
+  page-break-inside: avoid !important;
+  overflow: visible;
+}
