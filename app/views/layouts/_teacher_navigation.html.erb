@@ -54,6 +54,12 @@
         <% end %>
       </li>
 
+       <li class="<%= is_active_controller('teacher/sections') %>">
+        <%= link_to sections_path do %>
+          <i class="fa fa-cubes"></i> <span class="nav-label">Your Sections</span>
+        <% end %>
+      </li>
+
       <li class='nav-first-level <%= is_active_controller('teacher/student_attendances') %>'>
         <%= link_to '/' do %>
           <i class='fa fa-check-square-o'></i> <span class='nav-label'>Student's Attendance</span>
@@ -73,12 +79,6 @@
             <% end %>
           </li>
         </ul>
-      </li>
-
-      <li class="<%= is_active_controller('teacher/sections') %>">
-        <%= link_to sections_path do %>
-          <i class="fa fa-cubes"></i> <span class="nav-label">Sections</span>
-        <% end %>
       </li>
 
       <li class="<%= is_active_controller('teacher/question_papers') %>">
