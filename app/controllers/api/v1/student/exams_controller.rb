@@ -1,23 +1,21 @@
 class Api::V1::Student::ExamsController < Api::V1::Student::StudentBaseController
-  before_action :set_exam, only: [:show]
   def index
-    @exams = current_term.exams.includes(exam_timetables: [:subject, :klass])
-    render json: @exams, student_id: current_user.id
+    @exams = current_user.current_section(current_term).exams.active.includes(:exam_timetables)
+    # @exams = current_term.exams.includes(exam_timetables: [:subject, :klass])
+    render json: @exams
   end
 
   def results
     @results = current_user.results_json(current_term)
+
     render json: @results, status: :ok
   end
 
   def show
-    @exam = @exams.includes(exam_timetables: [:subject, :klass]).first
-    render json: @exam, serializer: ExamShowSerializer
-  end
+    @exam = current_user.current_section(current_term.id)
+                        .exams
+                        .find(params[:id])
 
-  private
-  def set_exam
-    @exams = current_term.exams.where(id: params[:id])
-    return error_response("No exam records found") if @exams.blank?
+    render json: @exam, exam_timetables: true
   end
 end
