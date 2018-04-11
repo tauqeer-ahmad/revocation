@@ -1,7 +1,7 @@
 class Api::V1::Student::ExamsController < Api::V1::Student::StudentBaseController
   def index
     @exams = current_user.current_section(current_term).exams.active.includes(:exam_timetables)
-    # @exams = current_term.exams.includes(exam_timetables: [:subject, :klass])
+
     render json: @exams
   end
 

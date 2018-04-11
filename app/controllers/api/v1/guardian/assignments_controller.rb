@@ -8,7 +8,7 @@ class Api::V1::Guardian::AssignmentsController < Api::V1::Guardian::GuardianBase
   end
 
   def show
-    render json: @assignment, serializer: AssignmentDetailSerializer
+    render json: @assignment, include_task: true
   end
 
   private
@@ -17,8 +17,7 @@ class Api::V1::Guardian::AssignmentsController < Api::V1::Guardian::GuardianBase
     end
 
     def set_assignment
-      @assignment = Assignment.find(params[:id])
-      return unauthorized_response("Invalid Access") if @assignment.section_id != @section.id
+      @assignment = @section.assignments.find(params[:id])
     end
 end
 

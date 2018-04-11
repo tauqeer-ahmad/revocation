@@ -17,7 +17,6 @@ class Api::V1::Student::AssignmentsController < Api::V1::Student::StudentBaseCon
     end
 
     def set_assignment
-      @assignment = Assignment.find(params[:id])
-      return unauthorized_response("Invalid Access") if @assignment.section_id != @section.id
+      @assignment = @section.assignments.find(params[:id])
     end
 end
