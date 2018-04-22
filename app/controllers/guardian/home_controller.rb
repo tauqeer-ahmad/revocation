@@ -6,7 +6,7 @@ class Guardian::HomeController < ApplicationController
 
   def index
     if selected_student.present?
-      gon.attendance_events = Attendance.attendance_events(selected_student, current_term)
+      gon.attendance_events = StudentAttendance.attendance_events(selected_student, current_term)
 
       gon.assignment_events = Assignment.assignment_events(selected_student, current_term)
 

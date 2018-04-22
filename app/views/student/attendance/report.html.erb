@@ -26,9 +26,9 @@
       <div class="ibox">
         <div class="ibox-content">
           <%= form_tag report_attendance_path, method: :get do %>
-            <%= hidden_field_tag :student_id, current_user.id %>
-            <%= hidden_field_tag :klass_id, current_user.current_section(current_term.id).klass_id %>
-            <%= hidden_field_tag :student_id, current_user.current_section(current_term.id).id %>
+            <%= hidden_field_tag :student_id, selected_user.id %>
+            <%= hidden_field_tag :klass_id, selected_user.current_section(current_term.id).klass_id %>
+            <%= hidden_field_tag :student_id, selected_user.current_section(current_term.id).id %>
 
             <div class="row">
               <div id="subject_holder">
@@ -57,8 +57,8 @@
           <% end %>
 
           <div id="student_attendance_report">
-            <%= render 'shared/student/detailed_info', student: current_user %>
-            <%= render 'shared/student_attendances/single_report', student: current_user %>
+            <%= render 'shared/student/detailed_info', student: selected_user %>
+            <%= render 'shared/student_attendances/single_report', student: selected_user %>
           </div>
         </div>
       </div>

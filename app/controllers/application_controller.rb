@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :current_user, :user_signed_in?, :current_term, :active_term, :selected_student
+  helper_method :current_user, :user_signed_in?, :current_term, :active_term, :selected_student, :selected_user
 
   before_action :set_current_term
   before_action :set_current_term_ranges
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   def selected_student
     return @selected_student if @selected_student && @selected_student.id == session[:selected_student]
 
-    @selected_student = session[:selected_student] ? Student.find(session[:selected_student]) : current_user.children.find_by(email: 'dodesicyx@yahoo.com')
+    @selected_student = session[:selected_student] ? Student.find(session[:selected_student]) : current_user.children.first
   end
 
   def selected_user
