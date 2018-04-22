@@ -6,8 +6,8 @@ class Student::AttendanceController < ApplicationController
     @month_late_statistics,
     @attendances,
     @start_range,
-    @end_range = StudentAttendance.fetch_report_data_for_single(params, current_term.id, current_user.id)
+    @end_range = StudentAttendance.fetch_report_data_for_single(params, current_term.id, selected_user.id)
 
-    @section = current_user.current_section(current_term.id)
+    @section = selected_user.current_section(current_term.id)
   end
 end

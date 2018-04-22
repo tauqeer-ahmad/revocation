@@ -124,7 +124,7 @@ class StudentAttendance < ApplicationRecord
     start_range, end_range = StudentAttendance.get_report_dates(start_date, end_date)
     where_clause[:day] = start_range...end_range
 
-    attendances = StudentAttendance.lookup '', { where: where_clause, order: { day: :asc } }
+    attendances = StudentAttendance.lookup '', { where: where_clause, order: { day: {unmapped_type: "long"} } }
 
     month_statistics = {}
     month_late_statistics = {}
