@@ -34,6 +34,11 @@
                           <i class="fa fa-list"></i> Students (<%= section.display_students_count %>)
                         <% end %>
 
+                        <%= link_to section_timetables_path(section), class: 'btn btn-primary btn-outline btn-xs' do %>
+                          <i class="fa fa-list"></i> Section Timetable
+                        <% end %>
+
+
                         <%= link_to tabulation_sheet_section_path(section), class: 'btn btn-primary btn-outline btn-xs' do %>
                           <i class="fa fa-bar-chart"></i> Tabulation Sheeet
                         <% end %>

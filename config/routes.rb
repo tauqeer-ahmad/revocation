@@ -317,6 +317,7 @@ Revocation::Application.routes.draw do
             get :autocomplete
           end
         end
+         resources :timetables, only: [:index]
       end
 
       resources :assignments, only: [:new, :edit, :create, :update, :destroy, :show] do
