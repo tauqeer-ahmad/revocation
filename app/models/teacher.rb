@@ -95,7 +95,7 @@ class Teacher < User
   def subject_timetable_events(current_term)
     subject_ids = self.section_subject_teachers.pluck(:subject_id)
     timetables = Timetable.includes(:subject).where(subject_id: subject_ids, term_id: current_term.id).by_day_of_week
-    Timetable.events(timetables)
+    [Timetable.events(timetables), timetables]
   end
 
 end

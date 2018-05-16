@@ -71,15 +71,75 @@
 
   <div class="row">
     <div class="col-sm-6">
-      <div class='ibox float-e-margins'>
-        <div class='ibox-title'>
-          <h5>Current week lectures <%= format_date(Date.today) %> <small><%= current_term.display_name %></small></h5>
-        </div>
+      <div id='left-section'>
+        <div class="ibox">
+          <div class='ibox-title'>
+            <h5>Current week leactures <small> <%= format_date Date.today %></small></h5>
+          </div>
+          <div class="ibox-content">
+            <div class="timetables-list">
+              <ul class="nav nav-tabs">
+                <li class="active">
+                  <a data-toggle="tab" href="#tab-1"><i class="fa fa-calendar"></i> TimeTable</a>
+                </li>
 
-        <div class='clearfix'></div>
+                <li>
+                  <a data-toggle="tab" href="#tab-2"><i class="fa fa-list"></i> View TimeTable List</a>
+                </li>
+              </ul>
 
-        <div class='ibox-content'>
-          <div id='timetable-calendar'></div>
+              <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div id='timetable-calendar'></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="tab-2" class="tab-pane">
+                  <div class="full-height-scroll">
+                    <div class="panel panel-default" data-collapsed="0">
+                      <div class="panel-body">
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered">
+                          <tbody>
+                            <% @days_hash.each do |day, name| %>
+                              <tr>
+                                <td width="100"><%= name %></td>
+                                <td>
+                                  <% if @timetables[day].present? %>
+                                    <% @timetables[day].each do |timetable| %>
+                                      <div class="btn-group m-xs">
+                                        <button class="btn btn-default dropdown-toggle timetable-btn" data-toggle="dropdown" style='background-color: <%= timetable.subject_color %>; border-color: <%= timetable.subject_color %>'>
+                                          <%= timetable.subject_name %> <%= timetable.timings %> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                          <li>
+                                            <div class="ibox-content text-center">
+                                              <h1><%= timetable.teacher_name %></h1>
+                                              <div class="m-b-sm">
+                                                <%= image_tag timetable.teacher.avatar.url(:thumb), class: "img-circle", alt: "Image" %>
+                                              </div>
+                                              <p class='font-bold'><i class="fa fa-envelope"></i> <%= timetable.teacher.email %></p>
+                                              <p class='font-bold'>Class Teacher</p>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    <% end %>
+                                  <% end %>
+                                </td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

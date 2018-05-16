@@ -8,7 +8,8 @@ class Teacher::HomeController < ApplicationController
       assignments: current_user.assignments.count,
       question_papers: current_user.question_papers.count,
     }
-    gon.timetable_events = current_user.subject_timetable_events(current_term)
+    @days_hash = Timetable::DAYS
+    gon.timetable_events, @timetables = current_user.subject_timetable_events(current_term)
     gon.attendance_events = []
     gon.assignment_events = Assignment.teacher_assignment_events(current_user, current_term)
     gon.exam_events       = Exam.exam_teacher_events(current_user, current_term)
