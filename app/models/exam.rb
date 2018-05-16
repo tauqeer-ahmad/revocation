@@ -29,6 +29,7 @@ class Exam < ApplicationRecord
 
   scope :of_current_term, -> (term_id) { where(term_id: term_id) }
   scope :of_class_and_term, -> (klass_id, term_id) { includes(exam_timetables: :subject).where(exam_timetables: {klass_id: klass_id, term_id: term_id}) }
+  scope :of_subjects_and_term, -> (subject_ids, term_id) { includes(exam_timetables: [:section, :subject]).where(exam_timetables: {subject_id: subject_ids, term_id: term_id} ) }
 
   def search_data
     {
@@ -71,7 +72,7 @@ class Exam < ApplicationRecord
     events = exams.collect do |exam|
                exam.exam_timetables.collect do |exam_timetable|
                  {
-                   title: [exam.name, ' of ', exam_timetable.subject.try(:name), ' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
+                   title: [exam.name, ' of ', exam_timetable.subject.try(:name) ,' at ', exam_timetable.start_time.strftime('%-I:%M %p')].join,
                    start: exam_timetable.paper_date.to_time,
                    color: exam_timetable.get_exam_color,
                    className: ['text-center', 'exam-event'],
@@ -81,6 +82,26 @@ class Exam < ApplicationRecord
              end
     events.flatten
   end
+
+  def self.exam_teacher_events(current_user, current_term)
+    subject_ids = current_user.section_subject_teachers.pluck(:subject_id)
+    return unless subject_ids
+    exams = Exam.of_subjects_and_term(subject_ids, current_term.id)
+
+    events = exams.collect do |exam|
+               exam.exam_timetables.collect do |exam_timetable|
+                 {
+                   title: ['Exam:', exam.name, 'of', exam_timetable.subject.try(:name), 'of section', exam_timetable.section&.name , 'at', exam_timetable.start_time.strftime('%-I:%M %p')].join(' '),
+                   start: exam_timetable.paper_date.to_time,
+                   color: exam_timetable.get_exam_color,
+                   className: ['text-center', 'exam-event'],
+                   allDay: true,
+                 }
+               end
+             end
+    events.flatten
+  end
+
 
   def add_notice
     notices.create(

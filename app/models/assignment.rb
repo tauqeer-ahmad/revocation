@@ -13,6 +13,7 @@ class Assignment < ApplicationRecord
   scope :ordered,    ->           { order(:submission_deadline) }
 
   scope :of_section_and_term, -> (section_id, term_id) { where(section_id: section_id, term_id: term_id) }
+  scope :of_subjects_and_term, -> (subject_ids, term_id) { where(subject_id: subject_ids, term_id: term_id) }
 
   aasm requires_lock: true, column: 'status' do
     state :initialized
@@ -44,7 +45,23 @@ class Assignment < ApplicationRecord
 
     assignments.collect do |assignment|
       {
-        title: ['Assignment: ', assignment.heading].join,
+        title: ['Assignment: ', assignment.heading, 'due at', assignment.submission_deadline.strftime('%-d %b %Y %-I:%M %p')].join,
+        start: assignment.submission_deadline,
+        color: assignment.get_assignment_color,
+        className: ['text-center', 'assignment-event'],
+        allDay: true,
+      }
+    end
+  end
+
+  def self.teacher_assignment_events(current_user, current_term)
+    subject_ids = current_user.section_subject_teachers.pluck(:subject_id)
+    return {} unless subject_ids
+    assignments = includes(:subject, :section).of_subjects_and_term(subject_ids, current_term.id)
+
+    assignments.collect do |assignment|
+      {
+        title: ['Assignment:', assignment.heading, assignment.subject&.name, assignment.section&.name, 'due at', assignment.submission_deadline.strftime('%-d %b %Y %-I:%M %p')].join(' '),
         start: assignment.submission_deadline,
         color: assignment.get_assignment_color,
         className: ['text-center', 'assignment-event'],
