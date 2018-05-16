@@ -4,7 +4,7 @@ class Teacher::StudentAttendancesController < ApplicationController
   before_filter :verify_date_range, only: [:index, :report]
 
   def index
-    @section_optgroup = current_user.optgroup_incharged_sections_list(current_term.id)
+    @section_optgroup = current_user.optgroup_teacher_sections_list(current_term.id)
     @formated_results, @key_to_dates, @month_statistics, @month_late_statistics, @attendances, @start_range, @end_range, @section = StudentAttendance.fetch_report_data(params, current_term)
   end
 

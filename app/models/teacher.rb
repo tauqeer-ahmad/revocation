@@ -66,6 +66,12 @@ class Teacher < User
     response
   end
 
+  def optgroup_teacher_sections_list(current_term_id)
+    response = {}
+    sections.includes(:klass).of_current_term(current_term_id).collect {|section| response[section.klass.name] = []if response[section.klass.name].blank?; response[section.klass.name] << [section.name, section.id]}
+    response
+  end
+
   def self.data_hash
     all.pluck(:id, :email, :first_name, :last_name, :profession).inject({}) { |memo, obj| memo[obj.first] = [obj[1] ,obj[2], obj[3]]; memo }
   end
