@@ -6,8 +6,8 @@ module Administrator::TermsHelper
   end
 
   def term_text_class(term)
-    return 'label-primary' if term.active?
-    return 'label-info' if term.completed?
+    return 'label-info' if term.active?
+    return 'label-primary' if term.completed?
     return 'label-warning' if term.initialized?
   end
 end
