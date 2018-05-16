@@ -69,11 +69,26 @@
     </div>
   </div>
 
-  <div class="row m-t-sm">
-    <div class='col-md-12'>
-      <%= render 'note_create_form' %>
+  <div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class='ibox float-e-margins'>
+          <div class='ibox-title'>
+            <h5>Current week lectures <%= format_date(Date.today) %> <small><%= current_term.display_name %></small></h5>
+          </div>
+
+          <div class='clearfix'></div>
+
+          <div class='ibox-content'>
+            <div id='timetable-calendar'></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <%= render 'notes', notes: current_user.notes %>
 </div>
+
+<% content_for :javascript do %>
+  Timetable.init();
+<% end %>
+

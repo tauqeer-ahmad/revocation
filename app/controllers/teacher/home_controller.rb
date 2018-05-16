@@ -8,6 +8,7 @@ class Teacher::HomeController < ApplicationController
       assignments: current_user.assignments.count,
       question_papers: current_user.question_papers.count,
     }
+    gon.timetable_events = current_user.subject_timetable_events(current_term)
   end
 
   def lock_account

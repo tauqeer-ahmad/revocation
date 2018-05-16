@@ -63,27 +63,27 @@
                             <tr>
                               <td width="100"><%= name %></td>
                               <td>
-                              <% if @timetables[day].present? %>
-                                <% @timetables[day].each do |timetable| %>
-                                    <div class="btn-group m-xs">
-                                      <button class="btn btn-default dropdown-toggle timetable-btn" data-toggle="dropdown" style='background-color: <%= timetable.subject_color %>; border-color: <%= timetable.subject_color %>'>
-                                        <%= timetable.subject_name %> <%= timetable.timings %> <span class="caret"></span>
-                                      </button>
-                                      <ul class="dropdown-menu">
-                                        <li>
-                                          <div class="ibox-content text-center">
-                                            <h1><%= timetable.teacher_name %></h1>
-                                            <div class="m-b-sm">
-                                              <%= image_tag timetable.teacher.avatar.url(:thumb), class: "img-circle", alt: "Image" %>
+                                <% if @timetables[day].present? %>
+                                  <% @timetables[day].each do |timetable| %>
+                                      <div class="btn-group m-xs">
+                                        <button class="btn btn-default dropdown-toggle timetable-btn" data-toggle="dropdown" style='background-color: <%= timetable.subject_color %>; border-color: <%= timetable.subject_color %>'>
+                                          <%= timetable.subject_name %> <%= timetable.timings %> <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                          <li>
+                                            <div class="ibox-content text-center">
+                                              <h1><%= timetable.teacher_name %></h1>
+                                              <div class="m-b-sm">
+                                                <%= image_tag timetable.teacher.avatar.url(:thumb), class: "img-circle", alt: "Image" %>
+                                              </div>
+                                              <p class='font-bold'><i class="fa fa-envelope"></i> <%= timetable.teacher.email %></p>
+                                              <p class='font-bold'>Class Teacher</p>
                                             </div>
-                                            <p class='font-bold'><i class="fa fa-envelope"></i> <%= timetable.teacher.email %></p>
-                                            <p class='font-bold'>Class Teacher</p>
-                                          </div>
-                                        </li>
-                                      </ul>
-                                    </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                  <% end %>
                                 <% end %>
-                              <% end %>
                               </td>
                             </tr>
                           <% end %>
