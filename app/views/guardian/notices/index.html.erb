@@ -26,6 +26,7 @@
       <div class="ibox">
         <div class="ibox-title">
           <h5>Your Child Notifications</h5>
+          <span class="text-muted small pull-right"><%= display_total_tagline(params[:page], @notices.total_count, @notices.size, Notice::DEFAULT_PER_PAGE) %></span>
         </div>
         <div class="ibox-content">
           <div class="notice-list">

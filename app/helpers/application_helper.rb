@@ -252,4 +252,12 @@ module ApplicationHelper
       end
     end
   end
+
+  def display_total_tagline(current_page, total_count, page_count, per_page)
+    displayed = 0
+    if page_count > 0
+      displayed = current_page.nil? || current_page.to_i == 0 ? page_count.to_i : ((current_page.to_i - 1) * per_page.to_i) + page_count.to_i
+    end
+    "Showing #{displayed} of #{total_count}"
+  end
 end

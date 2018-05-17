@@ -4,6 +4,7 @@ class Notice < ApplicationRecord
   belongs_to :noticeable, polymorphic: true
 
   include SearchWrapper
+  DEFAULT_PER_PAGE = 15
 
   searchkick index_name: tenant_index_name, match: :word_start, searchable: [:title]
 

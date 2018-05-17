@@ -23,9 +23,10 @@
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
     <div class="col-sm-12">
-      <div class="ibox float-e-margins">
+      <div class="ibox">
         <div class="ibox-title">
           <h5>Notification Management</h5>
+          <span class="text-muted small pull-right"><%= display_total_tagline(params[:page], @notices.total_count, @notices.size, Notice::DEFAULT_PER_PAGE) %></span>
         </div>
         <div class="ibox-content">
           <div class="notice-list">
