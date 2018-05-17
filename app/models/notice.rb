@@ -27,6 +27,7 @@ class Notice < ApplicationRecord
       klass_id: klass_id,
       section_id: section_id,
       notice_type: notice_type,
+      updated_at: updated_at,
     }
   end
 

@@ -27,4 +27,9 @@ module Administrator::NoticesHelper
     return link_to(path, class: 'btn btn-outline btn-success dim btn-xs'){ icon_of('fa fa-eye') } unless path == '#'
     return link_to('#', class: 'btn btn-outline btn-success dim btn-xs', data: { toggle: 'modal', target: "#notice-modal-#{notice.id}" }){ icon_of('fa fa-eye') }
   end
+
+  def get_col_class(current_user)
+    return "col-xs-7" if current_user.administrator?
+    "col-xs-9"
+  end
 end

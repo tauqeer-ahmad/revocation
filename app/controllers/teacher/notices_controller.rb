@@ -1,6 +1,6 @@
 class Teacher::NoticesController < ApplicationController
   def index
-    @notices = Notice.lookup(params[:search], {where: where_clause})
+    @notices = Notice.lookup(params[:search], {includes: [:klass, :section], order: {updated_at: :desc}, where: where_clause})
   end
 
   def autocomplete

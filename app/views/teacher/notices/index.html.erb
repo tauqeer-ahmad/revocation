@@ -14,7 +14,7 @@
       </li>
 
       <li class='active'>
-        <strong>Notices</strong>
+        <strong>Notifications</strong>
       </li>
     </ol>
   </div>
@@ -24,17 +24,13 @@
   <div class="row">
     <div id='left-section' class="col-sm-12">
       <div class="ibox">
+        <div class="ibox-title">
+          <h5>Your Notifications</h5>
+        </div>
         <div class="ibox-content">
           <div class="notice-list">
-            <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i>Notices</a></li>
-            </ul>
-            <div class="tab-content">
-              <div id="tab-1" class="tab-pane active">
-                <%= render partial: 'shared/search_box', locals: {path: notices_path} %>
-                <%= render 'shared/notices/notices_table', notices: @notices %>
-              </div>
-            </div>
+            <%= render partial: 'shared/search_box', locals: {path: notices_path} %>
+            <%= render 'shared/notices/notices_table', notices: @notices %>
           </div>
         </div>
       </div>

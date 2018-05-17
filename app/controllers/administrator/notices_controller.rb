@@ -3,7 +3,7 @@ class Administrator::NoticesController < ApplicationController
   before_action :set_klasses, only: [:index, :edit]
 
   def index
-    @notices = Notice.lookup params[:search]
+    @notices = Notice.lookup params[:search], {includes: [:klass, :section], order: {updated_at: :desc}}
     @new_notice = Notice.new(notice_type: 'General')
     @sections = []
   end
