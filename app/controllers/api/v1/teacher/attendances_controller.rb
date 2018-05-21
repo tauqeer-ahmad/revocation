@@ -14,7 +14,7 @@ module Api
         end
 
         def myself
-          @attendances = current_user.teacher_attendances.for_month_and_year(params[:month], params[:year]).of_term(1)
+          @attendances = current_user.teacher_attendances.for_month_and_year(params[:month], params[:year]).of_term(current_term.id)
 
           render json: @attendances
         end

@@ -21,9 +21,11 @@ class TeacherAttendance < ApplicationRecord
   end
 
   def self.for_month_and_year(month, year)
-    return if month.blank? || year.blank?
-
-    date = Date.new(year.to_i, month.to_i)
+    if month.blank? || year.blank?
+      date = Date.today
+    else
+      date = Date.new(year.to_i, month.to_i)
+    end
 
     where('day >= ? AND day <= ?', date.beginning_of_month, date.end_of_month)
   end
