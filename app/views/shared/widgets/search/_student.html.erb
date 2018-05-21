@@ -23,7 +23,7 @@
         <%= link_to edit_administrator_section_student_path(student_section, result), class: "btn btn-outline btn-info dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'Edit' do %>
           <i class="fa fa-pencil-square-o"></i>
         <% end if current_user.administrator? %>
-        <%= link_to single_attendance_student_attendances_path(student), class: 'btn btn-outline btn-warning dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Attendnace' do %>
+        <%= link_to single_attendance_student_attendances_path(result), class: 'btn btn-outline btn-warning dim btn-xs', data: { toggle: 'tooltip', placement: 'top' }, title: 'Attendnace' do %>
           <i class='fa fa-check-square-o'></i>
         <% end if current_user.administrator? %>
         <%= render 'shared/student/student_results', student: result, text: "", section: student_section %>
