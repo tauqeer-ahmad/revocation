@@ -1,0 +1,50 @@
+<div class="col-lg-4">
+  <div class="ibox">
+    <div class="ibox-title">
+      <span class="label label-primary pull-right"><%= result.class.name %></span>
+      <h5><%= result.name %></h5>
+    </div>
+    <div class="ibox-content text-center">
+      <div class='file'>
+        <div class="icon">
+          <i class="fa fa-hourglass-start"></i>
+        </div>
+      </div>
+      <h4><%= format_date(result.start_date) %></h4>
+      <p>
+        <%= result.comment %>
+      </p>
+
+      <div class="m-t-xs text-center">
+        <%= link_to show_path(result), class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+          <i class="fa fa-eye"></i>
+        <% end %>
+        <%= link_to administrator_exam_exam_timetables_path(result), class: "btn btn-outline btn-info dim btn-xs" do %>
+          <i class="fa fa-clock"></i> Manage Datesheet
+        <% end if current_user.administrator? %>
+      </div>
+
+      <div>
+        <span>Percentage contributed to final exam:</span>
+        <div class="stat-percent"><%= result.percentage %>%</div>
+        <div class="progress progress-mini">
+          <div style="width: <%= result.percentage %>%;" class="progress-bar"></div>
+        </div>
+      </div>
+      <div class="row  m-t-sm">
+        <div class="col-sm-4">
+          <div class="font-bold">Class</div>
+          <%= result.klass&.name %>
+        </div>
+        <div class="col-sm-4">
+          <div class="font-bold">Section</div>
+          <%= result.section&.name %>
+        </div>
+        <div class="col-sm-4 text-right">
+          <div class="font-bold">Published</div>
+          <label class="label label-<%= entity_status_class(result) %>"><%= entity_status_display(result) %></label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

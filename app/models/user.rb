@@ -80,7 +80,7 @@ class User < ApplicationRecord
                TEACHER_GLOBAL_SEARCH
              end
 
-    models.collect { |model| model.constantize.searchkick_index.name }
+    models.collect { |model| model.constantize.search_index.name }
   end
 
   def login=(login)
