@@ -46,7 +46,7 @@ class Administrator::HomeController < ApplicationController
   end
 
   def global_search
-    @results = Teacher.search(params['global_search'], index_name: current_user.global_search_models)
+    @results = Searchkick.search(params['global_search'], index_name: current_user.global_search_models, match: :word_start, operator: "or")
   end
 
   private

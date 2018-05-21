@@ -1,0 +1,28 @@
+<div class="col-lg-4">
+  <div class="ibox">
+    <div class="ibox-title">
+      <span class="label label-primary pull-right"><%= result.class.name %></span>
+      <h5><%= result&.name%></h5>
+    </div>
+    <div class="ibox-content text-center">
+      <div class='file'>
+        <div class="icon">
+          <i class="fa fa-cubes"></i>
+        </div>
+      </div>
+
+      <div class="m-t-xs text-center">
+        <%= link_to show_path(result), class: "btn btn-outline btn-success dim btn-xs", data: { toggle: 'tooltip', placement: 'top' }, title: 'View' do %>
+          <i class="fa fa-eye"></i>
+        <% end %>
+      </div>
+
+      <div class="row m-t-sm">
+        <div class="col-sm-4">
+          <div class="font-bold">Sections</div>
+          <%= result.current_sections(current_term.id).count %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

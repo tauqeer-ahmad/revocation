@@ -44,8 +44,6 @@ module ApplicationHelper
   end
 
   def teacher_show_path(entity)
-    return '#'
-
     case entity.class.name
     when 'Student'
       section_student_path(entity.current_section(current_term), entity.id)
@@ -175,6 +173,10 @@ module ApplicationHelper
     entity.initialized? ? 'Publish' : 'DeActivate'
   end
 
+  def entity_status_display(entity)
+    entity.initialized? ? 'No' : 'Yes'
+  end
+
   def entity_status_class(entity)
     entity.initialized? ? 'btn-primary' : 'btn-warning'
   end
@@ -259,5 +261,11 @@ module ApplicationHelper
       displayed = current_page.nil? || current_page.to_i == 0 ? page_count.to_i : ((current_page.to_i - 1) * per_page.to_i) + page_count.to_i
     end
     "Showing #{displayed} of #{total_count}"
+  end
+
+  def select_gender_icon(gender)
+    return "" if gender.blank?
+    return "fa-male" if gender.downcase == "male"
+    return "fa-female" if gender.downcase == "female"
   end
 end
