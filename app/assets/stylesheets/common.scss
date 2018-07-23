@@ -659,3 +659,15 @@ ol.breadcrumb > li::before {
 .border-line {
   border: 1px solid #c5c5c5;
 }
+
+ul.horizontal-list {
+  min-width: 620px;
+
+  li {
+    display: inline-block !important;
+  }
+}
+
+.no-borders {
+  border: none !important;
+}
