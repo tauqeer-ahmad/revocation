@@ -18,15 +18,17 @@
             <%= selected_student.name %>
             <b class="caret"></b>
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu horizontal-list">
             <% current_user.children.each do |child| %>
               <% next if child.id == selected_student.id %>
-              <div class="ibox-content text-center select-children" data-child-id=<%= child.id %> data-child-name=<%= child.name %>>
-                <h4><%= child.name %></h4>
-                <div class="m-b-sm">
-                  <%= image_tag child.avatar.url(:thumb), class: 'img-circle img-thumbnail' %>
+              <li>
+                <div class="ibox-content text-center select-children no-borders" data-child-id=<%= child.id %> data-child-name=<%= child.name %>>
+                  <h4><%= child.name %></h4>
+                  <div class="m-b-sm">
+                    <%= image_tag child.avatar.url(:thumb), class: 'img-circle img-thumbnail' %>
+                  </div>
                 </div>
-              </div>
+              </li>
             <% end %>
           </ul>
         </li>
