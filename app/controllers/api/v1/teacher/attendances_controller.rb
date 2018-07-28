@@ -6,15 +6,13 @@ module Api
         before_action :set_student, only: [:index]
 
         def index
-          @attendances = @section.student_attendances
-                                 .for_month_and_year(params[:month], params[:year])
-                                 .of_student_and_term(@student.id, current_term.id)
+          @attendances = @section.student_attendances.of_student_and_term(@student.id, current_term.id)
 
           render json: @attendances
         end
 
         def myself
-          @attendances = current_user.teacher_attendances.for_month_and_year(params[:month], params[:year]).of_term(current_term.id)
+          @attendances = current_user.teacher_attendances.of_term(current_term.id)
 
           render json: @attendances
         end
