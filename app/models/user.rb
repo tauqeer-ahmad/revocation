@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   attr_accessor :login
 
+  has_paper_trail class_name: 'PaperTrailVersion::UserVersion'
+
   GENDERS = %w(Male Female)
   self.inheritance_column = :type_of
 

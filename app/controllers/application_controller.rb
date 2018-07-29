@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :set_notices
   before_action :latest_notices
   before_action :set_all_users, unless: :devise_controller?
+  before_action :set_paper_trail_whodunnit
 
   add_flash_types :error
   layout :layout_by_resource

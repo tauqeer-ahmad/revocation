@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322224628) do
+ActiveRecord::Schema.define(version: 20180729154853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,37 +34,6 @@ ActiveRecord::Schema.define(version: 20180322224628) do
     t.index ["subject_id"], name: "index_assignments_on_subject_id", using: :btree
     t.index ["teacher_id"], name: "index_assignments_on_teacher_id", using: :btree
     t.index ["term_id"], name: "index_assignments_on_term_id", using: :btree
-  end
-
-  create_table "attendance_sheets", force: :cascade do |t|
-    t.date     "name"
-    t.integer  "section_id"
-    t.integer  "entity",     default: 0
-    t.integer  "present"
-    t.integer  "absent"
-    t.integer  "leave"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "term_id"
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_attendance_sheets_on_deleted_at", using: :btree
-    t.index ["section_id"], name: "index_attendance_sheets_on_section_id", using: :btree
-    t.index ["term_id"], name: "index_attendance_sheets_on_term_id", using: :btree
-  end
-
-  create_table "attendances", force: :cascade do |t|
-    t.string   "attendee_type"
-    t.integer  "attendee_id"
-    t.integer  "attendance_sheet_id"
-    t.integer  "status",              default: 0
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "term_id"
-    t.datetime "deleted_at"
-    t.index ["attendance_sheet_id"], name: "index_attendances_on_attendance_sheet_id", using: :btree
-    t.index ["attendee_type", "attendee_id"], name: "index_attendances_on_attendee_type_and_attendee_id", using: :btree
-    t.index ["deleted_at"], name: "index_attendances_on_deleted_at", using: :btree
-    t.index ["term_id"], name: "index_attendances_on_term_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -91,6 +60,24 @@ ActiveRecord::Schema.define(version: 20180322224628) do
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
     t.index ["sender_id", "recipient_id"], name: "index_conversations_on_sender_id_and_recipient_id", using: :btree
     t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+  end
+
+  create_table "diary_notes", force: :cascade do |t|
+    t.date     "note_for"
+    t.string   "heading"
+    t.text     "note"
+    t.integer  "teacher_id"
+    t.integer  "student_id"
+    t.integer  "section_id"
+    t.integer  "subject_id"
+    t.integer  "term_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["section_id"], name: "index_diary_notes_on_section_id", using: :btree
+    t.index ["student_id"], name: "index_diary_notes_on_student_id", using: :btree
+    t.index ["subject_id"], name: "index_diary_notes_on_subject_id", using: :btree
+    t.index ["teacher_id"], name: "index_diary_notes_on_teacher_id", using: :btree
+    t.index ["term_id"], name: "index_diary_notes_on_term_id", using: :btree
   end
 
   create_table "exam_marks", force: :cascade do |t|
@@ -316,10 +303,10 @@ ActiveRecord::Schema.define(version: 20180322224628) do
     t.integer  "student_id"
     t.integer  "term_id"
     t.integer  "klass_id"
-    t.integer  "roll_number"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "promoted",    default: false
+    t.string   "roll_number", limit: 32
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "promoted",               default: false
   end
 
   create_table "section_subject_teachers", force: :cascade do |t|
@@ -406,6 +393,17 @@ ActiveRecord::Schema.define(version: 20180322224628) do
     t.index ["term_id"], name: "index_teacher_attendances_on_term_id", using: :btree
   end
 
+  create_table "term_versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.text     "object_changes"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_term_versions_on_item_type_and_item_id", using: :btree
+  end
+
   create_table "terms", force: :cascade do |t|
     t.string   "name"
     t.date     "start_date"
@@ -447,6 +445,17 @@ ActiveRecord::Schema.define(version: 20180322224628) do
     t.index ["term_id"], name: "index_timetables_on_term_id", using: :btree
   end
 
+  create_table "user_versions", force: :cascade do |t|
+    t.string   "item_type",      null: false
+    t.integer  "item_id",        null: false
+    t.string   "event",          null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.text     "object_changes"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_user_versions_on_item_type_and_item_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                             default: "", null: false
     t.string   "encrypted_password",                default: "", null: false
@@ -465,7 +474,7 @@ ActiveRecord::Schema.define(version: 20180322224628) do
     t.string   "last_name",              limit: 50
     t.string   "address"
     t.string   "role",                   limit: 12
-    t.integer  "roll_number"
+    t.string   "roll_number",            limit: 12
     t.string   "qualification"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -495,9 +504,9 @@ ActiveRecord::Schema.define(version: 20180322224628) do
   add_foreign_key "assignments", "sections"
   add_foreign_key "assignments", "subjects"
   add_foreign_key "assignments", "terms"
-  add_foreign_key "attendance_sheets", "terms"
-  add_foreign_key "attendances", "attendance_sheets"
-  add_foreign_key "attendances", "terms"
+  add_foreign_key "diary_notes", "sections"
+  add_foreign_key "diary_notes", "subjects"
+  add_foreign_key "diary_notes", "terms"
   add_foreign_key "grades", "grading_systems"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
