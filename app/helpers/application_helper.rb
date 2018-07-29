@@ -268,4 +268,8 @@ module ApplicationHelper
     return "fa-male" if gender.downcase == "male"
     return "fa-female" if gender.downcase == "female"
   end
+
+  def date_and_time_format(time)
+    time.strftime('%d %B %Y - %l:%M %p')
+  end
 end

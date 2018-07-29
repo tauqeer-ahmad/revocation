@@ -22,7 +22,7 @@ class Marksheet < ApplicationRecord
   def search_data
     attributes.merge({
       klass_name: klass.name,
-      section_name: section.name,
+      section_name: section&.name,
       exam_name: exam.name,
       subject_name: subject.name,
       term_id: term_id,

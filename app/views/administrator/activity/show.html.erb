@@ -1,0 +1,84 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Activity
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>List</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='ibox'>
+        <div class='ibox-content'>
+          <div class='row'>
+            <div class='timeline-centered'>
+              <% @versions.each do |version| %>
+                <% user = get_version_user(version, @users) %>
+
+                <article class='timeline-entry'>
+                  <div class='timeline-entry-inner'>
+                    <div class='timeline-icon <%= get_version_event_background_class(version.event) %>'>
+                      <i class='entypo-feather'></i>
+                    </div>
+
+                    <div class='timeline-label'>
+                      <h2>
+                        <%= image_tag user.avatar.url(:thumb), class: 'activity-owner-img' %>
+                        <%= link_to user.name, '#' %>
+                        <small><%= date_and_time_format(version.created_at) %></small>
+                      </h2>
+
+                      <p>
+                        <span>Entity:</span>
+                        <strong class='m-l-xs'>
+                          <%= version.item_type %> - <%= display_item_name(version) %>
+                        </strong>
+                      </p>
+
+                      <p class='no-margins'>
+                        Action:
+                        <span class='m-l-xs <%= get_version_event_color_class(version.event) %>'>
+                          <%= version.event %>
+                        </span>
+                      </p>
+
+                      <p class='no-margins'>
+                        <%= raw display_version_description(version.object) %>
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+[5] #<PaperTrailVersion::TermVersion:0x007fe371ec5660> {
+                :id => 10,
+         :item_type => "Term",
+           :item_id => 4,
+             :event => "destroy",
+         :whodunnit => "153",
+            :object => "---\nid: 4\nname: aaa\nstart_date: 2018-07-01\nend_date: 2018-07-04\ncreated_at: 2018-07-29 18:08:02.943979000 Z\nupdated_at: 2018-07-29 18:08:02.943979000 Z\nstatus: initialized\ndeleted_at: \n",
+    :object_changes => nil,
+        :created_at => Sun, 29 Jul 2018 18:17:02 UTC +00:00
+}
