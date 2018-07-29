@@ -30,6 +30,6 @@ module Administrator::NoticesHelper
 
   def get_col_class(current_user)
     return "col-xs-7" if current_user.administrator?
-    "col-xs-9"
+    "col-xs-10"
   end
 end
