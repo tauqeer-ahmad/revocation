@@ -41,6 +41,7 @@ Revocation::Application.routes.draw do
         resources :timetables, only: [:index]
         resources :attendances, only: [:index]
         resources :assignments, only: [:index, :show]
+        resources :notices, only: [:index]
       end
 
       namespace :guardian do
@@ -53,6 +54,7 @@ Revocation::Application.routes.draw do
         resources :students, only: [:index]
         resources :attendances, only: [:index]
         resources :assignments, only: [:index, :show]
+        resources :notices, only: [:index]
       end
 
       namespace :teacher do
@@ -73,6 +75,8 @@ Revocation::Application.routes.draw do
         resources :attendance_sheets, only: :index
 
         get :attendances, controller: :attendances, action: :myself
+
+        resources :notices, only: [:index]
       end
     end
   end
