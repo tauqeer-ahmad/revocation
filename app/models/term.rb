@@ -61,7 +61,7 @@ class Term < ApplicationRecord
   end
 
   def update_complete_term
-    Term.completed.last.active!
+    Term.completed.last.active! if Term.completed.last.present?
   end
 
   def update_active_term
