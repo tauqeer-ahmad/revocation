@@ -22,6 +22,7 @@
       }
     %>
 
+    <%= analytics_init if GoogleAnalytics.valid_tracker? %>
     <%= Gon::Base.render_data %>
     <%= csrf_meta_tags %>
     <%= favicon_link_tag 'revo.svg' %>

@@ -142,6 +142,7 @@ GEM
       json
       multi_json
       request_store (>= 1.0)
+    google-analytics-rails (1.1.1)
     groupdate (4.0.0)
       activesupport (>= 4.2)
     hashie (3.5.7)
@@ -334,6 +335,7 @@ DEPENDENCIES
   font-awesome-rails
   fullcalendar-rails
   gon
+  google-analytics-rails (= 1.1.1)
   groupdate
   hirb
   jquery-rails

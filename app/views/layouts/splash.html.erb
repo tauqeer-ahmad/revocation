@@ -5,6 +5,25 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Revocation</title>
 
+    <%= meta_tags title: "Revocation - Home",
+      description: 'Revolutionary Educational System with many advanced features',
+      twitter: {
+        site: 'revocation.pk',
+        title: "Revocation - Home",
+        description: 'Revolutionary Educational System with many advanced features',
+        image: image_url('revo-logo.png'),
+      },
+      og: {
+        title: "Revocation - Home",
+        type: 'website',
+        url: 'revocation.pk',
+        description: 'Revolutionary Educational System with many advanced features',
+        image: image_url('revo-logo.png'),
+      }
+    %>
+
+    <%= analytics_init if GoogleAnalytics.valid_tracker? %>
+
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
