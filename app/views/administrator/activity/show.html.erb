@@ -56,9 +56,16 @@
                           <%= version.event %>
                         </span>
                       </p>
-
                       <p class='no-margins'>
-                        <%= raw display_version_description(version.object) %>
+                      Changes
+                        <ul>
+                          <% version.changeset.each do |key, value| %>
+                            <li>
+                              <strong><%= key %>:</strong>
+                              {Before: <%= value.first %> | After: <%= value.last %>}
+                            </li>
+                          <% end %>
+                        </ul>
                       </p>
                     </div>
                   </div>

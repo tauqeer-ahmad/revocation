@@ -7,7 +7,7 @@ class Term < ApplicationRecord
 
   searchkick index_name: tenant_index_name
 
-  has_paper_trail class_name: 'PaperTrailVersion::TermVersion'
+  has_paper_trail
 
   has_many :enrolled_students, class_name: 'Student', foreign_key: 'enrollment_term_id'
   has_many :section_students

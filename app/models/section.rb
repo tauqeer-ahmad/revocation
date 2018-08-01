@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
   acts_as_paranoid
+  has_paper_trail
 
   belongs_to :institution
   belongs_to :term
