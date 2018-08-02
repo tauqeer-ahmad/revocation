@@ -57,15 +57,35 @@
                         </span>
                       </p>
                       <p class='no-margins'>
-                      Changes
-                        <ul>
-                          <% version.changeset.each do |key, value| %>
-                            <li>
-                              <strong><%= key %>:</strong>
-                              {Before: <%= value.first %> | After: <%= value.last %>}
-                            </li>
-                          <% end %>
-                        </ul>
+                        <% if version.event == 'update' %>
+                          Changes
+
+                          <ul>
+                            <% version.changeset.each do |key, value| next if key.in?(blacklisted_attributes) %>
+                              <li>
+                                <strong><%= key %>:</strong>
+                                <ul>
+                                  <li><strong>Before:</strong> <%= value.first %></li>
+                                  <li><strong>After:</strong> <%= value.last %></li>
+                                </ul>
+                              </li>
+                            <% end %>
+                          </ul>
+                        <% elsif version.event == 'create' %>
+                          Record
+
+                          <ul>
+                            <% version.changeset.each do |key, value| next if key.in?(blacklisted_attributes) %>
+                              <li>
+                                <strong><%= key %>:</strong> <%= value.last %>
+                              </li>
+                            <% end %>
+                          </ul>
+                        <% elsif version.event == 'destroy' %>
+                          Record
+
+                          <%= raw display_version_description(version.object) %>
+                        <% end %>
                       </p>
                     </div>
                   </div>
