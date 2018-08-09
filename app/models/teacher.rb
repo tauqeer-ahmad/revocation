@@ -92,9 +92,13 @@ class Teacher < User
     return self.sections.includes(:klass).collect{|section| [section.klass.name, section.klass.id]}.uniq
   end
 
-  def subject_timetable_events(current_term)
+  def subject_time_tables(current_term)
     subject_ids = self.section_subject_teachers.pluck(:subject_id)
-    timetables = Timetable.includes(:subject).where(subject_id: subject_ids, term_id: current_term.id).by_day_of_week
+    Timetable.includes(:subject).where(subject_id: subject_ids, term_id: current_term.id, teacher_id: self.id)
+  end
+
+  def subject_timetable_events(current_term)
+    timetables = subject_time_tables(current_term).by_day_of_week
     [Timetable.events(timetables), timetables]
   end
 

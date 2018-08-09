@@ -13,6 +13,8 @@ Revocation::Application.routes.draw do
   namespace :api, constraints: { format: 'json' } do
     scope module: :v1, constraints: ApiVersion.new(version: 'v1', default: true) do
       scope module: :devise do
+        get 'domain_check', to: 'sessions#domain_check'
+
         devise_for :students, skip: [:sessions]
         as :student do
           post 'students/login', to: 'sessions#create'
@@ -58,6 +60,7 @@ Revocation::Application.routes.draw do
       end
 
       namespace :teacher do
+        resources :timetables, only: [:index]
         resources :sections, only: [:index] do
           get :tabulation_sheet
 

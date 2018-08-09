@@ -26,6 +26,10 @@ class Api::V1::Devise::PasswordsController < Api::V1::BaseController
     end
   end
 
+  def subdomain_check
+    head :ok
+  end
+
   protected
     def resource_params
       params.fetch(:user)
