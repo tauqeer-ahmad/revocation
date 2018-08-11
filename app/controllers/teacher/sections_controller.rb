@@ -17,6 +17,7 @@ class Teacher::SectionsController < ApplicationController
       @sections = teacher_sections.includes(:incharge).where(klass_id: @klass.id) | incharged_sections.includes(:incharge).where(klass_id: @klass.id)
       @section_subjects = current_user.section_subject_teachers.includes(:subject).of_term(current_term.id).group_by(&:section_id)
       @assignment = current_term.assignments.build
+      @diary_note = current_term.diary_notes.build
     end
   end
 

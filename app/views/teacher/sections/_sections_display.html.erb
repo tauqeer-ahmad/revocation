@@ -65,7 +65,13 @@
                               <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-assignment-modal', data: {toggle: "modal", target: "#assignment-modal", section: section.id, subject: section_subject.subject_id}{ icon_of('fa fa-plus', ' Add Assignment') } %>
                             </div>
                             <div class="row m-t-xs text-center">
+                              <%= button_tag "", type: :button, class: 'btn btn-info btn-outline btn-xs add-diary-note-modal', data: {toggle: "modal", target: "#diary-modal", section: section.id, subject: section_subject.subject_id}{ icon_of('fa fa-plus', ' Add Diary Note') } %>
+                            </div>
+                            <div class="row m-t-xs text-center">
                               <%= link_to(list_assignments_path(section.id, section_subject.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Assignments" } %>
+                            </div>
+                            <div class="row m-t-xs text-center">
+                              <%= link_to(list_diary_notes_path(section.id, section_subject.subject_id), class: "btn btn-success btn-outline btn-xs"){ "Diary Notes" } %>
                             </div>
                           </div>
                         <% end %>

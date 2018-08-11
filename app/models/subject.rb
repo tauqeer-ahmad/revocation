@@ -15,6 +15,7 @@ class Subject < ApplicationRecord
   has_many :exam_marks
   has_many :question_papers
   has_many :subject_schedules
+  has_many :diary_notes
 
   validates :name, presence: {message: "Name field is mandatory"}
   validates :color, presence: {message: "Color selection is mandatory"}

@@ -22,6 +22,7 @@ class Term < ApplicationRecord
   has_many :subject_schedules, dependent: :destroy
   has_many :student_attendances, dependent: :destroy
   has_many :teacher_attendances, dependent: :destroy
+  has_many :diary_notes, dependent: :destroy
 
   validates :name, presence: {message: "Name is mandatory"}
   validates :start_date, presence: {message: "Start date is mandatory"}

@@ -22,6 +22,7 @@ class Section < ApplicationRecord
   has_many :attendance_sheets, dependent: :destroy
   has_many :attendances, dependent: :destroy
   has_many :assignments, dependent: :destroy
+  has_many :diary_notes, dependent: :destroy
   has_many :question_papers, dependent: :destroy
   has_many :subject_schedules, dependent: :destroy
   has_many :student_attendances, dependent: :destroy

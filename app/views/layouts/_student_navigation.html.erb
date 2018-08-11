@@ -36,6 +36,12 @@
         <% end %>
       </li>
 
+      <li class="<%= is_active_controller_action('student/diary_notes', 'index') %>">
+        <%= link_to diary_notes_path(section_id: current_user.current_section(current_term.id)) do %>
+          <i class="fa fa-edit"></i> <span class="nav-label">Diary Notes</span>
+        <% end %>
+      </li>
+
       <li class="<%= is_active_controller_action('student/timetables', 'index') %>">
         <%= link_to class_routine_index_path do %>
           <i class="fa fa-calendar"></i> <span class="nav-label">Timetable</span>

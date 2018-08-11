@@ -1,0 +1,33 @@
+<div class='row'>
+  <div class='form-group'>
+    <label class='col-md-2 control-label m-t-xs'>Heading</label>
+    <div class='col-md-10'>
+      <%= f.text_field :heading, as: :text, placeholder: 'Enter heading', class: 'form-control', required: true %>
+    </div>
+  </div>
+</div>
+<% unless action_name == 'index' %>
+  <div class='row m-t-md'>
+    <div class='form-group'>
+      <label class='col-md-2 control-label m-t-xs'>Student(optional)</label>
+      <div class='col-md-10'>
+        <%= f.select :student_id, options_for_select(@students.collect{|t| [t.name, t.id]}, f.object.student_id), {prompt: 'Select Specific Student'}, { class: 'form-control select2_dropdown'} %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class='row m-t-md'>
+  <div class='form-group'>
+    <label class='col-md-2 control-label m-t-xs'>Note for</label>
+    <div class='col-md-10'>
+      <%= f.text_field :note_for, as: :text, placeholder: 'Date', class: 'form-control datepicker', required: true, value: datepicker_default_value(f.object.note_for) %>
+    </div>
+  </div>
+</div>
+
+<div class='row m-t-md'>
+  <label class='col-md-2 control-label m-t-xs'>Note</label>
+  <div class='col-md-10'>
+    <%= f.text_area :note, class: 'ckeditor' %>
+  </div>
+</div>

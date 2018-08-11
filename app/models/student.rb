@@ -14,6 +14,7 @@ class Student < User
   has_many :exam_marks
   has_many :attendances, as: :attendee
   has_many :student_attendances, dependent: :destroy
+  has_many :diary_notes, dependent: :destroy
 
   validates :roll_number, presence: { message: 'Roll number is mandatory' }
   validates :registration_number, presence: { message: 'Registration number is mandatory' }

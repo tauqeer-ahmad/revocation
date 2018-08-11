@@ -337,6 +337,12 @@ Revocation::Application.routes.draw do
         end
       end
 
+      resources :diary_notes, only: [:new, :edit, :create, :update, :destroy, :show] do
+        collection do
+          get '/list/:section_id/:subject_id', to: 'diary_notes#index', as: 'list'
+        end
+      end
+
       resources :question_papers
       resources :subject_schedules
 
@@ -370,6 +376,7 @@ Revocation::Application.routes.draw do
       resources :assignments, only: [:index, :show]
       resources :results, only: [:index]
       resources :timetables, only: [:index], as: :class_routine, path: :class_routine
+      resources :diary_notes, only: :index
       resources :exams do
         collection do
           get :autocomplete
@@ -401,7 +408,7 @@ Revocation::Application.routes.draw do
       resources :assignments, only: [:index, :show]
       resources :results, only: [:index]
       resources :timetables, only: [:index], as: :class_routine, path: :class_routine
-
+      resources :diary_notes, only: :index
       resources :exams do
         collection do
           get :autocomplete

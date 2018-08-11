@@ -15,6 +15,7 @@ class Teacher < User
   has_many :question_papers
   has_many :subject_schedules
   has_many :students, through: :sections
+  has_many :diary_notes
   validates :phone, presence: { message: "Phone field is mandatory" }
 
   before_validation :set_password, if: Proc.new { !self.encrypted_password? }

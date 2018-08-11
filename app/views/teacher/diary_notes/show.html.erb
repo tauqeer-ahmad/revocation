@@ -1,0 +1,27 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Diary
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', root_path %>
+      </li>
+
+      <li>
+        <%= link_to 'Diary', list_diary_notes_path(@diary_note.section_id, @diary_note.subject_id) %>
+      </li>
+
+      <li class='active'>
+        <strong>Show</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<%= render 'shared/diary_notes/show' %>

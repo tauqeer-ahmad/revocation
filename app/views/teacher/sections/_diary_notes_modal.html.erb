@@ -1,21 +1,20 @@
-<div class="modal inmodal" id="assignment-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal inmodal" id="diary-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
   <div class="modal-dialog modal-lg">
-    <%= @assignment.inspect %>
-    <%= form_for(@assignment, html: {class: "form-vertical", id: "assignment-form"}) do |f| %>
+    <%= form_for(@diary_note, html: {class: "form-vertical", id: "diary-note-form"}) do |f| %>
       <div class="modal-content animated flipInY">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
           <i class="fa fa-calendar modal-icon"></i>
-          <h4 class="modal-title">Assignment</h4>
+          <h4 class="modal-title">Diary Note</h4>
         </div>
         <div class="modal-body">
-          <%= render partial: 'teacher/assignments/form_content', locals: {f: f} %>
+          <%= render 'teacher/diary_notes/form_content', {f: f} %>
         </div>
         <div class="modal-footer">
           <%= f.hidden_field :section_id %>
           <%= f.hidden_field :subject_id %>
           <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-          <%= submit_tag "Publish", class: "btn btn-success" %>
+          <%= submit_tag "Post", class: "btn btn-success" %>
         </div>
       </div>
     <% end %>

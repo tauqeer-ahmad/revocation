@@ -49,6 +49,7 @@
   </div>
 
   <%= render 'assignments_modal' %>
+  <%= render 'diary_notes_modal' %>
 <% else %>
   <div class="wrapper animated wrapper-content">
     <div class="row">
@@ -63,5 +64,6 @@
 
 <% content_for :javascript do %>
   Assignment.init();
+  DiaryNote.init();
   AttendanceSheet.init();
 <% end %>
