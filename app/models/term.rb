@@ -7,13 +7,13 @@ class Term < ApplicationRecord
 
   searchkick index_name: tenant_index_name
 
+  has_paper_trail
+
   has_many :enrolled_students, class_name: 'Student', foreign_key: 'enrollment_term_id'
   has_many :section_students
   has_many :students, through: :section_students
   has_many :sections, dependent: :destroy
   has_many :exams, dependent: :destroy
-  has_many :attendance_sheets, dependent: :destroy
-  has_many :attendances, dependent: :destroy
   has_many :assignments, dependent: :destroy
   has_many :exam_timetables, dependent: :destroy
   has_many :marksheets, dependent: :destroy

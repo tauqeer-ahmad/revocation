@@ -13,7 +13,7 @@
         <%= link_to 'Home', root_path %>
       </li>
       <li class='active'>
-        <strong>Academic Periods List</strong>
+        <strong>List</strong>
       </li>
     </ol>
   </div>
@@ -24,12 +24,12 @@
     <div id='left-section' class="col-sm-12">
       <div class="ibox">
         <div class="ibox-content">
-          <h2>Academic Periods</h2>
           <div class="clients-list">
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-braille"></i> Academic Periods </a></li>
               <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-plus"></i> Start New Academic Period </a></li>
             </ul>
+
             <div class="tab-content full-height-scroll">
               <div id="tab-1" class="tab-pane active">
                 <%= render partial: 'shared/search_box', locals: {path: administrator_terms_path} %>

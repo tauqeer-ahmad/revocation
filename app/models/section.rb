@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
   acts_as_paranoid
+  has_paper_trail
 
   belongs_to :institution
   belongs_to :term
@@ -19,8 +20,6 @@ class Section < ApplicationRecord
   has_many :marksheets, dependent: :destroy
   has_many :exam_marks, dependent: :destroy
   has_many :exam_timetables, dependent: :destroy
-  has_many :attendance_sheets, dependent: :destroy
-  has_many :attendances, dependent: :destroy
   has_many :assignments, dependent: :destroy
   has_many :diary_notes, dependent: :destroy
   has_many :question_papers, dependent: :destroy

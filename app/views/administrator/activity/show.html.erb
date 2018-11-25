@@ -1,0 +1,100 @@
+<div class='row wrapper border-bottom white-bg page-heading'>
+  <div class='col-lg-9'>
+    <h2>
+      <%= link_to :back, class: 'btn btn-sm btn-primary btn-outline m-t-n-xs' do %>
+        <i class='fa fa-arrow-left'></i>
+      <% end %>
+
+      Activity
+    </h2>
+
+    <ol class='breadcrumb'>
+      <li>
+        <%= link_to 'Home', administrator_root_path %>
+      </li>
+
+      <li class='active'>
+        <strong>List</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class='wrapper wrapper-content animated fadeInRight'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <div class='ibox'>
+        <div class='ibox-content'>
+          <div class='row'>
+            <div class='timeline-centered'>
+              <% @versions.each do |version| %>
+                <% user = get_version_user(version, @users) %>
+
+                <article class='timeline-entry'>
+                  <div class='timeline-entry-inner'>
+                    <div class='timeline-icon <%= get_version_event_background_class(version.event) %>'>
+                      <i class='entypo-feather'></i>
+                    </div>
+
+                    <div class='timeline-label'>
+                      <h2>
+                        <%= image_tag user.avatar.url(:thumb), class: 'activity-owner-img' %>
+                        <%= link_to user.name, '#' %>
+                        <small><%= date_and_time_format(version.created_at) %></small>
+                      </h2>
+
+                      <p>
+                        <span>Entity:</span>
+                        <strong class='m-l-xs'>
+                          <%= version.item_type %> - <%= display_item_name(version) %>
+                        </strong>
+                      </p>
+
+                      <p class='no-margins'>
+                        Action:
+                        <span class='m-l-xs <%= get_version_event_color_class(version.event) %>'>
+                          <%= version.event %>
+                        </span>
+                      </p>
+                      <p class='no-margins'>
+                        <% if version.event == 'update' %>
+                          Changes
+
+                          <ul>
+                            <% version.changeset.each do |key, value| next if key.in?(blacklisted_attributes) %>
+                              <li>
+                                <strong><%= key %>:</strong>
+                                <ul>
+                                  <li><strong>Before:</strong> <%= value.first %></li>
+                                  <li><strong>After:</strong> <%= value.last %></li>
+                                </ul>
+                              </li>
+                            <% end %>
+                          </ul>
+                        <% elsif version.event == 'create' %>
+                          Record
+
+                          <ul>
+                            <% version.changeset.each do |key, value| next if key.in?(blacklisted_attributes) %>
+                              <li>
+                                <strong><%= key %>:</strong> <%= value.last %>
+                              </li>
+                            <% end %>
+                          </ul>
+                        <% elsif version.event == 'destroy' %>
+                          Record
+
+                          <%= raw display_version_description(version.object) %>
+                        <% end %>
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

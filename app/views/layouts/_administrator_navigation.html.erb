@@ -36,6 +36,12 @@
         <% end %>
       </li>
 
+      <li class='<%= is_active_controller('administrator/activity') %>'>
+        <%= link_to administrator_activity_path do %>
+          <i class='fa fa-th-list'></i> <span class='nav-label'>Activity</span>
+        <% end %>
+      </li>
+
       <li class='<%= is_active_controller('administrator/terms') %>'>
         <%= link_to administrator_terms_path do %>
           <i class='fa fa-graduation-cap'></i> <span class='nav-label'>Academic Periods</span>

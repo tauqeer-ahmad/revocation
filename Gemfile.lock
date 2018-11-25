@@ -202,6 +202,11 @@ GEM
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
+    paper_trail (9.2.0)
+      activerecord (>= 4.2, < 5.3)
+      paper_trail-association_tracking (< 2)
+      request_store (~> 1.1)
+    paper_trail-association_tracking (1.0.0)
     paperclip (5.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -346,6 +351,7 @@ DEPENDENCIES
   meta-tags-helpers (~> 0.2.0)
   momentjs-rails (>= 2.9.0)
   nested_form
+  paper_trail
   paperclip
   paranoia (~> 2.2)
   pg
@@ -366,4 +372,4 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 BUNDLED WITH
-   1.16.1
+   1.16.3

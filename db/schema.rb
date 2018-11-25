@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 20180801202318) do
     t.integer  "term_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "status"
     t.datetime "deleted_at"
+    t.string   "status"
     t.index ["deleted_at"], name: "index_assignments_on_deleted_at", using: :btree
     t.index ["section_id"], name: "index_assignments_on_section_id", using: :btree
     t.index ["status"], name: "index_assignments_on_status", using: :btree

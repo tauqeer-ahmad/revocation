@@ -49,6 +49,7 @@ class Administrator::TermsController < ApplicationController
 
   def destroy
     @term.destroy
+
     redirect_to administrator_terms_url, notice: 'Term was successfully destroyed.'
   end
 
